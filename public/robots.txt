@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://idkasolutions.netlify.app/sitemap.xml

@@ -1,0 +1,53 @@
+.scroll-top {
+  position: fixed;
+  bottom: 98px;
+  right: 100px;
+  z-index: 998;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: var(--shadow-neu);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  cursor: pointer;
+  border: none;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.scroll-top--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.scroll-top:hover {
+  box-shadow: var(--shadow-neu-lg);
+  transform: translateY(-2px);
+}
+
+.scroll-top:active {
+  box-shadow: var(--shadow-neu-inset-sm);
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .scroll-top {
+    bottom: 90px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .scroll-top {
+    bottom: 100px;
+    right: 100px;
+  }
+}

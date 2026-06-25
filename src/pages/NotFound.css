@@ -1,0 +1,109 @@
+.notfound-page {
+  padding-top: var(--navbar-height);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--navbar-height) + var(--space-2xl)) var(--space-xl) var(--space-2xl);
+}
+
+.notfound__card {
+  max-width: 520px;
+  width: 100%;
+  padding: var(--space-4xl) var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-lg);
+}
+
+.notfound__code {
+  font-family: var(--font-display);
+  font-size: 7rem;
+  font-weight: var(--weight-extrabold);
+  line-height: 1;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.05em;
+  filter: drop-shadow(2px 4px 8px rgba(94,23,235,0.2));
+}
+
+.notfound__icon {
+  font-size: 3rem;
+  margin-top: calc(-1 * var(--space-md));
+}
+
+.notfound__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-extrabold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.notfound__desc {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.notfound__actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-sm);
+}
+
+.notfound__links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-top: var(--space-sm);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(200,200,200,0.4);
+  width: 100%;
+}
+
+.notfound__links-label {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.notfound__link {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: var(--bg);
+  box-shadow: var(--shadow-neu-sm);
+  transition: all var(--transition-base);
+}
+
+.notfound__link:hover {
+  box-shadow: var(--shadow-neu);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .notfound__card {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+
+  .notfound__code {
+    font-size: 5rem;
+  }
+
+  .notfound__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

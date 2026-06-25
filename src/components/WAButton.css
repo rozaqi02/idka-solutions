@@ -1,0 +1,114 @@
+.wa-btn-wrap {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-sm);
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.wa-btn-wrap--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* Tooltip */
+.wa-btn__tooltip {
+  background: var(--bg);
+  box-shadow: var(--shadow-neu);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  position: relative;
+  animation: tooltipIn 0.3s ease forwards;
+}
+
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateX(8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.wa-btn__tooltip-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--bg);
+  box-shadow: 2px 2px 4px rgba(200,200,200,0.4);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+/* Button */
+.wa-btn {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow:
+    6px 6px 16px rgba(37, 211, 102, 0.4),
+    -4px -4px 12px rgba(255, 255, 255, 0.7);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.wa-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    8px 10px 22px rgba(37, 211, 102, 0.5),
+    -4px -4px 14px rgba(255, 255, 255, 0.8);
+}
+
+.wa-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.wa-btn__icon {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* Pulse ring */
+.wa-btn__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  opacity: 0;
+  animation: waPulse 2.5s ease-out infinite;
+}
+
+@keyframes waPulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  .wa-btn-wrap {
+    bottom: 20px;
+    right: 16px;
+  }
+
+  .wa-btn {
+    width: 54px;
+    height: 54px;
+  }
+}
