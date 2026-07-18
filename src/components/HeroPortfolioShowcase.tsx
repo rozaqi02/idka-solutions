@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef, type CSSProperties } from 'react'
 import { portfolio } from '../data/content'
 
-const INTERVAL_MS = 1000
+const INTERVAL_MS = 2000
 
 function stripUrl(url: string) {
   return url.replace(/^https?:\/\//, '')
@@ -10,8 +10,13 @@ function stripUrl(url: string) {
 export default function HeroPortfolioShowcase() {
   const [index, setIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState(0)
-  const [reduceMotion, setReduceMotion] = useState(false)
-  const [isCompact, setIsCompact] = useState(false)
+  /* Init from viewport so mobile never paints "rich + hero-enter opacity 0" first */
+  const [reduceMotion, setReduceMotion] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
+  const [isCompact, setIsCompact] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches,
+  )
   const [paused, setPaused] = useState(false)
   const [tick, setTick] = useState(0)
   const directionRef = useRef<'next' | 'prev'>('next')
@@ -97,7 +102,11 @@ export default function HeroPortfolioShowcase() {
       <div className="hero-porto__stage">
         {!isCompact && <span className="hero-porto__glow" aria-hidden="true" />}
 
-        <div className="hero__card-main neu-raised-lg hero-porto__card hero-in__item hero-in__item--visual">
+        <div
+          className={`hero__card-main neu-raised-lg hero-porto__card${
+            isCompact ? '' : ' hero-in__item hero-in__item--visual'
+          }`}
+        >
           <div className="hero__card-header">
             <div className="hero__card-dots" aria-hidden="true">
               <span />

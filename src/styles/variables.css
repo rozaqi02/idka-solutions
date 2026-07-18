@@ -50,13 +50,12 @@
   --shadow-primary: 8px 10px 22px rgba(94, 23, 235, 0.38), -3px -3px 10px rgba(255, 255, 255, 0.55);
   --shadow-primary-hover: 10px 14px 28px rgba(94, 23, 235, 0.45), -3px -3px 12px rgba(255, 255, 255, 0.65);
 
-  /* Section surfaces — soft white canvas vs brand purple tint */
+  /* Section surfaces — soft white canvas vs flat brand purple */
   --bg-section: #ebe9f2;
-  --bg-section-tint: #e0d8f5;
-  --gradient-section-tint:
-    radial-gradient(ellipse 90% 70% at 12% 0%, rgba(94, 23, 235, 0.16), transparent 55%),
-    radial-gradient(ellipse 70% 60% at 92% 100%, rgba(139, 92, 246, 0.14), transparent 50%),
-    linear-gradient(180deg, #e8e2f8 0%, #ddd4f2 48%, #e4dcf6 100%);
+  /* Ungu polos flat = warna logo, tanpa gradien */
+  --bg-section-tint: #5e17eb;
+  --bg-section-tint-text: #ffffff;
+  --bg-section-tint-muted: rgba(255, 255, 255, 0.82);
 
   /* Gradients */
   --gradient-primary: linear-gradient(145deg, #6d28f0 0%, #5e17eb 45%, #8b5cf6 100%);

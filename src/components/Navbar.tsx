@@ -167,8 +167,16 @@ export default function Navbar() {
                 tabIndex={menuOpen ? 0 : -1}
                 aria-label="Tutup menu"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
-                  <path d="M18 6L6 18M6 6l12 12" />
+                {/* X simpel: 2 garis lurus, stroke tipis */}
+                <svg
+                  className="navbar__mobile-close-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
                 </svg>
               </button>
             </div>
@@ -206,13 +214,13 @@ export default function Navbar() {
                 tabIndex={menuOpen ? 0 : -1}
                 onClick={closeMenu}
               >
-                Chat WhatsApp
+                Konsultasi gratis
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M5 12h14" />
                   <path d="M13 6l6 6-6 6" />
                 </svg>
               </a>
-              <p className="navbar__mobile-note">Respon 1–3 jam · @idkasolutions</p>
+              <p className="navbar__mobile-note">Respon cepat · @idkasolutions</p>
             </div>
           </div>
         </div>
@@ -256,9 +264,7 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar__actions">
-          <NavLink to="/kontak" className="navbar__cta-ghost">
-            Mulai proyek
-          </NavLink>
+          {/* Satu CTA utama — hindari double intent "Mulai proyek" + "Konsultasi" */}
           <NavLink to="/kontak" className="btn btn-primary navbar__cta">
             Konsultasi gratis
             <svg

@@ -144,13 +144,131 @@ ul, ol {
   padding: var(--space-3xl) 0;
 }
 
-/* Brand purple tint — soft wash (logo #5e17eb), not solid purple wall */
+/* Brand purple — solid flat logo color (no gradient, no soft wash) */
 .section.section--tint,
 .section--tint {
-  background: var(--gradient-section-tint);
-  box-shadow:
-    inset 0 18px 36px rgba(94, 23, 235, 0.06),
-    inset 0 -14px 28px rgba(255, 255, 255, 0.35);
+  background: var(--bg-section-tint);
+  background-image: none;
+  box-shadow: none;
+  color: var(--bg-section-tint-text);
+
+  /*
+   * Di bg ungu, dual-tone neumorphic (highlight putih di luar radius)
+   * kelihatan seperti efek shiny di luar border. Override ke soft drop
+   * shadow gelap saja — tanpa highlight putih di luar kartu.
+   */
+  --shadow-light: transparent;
+  --shadow-dark: rgba(0, 0, 0, 0.28);
+  --shadow-darker: rgba(0, 0, 0, 0.36);
+  --shadow-neu: 0 10px 24px rgba(0, 0, 0, 0.22);
+  --shadow-neu-sm: 0 6px 14px rgba(0, 0, 0, 0.18);
+  --shadow-neu-lg: 0 14px 32px rgba(0, 0, 0, 0.26);
+  --shadow-neu-xl: 0 18px 40px rgba(0, 0, 0, 0.3);
+  --shadow-xs: 0 4px 12px rgba(0, 0, 0, 0.16);
+  --shadow-sm: 0 6px 14px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.22);
+  --shadow-lg: 0 14px 32px rgba(0, 0, 0, 0.26);
+  --shadow-xl: 0 18px 40px rgba(0, 0, 0, 0.3);
+  --shadow-primary: 0 10px 28px rgba(0, 0, 0, 0.28);
+  --shadow-primary-hover: 0 14px 34px rgba(0, 0, 0, 0.32);
+}
+
+/* Pastikan kartu di section ungu tidak punya highlight putih di luar border */
+.section--tint .neu-raised,
+.section--tint .neu-raised-lg,
+.section--tint .neu-inset,
+.section--tint .card-hover,
+.section--tint .card-featured,
+.section--tint [class*='-card'],
+.section--tint .faq-item,
+.section--tint .flow-step,
+.section--tint .porto-case-note,
+.section--tint .price-estimator,
+.section--tint .section-tag {
+  /* hilangkan outer light-shadow / “shiny ring” di luar radius */
+  filter: none;
+}
+
+.section--tint .neu-raised,
+.section--tint .neu-raised-lg,
+.section--tint .card-hover:hover,
+.section--tint .card-featured {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+}
+
+.section--tint .neu-raised-lg {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+}
+
+.section--tint .card-hover:hover {
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.3);
+}
+
+.section--tint .neu-inset {
+  /* inset boleh soft di dalam; tanpa light shadow di luar */
+  box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.07), inset -2px -2px 6px rgba(255, 255, 255, 0.55);
+}
+
+/* Readable type on flat purple sections */
+.section--tint .section-title,
+.section--tint .section-header .section-title,
+.section--tint > .container > .section-header .section-title,
+.section--tint h1.section-title,
+.section--tint h2.section-title,
+.section--tint h3.section-title {
+  color: var(--bg-section-tint-text);
+}
+
+.section--tint .section-subtitle,
+.section--tint .section-header .section-subtitle {
+  color: var(--bg-section-tint-muted);
+}
+
+.section--tint .section-tag {
+  color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.section--tint .section-header {
+  color: var(--bg-section-tint-text);
+}
+
+/* Keep cards / form surfaces light on purple — don't inherit white text */
+.section--tint .neu-raised,
+.section--tint .neu-raised-lg,
+.section--tint .neu-inset,
+.section--tint [class*='-card'],
+.section--tint .faq-item,
+.section--tint .package-card,
+.section--tint .maintenance-card,
+.section--tint .value-card,
+.section--tint .target-card,
+.section--tint .testimonial-card,
+.section--tint .flow-step,
+.section--tint .porto-case-note,
+.section--tint .price-estimator,
+.section--tint .home-cta__card {
+  color: var(--text-primary);
+}
+
+/* Secondary CTA / note text sitting directly on purple (not inside a card) */
+.section--tint .home-testimonials__cta-text,
+.section--tint .packages-note,
+.section--tint .packages-note p {
+  color: var(--bg-section-tint-muted);
+}
+
+/* Secondary button on purple: light surface so it stays readable */
+.section--tint .btn-secondary {
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+}
+
+.section--tint .btn-secondary:hover {
+  background: #f5f3ff;
+  color: var(--primary-dark);
 }
 
 .section--band {

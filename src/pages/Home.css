@@ -370,7 +370,7 @@
     color-mix(in srgb, var(--hero-porto-accent) 85%, #fff),
     var(--hero-porto-accent)
   );
-  animation: heroPortoProgress 1s linear both;
+  animation: heroPortoProgress 2s linear both;
   box-shadow: 0 0 10px color-mix(in srgb, var(--hero-porto-accent) 55%, transparent);
 }
 
@@ -412,9 +412,50 @@
   animation: heroPortoMetaIn 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* —— Mobile: opacity-only (GPU cheap) —— */
+/* —— Mobile: opacity-only (GPU cheap) ——
+   PENTING: card harus langsung terlihat.
+   Jangan biarkan hero-enter (opacity:0) menyembunyikan panel di mobile. */
+.hero-porto--compact {
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+.hero-porto--compact .hero-porto__stage {
+  transform: none !important;
+  animation: none !important;
+  width: 100%;
+  max-width: 100%;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.hero-porto--compact .hero-porto__card,
+.hero-porto--compact .hero-porto__card.hero-in__item,
+.hero-porto--compact .hero-porto__card.hero-in__item--visual {
+  /* Override [data-hero-enter] .hero-in__item { opacity: 0 } */
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+.hero-porto--compact .hero-porto__shot,
+.hero-porto--compact .hero__card-shot {
+  /* pastikan area screenshot punya tinggi di mobile */
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 180px;
+  background: var(--bg);
+}
+
 .hero-porto--compact .hero-porto__slide {
-  will-change: opacity;
+  will-change: auto;
   transform: none !important;
   filter: none !important;
   transition: opacity 0.26s ease;
@@ -422,9 +463,11 @@
 }
 
 .hero-porto--compact .hero-porto__slide--active {
+  opacity: 1 !important;
   transform: none !important;
   filter: none !important;
   animation: none !important;
+  z-index: 2;
 }
 
 .hero-porto--compact .hero-porto__slide--exit {
@@ -433,20 +476,11 @@
   transition: opacity 0.2s ease;
 }
 
-.hero-porto--compact .hero-porto__stage {
-  transform: none !important;
-  animation: none !important;
-}
-
-.hero-porto--compact .hero-porto__card {
-  animation: none !important;
-  transform: none;
-}
-
 .hero-porto--compact .hero-porto__meta-icon,
 .hero-porto--compact .hero-porto__meta-text,
 .hero-porto--compact .hero-porto__label-text {
   animation: none !important;
+  opacity: 1 !important;
 }
 
 .hero-porto--compact .hero-porto__shine,
@@ -454,13 +488,17 @@
   display: none !important;
 }
 
-/* Reduced motion — freeze visuals */
+/* Reduced motion — freeze visuals, keep panel visible */
 .hero-porto--static .hero-porto__slide {
   transition: none !important;
   filter: none !important;
   transform: none !important;
   animation: none !important;
   will-change: auto;
+}
+
+.hero-porto--static .hero-porto__slide--active {
+  opacity: 1 !important;
 }
 
 .hero-porto--static .hero-porto__progress,
@@ -473,6 +511,8 @@
 .hero-porto--static .hero-porto__card {
   animation: none !important;
   transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .hero-porto__meta {
@@ -1116,10 +1156,18 @@
   border-top: 1px solid rgba(200,200,200,0.35);
 }
 
+.section--tint.home-testimonials .home-testimonials__cta {
+  border-top-color: rgba(255, 255, 255, 0.22);
+}
+
 .home-testimonials__cta-text {
   font-size: var(--text-sm);
   color: var(--text-muted);
   text-align: center;
+}
+
+.section--tint.home-testimonials .home-testimonials__cta-text {
+  color: var(--bg-section-tint-muted);
 }
 
 /* ===== TESTIMONIALS ===== */
@@ -1301,11 +1349,22 @@
     max-width: 520px;
     margin: 0 auto;
     width: 100%;
+    min-height: 0;
+    /* jangan clip panel di mobile */
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+  }
+  .hero-porto {
+    width: 100%;
+    max-width: 100%;
   }
   .hero__card-main {
     transform: none;
     max-width: 100%;
     width: 100%;
+    opacity: 1;
+    visibility: visible;
   }
   .hero__float--1 { left: 4%; bottom: 6%; }
   .hero__float--2 { right: 4%; top: 8%; }
@@ -1315,6 +1374,15 @@
 }
 
 @media (max-width: 768px) {
+  /* Hero visual always paint on phone — no enter-hide */
+  .hero .hero__visual,
+  .hero .hero-porto,
+  .hero .hero-porto__stage,
+  .hero .hero-porto__card {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
   .hero__desc { font-size: var(--text-base); }
   .hero__actions { flex-direction: column; width: 100%; }
   .hero__actions .btn { width: 100%; justify-content: center; }
