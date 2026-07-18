@@ -1,27 +1,39 @@
 import { NavLink } from 'react-router-dom'
-import { company, services, packages, portfolio, testimonials, businessFlow } from '../data/content'
+import { company, services, packages, portfolio, testimonials, businessFlow, stats } from '../data/content'
+import HeroPortfolioShowcase from '../components/HeroPortfolioShowcase'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useHeroEnter } from '../hooks/useHeroEnter'
+import { usePageTitle } from '../hooks/usePageTitle'
 import './Home.css'
 
 export default function Home() {
   useScrollReveal()
+  useHeroEnter()
+  usePageTitle({
+    title: 'IDKA Solutions | Jasa Website Profesional untuk Bisnis Kamu',
+    description:
+      'IDKA Solutions hadir sebagai mitra digital yang membantu bisnis kamu tampil profesional dan terpercaya di dunia online melalui website yang modern dan fungsional.',
+    fullTitle: true,
+    path: '/',
+  })
 
   return (
     <div className="home">
       {/* Hero Section */}
-      <section className="hero section" aria-labelledby="hero-heading">
+      <section className="hero section" aria-labelledby="hero-heading" data-hero-enter>
         <div className="container">
           <div className="hero__inner">
-            <div className="hero__content reveal">
-              <div className="badge hero__badge">
+            <div className="hero__content">
+              <div className="badge hero__badge hero-in__item hero-in__item--tag">
                 <span className="hero__badge-dot" aria-hidden="true" />
-                Trusted Digital Partner ✨
+                Partner Digital untuk Bisnis Indonesia
               </div>
-              <h1 id="hero-heading" className="hero__title">
-                {company.tagline}
+              <h1 id="hero-heading" className="hero__title hero-in__item hero-in__item--title">
+                Website Keren,{' '}
+                <span className="gradient-text">Bisnis Makin Dipercaya</span>
               </h1>
-              <p className="hero__desc">{company.description}</p>
-              <div className="hero__actions">
+              <p className="hero__desc hero-in__item hero-in__item--sub">{company.description}</p>
+              <div className="hero__actions hero-in__item hero-in__item--actions">
                 <NavLink to="/kontak" className="btn btn-primary hero__btn-primary">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -33,52 +45,17 @@ export default function Home() {
                   Cek Karya Kami
                 </NavLink>
               </div>
-              <div className="hero__stats">
-                <div className="hero__stat neu-raised">
-                  <span className="hero__stat-num">50+</span>
-                  <span className="hero__stat-label">Website Jadi</span>
-                </div>
-                <div className="hero__stat neu-raised">
-                  <span className="hero__stat-num">100%</span>
-                  <span className="hero__stat-label">Klien Happy</span>
-                </div>
-                <div className="hero__stat neu-raised">
-                  <span className="hero__stat-num">3 Hari</span>
-                  <span className="hero__stat-label">Bisa Jadi</span>
-                </div>
+              <div className="hero__stats hero-in__item hero-in__item--stats">
+                {stats.map((s) => (
+                  <div key={s.num} className="hero__stat">
+                    <span className="hero__stat-num">{s.num}</span>
+                    <span className="hero__stat-label">{s.labelAlt}</span>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="hero__visual reveal reveal--right" aria-hidden="true">
-              <div className="hero__card-main neu-raised-lg">
-                <div className="hero__card-header">
-                  <div className="hero__card-dots">
-                    <span /><span /><span />
-                  </div>
-                  <span className="hero__card-label">idkasolutions.com</span>
-                </div>
-                <div className="hero__card-body">
-                  <div className="hero__mock-hero">
-                    <div className="hero__mock-tag" />
-                    <div className="hero__mock-title" />
-                    <div className="hero__mock-title hero__mock-title--short" />
-                    <div className="hero__mock-desc" />
-                    <div className="hero__mock-btn" />
-                  </div>
-                  <div className="hero__mock-cards">
-                    <div className="hero__mock-card neu-raised" />
-                    <div className="hero__mock-card neu-raised" />
-                    <div className="hero__mock-card neu-raised" />
-                  </div>
-                </div>
-              </div>
-              <div className="hero__float hero__float--1 neu-raised">
-                <span className="hero__float-icon">&#128640;</span>
-                <span>Website Live!</span>
-              </div>
-              <div className="hero__float hero__float--2 neu-raised">
-                <span className="hero__float-icon">&#11088;</span>
-                <span>5.0 Rating</span>
-              </div>
+            <div className="hero__visual">
+              <HeroPortfolioShowcase />
             </div>
           </div>
         </div>
@@ -90,7 +67,7 @@ export default function Home() {
           <div className="section-header reveal">
             <div className="section-tag">Apa yang Kami Bisa</div>
             <h2 id="services-heading" className="section-title">
-              Semua Ada, <span className="gradient-text">Tinggal Pilih</span>
+              Semua Ada, Tinggal Pilih
             </h2>
             <p className="section-subtitle">
               Landing page, toko online, portofolio, sampai website full custom—kami handle semuanya dari nol sampai live.
@@ -98,8 +75,8 @@ export default function Home() {
           </div>
           <div className="home-services__grid">
             {services.slice(0, 6).map((svc, i) => (
-              <div key={svc.id} className={`service-card neu-raised reveal reveal--delay-${Math.min(i + 1, 5)}`}>
-                <div className="service-card__icon neu-inset" aria-hidden="true">
+              <div key={svc.id} className={`service-card neu-raised card-hover reveal reveal--delay-${Math.min(i + 1, 5)}`}>
+                <div className="service-card__icon icon-well" aria-hidden="true">
                   {svc.icon}
                 </div>
                 <h3 className="service-card__title">{svc.title}</h3>
@@ -119,12 +96,12 @@ export default function Home() {
       </section>
 
       {/* How We Work */}
-      <section className="section home-flow" aria-labelledby="flow-heading">
+      <section className="section section--tint home-flow" aria-labelledby="flow-heading">
         <div className="container">
           <div className="section-header reveal">
             <div className="section-tag">Cara Kerja Kami</div>
             <h2 id="flow-heading" className="section-title">
-              8 Langkah, <span className="gradient-text">Website Kamu Live</span>
+              Dari Chat sampai Website Live
             </h2>
             <p className="section-subtitle">
               Dari pertama kali DM kami sampai website kamu live—semua prosesnya jelas, transparan, dan nggak bikin pusing.
@@ -133,10 +110,9 @@ export default function Home() {
           <div className="home-flow__grid">
             {businessFlow.map((item, i) => (
               <div key={item.step} className={`flow-step reveal reveal--delay-${Math.min(i % 4 + 1, 5)}`}>
-                <div className="flow-step__number neu-inset" aria-label={`Langkah ${item.step}`}>
+                <div className="flow-step__number" aria-label={`Langkah ${item.step}`}>
                   {item.step}
                 </div>
-                <div className="flow-step__icon" aria-hidden="true">{item.icon}</div>
                 <h3 className="flow-step__label">{item.label}</h3>
                 <p className="flow-step__desc">{item.description}</p>
               </div>
@@ -151,7 +127,7 @@ export default function Home() {
           <div className="section-header reveal">
             <div className="section-tag">Harga Jelas</div>
             <h2 id="pricing-heading" className="section-title">
-              No Hidden Cost, <span className="gradient-text">Serius</span>
+              Harga Jelas, Tanpa Biaya Tersembunyi
             </h2>
             <p className="section-subtitle">
               Harga yang kamu lihat = yang kamu bayar. Mau yang lebih custom? Bisa banget, tinggal ngobrol dulu.
@@ -161,10 +137,10 @@ export default function Home() {
             {packages.map((pkg, i) => (
               <div
                 key={pkg.id}
-                className={`pricing-card neu-raised reveal reveal--delay-${i + 1}${pkg.highlighted ? ' pricing-card--highlighted' : ''}`}
+                className={`pricing-card neu-raised card-hover reveal reveal--delay-${i + 1}${pkg.highlighted ? ' pricing-card--highlighted card-featured' : ''}`}
               >
                 {pkg.highlighted && (
-                  <div className="pricing-card__badge">🔥 Most Picked</div>
+                  <div className="pricing-card__badge">Paling Dipilih</div>
                 )}
                 <h3 className="pricing-card__name">{pkg.name}</h3>
                 <div className="pricing-card__price">{pkg.price}</div>
@@ -200,12 +176,12 @@ export default function Home() {
           <div className="section-header reveal">
             <div className="section-tag">Real Work</div>
             <h2 id="portfolio-heading" className="section-title">
-              Karya yang <span className="gradient-text">Bisa Kamu Cek Langsung</span>
+              Karya yang Bisa Kamu Cek Langsung
             </h2>
           </div>
           <div className="portfolio-preview-grid">
             {portfolio.slice(0, 3).map((item, i) => (
-              <div key={item.id} className={`portfolio-preview-card neu-raised reveal reveal--delay-${i + 1}`}>
+              <div key={item.id} className={`portfolio-preview-card neu-raised card-hover reveal reveal--delay-${i + 1}`}>
                 {'screenshot' in item && item.screenshot ? (
                   <div className="portfolio-preview-card__visual portfolio-preview-card__visual--screenshot">
                     <div className="portfolio-preview-card__browser-bar" aria-hidden="true">
@@ -222,12 +198,12 @@ export default function Home() {
                       src={item.screenshot as string}
                       alt={`Screenshot ${item.title}`}
                       className="portfolio-preview-card__screenshot"
+                      width={640}
+                      height={400}
                       loading="lazy"
+                      decoding="async"
                     />
-                    <div
-                      className="portfolio-preview-card__category-badge"
-                      style={{ background: item.color }}
-                    >
+                    <div className="portfolio-preview-card__category-badge category-chip">
                       {item.category}
                     </div>
                   </div>
@@ -243,7 +219,7 @@ export default function Home() {
                 <div className="portfolio-preview-card__body">
                   <div className="portfolio-preview-card__tags">
                     {item.tags.map((tag) => (
-                      <span key={tag} className="badge" style={{ '--badge-color': item.color } as React.CSSProperties}>
+                      <span key={tag} className="badge">
                         {tag}
                       </span>
                     ))}
@@ -266,39 +242,50 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="section home-testimonials" aria-labelledby="testimonials-heading">
+      <section className="section section--tint home-testimonials" aria-labelledby="testimonials-heading">
         <div className="container">
           <div className="section-header reveal">
             <div className="section-tag">Kata Klien Kami</div>
             <h2 id="testimonials-heading" className="section-title">
-              Bukan Kami yang Bilang, <span className="gradient-text">Tapi Mereka</span>
+              Bukan Kami yang Bilang, Tapi Mereka
             </h2>
           </div>
           <div className="testimonials-grid">
             {testimonials.map((t, i) => (
-              <div key={t.id} className={`testimonial-card neu-raised reveal reveal--delay-${i + 1}`}>
+              <div key={t.id} className={`testimonial-card neu-raised card-hover reveal reveal--delay-${i + 1}`}>
                 <div className="testimonial-card__stars" aria-label={`Rating ${t.rating} dari 5`}>
                   {Array.from({ length: t.rating }).map((_, j) => (
-                    <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" aria-hidden="true">
+                    <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true">
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
                   ))}
                 </div>
                 <p className="testimonial-card__content">&ldquo;{t.content}&rdquo;</p>
                 <div className="testimonial-card__author">
-                  <div className="testimonial-card__avatar neu-inset" aria-hidden="true">
+                  <div className="testimonial-card__avatar" aria-hidden="true">
                     {t.name.charAt(0)}
                   </div>
                   <div>
                     <div className="testimonial-card__name">{t.name}</div>
                     <div className="testimonial-card__role">{t.role}</div>
+                    {'business' in t && t.business && (
+                      <a
+                        href={`https://${t.business}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="testimonial-card__business"
+                        aria-label={`Kunjungi ${t.business as string}`}
+                      >
+                        {t.business as string} ↗
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
           <div className="home-testimonials__cta reveal">
-            <p className="home-testimonials__cta-text">Kamu bisa jadi yang berikutnya 👋</p>
+            <p className="home-testimonials__cta-text">Kamu bisa jadi yang berikutnya.</p>
             <NavLink to="/portofolio" className="btn btn-secondary">
               Cek Semua Portofolio
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -316,7 +303,7 @@ export default function Home() {
             <div className="home-cta__content">
               <div className="section-tag">Yuk Gas!</div>
               <h2 id="cta-heading" className="home-cta__title">
-                Bisnis Kamu Layak <span className="gradient-text">Punya Website yang Keren</span>
+                Bisnis Kamu Layak <span className="gradient-text">Punya Website yang Keren</span>{' '}
               </h2>
               <p className="home-cta__desc">
                 Nggak perlu nunggu perfect. Ceritain dulu kebutuhanmu—kami yang bantu figure out sisanya. Konsultasi pertama gratis, no pressure.

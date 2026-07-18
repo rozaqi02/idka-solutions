@@ -3,32 +3,42 @@ import { company } from '../data/content'
 import './WAButton.css'
 
 const WA_MESSAGE = 'Halo IDKA Solutions! Saya ingin konsultasi website untuk bisnis saya.'
+const STORAGE_KEY = 'wa-tooltip-shown'
+
+function safeSessionGet(key: string): string | null {
+  try {
+    return sessionStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+function safeSessionSet(key: string, value: string): void {
+  try {
+    sessionStorage.setItem(key, value)
+  } catch {
+    // Private mode / restricted storage — ignore
+  }
+}
 
 export default function WAButton() {
-  const [visible, setVisible] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
 
+  // Tooltip hanya muncul sekali per session browser
   useEffect(() => {
-    // Show button after scrolling 200px
-    const handleScroll = () => setVisible(window.scrollY > 200)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Tooltip hanya muncul setelah button visible
-  useEffect(() => {
-    if (!visible) return
+    if (safeSessionGet(STORAGE_KEY)) return
     const timer = setTimeout(() => {
       setShowTooltip(true)
+      safeSessionSet(STORAGE_KEY, '1')
       setTimeout(() => setShowTooltip(false), 4000)
-    }, 1500)
+    }, 2000)
     return () => clearTimeout(timer)
-  }, [visible])
+  }, [])
 
   const waUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(WA_MESSAGE)}`
 
   return (
-    <div className={`wa-btn-wrap${visible ? ' wa-btn-wrap--visible' : ''}`}>
+    <div className="wa-btn-wrap wa-btn-wrap--visible">
       {showTooltip && (
         <div className="wa-btn__tooltip" role="tooltip">
           Ada yang bisa kami bantu?

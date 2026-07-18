@@ -16,11 +16,13 @@
   align-items: center;
   text-align: center;
   gap: var(--space-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
 }
 
 .notfound__code {
   font-family: var(--font-display);
-  font-size: 7rem;
+  font-size: clamp(4.5rem, 12vw, 6.5rem);
   font-weight: var(--weight-extrabold);
   line-height: 1;
   background: var(--gradient-primary);
@@ -28,12 +30,6 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.05em;
-  filter: drop-shadow(2px 4px 8px rgba(94,23,235,0.2));
-}
-
-.notfound__icon {
-  font-size: 3rem;
-  margin-top: calc(-1 * var(--space-md));
 }
 
 .notfound__title {
@@ -67,7 +63,7 @@
   justify-content: center;
   margin-top: var(--space-sm);
   padding-top: var(--space-lg);
-  border-top: 1px solid rgba(200,200,200,0.4);
+  border-top: 1px solid var(--border-subtle);
   width: 100%;
 }
 

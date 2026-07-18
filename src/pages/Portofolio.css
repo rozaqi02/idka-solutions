@@ -13,16 +13,17 @@
 }
 
 .porto-filter-btn {
-  padding: 0.5rem 1.2rem;
+  padding: 0.55rem 1.2rem;
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
   color: var(--text-secondary);
   background: var(--bg);
+  border: none;
   box-shadow: var(--shadow-neu-sm);
   cursor: pointer;
   transition: all var(--transition-base);
-  border: none;
+  min-height: 42px;
 }
 
 .porto-filter-btn:hover {
@@ -30,9 +31,16 @@
   box-shadow: var(--shadow-neu);
 }
 
+.porto-filter-btn:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring), var(--shadow-neu-sm);
+}
+
 .porto-filter-btn--active {
   color: var(--primary);
   font-weight: var(--weight-semibold);
+  background: var(--bg);
   box-shadow: var(--shadow-neu-inset);
 }
 
@@ -45,12 +53,13 @@
 
 .porto-card {
   overflow: hidden;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
 .porto-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-neu-lg);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(94, 23, 235, 0.14);
 }
 
 /* Card Visual */
@@ -142,7 +151,7 @@
   display: block;
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
   opacity: 0;
-  transition: opacity 0.4s ease, object-position var(--transition-slow);
+  transition: opacity 0.4s ease, transform var(--transition-slow);
 }
 
 .porto-card__screenshot--loaded {
@@ -150,7 +159,7 @@
 }
 
 .porto-card:hover .porto-card__screenshot {
-  object-position: bottom;
+  transform: scale(1.04);
 }
 
 .porto-img-error {
@@ -212,14 +221,18 @@
   position: absolute;
   top: var(--space-sm);
   left: var(--space-sm);
-  color: white;
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
-  padding: 3px 10px;
+  padding: 0.3rem 0.7rem;
   border-radius: var(--radius-full);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   z-index: 2;
   pointer-events: none;
+  background: rgba(255, 255, 255, 0.94) !important;
+  color: var(--primary-dark) !important;
+  border: 1px solid rgba(94, 23, 235, 0.12);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-xs);
 }
 
 /* Card Body */
@@ -284,7 +297,7 @@
   padding: var(--space-md);
   background: var(--bg-alt);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-neu-inset-sm);
+  border: 1px solid var(--border-subtle);
   margin-top: var(--space-xs);
 }
 
@@ -298,11 +311,12 @@
 .porto-card__tech-badge {
   font-size: var(--text-xs);
   font-weight: var(--weight-medium);
-  color: var(--primary);
+  color: var(--primary-dark);
   background: var(--bg);
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
+  border: none;
   box-shadow: var(--shadow-neu-sm);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-full);
 }
 
 .porto-card__link {
@@ -316,13 +330,13 @@
 }
 
 .porto-card__browser-url-text {
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: var(--text-muted);
-  background: var(--bg);
-  padding: 2px 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 0.15rem 0.55rem;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-neu-sm);
-  max-width: 120px;
+  max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -344,10 +358,7 @@
   font-size: 3rem;
 }
 
-/* Case Note */
-.porto-note-section {
-  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
-}
+/* Case Note — surface via .section--tint */
 
 .porto-case-note {
   padding: var(--space-3xl);

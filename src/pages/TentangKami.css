@@ -3,6 +3,15 @@
   padding-top: var(--navbar-height);
 }
 
+/* Story logo img replacement */
+.story-logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
 /* Story */
 .story-grid {
   display: grid;
@@ -49,7 +58,7 @@
   font-size: 1.4rem;
   font-weight: var(--weight-extrabold);
   color: white;
-  box-shadow: 4px 4px 10px rgba(94,23,235,0.3), -2px -2px 6px rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-primary);
   flex-shrink: 0;
 }
 
@@ -133,10 +142,7 @@
   line-height: 1.75;
 }
 
-/* Values */
-.tentang-values {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 50%, var(--bg) 100%);
-}
+/* Values — surface via .section--tint */
 
 .values-grid {
   display: grid;
@@ -239,10 +245,7 @@
   line-height: 1.6;
 }
 
-/* Tech */
-.tentang-tech {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 50%, var(--bg) 100%);
-}
+/* Tech — surface via default .section */
 
 .tech-grid {
   display: flex;
@@ -299,10 +302,7 @@
 .tech-badge--cms .tech-badge__category      { color: #f97316; }
 .tech-badge--nocode .tech-badge__category   { color: #ec4899; }
 
-/* Target Market */
-.tentang-target {
-  background: var(--bg);
-}
+/* Target Market — surface via default .section */
 
 .target-grid {
   display: grid;

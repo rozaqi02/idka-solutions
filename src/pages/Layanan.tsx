@@ -1,36 +1,74 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { services, packages, maintenancePackages, faq } from '../data/content'
 import PriceEstimator from '../components/PriceEstimator'
+import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useHeroEnter } from '../hooks/useHeroEnter'
+import { usePageTitle } from '../hooks/usePageTitle'
 import './Layanan.css'
 
-function AccordionItem({ question, answer }: { question: string; answer: string }) {
+function AccordionItem({
+  id,
+  question,
+  answer,
+}: {
+  id: string
+  question: string
+  answer: string
+}) {
+  const [open, setOpen] = useState(false)
+  const panelId = `faq-panel-${id}`
+  const buttonId = `faq-button-${id}`
+
   return (
-    <details className="faq-item neu-raised">
-      <summary className="faq-item__question">
+    <div className={`faq-item neu-raised${open ? ' faq-item--open' : ''}`}>
+      <button
+        id={buttonId}
+        type="button"
+        className="faq-item__question"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={panelId}
+      >
         {question}
         <svg className="faq-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <polyline points="6 9 12 15 18 9" />
         </svg>
-      </summary>
-      <div className="faq-item__answer">
+      </button>
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        className="faq-item__answer"
+        aria-hidden={!open}
+      >
         <p>{answer}</p>
       </div>
-    </details>
+    </div>
   )
 }
 
 export default function Layanan() {
+  useScrollReveal()
+  useHeroEnter()
+  usePageTitle({
+    title: 'Layanan',
+    description:
+      'Jasa pembuatan website profesional: landing page, company profile, toko online, portofolio, dan lebih. Harga transparan, hasil keren.',
+    path: '/layanan',
+  })
+
   return (
     <div className="layanan-page">
       {/* Page Header */}
-      <section className="page-header section" aria-labelledby="layanan-heading">
+      <section className="page-header section" aria-labelledby="layanan-heading" data-hero-enter>
         <div className="container">
           <div className="page-header__inner">
-            <div className="section-tag">Semua Layanan</div>
-            <h1 id="layanan-heading" className="section-title">
-              Website Apapun yang Kamu Butuhkan, <span className="gradient-text">Kami Bisa</span>
+            <div className="section-tag hero-in__item hero-in__item--tag">Semua Layanan</div>
+            <h1 id="layanan-heading" className="section-title hero-in__item hero-in__item--title">
+              Website Apapun yang Kamu Butuhkan, Kami Bisa
             </h1>
-            <p className="section-subtitle">
+            <p className="section-subtitle hero-in__item hero-in__item--sub">
               UMKM, freelancer, startup, kreator—semua welcome. Dari yang simpel sampe yang kompleks, kami handle.
             </p>
           </div>
@@ -40,15 +78,15 @@ export default function Layanan() {
       {/* All Services */}
       <section className="section" aria-labelledby="all-services-heading">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <h2 id="all-services-heading" className="section-title">
-              Yang Bisa Kami <span className="gradient-text">Buatin Buat Kamu</span>
+              Yang Bisa Kami Buatin Buat Kamu
             </h2>
           </div>
           <div className="layanan-grid">
-            {services.map((svc) => (
-              <div key={svc.id} className="layanan-card neu-raised">
-                <div className="layanan-card__icon neu-inset" aria-hidden="true">
+            {services.map((svc, i) => (
+              <div key={svc.id} className={`layanan-card neu-raised reveal reveal--delay-${Math.min(i % 3 + 1, 5)}`}>
+                <div className="layanan-card__icon" aria-hidden="true">
                   {svc.icon}
                 </div>
                 <div className="layanan-card__body">
@@ -62,22 +100,22 @@ export default function Layanan() {
       </section>
 
       {/* Packages */}
-      <section className="section layanan-packages" aria-labelledby="packages-heading">
+      <section className="section section--tint layanan-packages" aria-labelledby="packages-heading">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <div className="section-tag">Pilih Paket</div>
             <h2 id="packages-heading" className="section-title">
-              Harga Jelas, <span className="gradient-text">Nggak Ada yang Disembunyiin</span>
+              Harga Jelas, Tanpa yang Disembunyikan
             </h2>
             <p className="section-subtitle">
               Semua udah tertulis jelas dari awal—scope, revisi, harga. Biar kamu bisa planning dengan tenang.
             </p>
           </div>
           <div className="packages-grid">
-            {packages.map((pkg) => (
+            {packages.map((pkg, i) => (
               <div
                 key={pkg.id}
-                className={`package-card neu-raised${pkg.highlighted ? ' package-card--highlighted' : ''}`}
+                className={`package-card neu-raised reveal reveal--delay-${i + 1}${pkg.highlighted ? ' package-card--highlighted' : ''}`}
               >
                 {pkg.highlighted && (
                   <div className="package-card__popular">🔥 Most Picked</div>
@@ -120,10 +158,10 @@ export default function Layanan() {
       {/* Maintenance */}
       <section className="section layanan-maintenance" aria-labelledby="maintenance-heading">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <div className="section-tag">Maintenance</div>
             <h2 id="maintenance-heading" className="section-title">
-              Website Udah Live? <span className="gradient-text">Kami yang Jaga</span>
+              Website Udah Live? Kami yang Jaga
             </h2>
             <p className="section-subtitle">
               Website yang nggak dijaga lama-lama bisa lemot, error, atau tiba-tiba down pas lagi rame. Biar itu nggak kejadian, ada maintenance.
@@ -131,8 +169,9 @@ export default function Layanan() {
           </div>
           <div className="maintenance-grid">
             {maintenancePackages.map((pkg, idx) => (
-              <div key={pkg.name} className={`maintenance-card neu-raised${idx === 1 ? ' maintenance-card--mid' : ''}`}>
+              <div key={pkg.name} className={`maintenance-card neu-raised reveal reveal--delay-${idx + 1}${idx === 1 ? ' maintenance-card--mid' : ''}`}>
                 <h3 className="maintenance-card__name">{pkg.name}</h3>
+                {'price' in pkg && <div className="maintenance-card__price">{pkg.price as string}</div>}
                 <ul className="maintenance-card__features" role="list">
                   {pkg.features.map((f, i) => (
                     <li key={i} className="maintenance-card__feature">
@@ -144,7 +183,7 @@ export default function Layanan() {
                   ))}
                 </ul>
                 <NavLink to="/kontak" className="btn btn-secondary maintenance-card__btn">
-                  Tanya Harga
+                  Mulai Sekarang
                 </NavLink>
               </div>
             ))}
@@ -158,7 +197,7 @@ export default function Layanan() {
           <div className="section-header">
             <div className="section-tag">Behind the Scenes</div>
             <h2 id="process-heading" className="section-title">
-              Gimana Kami <span className="gradient-text">Ngerjain Website Kamu</span>
+              Gimana Kami Ngerjain Website Kamu
             </h2>
           </div>
           <div className="process-list">
@@ -190,7 +229,7 @@ export default function Layanan() {
           <div className="section-header">
             <div className="section-tag">Kira-Kira Berapa?</div>
             <h2 id="estimator-heading" className="section-title">
-              Cek Estimasi Harga <span className="gradient-text">Sekarang Juga</span>
+              Cek Estimasi Harga Sekarang Juga
             </h2>
             <p className="section-subtitle">
               Pilih kebutuhanmu dan langsung dapet perkiraan harga. Harga final dikonfirmasi pas konsultasi.
@@ -203,20 +242,25 @@ export default function Layanan() {
       </section>
 
       {/* FAQ */}
-      <section className="section" aria-labelledby="faq-heading">
+      <section className="section section--tint" aria-labelledby="faq-heading">
         <div className="container">
           <div className="section-header">
             <div className="section-tag">FAQ</div>
             <h2 id="faq-heading" className="section-title">
-              Yang Sering <span className="gradient-text">Ditanyain</span>
+              Yang Sering Ditanyain
             </h2>
           </div>
           <div className="faq-list">
-            {faq.map((item, i) => (
-              <AccordionItem key={i} question={item.question} answer={item.answer} />
+            {faq.map((item, index) => (
+              <AccordionItem
+                key={item.question}
+                id={String(index)}
+                question={item.question}
+                answer={item.answer}
+              />
             ))}
           </div>
-          <div className="faq-cta text-center" style={{ marginTop: 'var(--space-2xl)' }}>
+          <div className="faq-cta">
             <p className="text-muted" style={{ marginBottom: 'var(--space-md)' }}>
               Masih ada yang pengen ditanyain? Langsung aja chat kami.
             </p>

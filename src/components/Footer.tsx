@@ -13,9 +13,13 @@ export default function Footer() {
           <div className="footer__brand">
             <div className="footer__logo">
               <img
-                src="/logo idka solutions (3).png"
+                src="/logo-idka-solutions.png"
                 alt="IDKA Solutions"
                 className="footer__logo-img"
+                width={160}
+                height={40}
+                decoding="async"
+                loading="lazy"
               />
             </div>
             <p className="footer__desc">{company.description}</p>
@@ -65,7 +69,6 @@ export default function Footer() {
               <NavLink to="/" className="footer__link">Home</NavLink>
               <NavLink to="/layanan" className="footer__link">Layanan</NavLink>
               <NavLink to="/portofolio" className="footer__link">Portofolio</NavLink>
-              <NavLink to="/produk" className="footer__link">Produk</NavLink>
               <NavLink to="/tentang" className="footer__link">Tentang Kami</NavLink>
               <NavLink to="/kontak" className="footer__link">Kontak</NavLink>
             </nav>

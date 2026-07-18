@@ -8,17 +8,18 @@ type Step = {
   options: { label: string; value: number; desc?: string }[]
 }
 
+// Harga selaras paket: Starter 300rb · Business 900rb · Premium 1,7jt
 const steps: Step[] = [
   {
     key: 'type',
     label: 'Jenis Website',
     options: [
-      { label: 'Landing Page', value: 800000, desc: '1 halaman fokus konversi' },
-      { label: 'Company Profile', value: 1500000, desc: '3-5 halaman profil bisnis' },
-      { label: 'Toko Online Sederhana', value: 2000000, desc: 'Katalog + tombol order' },
-      { label: 'Website Portofolio', value: 1200000, desc: 'Galeri karya profesional' },
-      { label: 'Website Jasa', value: 1800000, desc: 'Layanan + form booking' },
-      { label: 'Full Custom', value: 3500000, desc: 'Sesuai kebutuhan spesifik' },
+      { label: 'Landing Page', value: 300000, desc: '1 halaman fokus konversi (Starter)' },
+      { label: 'Company Profile', value: 900000, desc: '3-5 halaman profil bisnis (Business)' },
+      { label: 'Website Portofolio', value: 400000, desc: 'Galeri karya profesional' },
+      { label: 'Website Jasa', value: 1000000, desc: 'Layanan + form booking' },
+      { label: 'Toko Online Sederhana', value: 1200000, desc: 'Katalog + tombol order' },
+      { label: 'Full Custom', value: 1700000, desc: 'Sesuai kebutuhan (Premium)' },
     ],
   },
   {
@@ -26,10 +27,10 @@ const steps: Step[] = [
     label: 'Jumlah Halaman',
     options: [
       { label: '1 halaman', value: 0 },
-      { label: '2-3 halaman', value: 300000 },
-      { label: '4-5 halaman', value: 600000 },
-      { label: '6-8 halaman', value: 1000000 },
-      { label: '8+ halaman', value: 1800000 },
+      { label: '2-3 halaman', value: 100000 },
+      { label: '4-5 halaman', value: 200000 },
+      { label: '6-8 halaman', value: 350000 },
+      { label: '8+ halaman', value: 600000 },
     ],
   },
   {
@@ -37,12 +38,12 @@ const steps: Step[] = [
     label: 'Fitur Tambahan',
     options: [
       { label: 'Tombol WhatsApp', value: 0, desc: 'Sudah termasuk default' },
-      { label: 'Form Kontak', value: 100000 },
-      { label: 'Galeri / Slider', value: 150000 },
-      { label: 'Blog / Artikel', value: 300000 },
-      { label: 'CMS (bisa edit sendiri)', value: 500000 },
-      { label: 'Integrasi Maps', value: 150000 },
-      { label: 'Animasi Interaktif', value: 400000 },
+      { label: 'Form Kontak', value: 50000 },
+      { label: 'Galeri / Slider', value: 75000 },
+      { label: 'Blog / Artikel', value: 150000 },
+      { label: 'CMS (bisa edit sendiri)', value: 250000 },
+      { label: 'Integrasi Maps', value: 75000 },
+      { label: 'Animasi Interaktif', value: 200000 },
     ],
   },
   {
@@ -50,9 +51,9 @@ const steps: Step[] = [
     label: 'Deadline Pengerjaan',
     options: [
       { label: 'Santai (2-3 minggu)', value: 0 },
-      { label: 'Normal (1-2 minggu)', value: 200000 },
-      { label: 'Cepat (3-7 hari)', value: 500000 },
-      { label: 'Urgent (1-2 hari)', value: 1000000 },
+      { label: 'Normal (1-2 minggu)', value: 75000 },
+      { label: 'Cepat (3-7 hari)', value: 200000 },
+      { label: 'Urgent (1-2 hari)', value: 400000 },
     ],
   },
 ]
@@ -61,9 +62,12 @@ function formatRp(n: number) {
   return 'Rp ' + n.toLocaleString('id-ID')
 }
 
+// Track fitur by index agar aman walau ada value duplikat (e.g. value: 0)
+type FeatureSelection = { stepIdx: number; optIdx: number; value: number }
+
 export default function PriceEstimator() {
   const [selections, setSelections] = useState<Record<string, number>>({})
-  const [multiFeatures, setMultiFeatures] = useState<number[]>([])
+  const [multiFeatures, setMultiFeatures] = useState<FeatureSelection[]>([])
 
   const reset = () => {
     setSelections({})
@@ -75,16 +79,22 @@ export default function PriceEstimator() {
     setSelections((prev) => ({ ...prev, [key]: value }))
   }
 
-  const toggleFeature = (value: number) => {
-    setMultiFeatures((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
-    )
+  const toggleFeature = (stepIdx: number, optIdx: number, value: number) => {
+    setMultiFeatures((prev) => {
+      const exists = prev.some((f) => f.stepIdx === stepIdx && f.optIdx === optIdx)
+      return exists
+        ? prev.filter((f) => !(f.stepIdx === stepIdx && f.optIdx === optIdx))
+        : [...prev, { stepIdx, optIdx, value }]
+    })
   }
+
+  const isFeatureSelected = (stepIdx: number, optIdx: number) =>
+    multiFeatures.some((f) => f.stepIdx === stepIdx && f.optIdx === optIdx)
 
   const base = selections['type'] ?? 0
   const pages = selections['pages'] ?? 0
   const deadline = selections['deadline'] ?? 0
-  const features = multiFeatures.reduce((a, b) => a + b, 0)
+  const features = multiFeatures.reduce((a, f) => a + f.value, 0)
 
   const total = base + pages + deadline + features
   const low = Math.floor(total * 0.9)
@@ -119,10 +129,11 @@ export default function PriceEstimator() {
           <div key={step.key} className="estimator__step">
             <div className="estimator__step-label">{step.label}</div>
             <div className="estimator__options">
-              {step.options.map((opt) => {
+              {step.options.map((opt, optIdx) => {
+                const stepIdx = steps.findIndex((s) => s.key === step.key)
                 const isSelected =
                   step.key === 'features'
-                    ? multiFeatures.includes(opt.value)
+                    ? isFeatureSelected(stepIdx, optIdx)
                     : selections[step.key] === opt.value
 
                 return (
@@ -131,7 +142,9 @@ export default function PriceEstimator() {
                     type="button"
                     className={`estimator__option${isSelected ? ' estimator__option--selected' : ''}`}
                     onClick={() =>
-                      step.key === 'features' ? toggleFeature(opt.value) : select(step.key, opt.value)
+                      step.key === 'features'
+                        ? toggleFeature(stepIdx, optIdx, opt.value)
+                        : select(step.key, opt.value)
                     }
                     aria-pressed={isSelected}
                   >

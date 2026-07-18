@@ -1,4 +1,4 @@
-# Logs
+# ===== Logs =====
 logs
 *.log
 npm-debug.log*
@@ -7,18 +7,103 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# ===== Dependencies & build =====
 node_modules
 dist
 dist-ssr
+build
 *.local
+*.tsbuildinfo
+coverage
+.vite
+.turbo
+.cache
+.parcel-cache
+.eslintcache
+.stylelintcache
 
-# Editor directories and files
+# ===== Env & secrets =====
+.env
+.env.*
+!.env.example
+
+# ===== Hosting / deploy =====
+.netlify
+.vercel
+.firebase
+.firebase/
+*.deploy-cache
+
+# ===== Package manager junk =====
+.pnpm-store
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# ===== Editor / IDE =====
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*~
+*.bak
+*.tmp
+*.temp
+
+# ===== OS junk =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ===== AI / agent local state (jangan di-commit) =====
+.grok/
+.kilo/
+.kilocode/
+.cursor/
+.claude/
+.codex/
+.agent/
+.agents/
+
+# ===== Browser / Puppeteer local runtime =====
+.puppeteer_cache/
+.chrome-profile/
+chrome-user-data/
+puppeteer-cache/
+
+# ===== Temporary screenshots / exports =====
+tmp/
+temp/
+.tmp/
+.temp/
+screenshots-tmp/
+*.crdownload
+*.partial
+
+# ===== Marketing local drafts (backup / versi lama) =====
+# Final assets di public/marketing/ tetap di-track; backup diabaikan.
+public/marketing/**/bckaup/
+public/marketing/**/backup/
+public/marketing/**/*-old.*
+public/marketing/**/*-backup.*
+public/marketing/**/*.draft.*
+
+# ===== Misc =====
+*.orig
+*.rej
+.history/
+.fleet/

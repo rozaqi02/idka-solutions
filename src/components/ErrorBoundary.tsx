@@ -42,7 +42,15 @@ export default class ErrorBoundary extends Component<Props, State> {
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <button
+              type="button"
               className="btn btn-primary"
+              onClick={() => this.setState({ hasError: false, error: null })}
+            >
+              Coba Lagi
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
               onClick={() => window.location.reload()}
             >
               Refresh Halaman

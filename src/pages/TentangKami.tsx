@@ -1,19 +1,31 @@
 import { NavLink } from 'react-router-dom'
-import { company, teamMembers, techStack, workValues } from '../data/content'
+import { company, teamMembers, techStack, workValues, stats } from '../data/content'
+import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useHeroEnter } from '../hooks/useHeroEnter'
+import { usePageTitle } from '../hooks/usePageTitle'
 import './TentangKami.css'
 
 export default function TentangKami() {
+  useScrollReveal()
+  useHeroEnter()
+  usePageTitle({
+    title: 'Tentang Kami',
+    description:
+      'Kenali IDKA Solutions — tim developer Indonesia yang membantu bisnis kamu hadir secara online dengan website yang profesional dan berdampak.',
+    path: '/tentang',
+  })
+
   return (
     <div className="tentang-page">
       {/* Header */}
-      <section className="page-header section" aria-labelledby="tentang-heading">
+      <section className="page-header section" aria-labelledby="tentang-heading" data-hero-enter>
         <div className="container">
           <div className="page-header__inner">
-            <div className="section-tag">Who We Are</div>
-            <h1 id="tentang-heading" className="section-title">
-              Hai, Kami <span className="gradient-text">IDKA Solutions</span> 👋
+            <div className="section-tag hero-in__item hero-in__item--tag">Who We Are</div>
+            <h1 id="tentang-heading" className="section-title hero-in__item hero-in__item--title">
+              Hai, Kami <span className="gradient-text">IDKA Solutions</span>
             </h1>
-            <p className="section-subtitle">
+            <p className="section-subtitle hero-in__item hero-in__item--sub">
               Bukan sekadar jasa bikin website. Kami partner digital yang genuinely peduli sama pertumbuhan bisnis kamu online.
             </p>
           </div>
@@ -24,10 +36,16 @@ export default function TentangKami() {
       <section className="section tentang-story" aria-labelledby="story-heading">
         <div className="container">
           <div className="story-grid">
-            <div className="story-visual" aria-hidden="true">
+            <div className="story-visual reveal reveal--left" aria-hidden="true">
               <div className="story-card neu-raised-lg">
                 <div className="story-card__logo">
-                  <div className="story-logo-icon">I</div>
+                  <img
+                    src="/logo-idka-solutions.png"
+                    alt="IDKA Solutions"
+                    className="story-logo-img"
+                    width="40"
+                    height="40"
+                  />
                   <div>
                     <div className="story-logo-name">IDKA Solutions</div>
                     <div className="story-logo-tagline">{company.tagline}</div>
@@ -38,32 +56,26 @@ export default function TentangKami() {
                   &ldquo;Every business deserves to look legit online—nggak peduli seberapa kecil bisnis kamu.&rdquo;
                 </p>
                 <div className="story-card__stats">
-                  <div className="story-stat neu-inset">
-                    <span className="story-stat__num">50+</span>
-                    <span className="story-stat__label">Proyek</span>
-                  </div>
-                  <div className="story-stat neu-inset">
-                    <span className="story-stat__num">100%</span>
-                    <span className="story-stat__label">Klien Puas</span>
-                  </div>
-                  <div className="story-stat neu-inset">
-                    <span className="story-stat__num">4</span>
-                    <span className="story-stat__label">Tim Ahli</span>
-                  </div>
+                  {stats.map((s) => (
+                    <div key={s.num} className="story-stat neu-inset">
+                      <span className="story-stat__num">{s.num}</span>
+                      <span className="story-stat__label">{s.label}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-            <div className="story-content">
+            <div className="story-content reveal reveal--right">
               <div className="section-tag" style={{ alignSelf: 'flex-start' }}>Our Story</div>
               <h2 id="story-heading" className="section-title" style={{ textAlign: 'left' }}>
-                Dari Satu Pertanyaan: <span className="gradient-text">&ldquo;Kenapa Susah Banget Eksis Online?&rdquo;</span>
+                Dari Satu Pertanyaan: &ldquo;Kenapa Susah Banget Eksis Online?&rdquo;
               </h2>
               <div className="story-text">
                 <p>
-                  IDKA Solutions lahir dari frustrasi yang banyak dialami—bisnis bagus, produk oke, tapi online-nya nggak ada atau terkesan amatir. Padahal kesan pertama di internet itu penting banget.
+                  Hi, saya <strong>Abror Rozaqi</strong> — founder IDKA Solutions. Dulu saya sering lihat bisnis bagus di sekitar saya: kafe enak, jasa foto keren, UMKM produk lokal yang potensial—tapi online-nya nggak ada atau terkesan amatir.
                 </p>
                 <p>
-                  Kami hadir buat UMKM, freelancer, kreator, dan startup yang pengen eksis online tapi nggak mau ribet. Bukan sekadar bikin website &ldquo;biar ada&rdquo;—tapi website yang beneran ngasih impact buat bisnis kamu.
+                  Dari situ IDKA Solutions lahir. Bersama tim kecil kami, kami hadir buat UMKM, freelancer, kreator, dan startup yang pengen eksis online tapi nggak mau ribet. Bukan sekadar bikin website &ldquo;biar ada&rdquo;—tapi website yang beneran ngasih impact buat bisnis kamu.
                 </p>
                 <p>
                   {company.position}
@@ -77,34 +89,28 @@ export default function TentangKami() {
 
           {/* Mobile stats — visible only on mobile when story-visual is hidden */}
           <div className="story-mobile-stats">
-            <div className="story-mobile-stat">
-              <span className="story-mobile-stat__num">50+</span>
-              <span className="story-mobile-stat__label">Proyek</span>
-            </div>
-            <div className="story-mobile-stat">
-              <span className="story-mobile-stat__num">100%</span>
-              <span className="story-mobile-stat__label">Klien Puas</span>
-            </div>
-            <div className="story-mobile-stat">
-              <span className="story-mobile-stat__num">4</span>
-              <span className="story-mobile-stat__label">Tim Ahli</span>
-            </div>
+            {stats.map((s) => (
+              <div key={s.num} className="story-mobile-stat">
+                <span className="story-mobile-stat__num">{s.num}</span>
+                <span className="story-mobile-stat__label">{s.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="section tentang-values" aria-labelledby="values-heading">
+      <section className="section section--tint tentang-values" aria-labelledby="values-heading">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <div className="section-tag">How We Roll</div>
             <h2 id="values-heading" className="section-title">
-              Ini yang Bikin Kami <span className="gradient-text">Beda</span>
+              Ini yang Bikin Kami Beda
             </h2>
           </div>
           <div className="values-grid">
-            {workValues.map((val) => (
-              <div key={val.title} className="value-card neu-raised">
+            {workValues.map((val, i) => (
+              <div key={val.title} className={`value-card neu-raised reveal reveal--delay-${Math.min(i + 1, 5)}`}>
                 <div className="value-card__icon neu-inset" aria-hidden="true">{val.icon}</div>
                 <h3 className="value-card__title">{val.title}</h3>
                 <p className="value-card__desc">{val.description}</p>
@@ -117,18 +123,18 @@ export default function TentangKami() {
       {/* Team */}
       <section className="section tentang-team" aria-labelledby="team-heading">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <div className="section-tag">Meet the Team</div>
             <h2 id="team-heading" className="section-title">
-              The People Behind <span className="gradient-text">IDKA Solutions</span>
+              Tim di Balik IDKA Solutions
             </h2>
             <p className="section-subtitle">
               Tim kecil tapi mighty. Masing-masing punya expertise-nya sendiri, semua fokus ke satu hal: website kamu harus keren dan nggak bikin kamu kecewa.
             </p>
           </div>
           <div className="team-grid">
-            {teamMembers.map((member) => (
-              <div key={member.id} className="team-card neu-raised">
+            {teamMembers.map((member, i) => (
+              <div key={member.id} className={`team-card neu-raised reveal reveal--delay-${Math.min(i + 1, 5)}`}>
                 <div className="team-card__avatar neu-inset" aria-hidden="true">
                   {member.icon}
                 </div>
@@ -144,18 +150,18 @@ export default function TentangKami() {
       {/* Tech Stack */}
       <section className="section tentang-tech" aria-labelledby="tech-heading">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <div className="section-tag">Tech Stack</div>
             <h2 id="tech-heading" className="section-title">
-              Tools yang Kami <span className="gradient-text">Pakai Sehari-hari</span>
+              Tools yang Kami Pakai Sehari-hari
             </h2>
             <p className="section-subtitle">
               Semua modern, battle-tested, dan dipilih buat bikin website yang ngebut, aman, dan scalable.
             </p>
           </div>
           <div className="tech-grid">
-            {techStack.map((tech) => (
-              <div key={tech.name} className={`tech-badge tech-badge--${tech.category} neu-raised`}>
+            {techStack.map((tech, i) => (
+              <div key={tech.name} className={`tech-badge tech-badge--${tech.category} neu-raised reveal reveal--delay-${Math.min(i % 5 + 1, 5)}`}>
                 <span className="tech-badge__icon" aria-hidden="true">{tech.icon}</span>
                 <span className="tech-badge__name">{tech.name}</span>
                 <span className="tech-badge__category">{tech.category}</span>
@@ -171,7 +177,7 @@ export default function TentangKami() {
           <div className="section-header">
             <div className="section-tag">Untuk Siapa?</div>
             <h2 id="target-heading" className="section-title">
-              Kalau Kamu <span className="gradient-text">Salah Satu dari Ini</span>, Kami Bisa Bantu
+              Kalau Kamu Salah Satu dari Ini, Kami Bisa Bantu
             </h2>
           </div>
           <div className="target-grid">
@@ -217,9 +223,9 @@ export default function TentangKami() {
       </section>
 
       {/* CTA */}
-      <section className="section tentang-cta">
+      <section className="section section--tint tentang-cta">
         <div className="container">
-          <div className="tentang-cta__card neu-raised-lg text-center">
+          <div className="tentang-cta__card neu-raised-lg text-center reveal reveal--scale">
             <div className="section-tag" style={{ display: 'inline-block' }}>Let&apos;s Work Together</div>
             <h2 className="tentang-cta__title">
               Bisnis Kamu Deserve <span className="gradient-text">Website yang Lebih Baik</span>

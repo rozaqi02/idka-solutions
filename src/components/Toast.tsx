@@ -2,7 +2,7 @@ import type { Toast, ToastType } from '../hooks/useToast'
 
 function ToastIcon({ type }: { type: ToastType }) {
   if (type === 'success') return <span className="toast__icon" aria-hidden="true">&#10004;</span>
-  if (type === 'error')   return <span className="toast__icon" aria-hidden="true">&#10008;</span>
+  if (type === 'error') return <span className="toast__icon" aria-hidden="true">&#10008;</span>
   return <span className="toast__icon" aria-hidden="true">&#8505;</span>
 }
 
@@ -21,8 +21,9 @@ export default function ToastContainer({
           <ToastIcon type={t.type} />
           <span>{t.message}</span>
           <button
+            type="button"
+            className="toast__close"
             onClick={() => onRemove(t.id)}
-            style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '1rem', padding: '0 4px' }}
             aria-label="Tutup notifikasi"
           >
             &times;

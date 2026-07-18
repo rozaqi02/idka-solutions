@@ -1,13 +1,19 @@
 import { NavLink } from 'react-router-dom'
+import { usePageTitle } from '../hooks/usePageTitle'
 import './NotFound.css'
 
 export default function NotFound() {
+  usePageTitle({
+    title: 'Halaman Tidak Ditemukan',
+    description: 'Halaman yang kamu cari tidak ditemukan. Kembali ke beranda IDKA Solutions atau jelajahi layanan kami.',
+    robots: 'noindex, follow',
+  })
+
   return (
     <div className="notfound-page">
       <div className="notfound__card neu-raised-lg">
         <div className="notfound__code" aria-hidden="true">404</div>
-        <div className="notfound__icon" aria-hidden="true">&#128269;</div>
-        <h1 className="notfound__title">Halaman Nggak Ketemu 😕</h1>
+        <h1 className="notfound__title">Halaman Tidak Ditemukan</h1>
         <p className="notfound__desc">
           Kayaknya halaman yang kamu cari udah pindah atau emang nggak ada.
           Tenang, masih banyak hal keren yang bisa kamu explore di sini.
@@ -27,7 +33,6 @@ export default function NotFound() {
           <span className="notfound__links-label">Mau ke mana?</span>
           <NavLink to="/layanan" className="notfound__link">Layanan</NavLink>
           <NavLink to="/portofolio" className="notfound__link">Portofolio</NavLink>
-          <NavLink to="/produk" className="notfound__link">Produk</NavLink>
           <NavLink to="/tentang" className="notfound__link">Tentang Kami</NavLink>
         </div>
       </div>

@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { portfolio } from '../data/content'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useHeroEnter } from '../hooks/useHeroEnter'
+import { usePageTitle } from '../hooks/usePageTitle'
 import './Portofolio.css'
 
-function PortoImage({ src, alt }: { src: string; alt: string }) {
+function PortoImage({ src, alt, width, height }: { src: string; alt: string; width?: number; height?: number }) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
   return (
@@ -14,6 +16,8 @@ function PortoImage({ src, alt }: { src: string; alt: string }) {
         <img
           src={src}
           alt={alt}
+          width={width}
+          height={height}
           className={`porto-card__screenshot${loaded ? ' porto-card__screenshot--loaded' : ''}`}
           loading="lazy"
           onLoad={() => setLoaded(true)}
@@ -33,7 +37,14 @@ const allCategories = ['Semua', ...Array.from(new Set(portfolio.map((p) => p.cat
 export default function Portofolio() {
   const [activeFilter, setActiveFilter] = useState('Semua')
   const [expanded, setExpanded] = useState<number | null>(null)
-  useScrollReveal()
+  useScrollReveal({ watchKey: activeFilter })
+  useHeroEnter()
+  usePageTitle({
+    title: 'Portofolio',
+    description:
+      'Karya nyata IDKA Solutions — dari UMKM lokal sampai startup digital. Lihat website yang sudah kami bangun.',
+    path: '/portofolio',
+  })
 
   const filtered =
     activeFilter === 'Semua'
@@ -43,14 +54,14 @@ export default function Portofolio() {
   return (
     <div className="porto-page">
       {/* Header */}
-      <section className="page-header section" aria-labelledby="porto-heading">
+      <section className="page-header section" aria-labelledby="porto-heading" data-hero-enter>
         <div className="container">
-          <div className="page-header__inner reveal">
-            <div className="section-tag">Portofolio</div>
-            <h1 id="porto-heading" className="section-title">
-              Karya yang <span className="gradient-text">Membuktikan Kemampuan Kami</span>
+          <div className="page-header__inner">
+            <div className="section-tag hero-in__item hero-in__item--tag">Portofolio</div>
+            <h1 id="porto-heading" className="section-title hero-in__item hero-in__item--title">
+              Karya yang Membuktikan Kemampuan Kami
             </h1>
-            <p className="section-subtitle">
+            <p className="section-subtitle hero-in__item hero-in__item--sub">
               Setiap proyek adalah bukti nyata. Dari UMKM lokal sampai startup digital&mdash;lihat apa yang sudah kami bangun.
             </p>
           </div>
@@ -98,6 +109,8 @@ export default function Portofolio() {
                       <PortoImage
                         src={item.screenshot as string}
                         alt={`Screenshot website ${item.title}`}
+                        width={800}
+                        height={500}
                       />
                     </div>
                   ) : (
@@ -129,7 +142,6 @@ export default function Portofolio() {
                   )}
                   <div
                     className="porto-card__category-badge"
-                    style={{ background: item.color }}
                     aria-label={`Kategori: ${item.category}`}
                   >
                     {item.category}
@@ -219,7 +231,7 @@ export default function Portofolio() {
       </section>
 
       {/* Case Study Note */}
-      <section className="section porto-note-section">
+      <section className="section section--tint porto-note-section">
         <div className="container">
           <div className="porto-case-note neu-raised-lg reveal">
             <div className="porto-case-note__icon" aria-hidden="true">&#128640;</div>

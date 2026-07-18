@@ -13,6 +13,13 @@ export const company = {
     'Partner digital untuk UMKM, personal brand, kreator, dan startup yang pengen eksis dan dipercaya di internet.',
 };
 
+// Stats terpusat — update di sini, otomatis sinkron ke semua halaman
+export const stats = [
+  { num: '6',  label: 'Proyek',      labelAlt: 'Website Jadi' },
+  { num: '4.9/5', label: 'Rating Klien', labelAlt: 'Rating Klien' },
+  { num: '4',    label: 'Tim Ahli',    labelAlt: 'Tim Ahli' },
+];
+
 export const services = [
   {
     id: 'company-profile',
@@ -84,7 +91,7 @@ export const packages = [
     id: 'starter',
     name: 'Starter',
     tagline: 'Buat yang baru mau mulai online',
-    price: 'Mulai Rp 800.000',
+    price: 'Mulai Rp 300.000',
     highlighted: false,
     features: [
       '1 halaman landing page',
@@ -101,7 +108,7 @@ export const packages = [
     id: 'business',
     name: 'Business',
     tagline: 'Buat yang mau keliatan makin serius',
-    price: 'Mulai Rp 1.500.000',
+    price: 'Mulai Rp 900.000',
     highlighted: true,
     features: [
       '3-5 halaman lengkap',
@@ -118,7 +125,7 @@ export const packages = [
     id: 'premium',
     name: 'Premium',
     tagline: 'Buat bisnis yang mau scale up',
-    price: 'Mulai Rp 3.000.000',
+    price: 'Mulai Rp 1.700.000',
     highlighted: false,
     features: [
       '5-8 halaman full custom',
@@ -136,6 +143,7 @@ export const packages = [
 export const maintenancePackages = [
   {
     name: 'Basic',
+    price: 'Rp 150.000/bln',
     features: [
       'Cek website tiap bulan',
       'Update konten kecil',
@@ -145,6 +153,7 @@ export const maintenancePackages = [
   },
   {
     name: 'Standard',
+    price: 'Rp 300.000/bln',
     features: [
       'Semua yang ada di Basic',
       'Update konten lebih banyak',
@@ -155,6 +164,7 @@ export const maintenancePackages = [
   },
   {
     name: 'Premium',
+    price: 'Rp 500.000/bln',
     features: [
       'Semua yang ada di Standard',
       'Support prioritas (respon cepat)',
@@ -169,22 +179,6 @@ export const maintenancePackages = [
 export const portfolio = [
   {
     id: 1,
-    title: 'Imzaqi Store',
-    category: 'Aplikasi E-Commerce',
-    period: 'Januari 2026 – Februari 2026',
-    screenshot: '/portfolio/imzaqi-store.webp',
-    url: 'https://imzaqi.store',
-    description:
-      'Platform e-commerce akun digital premium (Netflix, Spotify, Canva, ChatGPT, dll.) untuk pelajar Indonesia—bayar QRIS, aktif dalam hitungan menit, ada AI assistant-nya juga.',
-    longDescription:
-      'Imzaqi Store v5.0 adalah toko akun digital yang menyasar segmen pelajar dengan harga terjangkau. Katalog 20+ produk dengan search, live traffic counter, dan highlight produk viral. Alur beli cuma 3 langkah: pilih, bayar QRIS (semua e-wallet), pantau status lewat ID unik. Dibangun pakai React 19, Vite, Supabase, Framer Motion, dan Google Gemini API buat AI assistant-nya. Admin bisa manage produk, promo, flash sale, ekspor CSV—semua dilindungi Supabase Auth. PWA-ready.',
-    tech: ['React 19', 'Supabase', 'Framer Motion', 'Gemini API', 'QRIS', 'PWA'],
-    tags: ['E-Commerce', 'Full Stack', 'Pelajar'],
-    color: '#5e17eb',
-    icon: '🛒',
-  },
-  {
-    id: 2,
     title: 'Pentagon Kontraktor',
     category: 'Company Profile',
     period: 'Februari 2026 – Maret 2026',
@@ -200,7 +194,7 @@ export const portfolio = [
     icon: '🏗️',
   },
   {
-    id: 3,
+    id: 2,
     title: 'Cidika Travel',
     category: 'Company Profile',
     period: 'September 2025 – November 2025',
@@ -216,7 +210,7 @@ export const portfolio = [
     icon: '✈️',
   },
   {
-    id: 4,
+    id: 3,
     title: 'Nutri Bunga',
     category: 'Landing Page',
     period: 'Oktober 2025 – November 2025',
@@ -230,6 +224,22 @@ export const portfolio = [
     tags: ['Landing Page', 'UMKM', 'Produk Lokal'],
     color: '#f59e0b',
     icon: '🍯',
+  },
+  {
+    id: 4,
+    title: 'Imzaqi Store',
+    category: 'Aplikasi E-Commerce',
+    period: 'Januari 2026 – Februari 2026',
+    screenshot: '/portfolio/imzaqi-store.webp',
+    url: 'https://imzaqi.store',
+    description:
+      'Platform e-commerce akun digital premium (Netflix, Spotify, Canva, ChatGPT, dll.) untuk pelajar Indonesia—bayar QRIS, aktif dalam hitungan menit, ada AI assistant-nya juga.',
+    longDescription:
+      'Imzaqi Store v5.0 adalah toko akun digital yang menyasar segmen pelajar dengan harga terjangkau. Katalog 20+ produk dengan search, live traffic counter, dan highlight produk viral. Alur beli cuma 3 langkah: pilih, bayar QRIS (semua e-wallet), pantau status lewat ID unik. Dibangun pakai React 19, Vite, Supabase, Framer Motion, dan Google Gemini API buat AI assistant-nya. Admin bisa manage produk, promo, flash sale, ekspor CSV—semua dilindungi Supabase Auth. PWA-ready.',
+    tech: ['React 19', 'Supabase', 'Framer Motion', 'Gemini API', 'QRIS', 'PWA'],
+    tags: ['E-Commerce', 'Full Stack', 'Pelajar'],
+    color: '#5e17eb',
+    icon: '🛒',
   },
   {
     id: 5,
@@ -268,24 +278,30 @@ export const portfolio = [
 export const testimonials = [
   {
     id: 1,
-    name: 'Tim Cidika Travel',
-    role: 'Agen Travel — cidikatravel.com',
+    name: 'Pak Dedi',
+    role: 'Owner — CIDIKA Travel',
+    business: 'cidikatravel.com',
+    avatar: '✈️',
     content:
       'Website kami sekarang keliatan profesional banget dan banyak wisatawan yang langsung reach out. Tim IDKA cepet response-nya dan hasilnya beneran sesuai yang kami mau.',
     rating: 5,
   },
   {
     id: 2,
-    name: 'Tim Pentagon Kontraktor',
-    role: 'CV. Pentagon Konstruksindo',
+    name: 'Pak Rizal',
+    role: 'Direktur — CV. Pentagon Konstruksindo',
+    business: 'pentagonkontraktor.netlify.app',
+    avatar: '🏗️',
     content:
       'Company profile kami jauh lebih kredibel sekarang. Calon klien yang datang udah lebih serius karena kesan pertamanya langsung oke. IDKA ngerti banget kebutuhan kami.',
     rating: 5,
   },
   {
     id: 3,
-    name: 'Tim Nutri Bunga',
-    role: 'CV Hexa Anugerah Bersinar — nutribunga.netlify.app',
+    name: 'Ibu Sari',
+    role: 'Pemilik — Nutri Bunga',
+    business: 'nutribunga.netlify.app',
+    avatar: '🍯',
     content:
       'Dua minggu jadi, langsung bisa dipakai promosi. Tampilannya bersih, loading-nya ngebut, dan pelanggan makin gampang nemuin produk kami. Worth it banget!',
     rating: 5,
@@ -306,7 +322,7 @@ export const teamMembers = [
     name: 'UI/UX Designer',
     role: 'Visual & Experience Designer',
     description:
-      'Otak di balik tampilan yang bikin kamu bilang \"wah\". Wireframe, mockup, sampai desain final yang estetik dan enak dipake.',
+      'Otak di balik tampilan yang bikin kamu bilang "wah". Wireframe, mockup, sampai desain final yang estetik dan enak dipake.',
     icon: '🎨',
   },
   {
@@ -406,62 +422,5 @@ export const faq = [
     question: 'Setelah website jadi, ada support-nya nggak?',
     answer:
       'Ada! Kami punya paket maintenance bulanan (Basic, Standard, Premium) buat jaga website kamu tetap ngebut, aman, dan selalu update.',
-  },
-];
-
-export const products = [
-  {
-    id: 'tmpl-landing',
-    name: 'Template Landing Page',
-    description: 'Template landing page siap pakai, modern, mobile-friendly, dan gampang di-custom. Cocok buat jualan, promosi, atau launch produk baru.',
-    features: ['1 halaman', 'Mobile-friendly', 'CTA & form', 'Tombol WA', 'Gampang diedit'],
-    icon: '🚀',
-    color: '#5e17eb',
-    category: 'Landing Page',
-  },
-  {
-    id: 'tmpl-company',
-    name: 'Template Company Profile',
-    description: 'Template company profile yang elegan dan profesional buat kenalin bisnis kamu ke dunia.',
-    features: ['4 halaman', 'Mobile-friendly', 'Galeri foto', 'Form kontak', 'Navigasi lengkap'],
-    icon: '🏢',
-    color: '#9b59f5',
-    category: 'Company Profile',
-  },
-  {
-    id: 'tmpl-portfolio',
-    name: 'Template Portofolio',
-    description: 'Template portofolio yang minimalis dan bersih buat flex karya terbaik kamu ke calon klien atau rekruter.',
-    features: ['5 halaman', 'Grid karya', 'Mobile-friendly', 'Filter kategori', 'About & kontak'],
-    icon: '🎨',
-    color: '#f59e0b',
-    category: 'Portofolio',
-  },
-  {
-    id: 'tmpl-toko',
-    name: 'Template Toko Online',
-    description: 'Template toko online yang rapi dengan katalog produk, harga, dan tombol order WA. Langsung bisa jualan!',
-    features: ['Katalog produk', 'Filter kategori', 'Harga produk', 'Order via WA', 'Mobile-friendly'],
-    icon: '🛒',
-    color: '#10b981',
-    category: 'Toko Online',
-  },
-  {
-    id: 'tmpl-katalog',
-    name: 'Template Katalog Produk',
-    description: 'Template katalog yang clean dan organized. Cocok buat bisnis dengan banyak produk yang perlu ditampilin dengan rapi.',
-    features: ['Multi kategori', 'Search produk', 'Detail produk', 'Mobile-friendly', 'Gampang diupdate'],
-    icon: '📦',
-    color: '#8b5cf6',
-    category: 'Katalog',
-  },
-  {
-    id: 'tmpl-jasa',
-    name: 'Template Website Jasa',
-    description: 'Template buat bisnis jasa dengan section layanan, testimoni, alur kerja, dan form kontak yang strategis.',
-    features: ['6 section', 'Testimoni', 'Alur kerja', 'Form kontak', 'CTA strategis'],
-    icon: '💼',
-    color: '#ef4444',
-    category: 'Jasa',
   },
 ];

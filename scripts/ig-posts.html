@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>IDKA Solutions — IG Posts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1a1a1a;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #1a1f2e;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* Canvas 4:5 Instagram feed — 1080 × 1350 */
+    .post {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #ebe9f2;
+    }
+
+    .post--dark {
+      color: #fff;
+      background:
+        radial-gradient(ellipse 90% 55% at 0% 0%, rgba(94,23,235,0.72) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 15%, rgba(139,92,246,0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 40% at 60% 100%, rgba(59,14,168,0.5) 0%, transparent 50%),
+        linear-gradient(165deg, #160a2e 0%, #0a0414 48%, #12081f 100%);
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.22;
+      background-image: radial-gradient(rgba(255,255,255,0.07) 0.55px, transparent 0.55px);
+      background-size: 3px 3px;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .layer {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 48px 52px 44px;
+    }
+
+    /* Shared chrome */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .logo {
+      height: 56px;
+      width: auto;
+      max-width: 260px;
+      object-fit: contain;
+      object-position: left center;
+      display: block;
+    }
+    .post--dark .logo {
+      filter: brightness(0) invert(1);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #fff;
+      color: #5e17eb;
+      box-shadow: 6px 6px 14px #c5c1d4, -6px -6px 14px #fff;
+    }
+    .post--dark .pill {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: none;
+    }
+    .pill i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+    }
+
+    .eyebrow {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5e17eb;
+      margin-bottom: 14px;
+    }
+    .post--dark .eyebrow { color: #c4b5fd; }
+
+    h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 64px;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .post--dark h1 { color: #fff; }
+
+    .lead {
+      font-size: 26px;
+      line-height: 1.45;
+      color: #3f4a5c;
+      font-weight: 500;
+      max-width: 920px;
+    }
+    .post--dark .lead { color: rgba(255,255,255,0.82); }
+
+    .grow { flex: 1; }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 1px solid rgba(120,110,160,0.18);
+      margin-top: 28px;
+    }
+    .post--dark .footer { border-top-color: rgba(255,255,255,0.15); }
+
+    .footer-handle {
+      font-size: 20px;
+      font-weight: 700;
+      color: #5e17eb;
+    }
+    .post--dark .footer-handle { color: #c4b5fd; }
+
+    .footer-cta {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5a6678;
+    }
+    .post--dark .footer-cta { color: rgba(255,255,255,0.65); }
+
+    /* Cards / surfaces */
+    .card {
+      background: #ebe9f2;
+      border-radius: 28px;
+      box-shadow: 10px 10px 24px #c5c1d4, -10px -10px 24px #fff;
+      padding: 28px 32px;
+    }
+    .card-inset {
+      background: #ebe9f2;
+      border-radius: 22px;
+      box-shadow: inset 5px 5px 12px #c5c1d4, inset -5px -5px 12px #fff;
+      padding: 22px 26px;
+    }
+    .post--dark .card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: none;
+    }
+    .post--dark .card-inset {
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: none;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+
+    .btn-fake {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 36px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #6d28f0 0%, #5e17eb 45%, #8b5cf6 100%);
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 8px 10px 22px rgba(94,23,235,0.4);
+    }
+
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 34px;
+      border-radius: 999px;
+      background: #25d366;
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 12px 28px rgba(37,211,102,0.35);
+    }
+
+    /* Role cards */
+    .role {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .role-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      background: #ebe9f2;
+      box-shadow: inset 3px 3px 8px #c5c1d4, inset -3px -3px 8px #fff;
+    }
+    .role h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .role p {
+      font-size: 18px;
+      color: #5a6678;
+      line-height: 1.4;
+    }
+
+    /* Before after */
+    .ba-box {
+      border-radius: 24px;
+      padding: 28px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .ba-before {
+      background: #e8e8ec;
+      color: #5a6678;
+      box-shadow: inset 5px 5px 12px #c5c1d4, inset -5px -5px 12px #fff;
+    }
+    .ba-after {
+      background: linear-gradient(145deg, #6d28f0, #5e17eb);
+      color: #fff;
+      box-shadow: 10px 12px 28px rgba(94,23,235,0.35);
+    }
+    .ba-label {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+    .ba-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-top: 12px;
+    }
+    .ba-list {
+      list-style: none;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* Signs list */
+    .sign {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 26px;
+      border-radius: 22px;
+      background: #ebe9f2;
+      box-shadow: 6px 6px 16px #c5c1d4, -6px -6px 16px #fff;
+    }
+    .sign-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: #fff;
+      background: linear-gradient(145deg, #6d28f0, #5e17eb);
+    }
+    .sign-text {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    /* Pricing */
+    .pkg {
+      border-radius: 26px;
+      padding: 28px 22px;
+      text-align: center;
+      background: #ebe9f2;
+      box-shadow: 8px 8px 20px #c5c1d4, -8px -8px 20px #fff;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 360px;
+    }
+    .pkg--hot {
+      background: linear-gradient(160deg, #f0edf8 0%, #ebe9f2 55%, #e6e2f0 100%);
+      box-shadow:
+        12px 12px 28px #c5c1d4,
+        -12px -12px 28px #fff,
+        0 0 0 2px rgba(94,23,235,0.25),
+        0 12px 40px rgba(94,23,235,0.12);
+    }
+    .pkg-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5e17eb;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pkg-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .pkg-price {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #5e17eb;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .pkg-tag {
+      font-size: 16px;
+      color: #5a6678;
+      font-weight: 600;
+      min-height: 44px;
+    }
+    .pkg-features {
+      list-style: none;
+      text-align: left;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #3f4a5c;
+      flex: 1;
+    }
+    .pkg-features li::before {
+      content: "✓ ";
+      color: #5e17eb;
+      font-weight: 800;
+    }
+
+    /* Process steps */
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      padding: 24px 28px;
+      border-radius: 24px;
+      background: #ebe9f2;
+      box-shadow: 6px 6px 16px #c5c1d4, -6px -6px 16px #fff;
+    }
+    .step-n {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: #5e17eb;
+      line-height: 1;
+      min-width: 56px;
+    }
+    .step h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .step p {
+      font-size: 20px;
+      color: #5a6678;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    /* Testimonial */
+    .quote-mark {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 96px;
+      line-height: 0.6;
+      color: #5e17eb;
+      opacity: 0.35;
+      margin-bottom: 12px;
+    }
+    .quote-text {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+      color: #1a1f2e;
+    }
+    .stars {
+      color: #f59e0b;
+      font-size: 28px;
+      letter-spacing: 4px;
+      margin: 24px 0 16px;
+    }
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #6d28f0, #5e17eb);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+    }
+    .author-name {
+      font-weight: 800;
+      font-size: 22px;
+    }
+    .author-role {
+      font-size: 18px;
+      color: #5a6678;
+      font-weight: 500;
+    }
+
+    /* Portfolio grid */
+    .porto {
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 8px 8px 20px #c5c1d4, -6px -6px 16px #fff;
+    }
+    .porto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      background: #ddd;
+    }
+    .porto-body {
+      padding: 16px 18px 18px;
+    }
+    .porto-body h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .porto-body span {
+      font-size: 15px;
+      color: #5e17eb;
+      font-weight: 700;
+    }
+
+    /* Flow chips */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .flow-chip {
+      padding: 16px 22px;
+      border-radius: 999px;
+      background: #ebe9f2;
+      box-shadow: 5px 5px 12px #c5c1d4, -5px -5px 12px #fff;
+      font-weight: 800;
+      font-size: 20px;
+    }
+    .flow-arrow {
+      color: #5e17eb;
+      font-weight: 800;
+      font-size: 24px;
+    }
+
+    .center-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      flex: 1;
+      gap: 20px;
+    }
+
+    .big-stat {
+      display: flex;
+      gap: 18px;
+      width: 100%;
+    }
+    .big-stat .card {
+      flex: 1;
+      text-align: center;
+      padding: 28px 16px;
+    }
+    .big-stat .num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      color: #5e17eb;
+      letter-spacing: -0.03em;
+    }
+    .big-stat .lbl {
+      font-size: 18px;
+      font-weight: 600;
+      color: #5a6678;
+      margin-top: 4px;
+    }
+
+    .note {
+      font-size: 18px;
+      color: #5a6678;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 01 Team intro -->
+  <article class="post" id="post-01" data-file="01-tim.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 01</span>
+      </div>
+      <p class="eyebrow">Kenalan dulu</p>
+      <h1>Tim di balik<br>IDKA Solutions</h1>
+      <p class="lead">Tim kecil, fokus satu hal: website kamu kelihatan profesional dan beneran bantu bisnis jalan.</p>
+      <div class="grow" style="margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+        <div class="card role">
+          <div class="role-icon">🎯</div>
+          <h3>Project Manager</h3>
+          <p>Brief, timeline, dan komunikasi — biar proses nggak berantakan.</p>
+        </div>
+        <div class="card role">
+          <div class="role-icon">🎨</div>
+          <h3>UI/UX Designer</h3>
+          <p>Tampilan rapi, enak dibaca, cocok buat brand kamu.</p>
+        </div>
+        <div class="card role">
+          <div class="role-icon">💻</div>
+          <h3>Web Developer</h3>
+          <p>Desain jadi website live — cepat, aman, mobile-friendly.</p>
+        </div>
+        <div class="card role">
+          <div class="role-icon">✍️</div>
+          <h3>Content & Admin</h3>
+          <p>Copy, portofolio, dan respon chat biar kamu nggak nunggu lama.</p>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Konsultasi gratis via WA</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 02 Before After -->
+  <article class="post" id="post-02" data-file="02-before-after.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 02</span>
+      </div>
+      <p class="eyebrow">Hasil nyata</p>
+      <h1>Before vs After<br>pakai website</h1>
+      <p class="lead">Bukan cuma ganti warna. Tapi kesan pertama yang bikin calon klien lebih percaya.</p>
+      <div class="grow" style="margin-top: 32px;">
+        <div class="grid-2">
+          <div class="ba-box ba-before">
+            <div>
+              <div class="ba-label">Sebelum</div>
+              <div class="ba-title">Bisnis ada,<br>online-nya abai</div>
+            </div>
+            <ul class="ba-list">
+              <li>• Susah dicari di Google</li>
+              <li>• Cuma andalin chat WA</li>
+              <li>• Kelihatan kurang serius</li>
+            </ul>
+          </div>
+          <div class="ba-box ba-after">
+            <div>
+              <div class="ba-label">Sesudah IDKA</div>
+              <div class="ba-title">Website rapi,<br>siap dipercaya</div>
+            </div>
+            <ul class="ba-list">
+              <li>• Profil bisnis jelas</li>
+              <li>• Tombol WA langsung</li>
+              <li>• Mobile-friendly & cepat</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Mau transformasi serupa? DM kami</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 03 5 tanda -->
+  <article class="post" id="post-03" data-file="03-lima-tanda.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 03</span>
+      </div>
+      <p class="eyebrow">Cek bisnis kamu</p>
+      <h1>5 tanda bisnis<br>butuh website</h1>
+      <p class="lead">Kalau 3 dari 5 ini terasa familiar — waktunya upgrade.</p>
+      <div class="grow" style="margin-top: 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="sign"><div class="sign-num">1</div><div class="sign-text">Susah ditemukan di Google</div></div>
+        <div class="sign"><div class="sign-num">2</div><div class="sign-text">Hanya mengandalkan WhatsApp</div></div>
+        <div class="sign"><div class="sign-num">3</div><div class="sign-text">Tidak terlihat profesional</div></div>
+        <div class="sign"><div class="sign-num">4</div><div class="sign-text">Susah jelasin produk/jasa</div></div>
+        <div class="sign"><div class="sign-num">5</div><div class="sign-text">Kehilangan calon pelanggan</div></div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Save post ini · Tag teman pebisnis</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 04 Harga -->
+  <article class="post" id="post-04" data-file="04-harga.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 04</span>
+      </div>
+      <p class="eyebrow">Harga jelas</p>
+      <h1>Paket website<br>tanpa kejutan</h1>
+      <p class="lead">Yang kamu lihat = acuan yang dibahas di konsultasi. Scope & revisi tertulis.</p>
+      <div class="grow" style="margin-top: 36px;">
+        <div class="grid-3">
+          <div class="pkg">
+            <div class="pkg-name">Starter</div>
+            <div class="pkg-price">Mulai<br>Rp 300rb</div>
+            <div class="pkg-tag">Baru mulai online</div>
+            <ul class="pkg-features">
+              <li>1 halaman landing</li>
+              <li>Tombol WA</li>
+              <li>Mobile-friendly</li>
+              <li>1–2× revisi</li>
+            </ul>
+          </div>
+          <div class="pkg pkg--hot">
+            <div class="pkg-badge">Paling dipilih</div>
+            <div class="pkg-name">Business</div>
+            <div class="pkg-price">Mulai<br>Rp 900rb</div>
+            <div class="pkg-tag">Bisnis lebih serius</div>
+            <ul class="pkg-features">
+              <li>3–5 halaman</li>
+              <li>Portofolio / galeri</li>
+              <li>Basic SEO</li>
+              <li>2–3× revisi</li>
+            </ul>
+          </div>
+          <div class="pkg">
+            <div class="pkg-name">Premium</div>
+            <div class="pkg-price">Mulai<br>Rp 1,7jt</div>
+            <div class="pkg-tag">Siap scale up</div>
+            <ul class="pkg-features">
+              <li>5–8 halaman custom</li>
+              <li>CMS edit sendiri</li>
+              <li>Blog & analytics</li>
+              <li>Support launch</li>
+            </ul>
+          </div>
+        </div>
+        <p class="note">Harga final dikonfirmasi setelah brief · Domain & hosting terpisah</p>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">DM untuk estimasi gratis</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 05 Behind the scenes / proses -->
+  <article class="post" id="post-05" data-file="05-proses.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 05</span>
+      </div>
+      <p class="eyebrow">Cara kerja</p>
+      <h1>Dari chat sampai<br>website live</h1>
+      <p class="lead">Proses transparan. Kamu selalu tahu tahap berikutnya.</p>
+      <div class="grow" style="margin-top: 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="step">
+          <div class="step-n">01</div>
+          <div>
+            <h3>Brief & proposal</h3>
+            <p>Ceritain kebutuhan → kami kirim scope, harga, timeline.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div>
+          <div>
+            <h3>Desain</h3>
+            <p>Struktur + tampilan dikirim dulu biar kamu approve.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div>
+          <div>
+            <h3>Development</h3>
+            <p>Dibangun jadi website beneran, ditest di HP & desktop.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">04</div>
+          <div>
+            <h3>Review & live</h3>
+            <p>Revisi sesuai kuota → domain nyambung → website live.</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Estimasi 3–21 hari · tergantung paket</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 06 Testimoni -->
+  <article class="post" id="post-06" data-file="06-testimoni.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 06</span>
+      </div>
+      <p class="eyebrow">Kata klien</p>
+      <h1>Bukan kami<br>yang bilang</h1>
+      <div class="grow" style="display: flex; align-items: center;">
+        <div class="card" style="width: 100%; padding: 40px 36px;">
+          <div class="quote-mark">“</div>
+          <p class="quote-text">Website kami sekarang keliatan profesional banget dan banyak wisatawan yang langsung reach out. Tim IDKA cepet response-nya dan hasilnya beneran sesuai yang kami mau.</p>
+          <div class="stars">★★★★★</div>
+          <div class="author">
+            <div class="avatar">D</div>
+            <div>
+              <div class="author-name">Pak Dedi</div>
+              <div class="author-role">Owner — CIDIKA Travel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">cidikatravel.com</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 07 Stats + value -->
+  <article class="post" id="post-07" data-file="07-angka.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 07</span>
+      </div>
+      <p class="eyebrow">Ringkas</p>
+      <h1>Angka yang<br>kami jaga</h1>
+      <p class="lead">Bukan janji kosong — ini yang kelihatan di portofolio & proses kerja kami.</p>
+      <div class="grow" style="margin-top: 40px;">
+        <div class="big-stat">
+          <div class="card"><div class="num">6+</div><div class="lbl">Website live</div></div>
+          <div class="card"><div class="num">4.9/5</div><div class="lbl">Rating klien</div></div>
+          <div class="card"><div class="num">4</div><div class="lbl">Tim fokus</div></div>
+        </div>
+        <div class="card" style="margin-top: 24px;">
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <span style="font-size: 28px;">✅</span>
+              <div>
+                <strong style="font-size: 22px;">No ribet</strong>
+                <p style="font-size: 18px; color: #5a6678; margin-top: 4px;">Kamu siapin materi, kami handle sisanya.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <span style="font-size: 28px;">🤝</span>
+              <div>
+                <strong style="font-size: 22px;">Transparan</strong>
+                <p style="font-size: 18px; color: #5a6678; margin-top: 4px;">Harga, revisi, proses — jelas dari awal.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <span style="font-size: 28px;">⚡</span>
+              <div>
+                <strong style="font-size: 22px;">Fast response</strong>
+                <p style="font-size: 18px; color: #5a6678; margin-top: 4px;">Balas di jam kerja, nggak dibiarin sepi.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Partner digital UMKM & startup</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 08 Portfolio -->
+  <article class="post" id="post-08" data-file="08-portofolio.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 08</span>
+      </div>
+      <p class="eyebrow">Karya nyata</p>
+      <h1>Website yang<br>bisa dicek</h1>
+      <p class="lead">Bukan mockup kosong — proyek klien yang sudah online.</p>
+      <div class="grow" style="margin-top: 24px;">
+        <div class="grid-2" style="gap: 20px;">
+          <div class="porto">
+            <img src="../public/portfolio/pentagon-kontraktor.webp" alt="Pentagon" />
+            <div class="porto-body">
+              <span>Company Profile</span>
+              <h3>Pentagon Kontraktor</h3>
+            </div>
+          </div>
+          <div class="porto">
+            <img src="../public/portfolio/cidika-travel.webp" alt="Cidika" />
+            <div class="porto-body">
+              <span>Travel · Full stack</span>
+              <h3>Cidika Travel</h3>
+            </div>
+          </div>
+          <div class="porto">
+            <img src="../public/portfolio/nutri-bunga.webp" alt="Nutri Bunga" />
+            <div class="porto-body">
+              <span>Landing Page</span>
+              <h3>Nutri Bunga</h3>
+            </div>
+          </div>
+          <div class="porto">
+            <img src="../public/portfolio/imzaqi-store.webp" alt="Imzaqi" />
+            <div class="porto-body">
+              <span>E-Commerce</span>
+              <h3>Imzaqi Store</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Link portofolio di bio</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 09 CTA -->
+  <article class="post post--dark" id="post-09" data-file="09-cta.jpg">
+    <div class="noise"></div>
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 09</span>
+      </div>
+      <div class="center-block">
+        <p class="eyebrow">Mulai dari sini</p>
+        <h1 style="font-size: 68px;">Konsultasi website<br>GRATIS</h1>
+        <p class="lead" style="max-width: 780px;">
+          Ceritain bisnis kamu — kami bantu pilih tipe website & estimasi yang masuk akal.
+          No pressure, no bayar dulu.
+        </p>
+        <div style="margin-top: 16px;" class="wa-btn">
+          Chat WhatsApp
+        </div>
+        <p style="font-size: 20px; color: rgba(255,255,255,0.7); font-weight: 600;">
+          Respon 1–3 jam kerja · Senin–Sabtu
+        </p>
+        <div class="flow" style="margin-top: 28px; justify-content: center;">
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">Chat</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">Brief</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">Proposal</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">Live</span>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">idkasolutions@gmail.com</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 10 Brand closer -->
+  <article class="post post--dark" id="post-10" data-file="10-brand.jpg">
+    <div class="noise"></div>
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 10</span>
+      </div>
+      <div class="center-block">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA" style="height: 72px; margin-bottom: 12px;" />
+        <h1 style="font-size: 60px; text-align: center;">
+          Website keren,<br>bisnis makin<br>dipercaya
+        </h1>
+        <p class="lead" style="max-width: 720px;">
+          Partner digital untuk UMKM, freelancer, kreator, dan startup di Indonesia.
+        </p>
+        <div class="btn-fake" style="margin-top: 12px;">Mulai proyek bareng IDKA</div>
+        <p style="font-size: 22px; font-weight: 700; color: #c4b5fd; margin-top: 8px;">
+          @idkasolutions
+        </p>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">IDKA Solutions</span>
+        <span class="footer-cta">Jasa website profesional</span>
+      </div>
+    </div>
+  </article>
+
+</body>
+</html>

@@ -1,41 +1,73 @@
 :root {
-  /* Neumorphism Light Mode Colors */
-  --bg: #f0f0f0;
-  --bg-alt: #f7f7f7;
+  /* Soft-UI / neumorphic canvas (same base for dual shadows) */
+  --bg: #ebe9f2;
+  --bg-alt: #e4e1ee;
+  --bg-elevated: #ebe9f2;
+  --bg-highlight: #f4f2fa;
+  --border-subtle: rgba(255, 255, 255, 0.55);
+  --border-strong: rgba(120, 110, 160, 0.18);
+
+  /* Dual-tone shadow partners (must match --bg) */
   --shadow-light: #ffffff;
-  --shadow-dark: #c8c8c8;
-  --shadow-darker: #b0b0b0;
+  --shadow-dark: #c5c1d4;
+  --shadow-darker: #b0abc2;
 
-  /* Brand Colors */
+  /* Brand */
   --primary: #5e17eb;
-  --primary-light: #9b59f5;
+  --primary-light: #8b5cf6;
   --primary-dark: #4a10c4;
-  --secondary: #8b5cf6;
+  --primary-soft: rgba(94, 23, 235, 0.14);
+  --primary-softer: rgba(94, 23, 235, 0.08);
+  --secondary: #7c3aed;
   --accent: #f59e0b;
-  --success: #10b981;
-  --danger: #ef4444;
+  --success: #059669;
+  --danger: #dc2626;
+  --wa: #25d366;
 
-  /* Text Colors */
-  --text-primary: #1e2a3a;
-  --text-secondary: #4a5568;
-  --text-muted: #8896aa;
-  --text-light: #b0bec5;
+  /* Text */
+  --text-primary: #1a1f2e;
+  --text-secondary: #3f4a5c;
+  --text-muted: #5a6678;
+  --text-light: #8b95a8;
   --text-white: #ffffff;
 
-  /* Neumorphism Shadows */
-  --shadow-flat: 0px 0px 0px rgba(200,200,200,0) , 0px 0px 0px rgba(255,255,255,0);
-  --shadow-neu: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
-  --shadow-neu-sm: 3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
-  --shadow-neu-lg: 10px 10px 24px var(--shadow-dark), -10px -10px 24px var(--shadow-light);
-  --shadow-neu-xl: 15px 15px 30px var(--shadow-darker), -15px -15px 30px var(--shadow-light);
-  --shadow-neu-inset: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light);
-  --shadow-neu-inset-sm: inset 2px 2px 6px var(--shadow-dark), inset -2px -2px 6px var(--shadow-light);
+  /* True neumorphism (primary surface language) */
+  --shadow-neu: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
+  --shadow-neu-sm: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+  --shadow-neu-lg: 12px 12px 28px var(--shadow-dark), -12px -12px 28px var(--shadow-light);
+  --shadow-neu-xl: 16px 16px 36px var(--shadow-darker), -16px -16px 36px var(--shadow-light);
+  --shadow-neu-inset: inset 5px 5px 12px var(--shadow-dark), inset -5px -5px 12px var(--shadow-light);
+  --shadow-neu-inset-sm: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
   --shadow-neu-pressed: inset 6px 6px 14px var(--shadow-dark), inset -6px -6px 14px var(--shadow-light);
+  --shadow-flat: 0 0 0 transparent;
+
+  /* Soft ambient (secondary, for floaters / hero) */
+  --shadow-xs: 3px 3px 8px rgba(160, 150, 190, 0.25), -2px -2px 6px rgba(255, 255, 255, 0.7);
+  --shadow-sm: var(--shadow-neu-sm);
+  --shadow-md: var(--shadow-neu);
+  --shadow-lg: var(--shadow-neu-lg);
+  --shadow-xl: var(--shadow-neu-xl);
+  --shadow-primary: 8px 10px 22px rgba(94, 23, 235, 0.38), -3px -3px 10px rgba(255, 255, 255, 0.55);
+  --shadow-primary-hover: 10px 14px 28px rgba(94, 23, 235, 0.45), -3px -3px 12px rgba(255, 255, 255, 0.65);
+
+  /* Section surfaces — soft white canvas vs brand purple tint */
+  --bg-section: #ebe9f2;
+  --bg-section-tint: #e0d8f5;
+  --gradient-section-tint:
+    radial-gradient(ellipse 90% 70% at 12% 0%, rgba(94, 23, 235, 0.16), transparent 55%),
+    radial-gradient(ellipse 70% 60% at 92% 100%, rgba(139, 92, 246, 0.14), transparent 50%),
+    linear-gradient(180deg, #e8e2f8 0%, #ddd4f2 48%, #e4dcf6 100%);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #5e17eb 0%, #9b59f5 100%);
-  --gradient-soft: linear-gradient(135deg, #f0f0f0 0%, #f7f7f7 100%);
-  --gradient-card: linear-gradient(145deg, #f5f5f5 0%, #e8e8e8 100%);
+  --gradient-primary: linear-gradient(145deg, #6d28f0 0%, #5e17eb 45%, #8b5cf6 100%);
+  --gradient-soft: linear-gradient(180deg, var(--bg-highlight) 0%, var(--bg) 55%, var(--bg-alt) 100%);
+  --gradient-band: linear-gradient(180deg, var(--bg) 0%, #ddd8ec 48%, var(--bg) 100%);
+  --gradient-hero:
+    radial-gradient(ellipse 90% 70% at 85% 10%, rgba(94, 23, 235, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 5% 90%, rgba(139, 92, 246, 0.1), transparent 50%),
+    linear-gradient(165deg, #f0eef8 0%, var(--bg) 40%, #e5e1f0 100%);
+  --gradient-cta: linear-gradient(145deg, #e8e0ff 0%, var(--bg) 42%, #f2f0f8 100%);
+  --gradient-card: linear-gradient(145deg, #f2f0f8 0%, #e4e0ee 100%);
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -47,12 +79,12 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  /* Radius — slightly plumper for soft-UI */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --radius-2xl: 34px;
   --radius-full: 9999px;
 
   /* Typography */
@@ -76,12 +108,23 @@
   --weight-bold: 700;
   --weight-extrabold: 800;
 
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.25s ease;
-  --transition-slow: 0.4s ease;
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 0.15s var(--ease-out);
+  --transition-base: 0.28s var(--ease-out);
+  --transition-slow: 0.45s var(--ease-out);
 
   /* Layout */
-  --container-max: 1200px;
-  --navbar-height: 72px;
+  --container-max: 1140px;
+  --navbar-height: 76px;
+
+  /* Floating chrome stack */
+  --fab-size: 58px;
+  --fab-offset: 26px;
+  --scroll-offset: 100px;
+  --toast-offset: 168px;
+
+  /* Focus */
+  --focus-ring: 0 0 0 4px var(--primary-soft);
+  --focus-outline: 2px solid var(--primary);
 }

@@ -2,8 +2,8 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/logo idka solutions (1).png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/logo-idka-solutions-favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
 
     <!-- Primary SEO -->
     <title>IDKA Solutions | Jasa Website Profesional untuk Bisnis Kamu</title>
@@ -17,7 +17,10 @@
     <meta property="og:url" content="https://idkasolutions.netlify.app/" />
     <meta property="og:title" content="IDKA Solutions | Jasa Website Profesional untuk Bisnis Kamu" />
     <meta property="og:description" content="Mitra digital untuk UMKM, personal brand, dan startup. Website modern, fungsional, dan terpercaya untuk bisnis kamu." />
-    <meta property="og:image" content="/logo idka solutions (3).png" />
+    <meta property="og:image" content="https://idkasolutions.netlify.app/logo-idka-solutions-og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="IDKA Solutions — Jasa Website Profesional" />
     <meta property="og:locale" content="id_ID" />
     <meta property="og:site_name" content="IDKA Solutions" />
 
@@ -25,20 +28,73 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="IDKA Solutions | Jasa Website Profesional" />
     <meta name="twitter:description" content="Mitra digital untuk UMKM, personal brand, dan startup. Website modern, fungsional, dan terpercaya." />
-    <meta name="twitter:image" content="/logo idka solutions (3).png" />
+    <meta name="twitter:image" content="https://idkasolutions.netlify.app/logo-idka-solutions-og.png" />
+    <meta name="twitter:image:alt" content="IDKA Solutions — Jasa Website Profesional" />
 
     <!-- Theme color (browser UI) -->
     <meta name="theme-color" content="#5e17eb" />
 
-    <!-- Canonical -->
+    <!-- Canonical — update ke domain custom jika sudah pindah dari netlify.app -->
     <link rel="canonical" href="https://idkasolutions.netlify.app/" />
 
-    <!-- Preconnect fonts -->
+    <!-- Preconnect fonts — harus sebelum preload agar DNS resolved lebih dulu -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts — preload untuk performa lebih baik -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" /></noscript>
   </head>
   <body>
+    <!-- Schema.org ProfessionalService structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "IDKA Solutions",
+      "description": "Jasa pembuatan website profesional untuk UMKM, freelancer, kreator, dan startup di Indonesia.",
+      "url": "https://idkasolutions.netlify.app/",
+      "logo": "https://idkasolutions.netlify.app/logo-idka-solutions.png",
+      "image": "https://idkasolutions.netlify.app/logo-idka-solutions-og.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+6282245964007",
+        "contactType": "customer service",
+        "availableLanguage": "Indonesian"
+      },
+      "sameAs": [
+        "https://www.instagram.com/idkasolutions/"
+      ],
+      "priceRange": "Rp 300.000 - Rp 5.000.000",
+      "currenciesAccepted": "IDR",
+      "paymentAccepted": "Bank Transfer, QRIS, E-Wallet",
+      "areaServed": "ID",
+      "serviceType": ["Web Design", "Web Development", "Landing Page", "Company Profile Website"]
+    }
+    </script>
     <div id="root"></div>
+    <!--
+      Static Netlify Forms registration (SPA).
+      Netlify only detects forms present in built HTML; the React form posts the same field names.
+    -->
+    <form name="brief-klien" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="brief-klien" />
+      <input name="bot-field" />
+      <input name="nama" />
+      <input name="email" />
+      <input name="whatsapp" />
+      <input name="bisnis" />
+      <input name="jenis_usaha" />
+      <input name="tujuan_website" />
+      <input name="jenis_website" />
+      <input name="halaman" />
+      <input name="fitur" />
+      <input name="punya_domain" />
+      <input name="deadline" />
+      <input name="budget" />
+      <textarea name="pesan"></textarea>
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

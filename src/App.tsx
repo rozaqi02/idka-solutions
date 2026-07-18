@@ -12,24 +12,29 @@ import { useToast } from './hooks/useToast'
 const Home        = lazy(() => import('./pages/Home'))
 const Layanan     = lazy(() => import('./pages/Layanan'))
 const Portofolio  = lazy(() => import('./pages/Portofolio'))
-const Produk      = lazy(() => import('./pages/Produk'))
 const TentangKami = lazy(() => import('./pages/TentangKami'))
 const Kontak      = lazy(() => import('./pages/Kontak'))
 const NotFound    = lazy(() => import('./pages/NotFound'))
 
 function PageLoader() {
   return (
-    <div style={{
-      minHeight: '60vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <div className="page-loader" aria-label="Memuat halaman...">
+    <div
+      style={{
+        minHeight: '60vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      role="status"
+      aria-live="polite"
+      aria-label="Memuat halaman..."
+    >
+      <div className="page-loader">
         <div className="page-loader__dot" />
         <div className="page-loader__dot" />
         <div className="page-loader__dot" />
       </div>
+      <span className="sr-only">Memuat halaman...</span>
     </div>
   )
 }
@@ -37,7 +42,7 @@ function PageLoader() {
 function ScrollRestorer() {
   const location = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+    window.scrollTo({ top: 0, behavior: 'auto' })
   }, [location.pathname])
   return null
 }
@@ -53,7 +58,6 @@ function AnimatedRoutes({ addToast }: { addToast: (msg: string, type?: 'success'
             <Route path="/"          element={<Home />} />
             <Route path="/layanan"   element={<Layanan />} />
             <Route path="/portofolio" element={<Portofolio />} />
-            <Route path="/produk"    element={<Produk />} />
             <Route path="/tentang"   element={<TentangKami />} />
             <Route path="/kontak"    element={<Kontak addToast={addToast} />} />
             <Route path="*"          element={<NotFound />} />
@@ -69,9 +73,12 @@ function App() {
 
   return (
     <BrowserRouter>
+      <a href="#main-content" className="skip-link">
+        Langsung ke konten
+      </a>
       <ScrollRestorer />
       <Navbar />
-      <main>
+      <main id="main-content">
         <AnimatedRoutes addToast={addToast} />
       </main>
       <Footer />

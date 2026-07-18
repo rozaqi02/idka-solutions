@@ -1,13 +1,17 @@
 {
   "name": "idka-web",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "typecheck": "tsc -b --pretty false",
+    "preview": "vite preview",
+    "images:screenshot": "node scripts/screenshot.cjs",
+    "images:compress": "node scripts/compress-images.cjs",
+    "images:ig-posts": "node scripts/render-ig-posts.cjs"
   },
   "dependencies": {
     "react": "^19.2.7",

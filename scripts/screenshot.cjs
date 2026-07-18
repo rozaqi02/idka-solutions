@@ -8,6 +8,7 @@ const sites = [
   { name: 'cidika-travel', url: 'https://cidikatravel.com' },
   { name: 'nutri-bunga', url: 'https://nutribunga.netlify.app' },
   { name: 'jamu-sugih-waras', url: 'https://jamu-sugih-waras.netlify.app' },
+  { name: 'jakora', url: 'https://jakora.netlify.app' },
 ];
 
 const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'portfolio');
@@ -22,11 +23,24 @@ async function screenshot(browser, site) {
     console.log(`  -> Membuka ${site.url}...`);
     await page.goto(site.url, { waitUntil: 'networkidle2', timeout: 30000 });
 
-    // Tunggu sedikit agar animasi/font selesai
-    await new Promise(r => setTimeout(r, 2000));
-
-    // Scroll ke atas
+    // Scroll ke atas + tunggu hero background / lazy images
     await page.evaluate(() => window.scrollTo(0, 0));
+    await new Promise((r) => setTimeout(r, 6000));
+    await page.evaluate(async () => {
+      const imgs = Array.from(document.images);
+      await Promise.all(
+        imgs.map((img) => {
+          if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.addEventListener('load', resolve, { once: true });
+            img.addEventListener('error', resolve, { once: true });
+            setTimeout(resolve, 4000);
+          });
+        })
+      );
+    });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await new Promise((r) => setTimeout(r, 500));
 
     const outPath = path.join(OUTPUT_DIR, `${site.name}.png`);
     await page.screenshot({ path: outPath, type: 'png', clip: { x: 0, y: 0, width: 1280, height: 800 } });

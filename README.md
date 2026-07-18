@@ -1,32 +1,73 @@
-# React + TypeScript + Vite
+# IDKA Solutions — Company Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Website company profile **IDKA Solutions**: jasa pembuatan website profesional untuk UMKM, freelancer, kreator, dan startup di Indonesia.
 
-Currently, two official plugins are available:
+**Live:** https://idkasolutions.netlify.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + TypeScript
+- Vite 8
+- React Router 6
+- Oxlint
+- Deploy: Netlify (SPA)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Scripts
 
-## Expanding the Oxlint configuration
+| Command | Deskripsi |
+|---------|-----------|
+| `npm run dev` | Dev server lokal |
+| `npm run build` | Typecheck + production build ke `dist/` |
+| `npm run preview` | Preview build production |
+| `npm run lint` | Jalankan Oxlint |
+| `npm run typecheck` | TypeScript project references check |
+| `npm run images:screenshot` | Screenshot portofolio (butuh Puppeteer) |
+| `npm run images:compress` | Konversi PNG → WebP (`--delete-png` opsional) |
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Struktur
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+src/
+  components/   # Navbar, Footer, WA button, form helpers
+  data/         # content.ts — copy, paket, portofolio, FAQ
+  hooks/        # usePageTitle, useScrollReveal, useToast
+  pages/        # Home, Layanan, Portofolio, Tentang, Kontak, 404
+  styles/       # variables + global CSS
+public/         # logo, robots.txt, sitemap, portfolio images
+scripts/        # screenshot & image compress utilities
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Edit konten
+
+Semua copywriting, paket harga, portofolio, dan kontak ada di:
+
+```
+src/data/content.ts
+```
+
+Update nomor WhatsApp, email, Instagram di objek `company`.
+
+## SEO & domain
+
+Canonical, Open Graph, Twitter, `robots.txt`, dan `sitemap.xml` saat ini mengarah ke:
+
+`https://idkasolutions.netlify.app`
+
+Saat pindah ke domain custom, update:
+
+1. `index.html` (canonical, og:url, og:image, JSON-LD)
+2. `src/hooks/usePageTitle.ts` → konstanta `SITE_URL`
+3. `public/robots.txt`
+4. `public/sitemap.xml`
+5. Redirect 301 netlify.app → domain custom di Netlify
+
+## Netlify Forms
+
+Form brief klien (`name="brief-klien"`) terdaftar lewat form tersembunyi di `index.html` (agar terdeteksi di SPA). Submit utama tetap via WhatsApp; Netlify Forms sebagai backup.
+
+## Deploy
+
+Build command: `npm run build`  
+Publish directory: `dist`  
+
+Dikonfigurasi di `netlify.toml` (headers keamanan, cache assets, SPA fallback).

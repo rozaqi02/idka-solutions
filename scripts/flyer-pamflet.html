@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>IDKA Solutions — Pamflet 3:4</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1440px;
+      overflow: hidden;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0c0618;
+    }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(ellipse 90% 55% at 0% 0%, rgba(94,23,235,0.75) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 20%, rgba(139,92,246,0.45) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 45% at 70% 100%, rgba(59,14,168,0.55) 0%, transparent 50%),
+        linear-gradient(165deg, #160a2e 0%, #0a0414 48%, #12081f 100%);
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.28;
+      background-image: radial-gradient(rgba(255,255,255,0.07) 0.55px, transparent 0.55px);
+      background-size: 3px 3px;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(48px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .orb-a { width: 340px; height: 340px; top: -40px; left: -60px; background: #5e17eb; opacity: 0.5; }
+    .orb-b { width: 260px; height: 260px; top: 42%; right: -80px; background: #8b5cf6; opacity: 0.35; }
+
+    .layer {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 30px 34px 28px;
+      gap: 14px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-row img {
+      height: 44px;
+      filter: brightness(0) invert(1);
+    }
+    .logo-row b {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .pill-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .pill-live i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 4px rgba(74,222,128,0.22);
+      font-style: normal;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 16px;
+      align-items: end;
+    }
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(105deg, #fff 8%, #c4b5fd 42%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.72);
+      font-weight: 500;
+      max-width: 94%;
+    }
+
+    .price-stack { display: flex; flex-direction: column; gap: 7px; }
+    .price-card {
+      border-radius: 14px;
+      padding: 10px 13px;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .price-card--hot {
+      background: linear-gradient(120deg, #5e17eb, #8b5cf6);
+      border-color: transparent;
+      box-shadow: 0 12px 28px rgba(94,23,235,0.45);
+    }
+    .price-card b {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .price-card span {
+      font-size: 10px;
+      color: rgba(255,255,255,0.7);
+      display: block;
+      margin-top: 1px;
+      font-weight: 500;
+    }
+    .price-card em {
+      font-style: normal;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #ede9fe;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 2px;
+    }
+    .section-label h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .section-label .count {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      background: linear-gradient(180deg, #fff, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: right;
+    }
+    .section-label .count small {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      -webkit-text-fill-color: rgba(196,181,253,0.9);
+      margin-top: 2px;
+    }
+
+    /* ===== STYLISH browser mock cards ===== */
+    .collage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 16px 14px;
+      flex: 1 1 auto;
+      min-height: 0;
+      perspective: 1200px;
+    }
+
+    .shot {
+      position: relative;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      transform-style: preserve-3d;
+    }
+    .shot:nth-child(odd)  { transform: rotateY(2deg) rotateX(1deg); }
+    .shot:nth-child(even) { transform: rotateY(-2deg) rotateX(1deg); }
+    .shot:nth-child(3),
+    .shot:nth-child(4)    { transform: rotateY(0deg) rotateX(0.5deg) scale(1.01); }
+
+    .browser {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #2a2038 0%, #14101f 100%);
+      box-shadow:
+        0 22px 40px rgba(0,0,0,0.45),
+        0 2px 0 rgba(255,255,255,0.06) inset,
+        0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .browser-bar {
+      flex-shrink: 0;
+      height: 28px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(180deg, #3a3048 0%, #2a2238 100%);
+      border-bottom: 1px solid rgba(0,0,0,0.35);
+    }
+    .dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: block;
+      font-style: normal;
+    }
+    .dots i:nth-child(1) { background: #ff5f57; }
+    .dots i:nth-child(2) { background: #febc2e; }
+    .dots i:nth-child(3) { background: #28c840; }
+
+    .url-chip {
+      flex: 1;
+      min-width: 0;
+      height: 16px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.55);
+      font-size: 9px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      letter-spacing: 0.01em;
+    }
+
+    .browser-view {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
+      background: #0d0818;
+      overflow: hidden;
+    }
+    .browser-view img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    /* soft vignette for polish, not covering content */
+    .browser-view::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, transparent 62%, rgba(8,4,18,0.55) 100%),
+        radial-gradient(ellipse 90% 80% at 50% 40%, transparent 50%, rgba(0,0,0,0.18) 100%);
+    }
+
+    /* Floating glass caption — stylish, not a flat footer block */
+    .caption {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      z-index: 3;
+      padding: 9px 11px;
+      border-radius: 12px;
+      background: rgba(12, 6, 24, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    }
+    .caption-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1.15;
+    }
+    .caption-url {
+      margin-top: 2px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #c4b5fd;
+      line-height: 1.25;
+      word-break: break-all;
+    }
+    .caption-tag {
+      display: inline-flex;
+      margin-top: 5px;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ede9fe;
+      background: rgba(94, 23, 235, 0.45);
+      border: 1px solid rgba(196, 181, 253, 0.25);
+      padding: 3px 7px;
+      border-radius: 999px;
+    }
+
+    .cta {
+      flex-shrink: 0;
+      border-radius: 18px;
+      padding: 13px 16px;
+      background: #fff;
+      color: #12081f;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 16px 40px rgba(94, 23, 235, 0.35);
+    }
+    .cta h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .cta h3 span { color: #5e17eb; }
+    .cta p {
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #5b6478;
+    }
+    .cta-contacts { text-align: right; }
+    .cta-contacts .row {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1a1035;
+      line-height: 1.4;
+    }
+    .cta-contacts .row b { color: #5e17eb; }
+    .cta-contacts .site {
+      margin-top: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="noise"></div>
+
+    <div class="layer">
+      <div class="top">
+        <div class="logo-row">
+          <img src="../public/logo-idka-solutions.png" alt="IDKA" />
+          <b>IDKA Solutions</b>
+        </div>
+        <div class="pill-live"><i></i> Portfolio Live</div>
+      </div>
+
+      <div class="hero">
+        <div>
+          <h1>Website Keren,<br /><span class="grad">Bisnis Makin<br />Dipercaya</span></h1>
+          <p class="hero-sub">Jasa website buat UMKM, brand, &amp; startup. Bukan cuma cantik.</p>
+        </div>
+        <div class="price-stack">
+          <div class="price-card">
+            <div>
+              <b>Starter</b>
+              <span>Landing page</span>
+            </div>
+            <em>Rp 300rb</em>
+          </div>
+          <div class="price-card price-card--hot">
+            <div>
+              <b>Business ★</b>
+              <span>3–5 halaman</span>
+            </div>
+            <em>Rp 900rb</em>
+          </div>
+          <div class="price-card">
+            <div>
+              <b>Premium</b>
+              <span>Full custom</span>
+            </div>
+            <em>Rp 1,7jt</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="chips">
+        <span class="chip">Landing Page</span>
+        <span class="chip">Company Profile</span>
+        <span class="chip">Toko Online</span>
+        <span class="chip">Portofolio</span>
+        <span class="chip">Maintenance</span>
+      </div>
+
+      <div class="section-label">
+        <h2>Karya yang udah live</h2>
+        <div class="count">6<small>website</small></div>
+      </div>
+
+      <div class="collage">
+        <article class="shot">
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="url-chip">pentagonkontraktor.netlify.app</div>
+            </div>
+            <div class="browser-view">
+              <img src="../public/portfolio/pentagon-kontraktor.webp" alt="Pentagon" />
+              <div class="caption">
+                <div class="caption-name">Pentagon Kontraktor</div>
+                <div class="caption-url">pentagonkontraktor.netlify.app</div>
+                <span class="caption-tag">Company Profile</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="shot">
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="url-chip">cidikatravel.com</div>
+            </div>
+            <div class="browser-view">
+              <img src="../public/portfolio/cidika-travel.webp" alt="Cidika" />
+              <div class="caption">
+                <div class="caption-name">Cidika Travel</div>
+                <div class="caption-url">cidikatravel.com</div>
+                <span class="caption-tag">Travel</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="shot">
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="url-chip">nutribunga.netlify.app</div>
+            </div>
+            <div class="browser-view">
+              <img src="../public/portfolio/nutri-bunga.webp" alt="Nutri Bunga" />
+              <div class="caption">
+                <div class="caption-name">Nutri Bunga</div>
+                <div class="caption-url">nutribunga.netlify.app</div>
+                <span class="caption-tag">Landing Page</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="shot">
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="url-chip">imzaqi.store</div>
+            </div>
+            <div class="browser-view">
+              <img src="../public/portfolio/imzaqi-store.webp" alt="Imzaqi" />
+              <div class="caption">
+                <div class="caption-name">Imzaqi Store</div>
+                <div class="caption-url">imzaqi.store</div>
+                <span class="caption-tag">E-Commerce</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="shot">
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="url-chip">jamu-sugih-waras.netlify.app</div>
+            </div>
+            <div class="browser-view">
+              <img src="../public/portfolio/jamu-sugih-waras.webp" alt="Jamu" />
+              <div class="caption">
+                <div class="caption-name">Jamu Sugih Waras</div>
+                <div class="caption-url">jamu-sugih-waras.netlify.app</div>
+                <span class="caption-tag">UMKM</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="shot">
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="url-chip">jakora.netlify.app</div>
+            </div>
+            <div class="browser-view">
+              <img src="../public/portfolio/jakora.webp" alt="Jakora" />
+              <div class="caption">
+                <div class="caption-name">Jakora</div>
+                <div class="caption-url">jakora.netlify.app</div>
+                <span class="caption-tag">Landing Page</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="cta">
+        <div>
+          <h3>Mau website kayak gini?<br /><span>Chat dulu.</span></h3>
+          <p>No commitment · balas di jam kerja</p>
+        </div>
+        <div class="cta-contacts">
+          <div class="row">WA <b>0822-4596-4007</b></div>
+          <div class="row">IG <b>@idkasolutions</b></div>
+          <div class="site">idkasolutions.netlify.app</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
