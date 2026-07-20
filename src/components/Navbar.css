@@ -1,4 +1,4 @@
-/* ===== NAVBAR — soft-UI, clearer hierarchy ===== */
+/* ===== NAVBAR — desktop floating island ===== */
 .navbar {
   position: fixed;
   top: 0;
@@ -7,68 +7,116 @@
   z-index: 1000;
   height: var(--navbar-height);
   display: flex;
-  align-items: center;
-  /* Always slight surface — logo/nav tidak “float” di bg ungu muda */
-  background: color-mix(in srgb, var(--bg) 72%, transparent);
-  backdrop-filter: blur(12px) saturate(1.12);
-  -webkit-backdrop-filter: blur(12px) saturate(1.12);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
-  transition:
-    background 0.3s var(--ease-out),
-    box-shadow 0.3s var(--ease-out),
-    border-color 0.3s var(--ease-out);
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--navbar-island-offset) clamp(1rem, 3vw, 1.75rem) 0;
+  /* Fully transparent shell — NO bar, NO border, NO blur here */
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  pointer-events: none; /* empty header area doesn't block clicks */
+  overflow: visible;
+  transition: none;
 }
 
 .navbar--scrolled,
 .navbar--menu-open {
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
-  backdrop-filter: blur(16px) saturate(1.18);
-  -webkit-backdrop-filter: blur(16px) saturate(1.18);
-  border-bottom-color: rgba(160, 150, 190, 0.16);
-  box-shadow:
-    0 8px 22px rgba(120, 100, 170, 0.12),
-    0 1px 0 rgba(255, 255, 255, 0.7);
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
+/* The floating island itself */
 .navbar__container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--space-xl);
+  pointer-events: auto;
+  /* Slightly narrower than page so sides feel “air” — true floating island */
+  max-width: min(1020px, calc(100vw - 2.5rem));
   width: 100%;
+  margin: 0 auto;
+  min-height: var(--navbar-island-h);
+  height: var(--navbar-island-h);
+  /* Extra left inset so logo isn't flush against the pill curve */
+  padding: 0 0.45rem 0 1.35rem;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: var(--space-lg);
+  gap: var(--space-md);
+  border-radius: 999px;
+  /*
+   * Solid-enough fill (not heavy glass).
+   * Avoid large backdrop-filter rectangles that paint SQUARE outside rounded corners
+   * in Chromium — a classic floating-nav bug.
+   */
+  background: #f4f1fa;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  /* Clip any child paint to the pill shape */
+  overflow: hidden;
+  isolation: isolate;
+  /* Soft drop only — no dual inset that reads as a second box */
+  box-shadow:
+    0 12px 32px rgba(80, 60, 140, 0.14),
+    0 2px 6px rgba(80, 60, 140, 0.06);
+  transition:
+    box-shadow 0.3s var(--ease-out),
+    background 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+.navbar--scrolled .navbar__container {
+  background: #f7f5fc;
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow:
+    0 16px 40px rgba(70, 50, 130, 0.16),
+    0 4px 10px rgba(70, 50, 130, 0.08);
 }
 
 .navbar__logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  height: var(--navbar-height);
-  border-radius: var(--radius-sm);
+  height: 100%;
+  /* Space after logo toward nav links; left air comes from container padding */
+  padding: 0 0.65rem 0 0.15rem;
+  border-radius: var(--radius-full);
   transition: transform var(--transition-fast);
 }
 
 .navbar__logo:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .navbar__logo:focus-visible {
   outline: var(--focus-outline);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
+/*
+ * Logo asset is a TIGHT crop of the wordmark (transparent bg).
+ * Height tuned so “idka” + “SOLUTIONS” stay readable in the island.
+ */
 .navbar__logo-img {
-  height: 38px;
+  height: 40px;
   width: auto;
+  max-width: min(148px, 28vw);
   object-fit: contain;
+  object-position: left center;
   display: block;
-  filter: drop-shadow(1px 2px 3px rgba(94, 23, 235, 0.12));
+  /* No drop-shadow — looked muddy/soft on light island */
+  filter: none;
 }
 
-/* Floating neu pill track */
+/* Links live inside the island — no nested pill */
 .navbar__nav {
   display: flex;
   justify-content: center;
@@ -79,11 +127,11 @@
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  padding: 4px;
-  border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--bg) 96%, #fff);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
   border: none;
-  box-shadow: var(--shadow-neu-sm);
+  box-shadow: none;
 }
 
 .navbar__link {
@@ -91,19 +139,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.95rem;
+  padding: 0.45rem 0.95rem;
   min-height: 36px;
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
   font-weight: var(--weight-medium);
   letter-spacing: 0.01em;
-  /* Kontras lebih jelas di frosted header */
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-decoration: none;
+  background: transparent;
+  box-shadow: none;
   transition:
     color var(--transition-fast),
+    background var(--transition-fast),
     box-shadow var(--transition-fast),
-    background var(--transition-fast);
+    transform var(--transition-fast);
   white-space: nowrap;
 }
 
@@ -114,25 +164,29 @@
 
 .navbar__link:hover {
   color: var(--primary);
-  background: rgba(94, 23, 235, 0.06);
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: var(--shadow-neu-sm);
 }
 
+/* Active = soft neu “pressed” pill — matches island / cards language */
 .navbar__link--active {
-  color: var(--primary-dark);
+  color: var(--primary);
   font-weight: var(--weight-semibold);
-  /* Soft purple fill — “kamu di mana” langsung terbaca */
-  background: rgba(94, 23, 235, 0.12);
+  background: #efeaf8;
   box-shadow:
-    inset 0 0 0 1px rgba(94, 23, 235, 0.14),
-    var(--shadow-neu-inset-sm);
+    inset 3px 3px 7px rgba(160, 150, 190, 0.45),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.85),
+    0 0 0 1px rgba(94, 23, 235, 0.06);
 }
 
 .navbar__link--active:hover {
   color: var(--primary-dark);
-  background: rgba(94, 23, 235, 0.16);
+  background: #ebe5f6;
   box-shadow:
-    inset 0 0 0 1px rgba(94, 23, 235, 0.18),
-    var(--shadow-neu-inset-sm);
+    inset 3px 3px 8px rgba(150, 140, 180, 0.5),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(94, 23, 235, 0.08);
+  transform: none;
 }
 
 .navbar__link:focus-visible {
@@ -141,22 +195,26 @@
   z-index: 1;
 }
 
-/* Actions — satu CTA saja */
+/* Actions — satu CTA di ujung island */
 .navbar__actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.65rem;
+  gap: 0.5rem;
   flex-shrink: 0;
+  height: 100%;
+  padding: 0.3rem 0.3rem 0.3rem 0;
 }
 
 .navbar__cta {
-  font-size: 0.8125rem;
+  font-size: 0.8rem;
   font-weight: var(--weight-semibold);
-  padding: 0.55rem 1.15rem;
-  min-height: 42px;
-  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  min-height: 40px;
+  height: 40px;
+  gap: 0.35rem;
   box-shadow: var(--shadow-primary);
+  border-radius: var(--radius-full);
 }
 
 .navbar__cta:hover {
@@ -177,34 +235,40 @@
   transform: translateX(2px);
 }
 
-/* Hamburger — raised neu square */
+/* Hamburger — icon only (no circle / no neu chip) */
 .navbar__hamburger {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--bg);
+  width: 40px;
+  height: 40px;
+  padding: 0;
   border: none;
-  box-shadow: var(--shadow-neu-sm);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   cursor: pointer;
   flex-shrink: 0;
-  transition: box-shadow var(--transition-fast);
+  transition: opacity var(--transition-fast);
 }
 
 .navbar__hamburger:hover {
-  box-shadow: var(--shadow-neu);
+  background: transparent;
+  box-shadow: none;
+  opacity: 0.75;
 }
 
 .navbar__hamburger:active,
 .navbar__hamburger--open {
-  box-shadow: var(--shadow-neu-inset-sm);
+  background: transparent;
+  box-shadow: none;
+  opacity: 1;
 }
 
 .navbar__hamburger:focus-visible {
   outline: var(--focus-outline);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .navbar__hamburger-box {
@@ -251,19 +315,20 @@
   transform: rotate(-45deg);
 }
 
-/* Portal to body — fixed inside navbar breaks with backdrop-filter */
+/* Portal to body — fixed inside navbar breaks stacking */
 .navbar__backdrop {
   position: fixed;
   inset: 0;
   z-index: 10040;
   cursor: pointer;
-  background: rgba(20, 14, 40, 0.42);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  /* Dim only — no blur (cleaner + cheaper on mobile) */
+  background: rgba(18, 12, 36, 0.52);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.32s var(--ease-out), visibility 0.32s var(--ease-out);
+  transition: opacity 0.28s var(--ease-out), visibility 0.28s var(--ease-out);
 }
 
 .navbar__backdrop--visible {
@@ -319,31 +384,49 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.75rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(94, 23, 235, 0.1);
 }
 
+.navbar__mobile-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.navbar__mobile-brand-logo {
+  height: 32px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+
 .navbar__mobile-kicker {
   font-family: var(--font-display);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: var(--weight-extrabold);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--primary);
 }
 
 .navbar__mobile-close {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 10px;
-  background: transparent;
-  color: var(--text-secondary);
+  border-radius: 999px;
+  background: rgba(94, 23, 235, 0.08);
+  color: var(--primary-dark);
   cursor: pointer;
+  flex-shrink: 0;
   transition:
     background var(--transition-fast),
     color var(--transition-fast);
@@ -355,12 +438,12 @@
 }
 
 .navbar__mobile-close:hover {
-  background: rgba(94, 23, 235, 0.08);
-  color: var(--text-primary);
+  background: rgba(94, 23, 235, 0.14);
+  color: var(--primary-dark);
 }
 
 .navbar__mobile-close:active {
-  background: rgba(94, 23, 235, 0.12);
+  background: rgba(94, 23, 235, 0.18);
   color: var(--primary);
 }
 
@@ -529,29 +612,128 @@
   }
 }
 
-/* Tablet: nav tetap, CTA boleh sedikit lebih ringkas */
-@media (max-width: 1100px) {
+/* Tablet landscape: keep island, tighter links */
+@media (max-width: 1100px) and (min-width: 1025px) {
   .navbar__container {
-    gap: var(--space-md);
+    gap: var(--space-sm);
+    padding-left: 1.15rem;
   }
 
   .navbar__link {
-    padding: 0.42rem 0.72rem;
+    padding: 0.4rem 0.68rem;
     font-size: 0.78rem;
   }
 
   .navbar__cta {
-    padding: 0.5rem 0.95rem;
-    min-height: 40px;
-    font-size: 0.78rem;
+    padding: 0.48rem 0.9rem;
+    min-height: 38px;
+    height: 38px;
+    font-size: 0.76rem;
+  }
+
+  .navbar__logo-img {
+    height: 38px;
+    max-width: 132px;
   }
 }
 
+/*
+ * Mobile / tablet: SAME floating-island language as desktop.
+ * Compact pill = logo + menu button (no full-width glass bar).
+ */
 @media (max-width: 1024px) {
+  .navbar {
+    align-items: flex-start;
+    justify-content: center;
+    height: calc(
+      var(--navbar-island-offset-mobile) + var(--navbar-island-h-mobile) +
+        env(safe-area-inset-top, 0px)
+    );
+    /* Match page padding-top budget used by --navbar-height on pages */
+    min-height: var(--navbar-height);
+    padding:
+      calc(var(--navbar-island-offset-mobile) + env(safe-area-inset-top, 0px))
+      max(1.5rem, env(safe-area-inset-right, 0px))
+      0
+      max(1.5rem, env(safe-area-inset-left, 0px));
+    pointer-events: none;
+    overflow: visible;
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .navbar--scrolled,
+  .navbar--menu-open {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Mobile floating island — full pill (logo + 3-line menu) */
   .navbar__container {
+    pointer-events: auto;
     display: flex;
     justify-content: space-between;
-    gap: var(--space-md);
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    height: var(--navbar-island-h-mobile);
+    min-height: var(--navbar-island-h-mobile);
+    margin: 0;
+    padding: 0 0.35rem 0 1.15rem;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: #f4f1fa;
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow:
+      0 10px 28px rgba(80, 60, 140, 0.14),
+      0 2px 6px rgba(80, 60, 140, 0.06);
+    transition:
+      box-shadow 0.28s var(--ease-out),
+      background 0.28s var(--ease-out);
+  }
+
+  .navbar--scrolled .navbar__container {
+    background: #f7f5fc;
+    box-shadow:
+      0 14px 34px rgba(70, 50, 130, 0.16),
+      0 3px 8px rgba(70, 50, 130, 0.08);
+  }
+
+  .navbar--menu-open .navbar__container {
+    background: #faf8ff;
+    box-shadow:
+      0 12px 30px rgba(70, 50, 130, 0.18),
+      0 0 0 1px rgba(94, 23, 235, 0.08);
+  }
+
+  .navbar__logo {
+    height: 100%;
+    padding: 0 0.35rem 0 0.1rem;
+    min-width: 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .navbar--scrolled .navbar__logo {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .navbar__logo-img {
+    height: 34px;
+    max-width: min(142px, 46vw);
   }
 
   .navbar__nav,
@@ -559,34 +741,72 @@
     display: none;
   }
 
-  .navbar__hamburger {
-    display: inline-flex;
+  .navbar__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.2rem 0.2rem 0;
+    height: 100%;
+    flex-shrink: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
-  .navbar {
-    background: color-mix(in srgb, var(--bg) 94%, transparent);
-    backdrop-filter: blur(14px) saturate(1.12);
-    -webkit-backdrop-filter: blur(14px) saturate(1.12);
-    border-bottom-color: rgba(160, 150, 190, 0.14);
-    box-shadow: 0 6px 16px rgba(120, 100, 170, 0.1);
+  /* 3 lines only — no circular chip */
+  .navbar__hamburger {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--text-primary);
+  }
+
+  .navbar__hamburger:hover,
+  .navbar__hamburger:active,
+  .navbar__hamburger--open {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .navbar__hamburger-line {
+    background: var(--text-primary);
+    height: 2px;
+  }
+
+  .navbar__hamburger--open .navbar__hamburger-line {
+    background: var(--primary);
   }
 }
 
 @media (max-width: 480px) {
+  .navbar {
+    padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+  }
+
   .navbar__container {
-    padding: 0 var(--space-md);
+    padding: 0 0.3rem 0 1.15rem;
+  }
+
+  .navbar__logo {
+    padding: 0 0.25rem 0 0.05rem;
   }
 
   .navbar__logo-img {
-    height: 34px;
+    height: 32px;
+    max-width: min(128px, 44vw);
+  }
+
+  .navbar__hamburger {
+    width: 44px;
+    height: 44px;
   }
 
   .navbar__mobile {
     width: min(90vw, 340px);
-  }
-
-  .navbar__hamburger {
-    width: 42px;
-    height: 42px;
   }
 }

@@ -37,7 +37,7 @@ const steps: Step[] = [
     key: 'features',
     label: 'Fitur Tambahan',
     options: [
-      { label: 'Tombol WhatsApp', value: 0, desc: 'Sudah termasuk default' },
+      { label: 'Tombol WhatsApp', value: 0, desc: 'Sudah termasuk' },
       { label: 'Form Kontak', value: 50000 },
       { label: 'Galeri / Slider', value: 75000 },
       { label: 'Blog / Artikel', value: 150000 },
@@ -50,10 +50,10 @@ const steps: Step[] = [
     key: 'deadline',
     label: 'Deadline Pengerjaan',
     options: [
-      { label: 'Santai (2-3 minggu)', value: 0 },
-      { label: 'Normal (1-2 minggu)', value: 75000 },
-      { label: 'Cepat (3-7 hari)', value: 200000 },
-      { label: 'Urgent (1-2 hari)', value: 400000 },
+      { label: 'Fleksibel (2–3 minggu)', value: 0 },
+      { label: 'Standar (1–2 minggu)', value: 75000 },
+      { label: 'Prioritas (3–7 hari)', value: 200000 },
+      { label: 'Mendesak (1–2 hari)', value: 400000 },
     ],
   },
 ]
@@ -110,7 +110,7 @@ export default function PriceEstimator() {
         <div className="estimator__icon" aria-hidden="true">&#128176;</div>
         <div className="estimator__header-text">
           <h3 className="estimator__title">Estimator Harga</h3>
-          <p className="estimator__subtitle">Dapatkan perkiraan harga instan. Harga final ditentukan saat konsultasi.</p>
+          <p className="estimator__subtitle">Perkiraan harga instan. Harga final dikonfirmasi saat konsultasi.</p>
         </div>
         {hasAnySelection && (
           <button
@@ -175,16 +175,16 @@ export default function PriceEstimator() {
                 </span>
               ) : (
                 <span className="estimator__result-incomplete">
-                  Pilih jenis &amp; jumlah halaman dulu
+                  Pilih jenis website dan jumlah halaman
                 </span>
               )}
             </div>
             <p className="estimator__result-note">
-              Harga final ditentukan setelah konsultasi &amp; brief proyek lengkap.
+              Harga final ditentukan setelah konsultasi dan brief proyek.
             </p>
           </div>
           <NavLink to="/kontak" className="btn btn-primary estimator__result-cta">
-            Konsultasi &amp; Dapatkan Harga Pasti
+            Konsultasi untuk Harga Final
           </NavLink>
         </div>
       )}

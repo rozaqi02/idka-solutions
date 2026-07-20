@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import { portfolio } from '../data/content'
 import { useScrollReveal } from '../hooks/useScrollReveal'
@@ -6,22 +6,51 @@ import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import './Portofolio.css'
 
+function webpToPngFallback(src: string) {
+  return src.endsWith('.webp') ? src.replace(/\.webp$/i, '.png') : src
+}
+
 function PortoImage({ src, alt, width, height }: { src: string; alt: string; width?: number; height?: number }) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
+  const [currentSrc, setCurrentSrc] = useState(src)
+
+  // Cached images may already be complete before onLoad is attached — detect via ref callback
+  const imgRef = useCallback((node: HTMLImageElement | null) => {
+    if (!node) return
+    if (node.complete && node.naturalWidth > 0) {
+      setLoaded(true)
+    }
+  }, [])
+
+  const handleError = () => {
+    // Prefer PNG if WebP fails (older browser / broken file)
+    if (currentSrc.endsWith('.webp')) {
+      const png = webpToPngFallback(currentSrc)
+      if (png !== currentSrc) {
+        setCurrentSrc(png)
+        setLoaded(false)
+        return
+      }
+    }
+    setError(true)
+  }
+
   return (
     <div className="porto-img-wrap">
       {!loaded && !error && <div className="porto-img-skeleton" aria-hidden="true" />}
       {!error ? (
         <img
-          src={src}
+          ref={imgRef}
+          src={currentSrc}
           alt={alt}
           width={width}
           height={height}
           className={`porto-card__screenshot${loaded ? ' porto-card__screenshot--loaded' : ''}`}
           loading="lazy"
+          decoding="async"
           onLoad={() => setLoaded(true)}
-          onError={() => setError(true)}
+          onError={handleError}
         />
       ) : (
         <div className="porto-img-error" aria-label="Gambar tidak tersedia">
@@ -42,7 +71,7 @@ export default function Portofolio() {
   usePageTitle({
     title: 'Portofolio',
     description:
-      'Karya nyata IDKA Solutions — dari UMKM lokal sampai startup digital. Lihat website yang sudah kami bangun.',
+      'Portofolio IDKA Solutions — dari UMKM lokal hingga startup digital. Lihat website yang telah kami bangun.',
     path: '/portofolio',
   })
 
@@ -54,15 +83,15 @@ export default function Portofolio() {
   return (
     <div className="porto-page">
       {/* Header */}
-      <section className="page-header section" aria-labelledby="porto-heading" data-hero-enter>
+      <section className="page-header section" aria-labelledby="porto-heading" data-hero-enter="portofolio">
         <div className="container">
           <div className="page-header__inner">
             <div className="section-tag hero-in__item hero-in__item--tag">Portofolio</div>
             <h1 id="porto-heading" className="section-title hero-in__item hero-in__item--title">
-              Karya yang Membuktikan Kemampuan Kami
+              Portofolio Karya Kami
             </h1>
             <p className="section-subtitle hero-in__item hero-in__item--sub">
-              Setiap proyek adalah bukti nyata. Dari UMKM lokal sampai startup digital&mdash;lihat apa yang sudah kami bangun.
+              Dari UMKM lokal hingga startup digital—hasil kerja yang dapat ditinjau langsung.
             </p>
           </div>
         </div>
@@ -205,7 +234,7 @@ export default function Portofolio() {
                       href={item.url as string}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="porto-card__link btn btn-secondary"
+                      className="porto-card__link btn btn-primary"
                       aria-label={`Kunjungi website ${item.title}`}
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -238,11 +267,11 @@ export default function Portofolio() {
             <div className="porto-case-note__content">
               <h2 className="porto-case-note__title">Portofolio Terus Bertambah</h2>
               <p className="porto-case-note__desc">
-                Ini adalah sebagian kecil dari karya kami. Setiap proyek baru menjadi tambahan portofolio yang terus kami banggakan.
-                Ingin proyek kamu jadi karya selanjutnya?
+                Ini adalah sebagian dari karya kami. Setiap proyek baru memperkaya portofolio.
+                Tertarik menjadikan bisnis Anda proyek berikutnya?
               </p>
               <NavLink to="/kontak" className="btn btn-primary">
-                Mulai Proyek Bersama Kami
+                Mulai Proyek
               </NavLink>
             </div>
           </div>

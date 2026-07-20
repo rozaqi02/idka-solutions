@@ -50,12 +50,15 @@
   --shadow-primary: 8px 10px 22px rgba(94, 23, 235, 0.38), -3px -3px 10px rgba(255, 255, 255, 0.55);
   --shadow-primary-hover: 10px 14px 28px rgba(94, 23, 235, 0.45), -3px -3px 12px rgba(255, 255, 255, 0.65);
 
-  /* Section surfaces — soft white canvas vs flat brand purple */
+  /* Section surfaces — soft white canvas vs soft brand purple */
   --bg-section: #ebe9f2;
-  /* Ungu polos flat = warna logo, tanpa gradien */
-  --bg-section-tint: #5e17eb;
+  /*
+   * Ungu soft (bukan full #5e17eb) biar scroll panjang tidak melelahkan,
+   * tetap jelas “brand purple” dan kontras dengan card terang.
+   */
+  --bg-section-tint: #6d4aff;
   --bg-section-tint-text: #ffffff;
-  --bg-section-tint-muted: rgba(255, 255, 255, 0.82);
+  --bg-section-tint-muted: rgba(255, 255, 255, 0.88);
 
   /* Gradients */
   --gradient-primary: linear-gradient(145deg, #6d28f0 0%, #5e17eb 45%, #8b5cf6 100%);
@@ -90,16 +93,43 @@
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
 
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-  --text-6xl: 3.75rem;
+  /* Raw steps (legacy + utilities) */
+  --text-xs: 0.75rem;      /* 12 — micro / label */
+  --text-sm: 0.875rem;     /* 14 — caption / meta */
+  --text-base: 1rem;       /* 16 — body */
+  --text-lg: 1.125rem;     /* 18 — lead / subtitle */
+  --text-xl: 1.25rem;      /* 20 — card title */
+  --text-2xl: 1.5rem;      /* 24 — small section / package name */
+  --text-3xl: 1.875rem;    /* 30 */
+  --text-4xl: 2.25rem;     /* 36 */
+  --text-5xl: 3rem;        /* 48 */
+  --text-6xl: 3.75rem;     /* 60 */
+
+  /*
+   * Semantic type roles — use these for hierarchy (prefer over raw steps).
+   * Display > Page H1 > Section H2 > Card H3 > Lead > Body > Caption > Micro
+   */
+  --text-display: clamp(2.15rem, 4.8vw, 3.35rem);
+  --text-page: clamp(1.7rem, 3.4vw, 2.4rem);
+  --text-section: clamp(1.45rem, 3vw, 2.1rem);
+  --text-card: 1.125rem;       /* 18 */
+  --text-card-sm: 1.05rem;     /* ~17 for dense cards */
+  --text-lead: 1.0625rem;      /* 17 — body-supporting */
+  --text-body: 1rem;           /* 16 */
+  --text-caption: 0.875rem;    /* 14 */
+  --text-micro: 0.75rem;       /* 12 */
+
+  --leading-display: 1.12;
+  --leading-heading: 1.2;
+  --leading-snug: 1.35;
+  --leading-body: 1.65;
+  --leading-relaxed: 1.7;
+
+  --tracking-display: -0.03em;
+  --tracking-heading: -0.025em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-label: 0.1em;
 
   --weight-regular: 400;
   --weight-medium: 500;
@@ -115,13 +145,27 @@
 
   /* Layout */
   --container-max: 1140px;
-  --navbar-height: 76px;
+  /* Horizontal page margin — generous on phones so layout breathes */
+  --page-gutter: var(--space-xl);
+  --page-gutter-md: 1.5rem;   /* ≤768 */
+  --page-gutter-sm: 1.5rem;   /* ≤480 — keep same, not tighter */
+  --section-pad-y-md: 3.25rem;
+  --section-pad-y-sm: 3rem;
+  --card-pad-md: 1.35rem;
+  --mobile-fab-clear: calc(72px + env(safe-area-inset-bottom, 0px));
+  /* Floating island clearance (desktop + mobile share the same language) */
+  --navbar-height: 88px;
+  --navbar-island-offset: 12px;
+  --navbar-island-h: 62px;
+  --navbar-island-h-mobile: 56px;
+  --navbar-island-offset-mobile: 10px;
 
-  /* Floating chrome stack */
+  /* Floating chrome stack (+ safe-area for notched phones) */
   --fab-size: 58px;
-  --fab-offset: 26px;
-  --scroll-offset: 100px;
-  --toast-offset: 168px;
+  --fab-offset: max(1.25rem, env(safe-area-inset-right, 0px));
+  --fab-offset-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  --scroll-offset: calc(100px + env(safe-area-inset-bottom, 0px));
+  --toast-offset: calc(168px + env(safe-area-inset-bottom, 0px));
 
   /* Focus */
   --focus-ring: 0 0 0 4px var(--primary-soft);

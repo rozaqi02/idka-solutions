@@ -1,6 +1,6 @@
 .wa-btn-wrap {
   position: fixed;
-  bottom: var(--fab-offset);
+  bottom: var(--fab-offset-bottom);
   right: var(--fab-offset);
   z-index: 999;
   display: flex;
@@ -98,12 +98,18 @@
 
 @media (max-width: 480px) {
   .wa-btn-wrap {
-    bottom: 16px;
-    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    right: max(16px, env(safe-area-inset-right, 0px));
   }
 
   .wa-btn {
     width: 52px;
     height: 52px;
+  }
+
+  .wa-btn__tooltip {
+    max-width: min(220px, calc(100vw - 5.5rem));
+    white-space: normal;
+    text-align: right;
   }
 }

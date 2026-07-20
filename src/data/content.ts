@@ -1,23 +1,22 @@
 // IDKA Solutions - Content Data
-// Copywriting target: Gen-Z Indonesia (18-28 tahun)
+// Tone: profesional, ringkas, jelas
 
 export const company = {
   name: 'IDKA Solutions',
-  tagline: 'Website Keren, Bisnis Makin Dipercaya',
+  tagline: 'Website Profesional untuk Bisnis yang Dipercaya',
   description:
-    'IDKA Solutions bantu bisnis kamu hadir secara online dengan website yang nggak cuma cantik—tapi beneran ngasih hasil. No ribet, no boring, full profesional.',
+    'IDKA Solutions membantu UMKM, personal brand, dan startup membangun website modern yang fungsional dan siap mendukung pertumbuhan bisnis.',
   whatsapp: '6282245964007',
   email: 'idkasolutions@gmail.com',
   instagram: '@idkasolutions',
   position:
-    'Partner digital untuk UMKM, personal brand, kreator, dan startup yang pengen eksis dan dipercaya di internet.',
+    'Mitra digital untuk UMKM, personal brand, kreator, dan startup yang ingin tampil profesional di internet.',
 };
 
-// Stats terpusat — update di sini, otomatis sinkron ke semua halaman
 export const stats = [
-  { num: '6',  label: 'Proyek',      labelAlt: 'Website Jadi' },
+  { num: '6', label: 'Proyek', labelAlt: 'Website Selesai' },
   { num: '4.9/5', label: 'Rating Klien', labelAlt: 'Rating Klien' },
-  { num: '4',    label: 'Tim Ahli',    labelAlt: 'Tim Ahli' },
+  { num: '4', label: 'Tim Ahli', labelAlt: 'Tim Ahli' },
 ];
 
 export const services = [
@@ -26,63 +25,63 @@ export const services = [
     icon: '🏢',
     title: 'Company Profile',
     description:
-      'Biar bisnis kamu keliatan legit dan dipercaya. Website company profile yang bikin calon klien langsung yakin.',
+      'Website profil perusahaan yang memperkuat kredibilitas dan kesan profesional di mata calon klien.',
   },
   {
     id: 'landing-page',
     icon: '🚀',
     title: 'Landing Page',
     description:
-      'Satu halaman yang kerja keras buat konversi. Cocok buat jualan produk, daftar event, atau launch sesuatu.',
+      'Satu halaman fokus konversi untuk promosi produk, event, atau kampanye peluncuran.',
   },
   {
     id: 'toko-online',
     icon: '🛒',
     title: 'Toko Online',
     description:
-      'Katalog produk online yang rapi + tombol order WA langsung. Pelanggan liat, suka, langsung chat—simpel.',
+      'Katalog produk terstruktur dengan tombol pemesanan WhatsApp yang memudahkan transaksi.',
   },
   {
     id: 'portofolio',
     icon: '🎨',
     title: 'Website Portofolio',
     description:
-      'Flex karya kamu dengan cara yang paling keren. Cocok buat fotografer, desainer, kreator, atau freelancer.',
+      'Tampilan karya yang rapi untuk fotografer, desainer, kreator, dan freelancer.',
   },
   {
     id: 'jasa-profesional',
     icon: '💼',
     title: 'Website Jasa',
     description:
-      'Tampilin layanan kamu biar calon klien ngerti value kamu sebelum bahkan ngobrol sama kamu.',
+      'Presentasi layanan yang jelas agar calon klien memahami nilai bisnis Anda sejak awal.',
   },
   {
     id: 'katalog-produk',
     icon: '📦',
     title: 'Katalog Produk',
     description:
-      'Semua produk kamu tersusun rapi, gampang dicari, enak diliat. No scroll panjang yang bikin pusing.',
+      'Susunan produk yang rapi, mudah ditelusuri, dan nyaman dilihat di perangkat apa pun.',
   },
   {
     id: 'personal-brand',
     icon: '⭐',
     title: 'Personal Brand',
     description:
-      'Build authority kamu di dunia digital. Dari coach, konsultan, sampai content creator—semua butuh ini.',
+      'Website personal untuk coach, konsultan, dan content creator yang ingin memperkuat otoritas digital.',
   },
   {
     id: 'website-event',
     icon: '🎉',
     title: 'Website Event',
     description:
-      'Bikin event kamu keliatan serius dan profesional. Info lengkap, registrasi mudah, kesan pertama mantap.',
+      'Informasi event yang lengkap, alur registrasi yang jelas, dan tampilan yang profesional.',
   },
   {
     id: 'maintenance',
     icon: '🔧',
     title: 'Maintenance',
     description:
-      'Website udah jadi? Kami jaga biar tetap ngebut, aman, dan nggak tiba-tiba error pas lagi rame.',
+      'Pemeliharaan rutin agar website tetap cepat, aman, dan stabil setelah diluncurkan.',
   },
 ];
 
@@ -90,53 +89,53 @@ export const packages = [
   {
     id: 'starter',
     name: 'Starter',
-    tagline: 'Buat yang baru mau mulai online',
+    tagline: 'Untuk memulai kehadiran online',
     price: 'Mulai Rp 300.000',
     highlighted: false,
     features: [
       '1 halaman landing page',
-      'Tombol WA langsung',
+      'Tombol WhatsApp',
       'Profil singkat bisnis',
       'Tampilan produk/layanan',
       'Kontak & lokasi',
       'Mobile-friendly',
-      '1-2x revisi',
+      '1–2x revisi',
     ],
-    cta: 'Gas Pakai Starter',
+    cta: 'Pilih Starter',
   },
   {
     id: 'business',
     name: 'Business',
-    tagline: 'Buat yang mau keliatan makin serius',
+    tagline: 'Untuk tampilan bisnis yang lebih lengkap',
     price: 'Mulai Rp 900.000',
     highlighted: true,
     features: [
-      '3-5 halaman lengkap',
+      '3–5 halaman lengkap',
       'Beranda, Tentang, Layanan',
       'Portofolio / Galeri',
       'Form kontak',
-      'Basic SEO biar ketemuan di Google',
+      'SEO dasar',
       'Mobile-friendly',
-      '2-3x revisi',
+      '2–3x revisi',
     ],
     cta: 'Pilih Business',
   },
   {
     id: 'premium',
     name: 'Premium',
-    tagline: 'Buat bisnis yang mau scale up',
+    tagline: 'Untuk kebutuhan kustom dan pengembangan lanjutan',
     price: 'Mulai Rp 1.700.000',
     highlighted: false,
     features: [
-      '5-8 halaman full custom',
-      'Desain unik sesuai brand',
-      'CMS (bisa edit sendiri)',
+      '5–8 halaman kustom',
+      'Desain sesuai brand',
+      'CMS (kelola konten mandiri)',
       'Katalog produk',
       'Blog & analytics',
       'Optimasi performa',
-      'Support awal launch',
+      'Dukungan awal peluncuran',
     ],
-    cta: 'Mau yang Premium',
+    cta: 'Pilih Premium',
   },
 ];
 
@@ -145,33 +144,33 @@ export const maintenancePackages = [
     name: 'Basic',
     price: 'Rp 150.000/bln',
     features: [
-      'Cek website tiap bulan',
-      'Update konten kecil',
+      'Pemeriksaan website bulanan',
+      'Update konten ringan',
       'Backup rutin',
-      'Fix error ringan',
+      'Perbaikan error ringan',
     ],
   },
   {
     name: 'Standard',
     price: 'Rp 300.000/bln',
     features: [
-      'Semua yang ada di Basic',
-      'Update konten lebih banyak',
+      'Semua fitur Basic',
+      'Update konten lebih luas',
       'Laporan bulanan',
       'Optimasi ringan',
-      'Pantau form & link',
+      'Pemantauan form & tautan',
     ],
   },
   {
     name: 'Premium',
     price: 'Rp 500.000/bln',
     features: [
-      'Semua yang ada di Standard',
-      'Support prioritas (respon cepat)',
+      'Semua fitur Standard',
+      'Dukungan prioritas',
       'Update desain minor',
       'Optimasi performa',
       'Konsultasi bulanan',
-      'Tambah section ringan',
+      'Penambahan section ringan',
     ],
   },
 ];
@@ -185,9 +184,9 @@ export const portfolio = [
     screenshot: '/portfolio/pentagon-kontraktor.webp',
     url: 'https://pentagonkontraktor.netlify.app',
     description:
-      'Website company profile keren buat CV. Pentagon Konstruksindo—perusahaan konstruksi & arsitektur yang sekarang makin gampang ditemukan dan dipercaya calon kliennya.',
+      'Website company profile untuk CV. Pentagon Konstruksindo, perusahaan konstruksi dan arsitektur.',
     longDescription:
-      'CV. Pentagon Konstruksindo handle proyek dari desain sampai serah terima kunci. Website nampilin layanan lengkap (arsitektur, konstruksi sipil, interior, renovasi), portofolio proyek, legalitas, dan halaman konsultasi. Desain elegan mencerminkan nilai profesionalisme perusahaan. Dibangun pakai React JS, performa cepat dan responsif di semua perangkat.',
+      'CV. Pentagon Konstruksindo menangani proyek dari desain hingga serah terima. Website menampilkan layanan, portofolio, legalitas, dan halaman konsultasi dengan desain yang mencerminkan profesionalisme. Dibangun dengan React JS, cepat, dan responsif di berbagai perangkat.',
     tech: ['React JS', 'Netlify'],
     tags: ['Company Profile', 'Konstruksi', 'Arsitektur'],
     color: '#f59e0b',
@@ -201,9 +200,9 @@ export const portfolio = [
     screenshot: '/portfolio/cidika-travel.webp',
     url: 'https://cidikatravel.com',
     description:
-      'Website agen travel CIDIKA buat wisata ke Banyuwangi & Nusa Penida—paket private trip, open trip, dan charter. Tampilannya bilingual, elegan, dan bikin pengen langsung booking.',
+      'Website agen travel CIDIKA untuk destinasi Banyuwangi dan Nusa Penida, dengan paket private trip, open trip, dan charter.',
     longDescription:
-      'CIDIKA Travel berbasis di Nusa Penida, Bali, menawarkan paket ke Kawah Ijen, blue fire Banyuwangi, Kelingking Beach, dan snorkeling Nusa Penida. Website nampilin destinasi, paket & harga, FAQ, dan kontak WA langsung. UI bilingual (Indonesia & English) buat wisatawan lokal dan mancanegara. React JS + Supabase BaaS (PostgreSQL) untuk data real-time.',
+      'CIDIKA Travel berbasis di Nusa Penida, Bali. Website menampilkan destinasi, paket, FAQ, dan kontak WhatsApp. Antarmuka bilingual (Indonesia & Inggris). Dibangun dengan React JS dan Supabase.',
     tech: ['React JS', 'Supabase', 'PostgreSQL', 'Bilingual'],
     tags: ['Travel', 'Company Profile', 'Full Stack'],
     color: '#06b6d4',
@@ -217,9 +216,9 @@ export const portfolio = [
     screenshot: '/portfolio/nutri-bunga.webp',
     url: 'https://nutribunga.netlify.app',
     description:
-      'Landing page + katalog digital buat Nutri Bunga, brand madu premium bersertifikat BPOM & Halal dari Malang. Selesai 2 minggu, langsung ready buat promosi.',
+      'Landing page dan katalog digital untuk Nutri Bunga, brand madu premium bersertifikat BPOM dan Halal dari Malang.',
     longDescription:
-      'Nutri Bunga udah 10+ tahun di industri madu, bersertifikasi BPOM MD, Halal, dan uji lab Sucofindo. Website nampilin produk unggulan (Madu Propolis, Madu Premium, Royal Jelly), info brand, FAQ, dan order via WA. Dibangun 2 minggu pakai React JS dengan fokus UX yang engaging buat pasar digital menengah ke atas.',
+      'Nutri Bunga telah lebih dari 10 tahun di industri madu. Website menampilkan produk unggulan, informasi brand, FAQ, dan pemesanan via WhatsApp. Diselesaikan dalam 2 minggu dengan React JS.',
     tech: ['React JS', 'Netlify'],
     tags: ['Landing Page', 'UMKM', 'Produk Lokal'],
     color: '#f59e0b',
@@ -233,9 +232,9 @@ export const portfolio = [
     screenshot: '/portfolio/imzaqi-store.webp',
     url: 'https://imzaqi.store',
     description:
-      'Platform e-commerce akun digital premium (Netflix, Spotify, Canva, ChatGPT, dll.) untuk pelajar Indonesia—bayar QRIS, aktif dalam hitungan menit, ada AI assistant-nya juga.',
+      'Platform e-commerce akun digital untuk pelajar Indonesia, dengan pembayaran QRIS dan asisten AI.',
     longDescription:
-      'Imzaqi Store v5.0 adalah toko akun digital yang menyasar segmen pelajar dengan harga terjangkau. Katalog 20+ produk dengan search, live traffic counter, dan highlight produk viral. Alur beli cuma 3 langkah: pilih, bayar QRIS (semua e-wallet), pantau status lewat ID unik. Dibangun pakai React 19, Vite, Supabase, Framer Motion, dan Google Gemini API buat AI assistant-nya. Admin bisa manage produk, promo, flash sale, ekspor CSV—semua dilindungi Supabase Auth. PWA-ready.',
+      'Imzaqi Store v5.0 menyasar segmen pelajar dengan katalog 20+ produk, pencarian, dan alur pembelian singkat. Dibangun dengan React 19, Supabase, Framer Motion, dan Gemini API. Dilengkapi panel admin serta dukungan PWA.',
     tech: ['React 19', 'Supabase', 'Framer Motion', 'Gemini API', 'QRIS', 'PWA'],
     tags: ['E-Commerce', 'Full Stack', 'Pelajar'],
     color: '#5e17eb',
@@ -249,9 +248,9 @@ export const portfolio = [
     screenshot: '/portfolio/jamu-sugih-waras.webp',
     url: 'https://jamu-sugih-waras.netlify.app',
     description:
-      'Website bisnis buat Rumah Rempah Sugih Waras—UMKM jamu tradisional dari Malang yang ngemas rempah Nusantara jadi lebih modern, praktis, dan siap jualan online.',
+      'Website bisnis untuk Rumah Rempah Sugih Waras, UMKM jamu tradisional dari Malang.',
     longDescription:
-      'Rumah Rempah Sugih Waras adalah UMKM di Kalisongo, Malang yang bikin jamu dari 100% rempah alami petani lokal. Produk andalan: Teh Rempah, Beras Kencur Premium, Wedang Secang. Website punya katalog + harga, testimoni, FAQ, order WA, dan halaman admin buat kelola toko. React JS + Supabase (PostgreSQL) untuk skalabilitas dan keamanan data.',
+      'Website menampilkan katalog produk, testimoni, FAQ, pemesanan WhatsApp, dan panel admin. Dibangun dengan React JS dan Supabase (PostgreSQL).',
     tech: ['React JS', 'Supabase', 'PostgreSQL'],
     tags: ['Full Stack', 'UMKM', 'Herbal'],
     color: '#84cc16',
@@ -265,9 +264,9 @@ export const portfolio = [
     screenshot: '/portfolio/jakora.webp',
     url: 'https://jakora.netlify.app',
     description:
-      'Landing page buat Jakora—brand pangan inovatif dari Padang yang bikin rendang jamur & snack Jatastik dari tangkos sawit. Misi hijau, desain modern, impact nyata.',
+      'Landing page untuk Jakora, brand pangan inovatif dari Padang (rendang jamur dan snack Jatastik).',
     longDescription:
-      'Jakora adalah social enterprise dari Kota Padang yang produksi rendang jamur inovatif (NIKM) dan snack Jatastik dari tangkos sawit. Website nampilin produk, testimoni, donasi, dan info pemesanan limbah tangkos sawit. Ada FAQ, live chat WA, dan desain yang reflect nilai keberlanjutan ekologi mereka. React JS + Netlify.',
+      'Jakora adalah social enterprise di Kota Padang. Website menampilkan produk, testimoni, donasi, FAQ, dan live chat WhatsApp. Dibangun dengan React JS dan di-deploy di Netlify.',
     tech: ['React JS', 'Netlify'],
     tags: ['Landing Page', 'UMKM', 'Pangan'],
     color: '#22c55e',
@@ -283,7 +282,7 @@ export const testimonials = [
     business: 'cidikatravel.com',
     avatar: '✈️',
     content:
-      'Website kami sekarang keliatan profesional banget dan banyak wisatawan yang langsung reach out. Tim IDKA cepet response-nya dan hasilnya beneran sesuai yang kami mau.',
+      'Website kami kini tampil lebih profesional. Banyak wisatawan yang langsung menghubungi. Tim IDKA responsif dan hasilnya sesuai kebutuhan.',
     rating: 5,
   },
   {
@@ -293,7 +292,7 @@ export const testimonials = [
     business: 'pentagonkontraktor.netlify.app',
     avatar: '🏗️',
     content:
-      'Company profile kami jauh lebih kredibel sekarang. Calon klien yang datang udah lebih serius karena kesan pertamanya langsung oke. IDKA ngerti banget kebutuhan kami.',
+      'Company profile kami jauh lebih kredibel. Calon klien datang dengan kesan yang lebih baik sejak awal. IDKA memahami kebutuhan kami dengan baik.',
     rating: 5,
   },
   {
@@ -303,7 +302,7 @@ export const testimonials = [
     business: 'nutribunga.netlify.app',
     avatar: '🍯',
     content:
-      'Dua minggu jadi, langsung bisa dipakai promosi. Tampilannya bersih, loading-nya ngebut, dan pelanggan makin gampang nemuin produk kami. Worth it banget!',
+      'Selesai dalam dua minggu dan langsung dapat digunakan untuk promosi. Tampilan bersih, cepat, dan memudahkan pelanggan menemukan produk kami.',
     rating: 5,
   },
 ];
@@ -314,7 +313,7 @@ export const teamMembers = [
     name: 'Project Manager',
     role: 'Strategist & Client Relations',
     description:
-      'Yang ngurusin dari awal sampai akhir. Ngobrol sama kamu, bikin brief, atur timeline, dan mastiin semuanya berjalan sesuai rencana.',
+      'Mengelola brief, timeline, dan komunikasi klien dari awal hingga website live.',
     icon: '🎯',
   },
   {
@@ -322,7 +321,7 @@ export const teamMembers = [
     name: 'UI/UX Designer',
     role: 'Visual & Experience Designer',
     description:
-      'Otak di balik tampilan yang bikin kamu bilang "wah". Wireframe, mockup, sampai desain final yang estetik dan enak dipake.',
+      'Merancang wireframe, mockup, dan desain final yang rapi serta mudah digunakan.',
     icon: '🎨',
   },
   {
@@ -330,7 +329,7 @@ export const teamMembers = [
     name: 'Web Developer',
     role: 'Frontend & Backend Engineer',
     description:
-      'Yang ngewujudin desain jadi website beneran. Integrasi WA, form, CMS, hosting—semua dihandle sampai live.',
+      'Membangun website, integrasi form/WhatsApp/CMS, hingga proses go-live.',
     icon: '💻',
   },
   {
@@ -338,7 +337,7 @@ export const teamMembers = [
     name: 'Content & Admin',
     role: 'Content Creator & Admin',
     description:
-      'Ngurusin konten, portofolio, testimoni, dan semua komunikasi biar kamu nggak nunggu lama untuk dapat jawaban.',
+      'Mengelola konten pendukung, portofolio, testimoni, dan komunikasi operasional.',
     icon: '✍️',
   },
 ];
@@ -361,66 +360,66 @@ export const techStack = [
 export const workValues = [
   {
     icon: '✅',
-    title: 'No Ribet',
-    description: 'Proses kerja sama yang smooth. Kamu tinggal siapin materi, kami yang handle sisanya.',
+    title: 'Proses Sederhana',
+    description: 'Alur kerja jelas. Anda menyiapkan materi, kami menangani pengerjaan.',
   },
   {
     icon: '🤝',
     title: 'Transparan',
-    description: 'Harga jelas, revisi jelas, proses jelas. Nggak ada biaya kejutan di akhir.',
+    description: 'Harga, ruang revisi, dan tahapan kerja disampaikan di awal.',
   },
   {
     icon: '⚡',
-    title: 'Fast Response',
-    description: 'Chat kami dibalas dalam jam kerja. Nggak perlu nunggu berhari-hari buat dapat update.',
+    title: 'Respons Cepat',
+    description: 'Komunikasi dibalas pada jam kerja agar progress tetap jelas.',
   },
   {
     icon: '🎯',
-    title: 'Result-Oriented',
-    description: 'Website kami bukan cuma buat dipamerin—tapi beneran bantu bisnis kamu tumbuh.',
+    title: 'Berorientasi Hasil',
+    description: 'Website dirancang untuk mendukung kredibilitas dan konversi bisnis.',
   },
 ];
 
 export const businessFlow = [
-  { step: 1, label: 'Kontak', icon: '💬', description: 'Chat kami via WA, form, atau DM Instagram' },
-  { step: 2, label: 'Brief', icon: '📋', description: 'Isi form kebutuhan biar kami ngerti bisnis kamu' },
-  { step: 3, label: 'Proposal', icon: '📄', description: 'Kami kirim harga, timeline, dan scope kerja' },
-  { step: 4, label: 'DP & Mulai', icon: '💸', description: 'Deal? DP masuk, langsung kami gas produksinya' },
-  { step: 5, label: 'Desain', icon: '🎨', description: 'Wireframe dan mockup dikirim buat di-approve' },
-  { step: 6, label: 'Development', icon: '💻', description: 'Desain dibangun jadi website aktif + testing' },
-  { step: 7, label: 'Review', icon: '🔍', description: 'Kamu cek staging link, feedback, kami revisi' },
-  { step: 8, label: 'Live! 🎉', icon: '🚀', description: 'Pelunasan, domain terhubung, website live!' },
+  { step: 1, label: 'Kontak', icon: '💬', description: 'Hubungi kami melalui WhatsApp, formulir, atau Instagram.' },
+  { step: 2, label: 'Brief', icon: '📋', description: 'Sampaikan kebutuhan, tujuan, dan materi bisnis Anda.' },
+  { step: 3, label: 'Proposal', icon: '📄', description: 'Kami kirim ruang lingkup, timeline, dan penawaran.' },
+  { step: 4, label: 'DP & Mulai', icon: '💸', description: 'Setelah kesepakatan dan DP, pengerjaan dimulai.' },
+  { step: 5, label: 'Desain', icon: '🎨', description: 'Wireframe dan mockup dikirim untuk persetujuan.' },
+  { step: 6, label: 'Development', icon: '💻', description: 'Desain diimplementasikan menjadi website aktif.' },
+  { step: 7, label: 'Review', icon: '🔍', description: 'Anda meninjau staging, kami menindaklanjuti revisi.' },
+  { step: 8, label: 'Live', icon: '🚀', description: 'Pelunasan, pengaturan domain, dan website diluncurkan.' },
 ];
 
 export const faq = [
   {
-    question: 'Berapa lama website-nya jadi?',
+    question: 'Berapa lama pengerjaan website?',
     answer:
-      'Starter sekitar 3-5 hari kerja, Business 7-14 hari, dan Premium 14-21 hari. Makin cepet kamu siapin materi (logo, teks, foto), makin cepet jadinya.',
+      'Perkiraan: Starter 3–5 hari kerja, Business 7–14 hari kerja, Premium 14–21 hari kerja. Durasi dipengaruhi kelengkapan materi dari klien.',
   },
   {
-    question: 'Revisinya berapa kali?',
+    question: 'Berapa kali revisi yang tersedia?',
     answer:
-      'Starter 1-2x, Business 2-3x, Premium lebih fleksibel. Kalau mau revisi tambahan di luar kuota, dikenakan biaya yang udah disepakati di awal—no surprise.',
+      'Starter 1–2 kali, Business 2–3 kali, Premium lebih fleksibel. Revisi di luar kuota dikenakan biaya sesuai kesepakatan awal.',
   },
   {
-    question: 'Kontennya harus siapin sendiri nggak?',
+    question: 'Apakah konten harus disiapkan sendiri?',
     answer:
-      'Idealnya kamu siapin teks, foto, dan logo. Tapi tenang, tim IDKA bisa bantu copywriting dasar dan saran konten. Nggak punya foto? Kami bisa pakai stock photo yang bagus.',
+      'Idealnya teks, foto, dan logo disiapkan klien. Kami dapat membantu copywriting dasar dan pemilihan materi visual jika diperlukan.',
   },
   {
-    question: 'Cara bayarnya gimana?',
+    question: 'Bagaimana sistem pembayarannya?',
     answer:
-      'DP 50% dulu sebelum pengerjaan mulai, pelunasan 50% sebelum website live. Bisa transfer bank, QRIS, atau e-wallet. Untuk proyek kecil bisa 60/40.',
+      'Umumnya DP 50% sebelum pengerjaan dan pelunasan 50% sebelum go-live. Pembayaran dapat melalui transfer bank, QRIS, atau e-wallet.',
   },
   {
-    question: 'Domain dan hosting gimana?',
+    question: 'Bagaimana dengan domain dan hosting?',
     answer:
-      'IDKA bisa bantu setup semuanya. Biaya domain & hosting di luar paket tapi kami kasih rekomendasi yang worth it sesuai budget kamu.',
+      'Kami dapat membantu proses penyiapan. Biaya domain dan hosting terpisah dari paket website, dengan rekomendasi sesuai kebutuhan.',
   },
   {
-    question: 'Setelah website jadi, ada support-nya nggak?',
+    question: 'Apakah ada dukungan setelah website live?',
     answer:
-      'Ada! Kami punya paket maintenance bulanan (Basic, Standard, Premium) buat jaga website kamu tetap ngebut, aman, dan selalu update.',
+      'Ya. Tersedia paket maintenance bulanan (Basic, Standard, Premium) untuk menjaga performa, keamanan, dan pembaruan konten.',
   },
 ];

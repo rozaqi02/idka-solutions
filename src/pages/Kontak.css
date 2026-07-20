@@ -1,6 +1,6 @@
 /* ===== KONTAK PAGE ===== */
 .kontak-page {
-  padding-top: var(--navbar-height);
+  padding-top: 0;
 }
 
 /* Response badges */
@@ -44,19 +44,149 @@
   border: none;
 }
 
+.kontak-form__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
 .kontak-form__title {
   font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: var(--weight-extrabold);
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-heading);
+  line-height: var(--leading-heading);
 }
 
 .kontak-form__subtitle {
-  font-size: var(--text-sm);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-top: calc(-1 * var(--space-md));
+  line-height: var(--leading-body);
+  margin-top: 0.4rem;
+  max-width: 36rem;
+}
+
+.kontak-form__skip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: var(--weight-semibold);
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: rgba(94, 23, 235, 0.08);
+  transition: background var(--transition-fast), color var(--transition-fast), gap var(--transition-fast);
+  white-space: nowrap;
+}
+
+.kontak-form__skip:hover {
+  background: rgba(94, 23, 235, 0.14);
+  gap: 0.5rem;
+}
+
+.kontak-form__skip:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Form progress 1/3 */
+.kontak-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg-alt) 80%, #fff);
+  box-shadow: var(--shadow-neu-inset-sm);
+}
+
+.kontak-progress__bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(94, 23, 235, 0.12);
+  overflow: hidden;
+}
+
+.kontak-progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gradient-primary);
+  transition: width 0.35s var(--ease-out);
+  min-width: 0;
+}
+
+.kontak-progress__steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.kontak-progress__step {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: var(--weight-semibold);
+}
+
+.kontak-progress__num {
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  background: var(--bg);
+  box-shadow: var(--shadow-neu-sm);
+  color: var(--text-secondary);
+}
+
+.kontak-progress__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kontak-progress__step--active {
+  color: var(--primary-dark);
+}
+
+.kontak-progress__step--active .kontak-progress__num {
+  background: rgba(94, 23, 235, 0.12);
+  color: var(--primary-dark);
+  box-shadow: inset 0 0 0 1.5px rgba(94, 23, 235, 0.28);
+}
+
+.kontak-progress__step--done {
+  color: var(--success);
+}
+
+.kontak-progress__step--done .kontak-progress__num {
+  background: rgba(5, 150, 105, 0.12);
+  color: var(--success);
+  box-shadow: none;
+}
+
+.kontak-progress__hint {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: var(--weight-medium);
+  color: var(--text-muted);
 }
 
 .form-grid {
@@ -76,9 +206,10 @@
 }
 
 .form-label {
-  font-size: var(--text-sm);
+  font-size: var(--text-caption);
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
+  line-height: 1.3;
 }
 
 .form-required {
@@ -140,12 +271,33 @@
   color: var(--text-light);
 }
 
+.kontak-form__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: var(--space-sm);
+}
+
 .kontak-form__submit {
   width: 100%;
   justify-content: center;
   gap: var(--space-sm);
-  padding: 0.9rem;
+  padding: 1rem 1.1rem;
   font-size: var(--text-base);
+  min-height: 54px;
+  box-shadow: 0 10px 26px rgba(37, 211, 102, 0.35);
+}
+
+.kontak-form__submit:hover {
+  box-shadow: 0 14px 32px rgba(37, 211, 102, 0.42);
+}
+
+.kontak-form__footnote {
+  margin: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
 }
 
 /* Success */
@@ -245,6 +397,16 @@
 .kontak-channel:hover {
   transform: translateX(3px);
   box-shadow: var(--shadow-neu);
+}
+
+/* Primary contact path — slightly stronger for social-driven visitors */
+.kontak-channel--wa {
+  box-shadow: var(--shadow-neu-sm), 0 0 0 1.5px rgba(37, 211, 102, 0.28);
+  background: linear-gradient(135deg, #f3fff7 0%, var(--bg) 55%);
+}
+
+.kontak-channel--wa:hover {
+  box-shadow: var(--shadow-neu), 0 0 0 1.5px rgba(37, 211, 102, 0.4);
 }
 
 .kontak-channel__icon {
@@ -359,6 +521,19 @@
     padding: 0.85rem 1rem;
   }
 
+  .kontak-form__head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .kontak-form__skip {
+    align-self: flex-start;
+  }
+
+  .kontak-progress__label {
+    font-size: 0.65rem;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
     gap: var(--space-md);
@@ -369,8 +544,17 @@
   }
 
   .kontak-form {
-    padding: var(--space-lg);
-    gap: var(--space-lg);
+    padding: 1.5rem 1.25rem;
+    gap: 1.25rem;
+    border-radius: var(--radius-xl);
+  }
+
+  .kontak-section {
+    padding-top: 1.75rem;
+  }
+
+  .kontak-grid {
+    gap: 1.25rem;
   }
 
   .kontak-form__submit {
@@ -418,7 +602,7 @@
 
 @media (max-width: 480px) {
   .kontak-form {
-    padding: var(--space-md);
+    padding: 1.35rem 1.15rem;
   }
 
   .kontak-form__title {
@@ -428,10 +612,21 @@
   .kontak-info__card,
   .kontak-response,
   .kontak-payment {
-    padding: var(--space-md);
+    padding: 1.2rem 1.15rem;
+    border-radius: var(--radius-xl);
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .kontak-response-badges {
+    gap: 0.5rem;
+  }
+
+  .kontak-badge {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.75rem;
   }
 }

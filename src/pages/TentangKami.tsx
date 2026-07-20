@@ -11,22 +11,22 @@ export default function TentangKami() {
   usePageTitle({
     title: 'Tentang Kami',
     description:
-      'Kenali IDKA Solutions — tim developer Indonesia yang membantu bisnis kamu hadir secara online dengan website yang profesional dan berdampak.',
+      'Kenali IDKA Solutions — mitra digital yang membantu bisnis tampil profesional online melalui website modern dan berdampak.',
     path: '/tentang',
   })
 
   return (
     <div className="tentang-page">
       {/* Header */}
-      <section className="page-header section" aria-labelledby="tentang-heading" data-hero-enter>
+      <section className="page-header section" aria-labelledby="tentang-heading" data-hero-enter="tentang">
         <div className="container">
           <div className="page-header__inner">
-            <div className="section-tag hero-in__item hero-in__item--tag">Who We Are</div>
+            <div className="section-tag hero-in__item hero-in__item--tag">Tentang Kami</div>
             <h1 id="tentang-heading" className="section-title hero-in__item hero-in__item--title">
-              Hai, Kami <span className="gradient-text">IDKA Solutions</span>
+              Kami <span className="gradient-text">IDKA Solutions</span>
             </h1>
             <p className="section-subtitle hero-in__item hero-in__item--sub">
-              Bukan sekadar jasa bikin website. Kami partner digital yang genuinely peduli sama pertumbuhan bisnis kamu online.
+              Mitra digital yang membantu bisnis membangun website profesional dan mendukung pertumbuhan online.
             </p>
           </div>
         </div>
@@ -53,7 +53,7 @@ export default function TentangKami() {
                 </div>
                 <div className="story-card__divider" />
                 <p className="story-card__quote">
-                  &ldquo;Every business deserves to look legit online—nggak peduli seberapa kecil bisnis kamu.&rdquo;
+                  &ldquo;Setiap bisnis berhak tampil profesional di internet—tanpa memandang skala.&rdquo;
                 </p>
                 <div className="story-card__stats">
                   {stats.map((s) => (
@@ -66,23 +66,23 @@ export default function TentangKami() {
               </div>
             </div>
             <div className="story-content reveal reveal--right">
-              <div className="section-tag" style={{ alignSelf: 'flex-start' }}>Our Story</div>
+              <div className="section-tag" style={{ alignSelf: 'flex-start' }}>Cerita Kami</div>
               <h2 id="story-heading" className="section-title" style={{ textAlign: 'left' }}>
-                Dari Satu Pertanyaan: &ldquo;Kenapa Susah Banget Eksis Online?&rdquo;
+                Mengapa Kehadiran Online Perlu Lebih Mudah
               </h2>
               <div className="story-text">
                 <p>
-                  Hi, saya <strong>Abror Rozaqi</strong> — founder IDKA Solutions. Dulu saya sering lihat bisnis bagus di sekitar saya: kafe enak, jasa foto keren, UMKM produk lokal yang potensial—tapi online-nya nggak ada atau terkesan amatir.
+                  Saya <strong>Abror Rozaqi</strong>, founder IDKA Solutions. Saya sering melihat bisnis potensial di sekitar—kafe, jasa kreatif, UMKM lokal—yang belum punya kehadiran online yang memadai, atau tampil kurang profesional.
                 </p>
                 <p>
-                  Dari situ IDKA Solutions lahir. Bersama tim kecil kami, kami hadir buat UMKM, freelancer, kreator, dan startup yang pengen eksis online tapi nggak mau ribet. Bukan sekadar bikin website &ldquo;biar ada&rdquo;—tapi website yang beneran ngasih impact buat bisnis kamu.
+                  Dari situ IDKA Solutions berdiri. Bersama tim kecil, kami membantu UMKM, freelancer, kreator, dan startup hadir secara online dengan cara yang efisien. Bukan sekadar website formalitas, tetapi website yang mendukung kredibilitas dan pertumbuhan bisnis.
                 </p>
                 <p>
                   {company.position}
                 </p>
               </div>
               <NavLink to="/kontak" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
-                Kolaborasi Yuk!
+                Hubungi Kami
               </NavLink>
             </div>
           </div>
@@ -103,9 +103,9 @@ export default function TentangKami() {
       <section className="section section--tint tentang-values" aria-labelledby="values-heading">
         <div className="container">
           <div className="section-header reveal">
-            <div className="section-tag">How We Roll</div>
+            <div className="section-tag">Nilai Kami</div>
             <h2 id="values-heading" className="section-title">
-              Ini yang Bikin Kami Beda
+              Yang Membedakan Kami
             </h2>
           </div>
           <div className="values-grid">
@@ -124,12 +124,12 @@ export default function TentangKami() {
       <section className="section tentang-team" aria-labelledby="team-heading">
         <div className="container">
           <div className="section-header reveal">
-            <div className="section-tag">Meet the Team</div>
+            <div className="section-tag">Tim</div>
             <h2 id="team-heading" className="section-title">
               Tim di Balik IDKA Solutions
             </h2>
             <p className="section-subtitle">
-              Tim kecil tapi mighty. Masing-masing punya expertise-nya sendiri, semua fokus ke satu hal: website kamu harus keren dan nggak bikin kamu kecewa.
+              Tim ringkas dengan keahlian yang saling melengkapi—fokus pada website berkualitas dan hasil yang memuaskan.
             </p>
           </div>
           <div className="team-grid">
@@ -151,12 +151,12 @@ export default function TentangKami() {
       <section className="section tentang-tech" aria-labelledby="tech-heading">
         <div className="container">
           <div className="section-header reveal">
-            <div className="section-tag">Tech Stack</div>
+            <div className="section-tag">Teknologi</div>
             <h2 id="tech-heading" className="section-title">
-              Tools yang Kami Pakai Sehari-hari
+              Tools yang Kami Gunakan
             </h2>
             <p className="section-subtitle">
-              Semua modern, battle-tested, dan dipilih buat bikin website yang ngebut, aman, dan scalable.
+              Teknologi modern dan teruji, dipilih untuk website yang cepat, aman, dan mudah dikembangkan.
             </p>
           </div>
           <div className="tech-grid">
@@ -175,34 +175,34 @@ export default function TentangKami() {
       <section className="section tentang-target" aria-labelledby="target-heading">
         <div className="container">
           <div className="section-header">
-            <div className="section-tag">Untuk Siapa?</div>
+            <div className="section-tag">Untuk Siapa</div>
             <h2 id="target-heading" className="section-title">
-              Kalau Kamu Salah Satu dari Ini, Kami Bisa Bantu
+              Siapa yang Kami Layani
             </h2>
           </div>
           <div className="target-grid">
-                          {[
+            {[
               {
                 icon: '🏪',
                 title: 'UMKM & Bisnis Lokal',
                 examples: 'Kafe, laundry, salon, toko, jasa rumahan',
-                need: 'Profil bisnis online, katalog produk, tombol WA, trust yang lebih tinggi',
+                need: 'Profil bisnis online, katalog produk, tombol WhatsApp, kredibilitas yang lebih kuat',
               },
               {
                 icon: '🎯',
                 title: 'Freelancer & Kreator',
                 examples: 'Fotografer, coach, desainer, content creator',
-                need: 'Portofolio keren, landing page, personal branding yang strong',
+                need: 'Portofolio profesional, landing page, personal branding yang jelas',
               },
               {
                 icon: '🚀',
                 title: 'Startup & Bisnis Baru',
                 examples: 'Side project, bisnis tahap awal, produk baru',
-                need: 'Company profile yang legit, landing page, MVP yang simple tapi keren',
+                need: 'Company profile yang kredibel, landing page, MVP yang sederhana dan efektif',
               },
               {
                 icon: '💼',
-                title: 'Bisnis yang Mau Naik Level',
+                title: 'Bisnis yang Naik Level',
                 examples: 'Perusahaan kecil, startup profesional',
                 need: 'Website yang lebih kredibel, case study, kesan brand yang lebih premium',
               },
@@ -226,16 +226,16 @@ export default function TentangKami() {
       <section className="section section--tint tentang-cta">
         <div className="container">
           <div className="tentang-cta__card neu-raised-lg text-center reveal reveal--scale">
-            <div className="section-tag" style={{ display: 'inline-block' }}>Let&apos;s Work Together</div>
+            <div className="section-tag" style={{ display: 'inline-block' }}>Mari Berkolaborasi</div>
             <h2 className="tentang-cta__title">
-              Bisnis Kamu Deserve <span className="gradient-text">Website yang Lebih Baik</span>
+              Bisnis Anda Layak <span className="gradient-text">Website yang Lebih Baik</span>
             </h2>
             <p className="tentang-cta__desc">
-              Udah tau apa yang dibutuhkan? Gas langsung kontak kami. Masih bingung? Juga boleh—kami bantu figure out bareng.
+              Sudah memiliki gambaran kebutuhan? Hubungi kami. Masih mempertimbangkan opsi? Kami bantu merumuskannya.
             </p>
             <div className="tentang-cta__actions">
-              <NavLink to="/kontak" className="btn btn-primary">Ngobrol Dulu, Gratis!</NavLink>
-              <NavLink to="/layanan" className="btn btn-secondary">Cek Layanan Kami</NavLink>
+              <NavLink to="/kontak" className="btn btn-primary">Konsultasi Gratis</NavLink>
+              <NavLink to="/layanan" className="btn btn-secondary">Lihat Layanan</NavLink>
             </div>
           </div>
         </div>

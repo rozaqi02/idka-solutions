@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { company } from '../data/content'
 import './WAButton.css'
 
-const WA_MESSAGE = 'Halo IDKA Solutions! Saya ingin konsultasi website untuk bisnis saya.'
+const WA_MESSAGE = 'Halo IDKA Solutions, saya ingin konsultasi website untuk bisnis saya.'
 const STORAGE_KEY = 'wa-tooltip-shown'
 
 function safeSessionGet(key: string): string | null {

@@ -52,7 +52,7 @@ function AnimatedRoutes({ addToast }: { addToast: (msg: string, type?: 'success'
 
   return (
     <div key={location.pathname} className="page-enter">
-      <ErrorBoundary>
+      <ErrorBoundary resetKey={location.pathname}>
         <Suspense fallback={<PageLoader />}>
           <Routes location={location}>
             <Route path="/"          element={<Home />} />

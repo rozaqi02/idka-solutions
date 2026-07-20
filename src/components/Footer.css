@@ -153,55 +153,69 @@ a.footer__link:hover,
 
 @media (max-width: 768px) {
   .footer {
-    padding: var(--space-3xl) 0 var(--space-xl);
-    margin-top: var(--space-3xl);
+    padding: 2.75rem 0 calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    margin-top: 2.5rem;
   }
 
   .footer__grid {
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: 1.75rem;
+    margin-bottom: 1.75rem;
   }
 
+  /* Left-aligned — mid-center on mobile felt awkward / “floaty” */
   .footer__brand {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .footer__desc {
-    max-width: 100%;
-    text-align: center;
+    max-width: 36rem;
+    text-align: left;
   }
 
   .footer__socials {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .footer__social-btn {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
   }
 
   .footer__links {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .footer__links nav {
-    align-items: center;
+    align-items: flex-start;
+  }
+
+  .footer__links-title {
+    text-align: left;
   }
 
   .footer__link {
     min-height: 44px;
-    justify-content: center;
-    padding: var(--space-xs) 0;
+    justify-content: flex-start;
+    padding: 0.35rem 0;
+  }
+
+  .footer__link--contact {
+    justify-content: flex-start;
   }
 
   .footer__cta {
-    align-self: center;
+    align-self: flex-start;
+    width: auto;
+    min-width: 10.5rem;
   }
 
   .footer__bottom {
     flex-direction: column;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.35rem;
   }
 }

@@ -66,7 +66,7 @@ export default function Footer() {
           <div className="footer__links">
             <h3 className="footer__links-title">Halaman</h3>
             <nav aria-label="Footer navigation">
-              <NavLink to="/" className="footer__link">Home</NavLink>
+              <NavLink to="/" className="footer__link">Beranda</NavLink>
               <NavLink to="/layanan" className="footer__link">Layanan</NavLink>
               <NavLink to="/portofolio" className="footer__link">Portofolio</NavLink>
               <NavLink to="/tentang" className="footer__link">Tentang Kami</NavLink>

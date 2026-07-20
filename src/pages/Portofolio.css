@@ -1,6 +1,6 @@
 /* ===== PORTOFOLIO PAGE ===== */
 .porto-page {
-  padding-top: var(--navbar-height);
+  padding-top: 0;
 }
 
 /* Filters */
@@ -150,8 +150,13 @@
   object-position: top;
   display: block;
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  opacity: 0;
-  transition: opacity 0.4s ease, transform var(--transition-slow);
+  /* Default visible — skeleton sits behind; avoid stuck opacity:0 if onLoad misses */
+  opacity: 1;
+  transition: opacity 0.35s ease, transform var(--transition-slow);
+}
+
+.porto-card__screenshot:not(.porto-card__screenshot--loaded) {
+  opacity: 0.35;
 }
 
 .porto-card__screenshot--loaded {
@@ -259,15 +264,19 @@
 }
 
 .porto-card__title {
-  font-size: var(--text-lg);
-  font-weight: var(--weight-semibold);
+  font-family: var(--font-display);
+  font-size: var(--text-card);
+  font-weight: var(--weight-bold);
   color: var(--text-primary);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
 }
 
 .porto-card__desc {
-  font-size: var(--text-sm);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
   color: var(--text-secondary);
-  line-height: 1.65;
+  line-height: var(--leading-body);
 }
 
 .porto-card__toggle {
@@ -320,13 +329,15 @@
 }
 
 .porto-card__link {
-  align-self: flex-start;
+  align-self: stretch;
+  justify-content: center;
   font-size: var(--text-sm);
-  padding: 0.5rem 1.1rem;
-  margin-top: var(--space-xs);
+  padding: 0.7rem 1.1rem;
+  margin-top: var(--space-sm);
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
+  min-height: 48px;
 }
 
 .porto-card__browser-url-text {
@@ -421,10 +432,12 @@
 
   .porto-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
   .porto-card__visual { height: 200px; }
-  .porto-case-note { padding: var(--space-xl); }
+  .porto-case-note { padding: 1.5rem 1.35rem; }
+  .porto-card__body { padding: 1.25rem 1.2rem; }
 }
 
 @media (max-width: 480px) {
-  .porto-card__body { padding: var(--space-md); }
-  .porto-card__browser { width: 85%; }
+  .porto-card__body { padding: 1.2rem 1.15rem; }
+  .porto-card__browser { width: 88%; }
+  .porto-case-note { padding: 1.35rem 1.2rem; }
 }

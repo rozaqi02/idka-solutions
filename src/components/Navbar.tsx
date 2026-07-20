@@ -135,7 +135,7 @@ export default function Navbar() {
   }, [menuOpen])
 
   const waUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
-    'Halo IDKA Solutions! Saya ingin konsultasi website.'
+    'Halo IDKA Solutions, saya ingin konsultasi website.'
   )}`
 
   const mobileDrawer =
@@ -159,7 +159,17 @@ export default function Navbar() {
         >
           <div className="navbar__mobile-inner">
             <div className="navbar__mobile-head">
-              <span className="navbar__mobile-kicker">Menu</span>
+              <div className="navbar__mobile-brand">
+                <img
+                  src="/logo-idka-solutions-nav.png"
+                  alt=""
+                  className="navbar__mobile-brand-logo"
+                  width={112}
+                  height={36}
+                  decoding="async"
+                />
+                <span className="navbar__mobile-kicker">Menu</span>
+              </div>
               <button
                 type="button"
                 className="navbar__mobile-close"
@@ -167,7 +177,6 @@ export default function Navbar() {
                 tabIndex={menuOpen ? 0 : -1}
                 aria-label="Tutup menu"
               >
-                {/* X simpel: 2 garis lurus, stroke tipis */}
                 <svg
                   className="navbar__mobile-close-icon"
                   width="16"
@@ -236,11 +245,11 @@ export default function Navbar() {
       <div className="navbar__container">
         <NavLink to="/" className="navbar__logo" aria-label="IDKA Solutions — Beranda" onClick={closeMenu}>
           <img
-            src="/logo-idka-solutions.png"
+            src="/logo-idka-solutions-nav.png"
             alt="IDKA Solutions"
             className="navbar__logo-img"
-            width={148}
-            height={36}
+            width={120}
+            height={44}
             decoding="async"
           />
         </NavLink>

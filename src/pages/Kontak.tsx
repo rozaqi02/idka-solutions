@@ -64,6 +64,23 @@ type KontakProps = {
   addToast?: (message: string, type?: ToastType) => void
 }
 
+const FORM_STEPS = [
+  { id: 1, label: 'Data diri' },
+  { id: 2, label: 'Detail web' },
+  { id: 3, label: 'Timeline' },
+] as const
+
+function getFormProgress(form: FormData) {
+  const step1Done = Boolean(form.nama.trim() && form.bisnis.trim())
+  const step2Done = Boolean(form.tujuan_website.trim())
+  const step3Done = Boolean(
+    form.budget || form.deadline.trim() || form.pesan.trim() || form.punya_domain,
+  )
+  const doneCount = [step1Done, step2Done, step3Done].filter(Boolean).length
+  const current = !step1Done ? 1 : !step2Done ? 2 : 3
+  return { step1Done, step2Done, step3Done, doneCount, current }
+}
+
 export default function Kontak({ addToast }: KontakProps) {
   const [form, setForm] = useState<FormData>(initialForm)
   const [submitted, setSubmitted] = useState(false)
@@ -75,9 +92,14 @@ export default function Kontak({ addToast }: KontakProps) {
   usePageTitle({
     title: 'Kontak',
     description:
-      'Konsultasi gratis dengan IDKA Solutions. Ceritakan kebutuhan website bisnis kamu — kami balas dalam 1-3 jam kerja.',
+      'Konsultasi gratis dengan IDKA Solutions. Sampaikan kebutuhan website bisnis Anda — kami balas dalam 1–3 jam kerja.',
     path: '/kontak',
   })
+
+  const progress = getFormProgress(form)
+  const waSkipUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
+    'Halo IDKA Solutions, saya ingin konsultasi website terlebih dahulu (chat langsung, formulir kemudian).',
+  )}`
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -88,7 +110,7 @@ export default function Kontak({ addToast }: KontakProps) {
     }
   }
 
-  const validate = (): boolean => {
+  const validate = (): Partial<Record<keyof FormData, string>> => {
     const newErrors: Partial<Record<keyof FormData, string>> = {}
     if (!form.nama.trim()) newErrors.nama = 'Nama wajib diisi'
     if (!form.bisnis.trim()) newErrors.bisnis = 'Nama bisnis wajib diisi'
@@ -97,13 +119,26 @@ export default function Kontak({ addToast }: KontakProps) {
       newErrors.email = 'Format email tidak valid'
     }
     setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    return newErrors
+  }
+
+  const scrollToFirstError = (errs: Partial<Record<keyof FormData, string>>) => {
+    const order: (keyof FormData)[] = ['nama', 'bisnis', 'email', 'tujuan_website']
+    const first = order.find((key) => errs[key])
+    if (!first) return
+    window.requestAnimationFrame(() => {
+      const el = document.getElementById(first)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      el?.focus({ preventScroll: true })
+    })
   }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (!validate()) {
-      addToast?.('Lengkapi field yang wajib diisi dulu ya!', 'error')
+    const errs = validate()
+    if (Object.keys(errs).length > 0) {
+      addToast?.('Lengkapi field wajib terlebih dahulu.', 'error')
+      scrollToFirstError(errs)
       return
     }
 
@@ -133,7 +168,7 @@ export default function Kontak({ addToast }: KontakProps) {
 
     // Build WhatsApp message (primary conversion path)
     const msg = [
-      `Halo IDKA Solutions! Saya ingin konsultasi website.`,
+      `Halo IDKA Solutions, saya ingin konsultasi website.`,
       ``,
       `*Data Brief:*`,
       `Nama: ${form.nama}`,
@@ -161,31 +196,31 @@ export default function Kontak({ addToast }: KontakProps) {
 
     if (popup) {
       setWaFallbackUrl(null)
-      addToast?.('Brief siap! WhatsApp sudah terbuka.', 'success')
+      addToast?.('Brief siap. WhatsApp telah dibuka.', 'success')
     } else {
       // Popup blocked — keep user on page with a direct WA link
       setWaFallbackUrl(waUrl)
-      addToast?.('Popup diblokir. Klik tombol WhatsApp di bawah untuk lanjut.', 'info')
+      addToast?.('Popup diblokir. Gunakan tombol WhatsApp di bawah untuk melanjutkan.', 'info')
     }
   }
 
   return (
     <div className="kontak-page">
       {/* Header */}
-      <section className="page-header section" aria-labelledby="kontak-heading" data-hero-enter>
+      <section className="page-header section" aria-labelledby="kontak-heading" data-hero-enter="kontak">
         <div className="container">
           <div className="page-header__inner">
             <div className="section-tag hero-in__item hero-in__item--tag">Kontak</div>
             <h1 id="kontak-heading" className="section-title hero-in__item hero-in__item--title">
-              Ceritain Dulu, <span className="gradient-text">Kami yang Figureout</span>
+              Sampaikan Kebutuhan, <span className="gradient-text">Kami Siapkan Solusinya</span>
             </h1>
             <p className="section-subtitle hero-in__item hero-in__item--sub">
-              Isi form di bawah—nggak perlu perfect, yang penting ceritain dulu.
+              Isi formulir di bawah. Informasi tidak harus lengkap—kami bantu melengkapinya.
             </p>
             <div className="kontak-response-badges hero-in__item hero-in__item--extra">
-              <span className="kontak-badge">⚡ Balas dalam 1-3 jam kerja</span>
+              <span className="kontak-badge">⚡ Balas dalam 1–3 jam kerja</span>
               <span className="kontak-badge">🎁 Konsultasi pertama gratis</span>
-              <span className="kontak-badge">📋 No commitment</span>
+              <span className="kontak-badge">📋 Tanpa komitmen</span>
             </div>
           </div>
         </div>
@@ -200,19 +235,19 @@ export default function Kontak({ addToast }: KontakProps) {
               {submitted ? (
                 <div className="kontak-success neu-raised" role="status" aria-live="polite">
                   <div className="kontak-success__icon" aria-hidden="true">&#10004;</div>
-                  <h2 className="kontak-success__title">Brief Siap Terkirim</h2>
+                  <h2 className="kontak-success__title">Brief Siap Dikirim</h2>
                   <p className="kontak-success__desc">
                     {waFallbackUrl
-                      ? 'Popup diblokir browser. Klik tombol di bawah untuk buka WhatsApp dengan detail brief kamu.'
-                      : 'WhatsApp udah kebuka dengan detail brief kamu. Kami akan balas dalam jam kerja—stay tuned ya!'}
+                      ? 'Popup diblokir browser. Klik tombol di bawah untuk membuka WhatsApp dengan detail brief Anda.'
+                      : 'WhatsApp telah dibuka dengan detail brief Anda. Kami akan membalas pada jam kerja.'}
                   </p>
                   {waFallbackUrl && (
                     <a
                       href={waFallbackUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn-primary"
-                      style={{ marginBottom: '0.75rem' }}
+                      className="btn btn-wa"
+                      style={{ marginBottom: '0.75rem', width: '100%', maxWidth: 280 }}
                     >
                       Buka WhatsApp
                     </a>
@@ -220,6 +255,7 @@ export default function Kontak({ addToast }: KontakProps) {
                   <button
                     type="button"
                     className="btn btn-secondary"
+                    style={{ width: '100%', maxWidth: 280 }}
                     onClick={() => {
                       setForm(initialForm)
                       setSubmitted(false)
@@ -247,8 +283,68 @@ export default function Kontak({ addToast }: KontakProps) {
                       <input name="bot-field" tabIndex={-1} autoComplete="off" />
                     </label>
                   </p>
-                  <h2 className="kontak-form__title">Ceritakan Kebutuhanmu</h2>
-                  <p className="kontak-form__subtitle">Makin lengkap infonya, makin akurat estimasi dan saran dari kami.</p>
+                  <div className="kontak-form__head">
+                    <div>
+                      <h2 className="kontak-form__title">Detail Kebutuhan Proyek</h2>
+                      <p className="kontak-form__subtitle">
+                        Semakin lengkap informasinya, semakin akurat estimasi dan rekomendasi kami.
+                      </p>
+                    </div>
+                    <a
+                      href={waSkipUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="kontak-form__skip"
+                    >
+                      Chat WhatsApp
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M5 12h14" />
+                        <path d="M13 6l6 6-6 6" />
+                      </svg>
+                    </a>
+                  </div>
+
+                  {/* Progress 1 / 3 */}
+                  <div
+                    className="kontak-progress"
+                    role="group"
+                    aria-label={`Progres form: langkah ${progress.current} dari 3`}
+                  >
+                    <div className="kontak-progress__bar" aria-hidden="true">
+                      <span
+                        className="kontak-progress__fill"
+                        style={{ width: `${(progress.doneCount / 3) * 100}%` }}
+                      />
+                    </div>
+                    <ol className="kontak-progress__steps">
+                      {FORM_STEPS.map((step) => {
+                        const done =
+                          step.id === 1
+                            ? progress.step1Done
+                            : step.id === 2
+                              ? progress.step2Done
+                              : progress.step3Done
+                        const active = progress.current === step.id
+                        return (
+                          <li
+                            key={step.id}
+                            className={`kontak-progress__step${done ? ' kontak-progress__step--done' : ''}${
+                              active ? ' kontak-progress__step--active' : ''
+                            }`}
+                          >
+                            <span className="kontak-progress__num" aria-hidden="true">
+                              {done ? '✓' : step.id}
+                            </span>
+                            <span className="kontak-progress__label">{step.label}</span>
+                          </li>
+                        )
+                      })}
+                    </ol>
+                    <p className="kontak-progress__hint">
+                      Langkah {progress.current} dari 3
+                      {progress.doneCount > 0 ? ` · ${progress.doneCount} selesai` : ''}
+                    </p>
+                  </div>
 
                   <div className="form-section">
                     <div className="form-section__title">1 · Data diri &amp; bisnis</div>
@@ -256,16 +352,18 @@ export default function Kontak({ addToast }: KontakProps) {
                     {/* Nama */}
                     <div className="form-group">
                       <label htmlFor="nama" className="form-label">
-                        Nama Kamu <span className="form-required" aria-hidden="true">*</span>
+                        Nama <span className="form-required" aria-hidden="true">*</span>
                       </label>
                       <input
                         id="nama"
                         name="nama"
                         type="text"
                         className={`form-input neu-inset${errors.nama ? ' form-input--error' : ''}`}
-                        placeholder="e.g. Rahmat, Sari, dll"
+                        placeholder="Contoh: Rahmat, Sari"
                         value={form.nama}
                         onChange={handleChange}
+                        autoComplete="name"
+                        enterKeyHint="next"
                         aria-required="true"
                         aria-describedby={errors.nama ? 'nama-error' : undefined}
                       />
@@ -282,7 +380,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         name="bisnis"
                         type="text"
                         className={`form-input neu-inset${errors.bisnis ? ' form-input--error' : ''}`}
-                        placeholder="e.g. Kedai Kopi Nusantara, Studio Foto dll"
+                        placeholder="Contoh: Kedai Kopi Nusantara, Studio Foto"
                         value={form.bisnis}
                         onChange={handleChange}
                         aria-required="true"
@@ -301,9 +399,12 @@ export default function Kontak({ addToast }: KontakProps) {
                         name="email"
                         type="email"
                         className={`form-input neu-inset${errors.email ? ' form-input--error' : ''}`}
-                        placeholder="e.g. nama@email.com"
+                        placeholder="Contoh: nama@email.com"
                         value={form.email}
                         onChange={handleChange}
+                        autoComplete="email"
+                        inputMode="email"
+                        enterKeyHint="next"
                         aria-describedby={errors.email ? 'email-error' : undefined}
                       />
                       {errors.email && <span id="email-error" className="form-error" role="alert">{errors.email}</span>}
@@ -319,9 +420,12 @@ export default function Kontak({ addToast }: KontakProps) {
                         name="whatsapp"
                         type="tel"
                         className="form-input neu-inset"
-                        placeholder="e.g. 08123456789"
+                        placeholder="Contoh: 08123456789"
                         value={form.whatsapp}
                         onChange={handleChange}
+                        autoComplete="tel"
+                        inputMode="tel"
+                        enterKeyHint="next"
                       />
                     </div>
 
@@ -335,7 +439,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         name="jenis_usaha"
                         type="text"
                         className="form-input neu-inset"
-                        placeholder="e.g. Kuliner, Fotografi, Konsultan, Kreator"
+                        placeholder="Contoh: Kuliner, Fotografi, Konsultan, Kreator"
                         value={form.jenis_usaha}
                         onChange={handleChange}
                       />
@@ -357,7 +461,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         name="tujuan_website"
                         type="text"
                         className={`form-input neu-inset${errors.tujuan_website ? ' form-input--error' : ''}`}
-                        placeholder="e.g. Narik pelanggan baru, kelihatan profesional, jualan online"
+                        placeholder="Contoh: Menarik pelanggan baru, meningkatkan kredibilitas, penjualan online"
                         value={form.tujuan_website}
                         onChange={handleChange}
                         aria-required="true"
@@ -473,7 +577,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         id="pesan"
                         name="pesan"
                         className="form-textarea neu-inset"
-                        placeholder="Spill aja semua—referensi website yang kamu suka, fitur khusus, atau apapun yang ada di pikiran kamu..."
+                        placeholder="Referensi website, fitur khusus, atau catatan lain yang perlu kami ketahui..."
                         rows={4}
                         value={form.pesan}
                         onChange={handleChange}
@@ -482,27 +586,32 @@ export default function Kontak({ addToast }: KontakProps) {
                   </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="btn btn-primary kontak-form__submit"
-                    disabled={loading}
-                    aria-busy={loading}
-                  >
-                    {loading ? (
-                      <>
-                        <span className="kontak-form__spinner" aria-hidden="true" />
-                        Mengirim...
-                      </>
-                    ) : (
-                      <>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.557 4.116 1.529 5.843L.057 23.143a.75.75 0 00.917.916l5.356-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.91 0-3.694-.523-5.22-1.432l-.374-.222-3.88 1.058 1.087-3.797-.243-.387A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
-                        </svg>
-                        Gas, Kirim via WhatsApp!
-                      </>
-                    )}
-                  </button>
+                  <div className="kontak-form__footer">
+                    <button
+                      type="submit"
+                      className="btn btn-wa kontak-form__submit"
+                      disabled={loading}
+                      aria-busy={loading}
+                    >
+                      {loading ? (
+                        <>
+                          <span className="kontak-form__spinner" aria-hidden="true" />
+                          Menyiapkan WhatsApp...
+                        </>
+                      ) : (
+                        <>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.557 4.116 1.529 5.843L.057 23.143a.75.75 0 00.917.916l5.356-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.91 0-3.694-.523-5.22-1.432l-.374-.222-3.88 1.058 1.087-3.797-.243-.387A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+                          </svg>
+                          Kirim via WhatsApp
+                        </>
+                      )}
+                    </button>
+                    <p className="kontak-form__footnote">
+                      Brief juga tersimpan secara aman. Field bertanda * wajib diisi; sisanya dapat dikosongkan.
+                    </p>
+                  </div>
                 </form>
               )}
             </div>
@@ -510,15 +619,22 @@ export default function Kontak({ addToast }: KontakProps) {
             {/* Contact Info */}
             <aside className="kontak-info" aria-label="Informasi kontak">
               <div className="kontak-info__card neu-raised">
-                <h2 className="kontak-info__title">Mau Langsung Chat?</h2>
-                <p className="kontak-info__desc">Pilih channel yang paling enak buat kamu.</p>
+                <h2 className="kontak-info__title">Hubungi Langsung</h2>
+                <p className="kontak-info__desc">Pilih saluran komunikasi yang paling sesuai.</p>
 
                 <div className="kontak-channels">
                   <a
-                    href={`https://wa.me/${company.whatsapp}`}
+                    href={
+                      'https://wa.me/' +
+                      company.whatsapp +
+                      '?text=' +
+                      encodeURIComponent(
+                        'Halo IDKA Solutions, saya ingin konsultasi website.',
+                      )
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="kontak-channel neu-raised"
+                    className="kontak-channel kontak-channel--wa neu-raised"
                     aria-label="Chat via WhatsApp"
                   >
                     <div className="kontak-channel__icon" style={{ background: '#25d366', color: 'white' }} aria-hidden="true">
@@ -529,7 +645,7 @@ export default function Kontak({ addToast }: KontakProps) {
                     </div>
                     <div>
                       <div className="kontak-channel__label">WhatsApp</div>
-                      <div className="kontak-channel__value">Chat langsung</div>
+                      <div className="kontak-channel__value">Konsultasi langsung</div>
                     </div>
                     <svg className="kontak-channel__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="9 18 15 12 9 6" />
@@ -585,26 +701,26 @@ export default function Kontak({ addToast }: KontakProps) {
               <div className="kontak-response neu-raised">
                 <div className="kontak-response__icon" aria-hidden="true">&#9201;</div>
                 <div>
-                  <div className="kontak-response__title">Kami Balas Cepat</div>
-                  <div className="kontak-response__desc">1-3 jam di jam kerja (Senin–Sabtu, 08.00–20.00 WIB)</div>
+                  <div className="kontak-response__title">Waktu Respons</div>
+                  <div className="kontak-response__desc">1–3 jam pada jam kerja (Senin–Sabtu, 08.00–20.00 WIB)</div>
                 </div>
               </div>
 
               {/* Payment Info */}
               <div className="kontak-payment neu-raised">
-                <h3 className="kontak-payment__title">Cara Bayar</h3>
+                <h3 className="kontak-payment__title">Sistem Pembayaran</h3>
                 <div className="kontak-payment__items">
                   <div className="kontak-payment__item">
                     <span className="kontak-payment__bullet" aria-hidden="true">&#9654;</span>
-                    <span>DP 50% dulu sebelum mulai ngerjain</span>
+                    <span>DP 50% sebelum pengerjaan dimulai</span>
                   </div>
                   <div className="kontak-payment__item">
                     <span className="kontak-payment__bullet" aria-hidden="true">&#9654;</span>
-                    <span>Pelunasan 50% sebelum website live</span>
+                    <span>Pelunasan 50% sebelum go-live</span>
                   </div>
                   <div className="kontak-payment__item">
                     <span className="kontak-payment__bullet" aria-hidden="true">&#9654;</span>
-                    <span>Transfer Bank / QRIS / E-Wallet</span>
+                    <span>Transfer bank / QRIS / e-wallet</span>
                   </div>
                 </div>
               </div>

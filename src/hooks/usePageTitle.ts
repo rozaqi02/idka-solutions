@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 export const SITE_URL = 'https://idkasolutions.netlify.app'
 export const BASE_TITLE = 'IDKA Solutions'
 export const BASE_DESC =
-  'IDKA Solutions hadir sebagai mitra digital yang membantu bisnis kamu tampil profesional dan terpercaya di dunia online melalui website yang modern dan fungsional.'
-export const HOME_TITLE = 'IDKA Solutions | Jasa Website Profesional untuk Bisnis Kamu'
+  'IDKA Solutions membantu UMKM, personal brand, dan startup membangun website modern yang fungsional dan siap mendukung pertumbuhan bisnis.'
+export const HOME_TITLE = 'IDKA Solutions | Jasa Website Profesional untuk Bisnis'
 
 type MetaOptions = {
   /** Short page name, or full document title when `fullTitle` is true */

@@ -94,13 +94,25 @@ screenshots-tmp/
 *.crdownload
 *.partial
 
-# ===== Marketing local drafts (backup / versi lama) =====
-# Final assets di public/marketing/ tetap di-track; backup diabaikan.
+# ===== Marketing local drafts (backup / sumber / versi lama) =====
+# Final assets di public/marketing/ tetap di-track; file kerja lokal diabaikan.
 public/marketing/**/bckaup/
 public/marketing/**/backup/
 public/marketing/**/*-old.*
 public/marketing/**/*-backup.*
+public/marketing/**/*-style-source.*
+public/marketing/**/*-porto-real.*
+public/marketing/**/*-original.*
 public/marketing/**/*.draft.*
+public/marketing/**/*.wip.*
+
+# HTML generator one-off (bukan ig-posts.html master)
+scripts/ig-post-*.html
+
+# ===== Local tooling noise =====
+*.tsbuildinfo
+.vscode/settings.local.json
+*.stackdump
 
 # ===== Misc =====
 *.orig
