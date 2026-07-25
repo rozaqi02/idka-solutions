@@ -1,4 +1,4 @@
-.scroll-top {
+﻿.scroll-top {
   position: fixed;
   bottom: var(--scroll-offset);
   right: var(--fab-offset);
@@ -8,7 +8,7 @@
   border-radius: 50%;
   background: var(--bg);
   border: none;
-  box-shadow: var(--shadow-neu);
+  box-shadow: var(--shadow-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,13 +27,13 @@
 }
 
 .scroll-top:hover {
-  box-shadow: var(--shadow-neu-lg);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-3px);
 }
 
 .scroll-top:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-neu-inset-sm);
+  box-shadow: none;
 }
 
 .scroll-top:focus-visible {

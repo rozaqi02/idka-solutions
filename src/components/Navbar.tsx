@@ -58,10 +58,13 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [atTop, setAtTop] = useState(true)
+  const [hidden, setHidden] = useState(false)
   const [portalReady, setPortalReady] = useState(false)
   const location = useLocation()
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const lastScrollY = useRef(0)
 
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
@@ -78,7 +81,19 @@ export default function Navbar() {
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 12)
+          const currentY = window.scrollY
+          const prev = lastScrollY.current
+
+          setScrolled(currentY > 12)
+          setAtTop(currentY < 8)
+
+          if (currentY > 80) {
+            setHidden(currentY > prev && currentY - prev > 4)
+          } else {
+            setHidden(false)
+          }
+
+          lastScrollY.current = currentY
           ticking = false
         })
         ticking = true
@@ -148,155 +163,23 @@ export default function Navbar() {
           onClick={closeMenu}
         />
 
-        <div
-          ref={mobileMenuRef}
-          id="navbar-mobile-menu"
-          className={`navbar__mobile${menuOpen ? ' navbar__mobile--open' : ''}`}
-          aria-hidden={!menuOpen}
-          role="dialog"
-          aria-modal={menuOpen}
-          aria-label="Menu navigasi"
-        >
-          <div className="navbar__mobile-inner">
-            <div className="navbar__mobile-head">
-              <div className="navbar__mobile-brand">
-                <img
-                  src="/logo-idka-solutions-nav.png"
-                  alt=""
-                  className="navbar__mobile-brand-logo"
-                  width={112}
-                  height={36}
-                  decoding="async"
-                />
-                <span className="navbar__mobile-kicker">Menu</span>
-              </div>
-              <button
-                type="button"
-                className="navbar__mobile-close"
-                onClick={closeMenu}
-                tabIndex={menuOpen ? 0 : -1}
-                aria-label="Tutup menu"
-              >
-                <svg
-                  className="navbar__mobile-close-icon"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-                </svg>
-              </button>
-            </div>
-
-            <nav aria-label="Navigasi mobile" className="navbar__mobile-nav">
-              {navLinks.map((link, i) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  tabIndex={menuOpen ? 0 : -1}
-                  className={({ isActive }) =>
-                    `navbar__mobile-link${isActive ? ' navbar__mobile-link--active' : ''}`
-                  }
-                  style={{ ['--i' as string]: i }}
-                  end={link.to === '/'}
-                  onClick={closeMenu}
-                >
-                  <span className="navbar__mobile-link-icon" aria-hidden="true">
-                    {link.icon}
-                  </span>
-                  <span className="navbar__mobile-link-label">{link.label}</span>
-                  <span className="navbar__mobile-link-index" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                </NavLink>
-              ))}
-            </nav>
-
-            <div className="navbar__mobile-footer">
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="navbar__mobile-cta"
-                tabIndex={menuOpen ? 0 : -1}
-                onClick={closeMenu}
-              >
-                Konsultasi gratis
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 12h14" />
-                  <path d="M13 6l6 6-6 6" />
-                </svg>
-              </a>
-              <p className="navbar__mobile-note">Respon cepat · @idkasolutions</p>
-            </div>
-          </div>
-        </div>
-      </>,
-      document.body
-    )
-
-  return (
-    <header
-      className={`navbar${scrolled ? ' navbar--scrolled' : ''}${menuOpen ? ' navbar--menu-open' : ''}`}
-      role="banner"
-    >
-      <div className="navbar__container">
-        <NavLink to="/" className="navbar__logo" aria-label="IDKA Solutions — Beranda" onClick={closeMenu}>
-          <img
-            src="/logo-idka-solutions-nav.png"
-            alt="IDKA Solutions"
-            className="navbar__logo-img"
-            width={120}
-            height={44}
-            decoding="async"
-          />
-        </NavLink>
-
-        <nav className="navbar__nav" aria-label="Navigasi utama">
-          <div className="navbar__nav-track" role="list">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                role="listitem"
-                className={({ isActive }) =>
-                  `navbar__link${isActive ? ' navbar__link--active' : ''}`
-                }
-                end={link.to === '/'}
-              >
-                <span className="navbar__link-label">{link.label}</span>
-              </NavLink>
-            ))}
-          </div>
-        </nav>
-
-        <div className="navbar__actions">
-          {/* Satu CTA utama — hindari double intent "Mulai proyek" + "Konsultasi" */}
-          <NavLink to="/kontak" className="btn btn-primary navbar__cta">
-            Konsultasi gratis
-            <svg
-              className="navbar__cta-icon"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14" />
-              <path d="M13 6l6 6-6 6" />
-            </svg>
+        {/* Mobile bubbles — di dalam portal agar z-index di atas backdrop */}
+        <div className={`navbar__mobile-bubbles${atTop ? ' navbar__mobile-bubbles--at-top' : ''}`}>
+          <NavLink to="/" className="navbar__bubble navbar__bubble--logo" aria-label="IDKA Solutions — Beranda" onClick={closeMenu}>
+            <img
+              src="/logo-idka-solutions-nav.png"
+              alt="IDKA Solutions"
+              className="navbar__logo-img"
+              width={120}
+              height={44}
+              decoding="async"
+            />
           </NavLink>
 
           <button
             ref={hamburgerRef}
             type="button"
-            className={`navbar__hamburger${menuOpen ? ' navbar__hamburger--open' : ''}`}
+            className={`navbar__bubble navbar__bubble--menu${menuOpen ? ' navbar__hamburger--open' : ''}`}
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="navbar-mobile-menu"
@@ -308,6 +191,121 @@ export default function Navbar() {
               <span className="navbar__hamburger-line" />
             </span>
           </button>
+        </div>
+
+        <div
+          ref={mobileMenuRef}
+          id="navbar-mobile-menu"
+          className={`navbar__mobile${menuOpen ? ' navbar__mobile--open' : ''}`}
+          aria-hidden={!menuOpen}
+          role="dialog"
+          aria-modal={menuOpen}
+          aria-label="Menu navigasi"
+        >
+          <nav aria-label="Navigasi mobile" className="navbar__mobile-nav">
+            {navLinks.map((link, i) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                tabIndex={menuOpen ? 0 : -1}
+                className={({ isActive }) =>
+                  `navbar__mobile-link${isActive ? ' navbar__mobile-link--active' : ''}`
+                }
+                style={{ ['--i' as string]: i }}
+                end={link.to === '/'}
+                onClick={closeMenu}
+              >
+                <span className="navbar__mobile-link-icon" aria-hidden="true">
+                  {link.icon}
+                </span>
+                <span className="navbar__mobile-link-label">{link.label}</span>
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="navbar__mobile-footer">
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar__mobile-cta"
+              tabIndex={menuOpen ? 0 : -1}
+              onClick={closeMenu}
+            >
+              Konsultasi gratis
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </>,
+      document.body
+    )
+
+  return (
+    <header
+      className={[
+        'navbar',
+        scrolled ? 'navbar--scrolled' : '',
+        menuOpen ? 'navbar--menu-open' : '',
+        hidden && !menuOpen ? 'navbar--hidden' : '',
+        atTop ? 'navbar--at-top' : '',
+      ].filter(Boolean).join(' ')}
+      role="banner"
+    >
+      {/* Desktop: split 2 pill */}
+      <div className={`navbar__container${atTop ? ' navbar__container--at-top' : ''}`}>
+        {/* Pill kiri — logo (disembunyikan saat atTop, muncul di samping pill kanan) */}
+        <div className="navbar__pill--logo">
+          <NavLink to="/" className="navbar__logo" aria-label="IDKA Solutions" onClick={closeMenu}>
+            <img
+              src="/logo-idka-solutions-nav.png"
+              alt="IDKA Solutions"
+              className="navbar__logo-img"
+              width={120}
+              height={44}
+              decoding="async"
+            />
+          </NavLink>
+        </div>
+
+        {/* Pill kanan — nav links + CTA (+ logo saat atTop) */}
+        <div className="navbar__pill--nav">
+          {/* Logo di dalam pill kanan, hanya muncul saat atTop */}
+          <NavLink to="/" className="navbar__logo navbar__logo--inline" aria-label="IDKA Solutions" onClick={closeMenu} tabIndex={atTop ? 0 : -1}>
+            <img
+              src="/logo-idka-solutions-nav.png"
+              alt=""
+              className="navbar__logo-img"
+              width={120}
+              height={44}
+              decoding="async"
+            />
+          </NavLink>
+
+          <nav className="navbar__nav" aria-label="Navigasi utama">
+            <div className="navbar__nav-track" role="list">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  role="listitem"
+                  className={({ isActive }) =>
+                    `navbar__link${isActive ? ' navbar__link--active' : ''}`
+                  }
+                  end={link.to === '/'}
+                >
+                  <span className="navbar__link-label">{link.label}</span>
+                </NavLink>
+              ))}
+            </div>
+          </nav>
+
+          <NavLink to="/kontak" className="btn btn-primary navbar__cta">
+            Konsultasi gratis
+          </NavLink>
         </div>
       </div>
 

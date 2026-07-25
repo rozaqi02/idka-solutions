@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
-import { company, services, packages, portfolio, testimonials, businessFlow, stats } from '../data/content'
+import { company, services, packages, portfolio, businessFlow, stats } from '../data/content'
 import HeroPortfolioShowcase from '../components/HeroPortfolioShowcase'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
@@ -209,10 +209,6 @@ export default function Home() {
         <div className="container">
           <div className="hero__inner">
             <div className="hero__content">
-              <div className="badge hero__badge hero-in__item hero-in__item--tag">
-                <span className="hero__badge-dot" aria-hidden="true" />
-                Mitra Digital untuk Bisnis Indonesia
-              </div>
               <h1 id="hero-heading" className="hero__title hero-in__item hero-in__item--title">
                 Website Profesional,{' '}
                 <span className="gradient-text">Bisnis Lebih Dipercaya</span>
@@ -235,10 +231,6 @@ export default function Home() {
                   Lihat Portofolio
                 </NavLink>
               </div>
-              <p className="hero__trust hero-in__item hero-in__item--extra">
-                <span className="hero__trust-dot" aria-hidden="true" />
-                Konsultasi gratis · Respon 1–3 jam · Tanpa komitmen
-              </p>
               <div className="hero__stats hero-in__item hero-in__item--stats">
                 {stats.map((s) => (
                   <div key={s.num} className="hero__stat">
@@ -264,11 +256,11 @@ export default function Home() {
               Solusi Website Sesuai Kebutuhan
             </h2>
             <p className="section-subtitle">
-              Dari landing page hingga website kustom—kami tangani dari brief hingga go-live.
+              Dari website profil hingga katalog toko dan sistem kustom.
             </p>
           </div>
           <div className="home-services__grid">
-            {services.slice(0, 6).map((svc, i) => (
+            {services.map((svc, i) => (
               <NavLink
                 key={svc.id}
                 to={`/layanan#${svc.id}`}
@@ -313,8 +305,8 @@ export default function Home() {
             </p>
           </div>
           <div className="home-flow__grid">
-            {businessFlow.map((item, i) => (
-              <div key={item.step} className={`flow-step reveal reveal--delay-${Math.min(i % 4 + 1, 5)}`}>
+              {businessFlow.map((item, i) => (
+              <div key={item.step} className={`flow-step reveal reveal--delay-${Math.min(i + 1, 5)}`}>
                 <div className="flow-step__number" aria-label={`Langkah ${item.step}`}>
                   {item.step}
                 </div>
@@ -404,60 +396,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section section--tint home-testimonials" aria-labelledby="testimonials-heading">
-        <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Testimoni</div>
-            <h2 id="testimonials-heading" className="section-title">
-              Apa Kata Klien
-            </h2>
-          </div>
-          <div className="testimonials-grid">
-            {testimonials.map((t, i) => (
-              <div key={t.id} className={`testimonial-card neu-raised card-hover reveal reveal--delay-${i + 1}`}>
-                <div className="testimonial-card__stars" aria-label={`Rating ${t.rating} dari 5`}>
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="testimonial-card__content">&ldquo;{t.content}&rdquo;</p>
-                <div className="testimonial-card__author">
-                  <div className="testimonial-card__avatar" aria-hidden="true">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="testimonial-card__name">{t.name}</div>
-                    <div className="testimonial-card__role">{t.role}</div>
-                    {t.business && (
-                      <a
-                        href={`https://${t.business}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="testimonial-card__business"
-                        aria-label={`Kunjungi ${t.business}`}
-                      >
-                        {t.business}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="home-testimonials__cta reveal">
-            <p className="home-testimonials__cta-text">Siap menjadi klien berikutnya?</p>
-            <NavLink to="/portofolio" className="btn btn-secondary">
-              Lihat Semua Portofolio
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </NavLink>
-          </div>
-        </div>
-      </section>
+
 
       {/* CTA Section — creative launch pad */}
       <section className="section home-cta" aria-labelledby="cta-heading">
@@ -474,14 +413,12 @@ export default function Home() {
               <span className="home-cta__grid" />
               <span className="home-cta__beam" />
               <span className="home-cta__spark home-cta__spark--1" />
-              <span className="home-cta__spark home-cta__spark--2" />
               <span className="home-cta__spark home-cta__spark--3" />
               <span className="home-cta__spark home-cta__spark--4" />
             </div>
 
             <div className="home-cta__content">
               <div className="home-cta__eyebrow">
-                <span className="home-cta__pulse" aria-hidden="true" />
                 <span className="home-cta__eyebrow-text">Siap memulai?</span>
               </div>
 

@@ -1,23 +1,23 @@
-:root {
-  /* Soft-UI / neumorphic canvas (same base for dual shadows) */
-  --bg: #ebe9f2;
-  --bg-alt: #e4e1ee;
-  --bg-elevated: #ebe9f2;
-  --bg-highlight: #f4f2fa;
-  --border-subtle: rgba(255, 255, 255, 0.55);
-  --border-strong: rgba(120, 110, 160, 0.18);
+﻿:root {
+  /* =============================================
+     MODERN SAAS DESIGN SYSTEM IDKA Solutions
+     ============================================= */
 
-  /* Dual-tone shadow partners (must match --bg) */
-  --shadow-light: #ffffff;
-  --shadow-dark: #c5c1d4;
-  --shadow-darker: #b0abc2;
+  /* Surfaces */
+  --bg: #ffffff;
+  --bg-alt: #f8f9fb;
+  --bg-elevated: #ffffff;
+  --bg-highlight: #f3f4f6;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.12);
+  --border-color: #e5e7eb;
 
   /* Brand */
   --primary: #5e17eb;
   --primary-light: #8b5cf6;
   --primary-dark: #4a10c4;
-  --primary-soft: rgba(94, 23, 235, 0.14);
-  --primary-softer: rgba(94, 23, 235, 0.08);
+  --primary-soft: rgba(94, 23, 235, 0.10);
+  --primary-softer: rgba(94, 23, 235, 0.06);
   --secondary: #7c3aed;
   --accent: #f59e0b;
   --success: #059669;
@@ -25,51 +25,53 @@
   --wa: #25d366;
 
   /* Text */
-  --text-primary: #1a1f2e;
-  --text-secondary: #3f4a5c;
-  --text-muted: #5a6678;
-  --text-light: #8b95a8;
+  --text-primary: #0f172a;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --text-light: #9ca3af;
   --text-white: #ffffff;
 
-  /* True neumorphism (primary surface language) */
-  --shadow-neu: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
-  --shadow-neu-sm: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
-  --shadow-neu-lg: 12px 12px 28px var(--shadow-dark), -12px -12px 28px var(--shadow-light);
-  --shadow-neu-xl: 16px 16px 36px var(--shadow-darker), -16px -16px 36px var(--shadow-light);
-  --shadow-neu-inset: inset 5px 5px 12px var(--shadow-dark), inset -5px -5px 12px var(--shadow-light);
-  --shadow-neu-inset-sm: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
-  --shadow-neu-pressed: inset 6px 6px 14px var(--shadow-dark), inset -6px -6px 14px var(--shadow-light);
-  --shadow-flat: 0 0 0 transparent;
+  /* Shadows flat, single-direction (Modern SaaS) */
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:  0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg:  0 10px 24px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-xl:  0 20px 40px rgba(0, 0, 0, 0.09), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --shadow-flat: none;
 
-  /* Soft ambient (secondary, for floaters / hero) */
-  --shadow-xs: 3px 3px 8px rgba(160, 150, 190, 0.25), -2px -2px 6px rgba(255, 255, 255, 0.7);
-  --shadow-sm: var(--shadow-neu-sm);
-  --shadow-md: var(--shadow-neu);
-  --shadow-lg: var(--shadow-neu-lg);
-  --shadow-xl: var(--shadow-neu-xl);
-  --shadow-primary: 8px 10px 22px rgba(94, 23, 235, 0.38), -3px -3px 10px rgba(255, 255, 255, 0.55);
-  --shadow-primary-hover: 10px 14px 28px rgba(94, 23, 235, 0.45), -3px -3px 12px rgba(255, 255, 255, 0.65);
+  /* Legacy neumorphic aliases mapped ke flat shadows agar tidak break */
+  --shadow-neu:          var(--shadow-md);
+  --shadow-neu-sm:       var(--shadow-sm);
+  --shadow-neu-lg:       var(--shadow-lg);
+  --shadow-neu-xl:       var(--shadow-xl);
+  --shadow-neu-inset:    inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-neu-inset-sm: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-neu-pressed:  inset 0 2px 6px rgba(0, 0, 0, 0.08);
 
-  /* Section surfaces — soft white canvas vs soft brand purple */
-  --bg-section: #ebe9f2;
-  /*
-   * Ungu soft (bukan full #5e17eb) biar scroll panjang tidak melelahkan,
-   * tetap jelas “brand purple” dan kontras dengan card terang.
-   */
-  --bg-section-tint: #6d4aff;
+  /* Brand shadows */
+  --shadow-primary:       0 4px 14px rgba(94, 23, 235, 0.30), 0 2px 6px rgba(94, 23, 235, 0.15);
+  --shadow-primary-hover: 0 6px 20px rgba(94, 23, 235, 0.38), 0 3px 8px rgba(94, 23, 235, 0.20);
+
+  /* Section surfaces */
+  --bg-section: #ffffff;
+  --bg-section-alt: #f8f9fb;
+  --bg-section-tint: #0f0a1e;          /* dark section Vercel-style */
   --bg-section-tint-text: #ffffff;
-  --bg-section-tint-muted: rgba(255, 255, 255, 0.88);
+  --bg-section-tint-muted: rgba(255, 255, 255, 0.65);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(145deg, #6d28f0 0%, #5e17eb 45%, #8b5cf6 100%);
-  --gradient-soft: linear-gradient(180deg, var(--bg-highlight) 0%, var(--bg) 55%, var(--bg-alt) 100%);
-  --gradient-band: linear-gradient(180deg, var(--bg) 0%, #ddd8ec 48%, var(--bg) 100%);
+  --gradient-primary: linear-gradient(135deg, #6d28f0 0%, #5e17eb 50%, #7c3aed 100%);
+  --gradient-soft:    linear-gradient(180deg, #ffffff 0%, #f8f9fb 100%);
+  --gradient-band:    linear-gradient(180deg, #f8f9fb 0%, #f3f4f6 48%, #f8f9fb 100%);
+
+  /* Hero dark/rich seperti Linear, Vercel */
   --gradient-hero:
-    radial-gradient(ellipse 90% 70% at 85% 10%, rgba(94, 23, 235, 0.14), transparent 55%),
-    radial-gradient(ellipse 60% 50% at 5% 90%, rgba(139, 92, 246, 0.1), transparent 50%),
-    linear-gradient(165deg, #f0eef8 0%, var(--bg) 40%, #e5e1f0 100%);
-  --gradient-cta: linear-gradient(145deg, #e8e0ff 0%, var(--bg) 42%, #f2f0f8 100%);
-  --gradient-card: linear-gradient(145deg, #f2f0f8 0%, #e4e0ee 100%);
+    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(109, 40, 240, 0.55), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 100%, rgba(139, 92, 246, 0.30), transparent 55%),
+    linear-gradient(160deg, #0f0a1e 0%, #1a0d35 45%, #120826 100%);
+
+  --gradient-cta:  linear-gradient(135deg, #0f0a1e 0%, #1e0f40 60%, #0f0a1e 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8f9fb 100%);
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -81,93 +83,91 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  /* Radius — slightly plumper for soft-UI */
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 26px;
-  --radius-2xl: 34px;
+  /* Radius sedikit lebih tajam untuk Modern SaaS */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
   --radius-full: 9999px;
 
   /* Typography */
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
 
-  /* Raw steps (legacy + utilities) */
-  --text-xs: 0.75rem;      /* 12 — micro / label */
-  --text-sm: 0.875rem;     /* 14 — caption / meta */
-  --text-base: 1rem;       /* 16 — body */
-  --text-lg: 1.125rem;     /* 18 — lead / subtitle */
-  --text-xl: 1.25rem;      /* 20 — card title */
-  --text-2xl: 1.5rem;      /* 24 — small section / package name */
-  --text-3xl: 1.875rem;    /* 30 */
-  --text-4xl: 2.25rem;     /* 36 */
-  --text-5xl: 3rem;        /* 48 */
-  --text-6xl: 3.75rem;     /* 60 */
+  /* Raw steps */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
 
-  /*
-   * Semantic type roles — use these for hierarchy (prefer over raw steps).
-   * Display > Page H1 > Section H2 > Card H3 > Lead > Body > Caption > Micro
-   */
+  /* Semantic type roles */
   --text-display: clamp(2.15rem, 4.8vw, 3.35rem);
-  --text-page: clamp(1.7rem, 3.4vw, 2.4rem);
+  --text-page:    clamp(1.7rem, 3.4vw, 2.4rem);
   --text-section: clamp(1.45rem, 3vw, 2.1rem);
-  --text-card: 1.125rem;       /* 18 */
-  --text-card-sm: 1.05rem;     /* ~17 for dense cards */
-  --text-lead: 1.0625rem;      /* 17 — body-supporting */
-  --text-body: 1rem;           /* 16 */
-  --text-caption: 0.875rem;    /* 14 */
-  --text-micro: 0.75rem;       /* 12 */
+  --text-card:    1.125rem;
+  --text-card-sm: 1.05rem;
+  --text-lead:    1.0625rem;
+  --text-body:    1rem;
+  --text-caption: 0.875rem;
+  --text-micro:   0.75rem;
 
   --leading-display: 1.12;
-  --leading-heading: 1.2;
-  --leading-snug: 1.35;
-  --leading-body: 1.65;
-  --leading-relaxed: 1.7;
+  --leading-heading: 1.22;
+  --leading-snug:    1.38;
+  --leading-body:    1.65;
+  --leading-relaxed: 1.72;
 
   --tracking-display: -0.03em;
   --tracking-heading: -0.025em;
-  --tracking-tight: -0.02em;
-  --tracking-normal: 0;
-  --tracking-label: 0.1em;
+  --tracking-tight:   -0.02em;
+  --tracking-normal:  0;
+  --tracking-label:   0.08em;
 
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-  --weight-bold: 700;
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
   --weight-extrabold: 800;
 
   /* Motion */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out:        cubic-bezier(0.22, 1, 0.36, 1);
   --transition-fast: 0.15s var(--ease-out);
-  --transition-base: 0.28s var(--ease-out);
-  --transition-slow: 0.45s var(--ease-out);
+  --transition-base: 0.25s var(--ease-out);
+  --transition-slow: 0.40s var(--ease-out);
 
   /* Layout */
   --container-max: 1140px;
-  /* Horizontal page margin — generous on phones so layout breathes */
-  --page-gutter: var(--space-xl);
-  --page-gutter-md: 1.5rem;   /* ≤768 */
-  --page-gutter-sm: 1.5rem;   /* ≤480 — keep same, not tighter */
-  --section-pad-y-md: 3.25rem;
+  --page-gutter:    var(--space-xl);
+  --page-gutter-md: 1.5rem;
+  --page-gutter-sm: 1.5rem;
+  --section-pad-y:    5rem;
+  --section-pad-y-md: 3.5rem;
   --section-pad-y-sm: 3rem;
   --card-pad-md: 1.35rem;
   --mobile-fab-clear: calc(72px + env(safe-area-inset-bottom, 0px));
-  /* Floating island clearance (desktop + mobile share the same language) */
-  --navbar-height: 88px;
-  --navbar-island-offset: 12px;
-  --navbar-island-h: 62px;
-  --navbar-island-h-mobile: 56px;
+
+  /* Navbar */
+  --navbar-height:              72px;
+  --navbar-island-offset:       12px;
+  --navbar-island-h:            52px;
+  --navbar-island-h-mobile:     48px;
   --navbar-island-offset-mobile: 10px;
 
-  /* Floating chrome stack (+ safe-area for notched phones) */
-  --fab-size: 58px;
-  --fab-offset: max(1.25rem, env(safe-area-inset-right, 0px));
+  /* FABs */
+  --fab-size:          56px;
+  --fab-offset:        max(1.25rem, env(safe-area-inset-right, 0px));
   --fab-offset-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
-  --scroll-offset: calc(100px + env(safe-area-inset-bottom, 0px));
-  --toast-offset: calc(168px + env(safe-area-inset-bottom, 0px));
+  --scroll-offset:     calc(100px + env(safe-area-inset-bottom, 0px));
+  --toast-offset:      calc(168px + env(safe-area-inset-bottom, 0px));
 
   /* Focus */
-  --focus-ring: 0 0 0 4px var(--primary-soft);
+  --focus-ring:    0 0 0 3px rgba(94, 23, 235, 0.25);
   --focus-outline: 2px solid var(--primary);
 }

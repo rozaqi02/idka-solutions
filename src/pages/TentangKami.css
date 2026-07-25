@@ -1,4 +1,4 @@
-/* ===== TENTANG KAMI PAGE ===== */
+﻿/* ===== TENTANG KAMI PAGE ===== */
 .tentang-page {
   padding-top: 0;
 }
@@ -80,8 +80,8 @@
 
 .story-card__divider {
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--shadow-dark), transparent);
-  opacity: 0.4;
+  background: var(--border-color);
+  opacity: 1;
 }
 
 .story-card__quote {
@@ -142,7 +142,7 @@
   line-height: 1.75;
 }
 
-/* Values — surface via .section--tint */
+/* Values surface via .section--tint */
 
 .values-grid {
   display: grid;
@@ -162,7 +162,7 @@
 
 .value-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-neu-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .value-card__icon {
@@ -210,7 +210,7 @@
 
 .team-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-neu-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .team-card__avatar {
@@ -236,7 +236,7 @@
   background: var(--bg);
   padding: 3px 10px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-neu-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .team-card__desc {
@@ -245,7 +245,7 @@
   line-height: 1.6;
 }
 
-/* Tech — surface via default .section */
+/* Tech surface via default .section */
 
 .tech-grid {
   display: flex;
@@ -269,7 +269,7 @@
 
 .tech-badge:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-neu-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .tech-badge__icon {
@@ -291,7 +291,7 @@
   padding: 1px 8px;
   background: var(--bg-alt);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-neu-inset-sm);
+  box-shadow: none;
 }
 
 /* Category color accents */
@@ -302,7 +302,7 @@
 .tech-badge--cms .tech-badge__category      { color: #f97316; }
 .tech-badge--nocode .tech-badge__category   { color: #ec4899; }
 
-/* Target Market — surface via default .section */
+/* Target Market surface via default .section */
 
 .target-grid {
   display: grid;
@@ -320,7 +320,7 @@
 
 .target-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-neu-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .target-card__icon {
@@ -429,7 +429,7 @@
   padding: var(--space-md) var(--space-lg);
   background: var(--bg);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-neu);
+  box-shadow: var(--shadow-md);
   min-width: 90px;
 }
 

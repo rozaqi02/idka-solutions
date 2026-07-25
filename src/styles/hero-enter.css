@@ -1,4 +1,4 @@
-/* ===== HERO ENTER — per-route creative entrances + abstract pattern fields =====
+﻿/* ===== HERO ENTER per-route creative entrances + abstract pattern fields =====
  * Usage: <section data-hero-enter="home|layanan|portofolio|tentang|kontak">
  * Trigger: .hero-in--play (useHeroEnter)
  * Mobile: .hero-in--lite → lighter patterns + simpler text motion
@@ -71,7 +71,7 @@
   will-change: transform, opacity;
 }
 
-/* ========== HOME — prism diagonals + soft orbs ========== */
+/* ========== HOME prism diagonals + soft orbs ========== */
 [data-hero-enter='home'] {
   --hero-pattern: rgba(94, 23, 235, 0.11);
   --hero-pattern-2: rgba(109, 40, 240, 0.09);
@@ -193,7 +193,7 @@
   }
 }
 
-/* ========== LAYANAN — orbital rings ========== */
+/* ========== LAYANAN orbital rings ========== */
 [data-hero-enter='layanan'] {
   --hero-pattern: rgba(94, 23, 235, 0.12);
 }
@@ -264,7 +264,7 @@
   100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 }
 
-/* ========== PORTOFOLIO — mosaic tiles ========== */
+/* ========== PORTOFOLIO mosaic tiles ========== */
 [data-hero-enter='portofolio'] {
   --hero-pattern: rgba(6, 182, 212, 0.1);
 }
@@ -344,7 +344,7 @@
   100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 }
 
-/* ========== TENTANG — ink / soft mesh ========== */
+/* ========== TENTANG ink / soft mesh ========== */
 [data-hero-enter='tentang'] {
   --hero-pattern: rgba(94, 23, 235, 0.1);
 }
@@ -410,7 +410,7 @@
   100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* ========== KONTAK — signal rings ========== */
+/* ========== KONTAK signal rings ========== */
 [data-hero-enter='kontak'] {
   --hero-pattern: rgba(37, 211, 102, 0.1);
 }
@@ -594,7 +594,7 @@
   100% { opacity: 0.55; transform: scale(1); }
 }
 
-/* Still show patterns on mobile — just simpler enter, lower opacity, no drift */
+/* Still show patterns on mobile just simpler enter, lower opacity, no drift */
 [data-hero-enter].hero-in--lite::before {
   display: block;
 }

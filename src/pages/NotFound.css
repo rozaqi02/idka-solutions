@@ -1,4 +1,4 @@
-.notfound-page {
+﻿.notfound-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -81,12 +81,12 @@
   padding: 0.3rem 0.8rem;
   border-radius: var(--radius-full);
   background: var(--bg);
-  box-shadow: var(--shadow-neu-sm);
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-base);
 }
 
 .notfound__link:hover {
-  box-shadow: var(--shadow-neu);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 

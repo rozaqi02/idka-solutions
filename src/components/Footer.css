@@ -1,7 +1,7 @@
-.footer {
-  background: var(--bg-alt);
+﻿.footer {
+  background: #0f0a1e;
   border-top: none;
-  box-shadow: inset 0 12px 28px rgba(160, 150, 190, 0.12), 0 -1px 0 rgba(255, 255, 255, 0.45);
+  box-shadow: none;
   padding: var(--space-4xl) 0 var(--space-xl);
   margin-top: var(--space-4xl);
 }
@@ -30,11 +30,12 @@
   width: auto;
   object-fit: contain;
   display: block;
+  filter: brightness(0) invert(1);
 }
 
 .footer__desc {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.55);
   line-height: 1.7;
   max-width: 320px;
 }
@@ -48,26 +49,28 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--bg);
-  border: none;
-  box-shadow: var(--shadow-neu-sm);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.6);
   transition: all var(--transition-base);
   text-decoration: none;
 }
 
 .footer__social-btn:hover {
-  color: var(--primary);
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-neu);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: none;
 }
 
 .footer__social-btn:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-neu-inset-sm);
+  box-shadow: none;
 }
 
 .footer__links {
@@ -79,7 +82,7 @@
 .footer__links-title {
   font-size: 0.7rem;
   font-weight: var(--weight-bold);
-  color: var(--text-primary);
+  color: rgba(255, 255, 255, 0.40);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-xs);
@@ -93,7 +96,7 @@
 
 .footer__link {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   padding: 0.35rem 0;
   transition: color var(--transition-fast);
@@ -109,7 +112,7 @@ a.footer__link {
 
 a.footer__link:hover,
 .footer__links nav a.footer__link:hover {
-  color: var(--primary);
+  color: #ffffff;
 }
 
 .footer__link--contact {
@@ -129,8 +132,8 @@ a.footer__link:hover,
 
 .footer__bottom {
   padding-top: var(--space-xl);
-  border-top: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 -1px 0 rgba(160, 150, 190, 0.18);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -141,7 +144,7 @@ a.footer__link:hover,
 .footer__copy,
 .footer__made {
   font-size: var(--text-sm);
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.35);
 }
 
 @media (max-width: 1024px) {
@@ -163,7 +166,7 @@ a.footer__link:hover,
     margin-bottom: 1.75rem;
   }
 
-  /* Left-aligned — mid-center on mobile felt awkward / “floaty” */
+  /* Left-aligned mid-center on mobile felt awkward / “floaty” */
   .footer__brand {
     align-items: flex-start;
     text-align: left;

@@ -187,8 +187,8 @@ export default function Layanan() {
             </p>
           </div>
           <div className="maintenance-grid">
-            {maintenancePackages.map((pkg, idx) => (
-              <div key={pkg.name} className={`maintenance-card neu-raised reveal reveal--delay-${idx + 1}${idx === 1 ? ' maintenance-card--mid' : ''}`}>
+            {maintenancePackages.map((pkg) => (
+              <div key={pkg.name} className="maintenance-card neu-raised reveal reveal--delay-1">
                 <h3 className="maintenance-card__name">{pkg.name}</h3>
                 {'price' in pkg && <div className="maintenance-card__price">{pkg.price as string}</div>}
                 <ul className="maintenance-card__features" role="list">
@@ -221,14 +221,9 @@ export default function Layanan() {
           </div>
           <div className="process-list">
             {[
-              { n: '01', title: 'Brief', desc: 'Kami kumpulkan detail tujuan, fitur, halaman, deadline, dan anggaran.' },
-              { n: '02', title: 'Proposal', desc: 'Ruang lingkup, timeline, harga, dan kuota revisi dikirim secara tertulis.' },
-              { n: '03', title: 'Materi', desc: 'Anda menyiapkan logo, teks, foto, dan referensi visual.' },
-              { n: '04', title: 'Wireframe & Desain', desc: 'Struktur dan desain disetujui terlebih dahulu sebelum development.' },
-              { n: '05', title: 'Development', desc: 'Desain diimplementasikan menjadi website. Fitur dan formulir diuji.' },
-              { n: '06', title: 'Review & Revisi', desc: 'Anda meninjau staging; revisi dilakukan sesuai kuota yang disepakati.' },
-              { n: '07', title: 'Go Live', desc: 'Pelunasan, pengaturan domain, SSL aktif, dan website diluncurkan.' },
-              { n: '08', title: 'After Sales', desc: 'Follow-up, opsi testimoni, dan penawaran maintenance jika diperlukan.' },
+              { n: '01', title: 'Konsultasi & Brief', desc: 'Diskusi kebutuhan, tujuan, dan anggaran. Kami kirimkan proposal dan timeline.' },
+              { n: '02', title: 'Desain & Development', desc: 'Wireframe, desain, dan pengembangan website. Anda review progres secara berkala.' },
+              { n: '03', title: 'Go-Live', desc: 'Website diluncurkan. Domain aktif, SSL terpasang, siap digunakan.' },
             ].map((step) => (
               <div key={step.n} className="process-item neu-raised">
                 <div className="process-item__number" aria-hidden="true">{step.n}</div>
