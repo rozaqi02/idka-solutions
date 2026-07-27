@@ -2,8 +2,6 @@ import { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import WAButton from './components/WAButton'
-import ScrollToTop from './components/ScrollToTop'
 import ToastContainer from './components/Toast'
 import ErrorBoundary from './components/ErrorBoundary'
 import { useToast } from './hooks/useToast'
@@ -82,8 +80,6 @@ function App() {
         <AnimatedRoutes addToast={addToast} />
       </main>
       <Footer />
-      <WAButton />
-      <ScrollToTop />
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </BrowserRouter>
   )

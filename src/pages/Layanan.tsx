@@ -75,23 +75,26 @@ export default function Layanan() {
 
   return (
     <div className="layanan-page">
-      {/* Page Header */}
-      <section className="page-header section" aria-labelledby="layanan-heading" data-hero-enter="layanan">
+      {/* Apple Business Light Page Header */}
+      <section className="apple-hero section" aria-labelledby="layanan-heading" data-hero-enter="layanan">
         <div className="container">
-          <div className="page-header__inner">
-            <div className="section-tag hero-in__item hero-in__item--tag">Layanan</div>
-            <h1 id="layanan-heading" className="section-title hero-in__item hero-in__item--title">
-              Solusi Website untuk Berbagai Kebutuhan
+          <div className="apple-hero__inner">
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">
+              Layanan IDKA
+            </div>
+            <h1 id="layanan-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+              Solusi Website untuk <span className="apple-hero__title-accent">Berbagai Kebutuhan Bisnis.</span>
             </h1>
-            <p className="section-subtitle hero-in__item hero-in__item--sub">
-              Untuk UMKM, freelancer, startup, dan kreator—dari yang sederhana hingga kustom.
+            <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
+              Untuk UMKM, freelancer, startup, dan perusahaan—dari landing page cepat hingga sistem kustom scalable.{' '}
+              <strong className="apple-text-bold">All in one place.</strong>
             </p>
           </div>
         </div>
       </section>
 
       {/* All Services */}
-      <section className="section" aria-labelledby="all-services-heading">
+      <section className="section section--tint" aria-labelledby="all-services-heading">
         <div className="container">
           <div className="section-header reveal">
             <h2 id="all-services-heading" className="section-title">
@@ -119,7 +122,7 @@ export default function Layanan() {
       </section>
 
       {/* Packages */}
-      <section className="section section--tint layanan-packages" aria-labelledby="packages-heading">
+      <section className="section layanan-packages" aria-labelledby="packages-heading">
         <div className="container">
           <div className="section-header reveal">
             <div className="section-tag">Paket</div>
@@ -175,7 +178,7 @@ export default function Layanan() {
       </section>
 
       {/* Maintenance */}
-      <section className="section layanan-maintenance" aria-labelledby="maintenance-heading">
+      <section className="section section--tint layanan-maintenance" aria-labelledby="maintenance-heading">
         <div className="container">
           <div className="section-header reveal">
             <div className="section-tag">Maintenance</div>
@@ -238,7 +241,7 @@ export default function Layanan() {
       </section>
 
       {/* Price Estimator */}
-      <section className="section layanan-estimator" aria-labelledby="estimator-heading">
+      <section className="section section--tint layanan-estimator" aria-labelledby="estimator-heading">
         <div className="container">
           <div className="section-header">
             <div className="section-tag">Estimasi</div>
@@ -256,7 +259,7 @@ export default function Layanan() {
       </section>
 
       {/* FAQ */}
-      <section className="section section--tint" aria-labelledby="faq-heading">
+      <section className="section" aria-labelledby="faq-heading">
         <div className="container">
           <div className="section-header">
             <div className="section-tag">FAQ</div>

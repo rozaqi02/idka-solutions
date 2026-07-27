@@ -206,22 +206,20 @@ export default function Kontak({ addToast }: KontakProps) {
 
   return (
     <div className="kontak-page">
-      {/* Header */}
-      <section className="page-header section" aria-labelledby="kontak-heading" data-hero-enter="kontak">
+      {/*  Apple Business Page Header */}
+      <section className="apple-hero page-header section" aria-labelledby="kontak-heading" data-hero-enter="kontak">
         <div className="container">
-          <div className="page-header__inner">
-            <div className="section-tag hero-in__item hero-in__item--tag">Kontak</div>
-            <h1 id="kontak-heading" className="section-title hero-in__item hero-in__item--title">
-              Sampaikan Kebutuhan, <span className="gradient-text">Kami Siapkan Solusinya</span>
-            </h1>
-            <p className="section-subtitle hero-in__item hero-in__item--sub">
-              Isi formulir di bawah. Informasi tidak harus lengkap—kami bantu melengkapinya.
-            </p>
-            <div className="kontak-response-badges hero-in__item hero-in__item--extra">
-              <span className="kontak-badge">⚡ Balas dalam 1–3 jam kerja</span>
-              <span className="kontak-badge">🎁 Konsultasi pertama gratis</span>
-              <span className="kontak-badge">📋 Tanpa komitmen</span>
+          <div className="apple-hero__inner">
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">
+              Hubungi IDKA Solutions
             </div>
+            <h1 id="kontak-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+              Sampaikan Kebutuhan, <span className="apple-hero__title-accent">Kami Siapkan Solusinya.</span>
+            </h1>
+            <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
+              Konsultasi langsung via WhatsApp atau isi brief singkat di bawah. Respon cepat 1-3 jam kerja.{' '}
+              <strong className="apple-text-bold">All in one place.</strong>
+            </p>
           </div>
         </div>
       </section>

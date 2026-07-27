@@ -229,14 +229,6 @@ export default function HeroPortfolioShowcase() {
         </span>
         <span>Website Live</span>
       </div>
-      <div className="hero__float hero__float--2" aria-hidden="true">
-        <span key={`f-icon-${current.id}`} className="hero__float-icon" aria-hidden="true">
-          {current.icon}
-        </span>
-        <span key={`f-title-${current.id}`} className="hero-porto__float-title">
-          {current.title}
-        </span>
-      </div>
     </div>
   )
 }

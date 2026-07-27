@@ -2,53 +2,58 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import './PriceEstimator.css'
 
+type Option = {
+  label: string
+  value: number
+  desc?: string
+}
+
 type Step = {
   key: string
   label: string
-  options: { label: string; value: number; desc?: string }[]
+  options: Option[]
 }
 
-// Harga selaras paket: Starter 300rb · Business 900rb · Premium 1,7jt
 const steps: Step[] = [
   {
     key: 'type',
-    label: 'Jenis Website',
+    label: '1 · Jenis Website',
     options: [
-      { label: 'Landing Page', value: 300000, desc: '1 halaman fokus konversi (Starter)' },
-      { label: 'Company Profile', value: 900000, desc: '3-5 halaman profil bisnis (Business)' },
+      { label: 'Landing Page', value: 300000, desc: '1 halaman fokus konversi' },
+      { label: 'Company Profile', value: 900000, desc: '3-5 halaman profil bisnis' },
       { label: 'Website Portofolio', value: 400000, desc: 'Galeri karya profesional' },
-      { label: 'Website Jasa', value: 1000000, desc: 'Layanan + form booking' },
-      { label: 'Toko Online Sederhana', value: 1200000, desc: 'Katalog + tombol order' },
-      { label: 'Full Custom', value: 1700000, desc: 'Sesuai kebutuhan (Premium)' },
+      { label: 'Website Jasa', value: 1000000, desc: 'Layanan & form booking' },
+      { label: 'Toko Online Sederhana', value: 1200000, desc: 'Katalog & tombol order' },
+      { label: 'Full Custom', value: 1700000, desc: 'Sistem & fitur kustom' },
     ],
   },
   {
     key: 'pages',
-    label: 'Jumlah Halaman',
+    label: '2 · Jumlah Halaman',
     options: [
-      { label: '1 halaman', value: 0 },
-      { label: '2-3 halaman', value: 100000 },
-      { label: '4-5 halaman', value: 200000 },
-      { label: '6-8 halaman', value: 350000 },
-      { label: '8+ halaman', value: 600000 },
+      { label: '1 Halaman', value: 0 },
+      { label: '2–3 Halaman', value: 100000 },
+      { label: '4–5 Halaman', value: 200000 },
+      { label: '6–8 Halaman', value: 350000 },
+      { label: '8+ Halaman', value: 600000 },
     ],
   },
   {
     key: 'features',
-    label: 'Fitur Tambahan',
+    label: '3 · Fitur Tambahan (Pilih Lebih dari Satu)',
     options: [
-      { label: 'Tombol WhatsApp', value: 0, desc: 'Sudah termasuk' },
-      { label: 'Form Kontak', value: 50000 },
-      { label: 'Galeri / Slider', value: 75000 },
+      { label: 'Tombol WhatsApp Direct', value: 0, desc: 'Sudah termasuk' },
+      { label: 'Form Kontak & Email', value: 50000 },
+      { label: 'Galeri / Slider Foto', value: 75000 },
       { label: 'Blog / Artikel', value: 150000 },
-      { label: 'CMS (bisa edit sendiri)', value: 250000 },
-      { label: 'Integrasi Maps', value: 75000 },
-      { label: 'Animasi Interaktif', value: 200000 },
+      { label: 'CMS (Bisa Edit Sendiri)', value: 250000 },
+      { label: 'Integrasi Google Maps', value: 75000 },
+      { label: 'Animasi & Interaktif', value: 200000 },
     ],
   },
   {
     key: 'deadline',
-    label: 'Deadline Pengerjaan',
+    label: '4 · Target Timeline',
     options: [
       { label: 'Fleksibel (2–3 minggu)', value: 0 },
       { label: 'Standar (1–2 minggu)', value: 75000 },
@@ -62,132 +67,122 @@ function formatRp(n: number) {
   return 'Rp ' + n.toLocaleString('id-ID')
 }
 
-// Track fitur by index agar aman walau ada value duplikat (e.g. value: 0)
-type FeatureSelection = { stepIdx: number; optIdx: number; value: number }
-
 export default function PriceEstimator() {
   const [selections, setSelections] = useState<Record<string, number>>({})
-  const [multiFeatures, setMultiFeatures] = useState<FeatureSelection[]>([])
+  const [selectedFeatures, setSelectedFeatures] = useState<number[]>([])
 
   const reset = () => {
     setSelections({})
-    setMultiFeatures([])
+    setSelectedFeatures([])
   }
 
-  const select = (key: string, value: number) => {
-    if (key === 'features') return
+  const selectSingle = (key: string, value: number) => {
     setSelections((prev) => ({ ...prev, [key]: value }))
   }
 
-  const toggleFeature = (stepIdx: number, optIdx: number, value: number) => {
-    setMultiFeatures((prev) => {
-      const exists = prev.some((f) => f.stepIdx === stepIdx && f.optIdx === optIdx)
-      return exists
-        ? prev.filter((f) => !(f.stepIdx === stepIdx && f.optIdx === optIdx))
-        : [...prev, { stepIdx, optIdx, value }]
-    })
+  const toggleFeature = (optIdx: number) => {
+    setSelectedFeatures((prev) =>
+      prev.includes(optIdx) ? prev.filter((i) => i !== optIdx) : [...prev, optIdx]
+    )
   }
-
-  const isFeatureSelected = (stepIdx: number, optIdx: number) =>
-    multiFeatures.some((f) => f.stepIdx === stepIdx && f.optIdx === optIdx)
 
   const base = selections['type'] ?? 0
   const pages = selections['pages'] ?? 0
   const deadline = selections['deadline'] ?? 0
-  const features = multiFeatures.reduce((a, f) => a + f.value, 0)
+  const featureSum = selectedFeatures.reduce(
+    (acc, idx) => acc + (steps[2].options[idx]?.value || 0),
+    0
+  )
 
-  const total = base + pages + deadline + features
-  const low = Math.floor(total * 0.9)
-  const high = Math.ceil(total * 1.2)
+  const total = base + pages + deadline + featureSum
+  const low = Math.floor(total * 0.95)
+  const high = Math.ceil(total * 1.15)
 
-  const isComplete = selections['type'] !== undefined && selections['pages'] !== undefined
-
-  const hasAnySelection = Object.keys(selections).length > 0 || multiFeatures.length > 0
+  const hasSelections = Object.keys(selections).length > 0 || selectedFeatures.length > 0
+  const isComplete = selections['type'] !== undefined
 
   return (
-    <div className="estimator neu-raised">
-      <div className="estimator__header">
-        <div className="estimator__icon" aria-hidden="true">&#128176;</div>
-        <div className="estimator__header-text">
-          <h3 className="estimator__title">Estimator Harga</h3>
-          <p className="estimator__subtitle">Perkiraan harga instan. Harga final dikonfirmasi saat konsultasi.</p>
-        </div>
-        {hasAnySelection && (
-          <button
-            type="button"
-            className="estimator__reset"
-            onClick={reset}
-            aria-label="Reset estimator"
-          >
-            Reset
-          </button>
-        )}
-      </div>
-
-      <div className="estimator__steps">
-        {steps.map((step) => (
-          <div key={step.key} className="estimator__step">
-            <div className="estimator__step-label">{step.label}</div>
-            <div className="estimator__options">
-              {step.options.map((opt, optIdx) => {
-                const stepIdx = steps.findIndex((s) => s.key === step.key)
-                const isSelected =
-                  step.key === 'features'
-                    ? isFeatureSelected(stepIdx, optIdx)
-                    : selections[step.key] === opt.value
-
-                return (
-                  <button
-                    key={opt.label}
-                    type="button"
-                    className={`estimator__option${isSelected ? ' estimator__option--selected' : ''}`}
-                    onClick={() =>
-                      step.key === 'features'
-                        ? toggleFeature(stepIdx, optIdx, opt.value)
-                        : select(step.key, opt.value)
-                    }
-                    aria-pressed={isSelected}
-                  >
-                    <span className="estimator__option-label">{opt.label}</span>
-                    {opt.desc && <span className="estimator__option-desc">{opt.desc}</span>}
-                    {opt.value > 0 && (
-                      <span className="estimator__option-price">+{formatRp(opt.value)}</span>
-                    )}
-                    {opt.value === 0 && step.key !== 'features' && (
-                      <span className="estimator__option-price estimator__option-price--base">Termasuk</span>
-                    )}
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {total > 0 && (
-        <div className="estimator__result-wrap">
-          <div className="estimator__result neu-inset">
-            <div className="estimator__result-label">Estimasi Harga</div>
-            <div className="estimator__result-range">
-              {isComplete ? (
-                <span className="estimator__result-value gradient-text">
-                  {formatRp(low)} &ndash; {formatRp(high)}
-                </span>
-              ) : (
-                <span className="estimator__result-incomplete">
-                  Pilih jenis website dan jumlah halaman
-                </span>
-              )}
-            </div>
-            <p className="estimator__result-note">
-              Harga final ditentukan setelah konsultasi dan brief proyek.
+    <div className="estimator-container">
+      <div className="estimator-card">
+        {/* Header */}
+        <div className="estimator-header">
+          <div className="estimator-header__text">
+            <span className="estimator-badge">Estimator Harga Instan</span>
+            <h3 className="estimator-title">Hitung Perkiraan Biaya Website</h3>
+            <p className="estimator-subtitle">
+              Pilih kebutuhan Anda di bawah untuk mendapatkan estimasi transparan.
             </p>
           </div>
-          <NavLink to="/kontak" className="btn btn-primary estimator__result-cta">
-            Konsultasi untuk Harga Final
+          {hasSelections && (
+            <button type="button" className="estimator-reset-btn" onClick={reset}>
+              Reset Pilihan
+            </button>
+          )}
+        </div>
+
+        {/* Steps */}
+        <div className="estimator-steps">
+          {steps.map((step) => (
+            <div key={step.key} className="estimator-step">
+              <div className="estimator-step-label">{step.label}</div>
+              <div className="estimator-options-grid">
+                {step.options.map((opt, optIdx) => {
+                  const isSelected =
+                    step.key === 'features'
+                      ? selectedFeatures.includes(optIdx)
+                      : selections[step.key] === opt.value
+
+                  return (
+                    <button
+                      key={opt.label}
+                      type="button"
+                      className={`estimator-opt-btn${isSelected ? ' estimator-opt-btn--selected' : ''}`}
+                      onClick={() =>
+                        step.key === 'features'
+                          ? toggleFeature(optIdx)
+                          : selectSingle(step.key, opt.value)
+                      }
+                      aria-pressed={isSelected}
+                    >
+                      <div className="estimator-opt-top">
+                        <span className="estimator-opt-title">{opt.label}</span>
+                        {isSelected && <span className="estimator-opt-check">✓</span>}
+                      </div>
+                      {opt.desc && <span className="estimator-opt-desc">{opt.desc}</span>}
+                      <span className="estimator-opt-price">
+                        {opt.value > 0 ? `+${formatRp(opt.value)}` : 'Termasuk'}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Live Result Footer */}
+        <div className="estimator-result-bar">
+          <div className="estimator-result-info">
+            <span className="estimator-result-label">Perkiraan Total Biaya</span>
+            {isComplete ? (
+              <div className="estimator-result-price">
+                {formatRp(low)} &ndash; {formatRp(high)}
+              </div>
+            ) : (
+              <div className="estimator-result-placeholder">
+                Pilih jenis website di atas untuk melihat estimasi
+              </div>
+            )}
+            <span className="estimator-result-note">
+              *Harga final dikonfirmasi saat brief &amp; konsultasi gratis.
+            </span>
+          </div>
+
+          <NavLink to="/kontak" className="apple-pill-btn apple-pill-btn--primary estimator-cta-btn">
+            Konsultasi Harga Final →
           </NavLink>
         </div>
-      )}
+      </div>
     </div>
   )
 }

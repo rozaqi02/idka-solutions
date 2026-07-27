@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
-import { company, services, packages, portfolio, businessFlow, stats } from '../data/content'
+import { company, packages, portfolio } from '../data/content'
 import HeroPortfolioShowcase from '../components/HeroPortfolioShowcase'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
@@ -25,7 +25,6 @@ function screenshotCandidates(src: string) {
   return [src]
 }
 
-/** Reliable screenshot — eager load + PNG fallback (lazy inside opacity:0 reveal often fails). */
 function PreviewScreenshot({
   src,
   alt,
@@ -90,15 +89,15 @@ function PortfolioPreviewCard({
 }) {
   const liveUrl = item.url || '/portofolio'
   const isExternal = liveUrl.startsWith('http')
-  const cardClass = `portfolio-preview-card neu-raised card-hover reveal reveal--delay-${delay}`
+  const cardClass = `portfolio-preview-card card-hover reveal reveal--delay-${delay}`
 
-  const visual = item.screenshot ? (
-    <div className="portfolio-preview-card__visual portfolio-preview-card__visual--screenshot">
+  const visual = (
+    <div className="portfolio-preview-card__visual">
       <div className="portfolio-preview-card__browser-bar" aria-hidden="true">
         <div className="portfolio-preview-card__browser-dots">
-          <span />
-          <span />
-          <span />
+          <span className="dot--red" />
+          <span className="dot--yellow" />
+          <span className="dot--green" />
         </div>
         {isExternal ? (
           <div className="portfolio-preview-card__url-text">
@@ -108,58 +107,36 @@ function PortfolioPreviewCard({
           <div className="portfolio-preview-card__url-bar" />
         )}
       </div>
-      <PreviewScreenshot
-        src={item.screenshot}
-        alt={`Screenshot ${item.title}`}
-        color={item.color}
-      />
-      <div className="portfolio-preview-card__category-badge category-chip">
-        {item.category}
-      </div>
-      {isExternal && (
-        <span className="portfolio-preview-card__live" aria-hidden="true">
-          Live
-        </span>
+      {item.screenshot ? (
+        <PreviewScreenshot
+          src={item.screenshot}
+          alt={`Screenshot ${item.title}`}
+          color={item.color}
+        />
+      ) : (
+        <div className="portfolio-preview-card__placeholder">
+          <span>{item.icon}</span>
+        </div>
       )}
-    </div>
-  ) : (
-    <div
-      className="portfolio-preview-card__visual"
-      style={{
-        background: `linear-gradient(135deg, ${item.color}22 0%, ${item.color}44 100%)`,
-      }}
-      aria-hidden="true"
-    >
-      <span className="portfolio-preview-card__icon">{item.icon}</span>
     </div>
   )
 
   const body = (
     <div className="portfolio-preview-card__body">
+      <div className="portfolio-preview-card__top-meta">
+        <span className="portfolio-preview-card__category">{item.category}</span>
+      </div>
+      <h3 className="portfolio-preview-card__title">{item.title}</h3>
+      <p className="portfolio-preview-card__desc">{item.description}</p>
       <div className="portfolio-preview-card__tags">
         {item.tags.map((tag) => (
-          <span key={tag} className="badge">
+          <span key={tag} className="porto-tag-badge">
             {tag}
           </span>
         ))}
       </div>
-      <h3 className="portfolio-preview-card__title">{item.title}</h3>
-      <p className="portfolio-preview-card__desc">{item.description}</p>
       <span className="portfolio-preview-card__go">
-        {isExternal ? 'Kunjungi website' : 'Lihat detail'}
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
+        {isExternal ? 'Kunjungi Website' : 'Lihat Detail'} ›
       </span>
     </div>
   )
@@ -203,280 +180,322 @@ export default function Home() {
   })
 
   return (
-    <div className="home">
-      {/* Hero Section */}
-      <section className="hero section" aria-labelledby="hero-heading" data-hero-enter="home">
+    <div className="home apple-business-canvas">
+      {/* Apple Business Hero Section */}
+      <section className="apple-hero" aria-labelledby="hero-heading" data-hero-enter="home">
         <div className="container">
-          <div className="hero__inner">
-            <div className="hero__content">
-              <h1 id="hero-heading" className="hero__title hero-in__item hero-in__item--title">
-                Website Profesional,{' '}
-                <span className="gradient-text">Bisnis Lebih Dipercaya</span>
-              </h1>
-              <p className="hero__desc hero-in__item hero-in__item--sub">{company.description}</p>
-              <div className="hero__actions hero-in__item hero-in__item--actions">
-                <a
-                  href={WA_HERO}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-wa hero__btn-primary"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.557 4.116 1.529 5.843L.057 23.143a.75.75 0 00.917.916l5.356-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.91 0-3.694-.523-5.22-1.432l-.374-.222-3.88 1.058 1.087-3.797-.243-.387A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z" />
-                  </svg>
-                  Konsultasi via WhatsApp
-                </a>
-                <NavLink to="/portofolio" className="btn btn-secondary">
-                  Lihat Portofolio
-                </NavLink>
+          <div className="apple-hero__inner">
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--title">
+              IDKA Solutions
+            </div>
+
+            <h1 id="hero-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+              Website bisnis profesional.{' '}
+              <span className="apple-hero__title-accent">Lebih terpercaya & siap tumbuh.</span>
+            </h1>
+
+            {/* Apple Squircle Icon Row — Tech Stack & Tools */}
+            <div className="apple-hero__icon-row hero-in__item hero-in__item--sub" aria-hidden="true">
+              <div className="apple-squircle apple-squircle--react" title="React Framework">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="2.5"/><ellipse cx="12" cy="12" rx="9" ry="3.5"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)"/></svg>
               </div>
-              <div className="hero__stats hero-in__item hero-in__item--stats">
-                {stats.map((s) => (
-                  <div key={s.num} className="hero__stat">
-                    <span className="hero__stat-num">{s.num}</span>
-                    <span className="hero__stat-label">{s.labelAlt}</span>
-                  </div>
-                ))}
+              <div className="apple-squircle apple-squircle--design" title="Code & UI/UX Design">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+              </div>
+              <div className="apple-squircle apple-squircle--speed" title="Super Fast Speed">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div className="apple-squircle apple-squircle--idka" title="IDKA Solutions">
+                <span>idka</span>
+              </div>
+              <div className="apple-squircle apple-squircle--cloud" title="Cloud & SSL Domain">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+              </div>
+              <div className="apple-squircle apple-squircle--db" title="Database & Systems">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              </div>
+              <div className="apple-squircle apple-squircle--launch" title="Instant Launch">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.95 11a22.35 22.35 0 0 1-3.95 2z"/><path d="M9 12H4.5"/><path d="M15 15v4.5"/></svg>
               </div>
             </div>
-            <div className="hero__visual">
-              <HeroPortfolioShowcase />
+
+            <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
+              Segala kebutuhan website bisnis Anda untuk mengelola kehadiran digital, menjangkau lebih banyak pelanggan, dan mendapatkan hasil nyata.{' '}
+              <strong className="apple-text-bold">All in one place.</strong>
+            </p>
+
+            <div className="apple-hero__actions hero-in__item hero-in__item--actions">
+              <a
+                href={WA_HERO}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="apple-pill-btn apple-pill-btn--primary"
+              >
+                Mulai Konsultasi
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Preview */}
-      <section className="section home-services" aria-labelledby="services-heading">
+      {/* Bento Section 1 */}
+      <section className="apple-bento-section" aria-labelledby="services-heading">
         <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Layanan</div>
-            <h2 id="services-heading" className="section-title">
-              Solusi Website Sesuai Kebutuhan
+          <div className="apple-bento-header reveal">
+            <h2 id="services-heading" className="apple-bento-title">
+              <span className="apple-title-emerald">Layanan utama</span> untuk efisiensi dan pertumbuhan bisnis Anda.
             </h2>
-            <p className="section-subtitle">
-              Dari website profil hingga katalog toko dan sistem kustom.
-            </p>
-          </div>
-          <div className="home-services__grid">
-            {services.map((svc, i) => (
-              <NavLink
-                key={svc.id}
-                to={`/layanan#${svc.id}`}
-                className={`service-card neu-raised card-hover reveal reveal--delay-${Math.min(i + 1, 5)}`}
-                aria-label={`${svc.title} - lihat di halaman Layanan`}
-              >
-                <div className="service-card__icon icon-well" aria-hidden="true">
-                  {svc.icon}
-                </div>
-                <h3 className="service-card__title">{svc.title}</h3>
-                <p className="service-card__desc">{svc.description}</p>
-                <span className="service-card__go" aria-hidden="true">
-                  Lihat detail
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </span>
-              </NavLink>
-            ))}
-          </div>
-          <div className="home-services__cta">
-            <NavLink to="/layanan" className="btn btn-secondary">
-              Lihat Semua Layanan
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
+            <NavLink to="/layanan" className="apple-link-arrow">
+              Lihat semua layanan
             </NavLink>
           </div>
+
+          <div className="apple-bento-grid">
+            <div className="apple-bento-row-top">
+              <div className="apple-card apple-card--wide-showcase reveal">
+                <div className="apple-card__content">
+                  <span className="apple-card__eyebrow">Manajemen Website Terintegrasi</span>
+                  <h3 className="apple-card__title">Sederhanakan kehadiran digital & sistem bisnis Anda.</h3>
+                </div>
+                <div className="apple-card__devices-visual">
+                  <HeroPortfolioShowcase />
+                </div>
+              </div>
+
+              <div className="apple-card apple-card--blue-grid reveal reveal--delay-1">
+                <div className="apple-card__content">
+                  <span className="apple-card__eyebrow apple-card__eyebrow--light">Integrasi Fitur Lengkap</span>
+                  <h3 className="apple-card__title apple-card__title--light">
+                    Hubungkan WhatsApp, Form, CMS, & Analitik dalam satu sistem.
+                  </h3>
+                </div>
+                <div className="apple-card__app-icons-grid" aria-hidden="true">
+                  <div className="apple-app-icon">💬</div>
+                  <div className="apple-app-icon">📊</div>
+                  <div className="apple-app-icon">⚡</div>
+                  <div className="apple-app-icon">🌐</div>
+                  <div className="apple-app-icon">🚀</div>
+                  <div className="apple-app-icon">⚙️</div>
+                  <div className="apple-app-icon">🔒</div>
+                  <div className="apple-app-icon">📁</div>
+                  <div className="apple-app-icon">📱</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Full-width Photo Hero */}
+            <div className="apple-card apple-card--photo-hero reveal">
+              <div className="apple-card__photo-overlay" />
+              <div className="apple-card__photo-content">
+                <span className="apple-card__eyebrow apple-card__eyebrow--light">Keamanan & Keandalan</span>
+                <h3 className="apple-card__title apple-card__title--hero-white">
+                  Performa website dan sistem data bisnis Anda yang selalu terjaga 24/7.
+                </h3>
+              </div>
+            </div>
+
+            {/* 3-Column */}
+            <div className="apple-bento-triplet">
+              <div className="apple-card apple-card--blue-soft reveal">
+                <span className="apple-card__eyebrow">Komunikasi Pemasaran</span>
+                <h3 className="apple-card__title">Integrasi WhatsApp & Form Kontak otomatis.</h3>
+                <div className="apple-card__phone-preview">
+                  <div className="apple-phone-bubble">💬 Chat masuk dari calon pembeli</div>
+                  <div className="apple-phone-bubble apple-phone-bubble--reply">⚡ Otomatis terhubung ke admin</div>
+                </div>
+              </div>
+
+              <div className="apple-card apple-card--white reveal reveal--delay-1">
+                <span className="apple-card__eyebrow">Performa & Storage</span>
+                <h3 className="apple-card__title">Hosting super cepat & enkripsi SSL standar industri.</h3>
+                <div className="apple-card__cloud-visual" aria-hidden="true">
+                  ☁️
+                </div>
+              </div>
+
+              <div className="apple-card apple-card--white reveal reveal--delay-2">
+                <span className="apple-card__eyebrow">Dukungan Tim Ahli</span>
+                <h3 className="apple-card__title">
+                  Layanan garansi & bantuan tim <strong className="apple-text-accent">IDKA Care+</strong>.
+                </h3>
+                <div className="apple-card__support-list">
+                  <div className="apple-support-item">
+                    <span>📞</span> Konsultasi Gratis
+                  </div>
+                  <div className="apple-support-item">
+                    <span>💬</span> Live Support WhatsApp
+                  </div>
+                  <div className="apple-support-item">
+                    <span>🔧</span> Maintenance & Revisi
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* How We Work */}
-      <section className="section section--tint home-flow" aria-labelledby="flow-heading">
+      {/* Bento Section 2 */}
+      <section className="apple-bento-section" aria-labelledby="growth-heading">
         <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Cara Kerja</div>
-            <h2 id="flow-heading" className="section-title">
-              Dari Kontak hingga Go-Live
+          <div className="apple-bento-header reveal">
+            <h2 id="growth-heading" className="apple-bento-title">
+              <span className="apple-title-blue">Jangkau pelanggan</span> di mana pun mereka berada.
             </h2>
-            <p className="section-subtitle">
-              Proses transparan dan terstruktur, dari konsultasi awal hingga website siap digunakan.
-            </p>
+            <NavLink to="/portofolio" className="apple-link-arrow">
+              Lihat studi kasus
+            </NavLink>
           </div>
-          <div className="home-flow__grid">
-              {businessFlow.map((item, i) => (
-              <div key={item.step} className={`flow-step reveal reveal--delay-${Math.min(i + 1, 5)}`}>
-                <div className="flow-step__number" aria-label={`Langkah ${item.step}`}>
-                  {item.step}
+
+          <div className="apple-bento-grid">
+            <div className="apple-bento-duo">
+              <div className="apple-card apple-card--maps-bg reveal">
+                <span className="apple-card__eyebrow apple-card__eyebrow--light">SEO & Peta Lokal</span>
+                <h3 className="apple-card__title apple-card__title--light">
+                  Tempatkan bisnis Anda di titik teratas pencarian pelanggan.
+                </h3>
+                <div className="apple-card__map-pin" aria-hidden="true">
+                  📍 IDKA Verified Business
                 </div>
-                <h3 className="flow-step__label">{item.label}</h3>
-                <p className="flow-step__desc">{item.description}</p>
               </div>
+
+              <div className="apple-card apple-card--white reveal reveal--delay-1">
+                <span className="apple-card__eyebrow">Reputasi Brand</span>
+                <h3 className="apple-card__title">
+                  Tampilan modern yang membuat brand Anda selalu diingat.
+                </h3>
+                <div className="apple-card__brand-preview">
+                  <div className="apple-brand-card">
+                    <span className="apple-brand-badge">IDKA Certified</span>
+                    <strong>Bisnis Terpercaya & Profesional</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="apple-bento-duo">
+              <div className="apple-card apple-card--white reveal">
+                <span className="apple-card__eyebrow">Interaksi Pelanggan</span>
+                <h3 className="apple-card__title">
+                  Memungkinkan pelanggan reservasi, pesan produk, dan konsultasi secara instan.
+                </h3>
+                <div className="apple-card__action-squircles" aria-hidden="true">
+                  <div className="apple-action-tile">📅 Reservasi</div>
+                  <div className="apple-action-tile">🛍️ Pemesanan</div>
+                  <div className="apple-action-tile">📑 Katalogue</div>
+                </div>
+              </div>
+
+              <div className="apple-card apple-card--emerald reveal reveal--delay-1">
+                <span className="apple-card__eyebrow apple-card__eyebrow--light">Analitik & Laporan</span>
+                <h3 className="apple-card__title apple-card__title--light">
+                  Dapatkan Insight berharga tentang jumlah pengunjung dan angka konversi bisnis Anda.
+                </h3>
+                <div className="apple-card__insight-graph" aria-hidden="true">
+                  📈 Performa Naik 3.5x
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Showcase */}
+      <section className="apple-portfolio-showcase" aria-labelledby="portfolio-heading">
+        <div className="container">
+          <div className="apple-portfolio-hero-card reveal">
+            <div className="apple-portfolio-hero-overlay" />
+            <div className="apple-portfolio-hero-content">
+              <span className="apple-card__eyebrow apple-card__eyebrow--light">Karya Terbaik</span>
+              <h2 id="portfolio-heading" className="apple-portfolio-hero-title">
+                Jelajahi hasil karya website bisnis yang telah go-live bersama IDKA Solutions.
+              </h2>
+              <p className="apple-portfolio-hero-desc">
+                Lihat bagaimana klien kami bertransformasi dan meningkatkan kepercayaan calon pembeli.
+              </p>
+              <NavLink to="/portofolio" className="apple-link-arrow apple-link-arrow--light">
+                Lihat semua karya portofolio →
+              </NavLink>
+            </div>
+          </div>
+
+          <div className="portfolio-preview-grid apple-portfolio-grid">
+            {portfolio.slice(0, 3).map((item, i) => (
+              <PortfolioPreviewCard key={item.id} item={item} delay={i + 1} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing Preview */}
-      <section className="section home-pricing" aria-labelledby="pricing-heading">
+      {/* Pricing */}
+      <section className="apple-pricing-section" aria-labelledby="pricing-heading">
         <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Paket</div>
-            <h2 id="pricing-heading" className="section-title">
-              Harga Transparan, Tanpa Biaya Tersembunyi
+          <div className="apple-section-center-header reveal">
+            <h2 id="pricing-heading" className="apple-bento-title apple-bento-title--center">
+              Pilihan paket sesuai kebutuhan Anda.
             </h2>
-            <p className="section-subtitle">
-              Harga yang tertera adalah acuan. Proyek kustom dapat disesuaikan setelah konsultasi.
+            <p className="apple-section-subtitle">
+              Harga transparan tanpa biaya tersembunyi.
             </p>
           </div>
-          <div className="pricing-grid">
+
+          <div className="apple-pricing-grid">
             {packages.map((pkg, i) => (
               <div
                 key={pkg.id}
-                className={`pricing-card neu-raised card-hover reveal reveal--delay-${i + 1}${pkg.highlighted ? ' pricing-card--highlighted card-featured' : ''}`}
+                className={`apple-pricing-card reveal reveal--delay-${i + 1}${pkg.highlighted ? ' apple-pricing-card--highlighted' : ''}`}
               >
                 {pkg.highlighted && (
-                  <div className="pricing-card__badge">Paling Dipilih</div>
+                  <div className="apple-pricing-badge">Paling Dipilih</div>
                 )}
-                <h3 className="pricing-card__name">{pkg.name}</h3>
-                <div className="pricing-card__price">{pkg.price}</div>
-                <p className="pricing-card__tagline">{pkg.tagline}</p>
-                <ul className="pricing-card__features" role="list">
+                <div className="apple-pricing-card__icon" aria-hidden="true">
+                  {i === 0 ? '☁️' : i === 1 ? '⭐' : '⚡'}
+                </div>
+                <h3 className="apple-pricing-card__name">{pkg.name}</h3>
+                <div className="apple-pricing-card__price">{pkg.price}</div>
+                <p className="apple-pricing-card__tagline">{pkg.tagline}</p>
+                <ul className="apple-pricing-card__features" role="list">
                   {pkg.features.map((f, j) => (
-                    <li key={j} className="pricing-card__feature">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
+                    <li key={j} className="apple-pricing-card__feature">
+                      <span className="apple-check">✓</span>
                       {f}
                     </li>
                   ))}
                 </ul>
                 <NavLink
                   to="/kontak"
-                  className={`btn pricing-card__btn${pkg.highlighted ? ' btn-primary' : ' btn-secondary'}`}
+                  className={`apple-pill-btn ${pkg.highlighted ? 'apple-pill-btn--primary' : 'apple-pill-btn--secondary'}`}
                 >
-                  {pkg.cta}
+                  {pkg.cta} →
                 </NavLink>
               </div>
             ))}
           </div>
-          <p className="home-pricing__note">
-            Belum yakin paket mana yang cocok?{' '}
-            <NavLink to="/kontak" className="home-pricing__note-link">
-              Konsultasi gratis
-            </NavLink>
-            {' '}— kami bantu rekomendasikan opsi terbaik.
-          </p>
         </div>
       </section>
 
-      {/* Portfolio Preview */}
-      <section className="section home-portfolio" aria-labelledby="portfolio-heading">
+      {/* Final CTA */}
+      <section className="apple-final-cta" aria-labelledby="final-cta-heading">
         <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Portofolio</div>
-            <h2 id="portfolio-heading" className="section-title">
-              Karya yang Dapat Dilihat Langsung
+          <div className="apple-final-cta__inner reveal">
+            <div className="apple-logo-mark apple-logo-mark--large">IDKA Solutions</div>
+            <h2 id="final-cta-heading" className="apple-final-cta__title">
+              Kelola website bisnis Anda.<br />
+              Jangkau lebih banyak pelanggan.<br />
+              Dapatkan dukungan tim ahli.
             </h2>
-          </div>
-          <div className="portfolio-preview-grid">
-            {portfolio.slice(0, 3).map((item, i) => (
-              <PortfolioPreviewCard key={item.id} item={item} delay={i + 1} />
-            ))}
-          </div>
-          <div className="home-portfolio__cta">
-            <NavLink to="/portofolio" className="btn btn-secondary">
-              Lihat Semua Karya
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </NavLink>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* CTA Section — creative launch pad */}
-      <section className="section home-cta" aria-labelledby="cta-heading">
-        <div className="container">
-          <div className="home-cta__card reveal reveal--scale">
-            {/* Abstract field */}
-            <div className="home-cta__field" aria-hidden="true">
-              <span className="home-cta__glow home-cta__glow--a" />
-              <span className="home-cta__glow home-cta__glow--b" />
-              <span className="home-cta__glow home-cta__glow--c" />
-              <span className="home-cta__ring home-cta__ring--1" />
-              <span className="home-cta__ring home-cta__ring--2" />
-              <span className="home-cta__ring home-cta__ring--3" />
-              <span className="home-cta__grid" />
-              <span className="home-cta__beam" />
-              <span className="home-cta__spark home-cta__spark--1" />
-              <span className="home-cta__spark home-cta__spark--3" />
-              <span className="home-cta__spark home-cta__spark--4" />
+            <div className="apple-final-cta__badge">
+              <span className="apple-check-circle">✓</span> All in one place.
             </div>
-
-            <div className="home-cta__content">
-              <div className="home-cta__eyebrow">
-                <span className="home-cta__eyebrow-text">Siap memulai?</span>
-              </div>
-
-              <h2 id="cta-heading" className="home-cta__title">
-                <span className="home-cta__title-line">Bisnis Anda Layak</span>
-                <span className="home-cta__title-accent">Website yang Profesional</span>
-              </h2>
-
-              <p className="home-cta__desc">
-                Sampaikan kebutuhan Anda. Kami bantu merancang solusi yang tepat.
-                Konsultasi pertama gratis, tanpa komitmen.
-              </p>
-
-              <ul className="home-cta__trust" aria-label="Keunggulan memulai sekarang">
-                <li className="home-cta__trust-item">
-                  <span className="home-cta__trust-icon" aria-hidden="true">✓</span>
-                  Konsultasi gratis
-                </li>
-                <li className="home-cta__trust-item">
-                  <span className="home-cta__trust-icon" aria-hidden="true">⚡</span>
-                  Respon 1–3 jam
-                </li>
-                <li className="home-cta__trust-item">
-                  <span className="home-cta__trust-icon" aria-hidden="true">◎</span>
-                  Tanpa komitmen
-                </li>
-              </ul>
-
-              <div className="home-cta__actions">
-                <NavLink to="/kontak" className="btn btn-primary home-cta__btn-main">
-                  Mulai Konsultasi
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12h14" />
-                    <path d="M13 6l6 6-6 6" />
-                  </svg>
-                </NavLink>
-                <a
-                  href={WA_CTA}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-wa home-cta__btn-wa"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.557 4.116 1.529 5.843L.057 23.143a.75.75 0 00.917.916l5.356-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.91 0-3.694-.523-5.22-1.432l-.374-.222-3.88 1.058 1.087-3.797-.243-.387A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z" />
-                  </svg>
-                  Chat WhatsApp
-                </a>
-              </div>
-
-              <div className="home-cta__stats" aria-hidden="true">
-                {stats.map((s) => (
-                  <div key={s.num} className="home-cta__stat">
-                    <span className="home-cta__stat-num">{s.num}</span>
-                    <span className="home-cta__stat-label">{s.label}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="apple-final-cta__actions">
+              <a
+                href={WA_CTA}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="apple-pill-btn apple-pill-btn--primary apple-pill-btn--large"
+              >
+                Mulai Konsultasi Gratis
+              </a>
             </div>
           </div>
         </div>

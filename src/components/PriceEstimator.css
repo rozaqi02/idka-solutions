@@ -1,221 +1,232 @@
-﻿.estimator {
-  padding: var(--space-2xl);
+/* =============================================
+   PRICE ESTIMATOR — APPLE BUSINESS DESIGN SYSTEM
+   ============================================= */
+
+.estimator-container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+}
+
+.estimator-card {
+  background: #ffffff;
+  border-radius: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  padding: clamp(1.75rem, 4vw, 3rem);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
-  border: none;
+  gap: 2.25rem;
 }
 
-.estimator__header {
+/* ===== HEADER ===== */
+.estimator-header {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: var(--space-md);
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.estimator__header-text {
-  flex: 1;
+.estimator-badge {
+  display: inline-block;
+  font-size: 0.775rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  background: var(--primary-softer);
+  padding: 3px 10px;
+  border-radius: 980px;
+  margin-bottom: 0.5rem;
 }
 
-.estimator__reset {
-  background: none;
-  border: none;
+.estimator-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  color: #1d1d1f;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.estimator-subtitle {
+  font-size: 0.95rem;
+  color: #515154;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.estimator-reset-btn {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: #f5f5f7;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 6px 14px;
+  border-radius: 980px;
   cursor: pointer;
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--text-muted);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-fast);
-  flex-shrink: 0;
-  align-self: flex-start;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.estimator-reset-btn:hover {
+  background: #e8e8ed;
+  color: #1d1d1f;
+}
+
+/* ===== STEPS ===== */
+.estimator-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.estimator-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.estimator-step-label {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+.estimator-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+/* ===== OPTION BUTTON ===== */
+.estimator-opt-btn {
+  background: #ffffff;
+  border: 1.5px solid #d2d2d7;
+  border-radius: 18px;
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  transition: all 0.2s var(--ease-out);
+  outline: none;
+}
+
+.estimator-opt-btn:hover {
+  border-color: var(--primary);
+  background: #f5f5f7;
+  transform: translateY(-1px);
+}
+
+.estimator-opt-btn--selected {
+  border-color: var(--primary) !important;
+  background: var(--primary-softer) !important;
+  box-shadow: 0 4px 14px rgba(94, 23, 235, 0.15);
+}
+
+.estimator-opt-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.estimator-opt-title {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+.estimator-opt-check {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.estimator-opt-desc {
+  font-size: 0.825rem;
+  color: #515154;
+  line-height: 1.4;
+}
+
+.estimator-opt-price {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
   margin-top: 4px;
 }
 
-.estimator__reset:hover {
-  color: var(--danger);
-  box-shadow: var(--shadow-md);
-}
-
-.estimator__icon {
-  font-size: 2rem;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.estimator__title {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: var(--weight-extrabold);
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.estimator__subtitle {
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-/* Steps */
-.estimator__steps {
+/* ===== RESULT BAR ===== */
+.estimator-result-bar {
+  background: #f5f5f7;
+  border-radius: 22px;
+  padding: 1.5rem clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-}
-
-.estimator__step {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.estimator__step-label {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--text-primary);
-}
-
-.estimator__options {
-  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
   flex-wrap: wrap;
-  gap: var(--space-sm);
 }
 
-.estimator__option {
+.estimator-result-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  padding: 0.75rem 1.05rem;
-  border-radius: var(--radius-md);
-  background: var(--bg);
-  border: none;
-  box-shadow: var(--shadow-sm);
-  cursor: pointer;
-  transition: all var(--transition-base);
-  text-align: left;
-  min-width: 120px;
-  position: relative;
+  gap: 4px;
 }
 
-.estimator__option:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.estimator__option:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: 2px;
-  box-shadow: var(--focus-ring), var(--shadow-neu-sm);
-}
-
-.estimator__option--selected {
-  background: var(--bg);
-  box-shadow: none;
-  transform: none;
-}
-
-.estimator__option--selected::after {
-  content: '✓';
-  position: absolute;
-  top: 0.4rem;
-  right: 0.55rem;
-  font-size: 0.7rem;
+.estimator-result-label {
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--primary);
-}
-
-.estimator__option--selected .estimator__option-label {
-  color: var(--primary);
-  font-weight: var(--weight-semibold);
-}
-
-.estimator__option-label {
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-  font-weight: var(--weight-medium);
-  transition: color var(--transition-fast);
-}
-
-.estimator__option-desc {
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-}
-
-.estimator__option-price {
-  font-size: var(--text-xs);
-  color: var(--primary);
-  font-weight: var(--weight-semibold);
-}
-
-.estimator__option-price--base {
-  color: var(--success);
-}
-
-/* Result */
-.estimator__result-range {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.estimator__result {
-  padding: var(--space-xl);
-  border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  align-items: center;
-  text-align: center;
-}
-
-.estimator__result-label {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
+  color: #86868b;
 }
 
-.estimator__result-value {
+.estimator-result-price {
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-extrabold);
-  line-height: 1.2;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
 }
 
-.estimator__result-note {
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-  line-height: 1.5;
+.estimator-result-placeholder {
+  font-size: 0.95rem;
+  color: #515154;
+  font-weight: 500;
 }
 
-.estimator__result-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+.estimator-result-note {
+  font-size: 0.775rem;
+  color: #86868b;
+  margin-top: 2px;
 }
 
-.estimator__result-incomplete {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  font-style: italic;
+.estimator-cta-btn {
+  white-space: nowrap;
 }
 
-.estimator__result-cta {
-  width: 100%;
-  justify-content: center;
-}
-
-@media (max-width: 640px) {
-  .estimator {
-    padding: var(--space-xl);
+@media (max-width: 600px) {
+  .estimator-options-grid {
+    grid-template-columns: 1fr;
   }
 
-  .estimator__option {
-    min-width: 100px;
+  .estimator-result-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .estimator-cta-btn {
+    width: 100%;
   }
 }

@@ -37,18 +37,12 @@
     <!-- Canonical — update ke domain custom jika sudah pindah dari netlify.app -->
     <link rel="canonical" href="https://idkasolutions.netlify.app/" />
 
-    <!--
-      Google Fonts (Inter + Plus Jakarta Sans).
-      PENTING: jangan pakai media="print" + onload=...
-      Netlify CSP (script-src 'self') memblokir inline onload handler,
-      sehingga font tidak pernah aktif di production → fallback system font.
-      Load stylesheet biasa biar local & deploy sama.
-    -->
+    <!-- Google Fonts (Plus Jakarta Sans + Inter for Enterprise Corporate Aesthetic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
     />
   </head>
   <body>

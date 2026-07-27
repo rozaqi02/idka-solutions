@@ -1,4 +1,4 @@
-﻿/* ===== HERO ENTER per-route creative entrances + abstract pattern fields =====
+/* ===== HERO ENTER per-route creative entrances + abstract pattern fields =====
  * Usage: <section data-hero-enter="home|layanan|portofolio|tentang|kontak">
  * Trigger: .hero-in--play (useHeroEnter)
  * Mobile: .hero-in--lite → lighter patterns + simpler text motion
@@ -40,35 +40,8 @@
  */
 [data-hero-enter]::before,
 [data-hero-enter]::after {
-  content: '';
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-}
-
-[data-hero-enter]::before {
-  inset: 0;
-  background:
-    radial-gradient(ellipse 55% 50% at 15% 30%, rgba(94, 23, 235, 0.14), transparent 70%),
-    radial-gradient(ellipse 50% 45% at 90% 15%, rgba(139, 92, 246, 0.12), transparent 65%);
-  transform: scale(1.06);
-}
-
-[data-hero-enter]::after {
-  inset: -5% -8%;
-  transform: scale(1.08) rotate(-2deg);
-  /* default fallback grid */
-  background-image:
-    radial-gradient(circle at 1px 1px, var(--hero-pattern) 1.1px, transparent 0);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 20%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 20%, transparent 75%);
-}
-
-[data-hero-enter]:not(.hero-in--settled)::before,
-[data-hero-enter]:not(.hero-in--settled)::after {
-  will-change: transform, opacity;
+  content: none !important;
+  display: none !important;
 }
 
 /* ========== HOME prism diagonals + soft orbs ========== */

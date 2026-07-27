@@ -17,16 +17,19 @@ export default function TentangKami() {
 
   return (
     <div className="tentang-page">
-      {/* Header */}
-      <section className="page-header section" aria-labelledby="tentang-heading" data-hero-enter="tentang">
+      {/* Apple Business Page Header */}
+      <section className="apple-hero page-header section" aria-labelledby="tentang-heading" data-hero-enter="tentang">
         <div className="container">
-          <div className="page-header__inner">
-            <div className="section-tag hero-in__item hero-in__item--tag">Tentang Kami</div>
-            <h1 id="tentang-heading" className="section-title hero-in__item hero-in__item--title">
-              Kami <span className="gradient-text">IDKA Solutions</span>
+          <div className="apple-hero__inner">
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">
+              Tentang IDKA Solutions
+            </div>
+            <h1 id="tentang-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+              Mitra Digital untuk <span className="apple-hero__title-accent">Pertumbuhan Bisnis Anda.</span>
             </h1>
-            <p className="section-subtitle hero-in__item hero-in__item--sub">
-              Mitra digital yang membantu bisnis membangun website profesional dan mendukung pertumbuhan online.
+            <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
+              Membantu UMKM, profesional, dan startup membangun kehadiran digital yang kredibel, modern, dan berdampak.{' '}
+              <strong className="apple-text-bold">All in one place.</strong>
             </p>
           </div>
         </div>

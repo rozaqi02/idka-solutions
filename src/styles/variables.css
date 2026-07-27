@@ -1,77 +1,86 @@
-﻿:root {
+:root {
   /* =============================================
-     MODERN SAAS DESIGN SYSTEM IDKA Solutions
+     APPLE BUSINESS STRUCTURE — IDKA SOLUTIONS BRAND
+     Clean Apple layout with IDKA Signature Purple theme
      ============================================= */
 
-  /* Surfaces */
-  --bg: #ffffff;
-  --bg-alt: #f8f9fb;
+  /* Surfaces — Apple Business Light Mode Canvas */
+  --bg: #f5f5f7;
+  --bg-alt: #ffffff;
   --bg-elevated: #ffffff;
-  --bg-highlight: #f3f4f6;
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-strong: rgba(0, 0, 0, 0.12);
-  --border-color: #e5e7eb;
+  --bg-highlight: #e8e8ed;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.15);
+  --border-color: #d2d2d7;
 
-  /* Brand */
+  /* Brand — IDKA Signature Purple & Cyan Accent */
   --primary: #5e17eb;
   --primary-light: #8b5cf6;
-  --primary-dark: #4a10c4;
+  --primary-dark: #4c11c9;
   --primary-soft: rgba(94, 23, 235, 0.10);
   --primary-softer: rgba(94, 23, 235, 0.06);
-  --secondary: #7c3aed;
-  --accent: #f59e0b;
-  --success: #059669;
-  --danger: #dc2626;
+  --secondary: #00875a;
+  --accent: #00d2ff;
+  --success: #00875a;
+  --danger: #ff3b30;
   --wa: #25d366;
 
-  /* Text */
-  --text-primary: #0f172a;
-  --text-secondary: #374151;
-  --text-muted: #6b7280;
-  --text-light: #9ca3af;
+  /* Text — Deep Dark & Muted Grey */
+  --text-primary: #1d1d1f;
+  --text-secondary: #515154;
+  --text-muted: #86868b;
+  --text-light: #a1a1a6;
   --text-white: #ffffff;
 
-  /* Shadows flat, single-direction (Modern SaaS) */
-  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md:  0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-lg:  0 10px 24px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.04);
-  --shadow-xl:  0 20px 40px rgba(0, 0, 0, 0.09), 0 8px 16px rgba(0, 0, 0, 0.05);
+  /* Shadows — Apple Clean Flat Shadows */
+  --shadow-xs:  0 2px 8px rgba(0, 0, 0, 0.03);
+  --shadow-sm:  0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-md:  0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg:  0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-xl:  0 20px 48px rgba(0, 0, 0, 0.10);
   --shadow-flat: none;
 
-  /* Legacy neumorphic aliases mapped ke flat shadows agar tidak break */
-  --shadow-neu:          var(--shadow-md);
-  --shadow-neu-sm:       var(--shadow-sm);
-  --shadow-neu-lg:       var(--shadow-lg);
-  --shadow-neu-xl:       var(--shadow-xl);
-  --shadow-neu-inset:    inset 0 2px 4px rgba(0, 0, 0, 0.06);
-  --shadow-neu-inset-sm: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-neu-pressed:  inset 0 2px 6px rgba(0, 0, 0, 0.08);
+  /* Legacy neumorphic aliases mapped to flat shadows */
+  --shadow-neu:          var(--shadow-sm);
+  --shadow-neu-sm:       var(--shadow-xs);
+  --shadow-neu-lg:       var(--shadow-md);
+  --shadow-neu-xl:       var(--shadow-lg);
+  --shadow-neu-inset:    none;
+  --shadow-neu-inset-sm: none;
+  --shadow-neu-pressed:  none;
 
   /* Brand shadows */
-  --shadow-primary:       0 4px 14px rgba(94, 23, 235, 0.30), 0 2px 6px rgba(94, 23, 235, 0.15);
-  --shadow-primary-hover: 0 6px 20px rgba(94, 23, 235, 0.38), 0 3px 8px rgba(94, 23, 235, 0.20);
+  --shadow-primary:       0 4px 16px rgba(94, 23, 235, 0.28);
+  --shadow-primary-hover: 0 6px 22px rgba(94, 23, 235, 0.38);
 
-  /* Section surfaces */
-  --bg-section: #ffffff;
-  --bg-section-alt: #f8f9fb;
-  --bg-section-tint: #0f0a1e;          /* dark section Vercel-style */
-  --bg-section-tint-text: #ffffff;
-  --bg-section-tint-muted: rgba(255, 255, 255, 0.65);
+  /* Section surfaces — Apple Business Light Canvas */
+  --bg-section: #f5f5f7;
+  --bg-section-alt: #ffffff;
+  --bg-section-tint: #f5f5f7;
+  --bg-section-tint-text: #1d1d1f;
+  --bg-section-tint-muted: #86868b;
+
+  /* Glass / Frost tokens (simplified) */
+  --glass-bg: rgba(255, 255, 255, 0.80);
+  --glass-bg-hover: rgba(255, 255, 255, 0.92);
+  --glass-bg-strong: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-hover: rgba(0, 0, 0, 0.15);
+  --glass-blur: blur(20px) saturate(180%);
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --glass-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --glass-inset: none;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #6d28f0 0%, #5e17eb 50%, #7c3aed 100%);
-  --gradient-soft:    linear-gradient(180deg, #ffffff 0%, #f8f9fb 100%);
-  --gradient-band:    linear-gradient(180deg, #f8f9fb 0%, #f3f4f6 48%, #f8f9fb 100%);
+  --gradient-primary: linear-gradient(135deg, #5e17eb 0%, #8b5cf6 100%);
+  --gradient-soft:    linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+  --gradient-band:    linear-gradient(180deg, #f5f5f7 0%, #ffffff 50%, #f5f5f7 100%);
 
-  /* Hero dark/rich seperti Linear, Vercel */
-  --gradient-hero:
-    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(109, 40, 240, 0.55), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 10% 100%, rgba(139, 92, 246, 0.30), transparent 55%),
-    linear-gradient(160deg, #0f0a1e 0%, #1a0d35 45%, #120826 100%);
+  /* Hero & Page Header — Light canvas */
+  --gradient-hero: #f5f5f7;
 
-  --gradient-cta:  linear-gradient(135deg, #0f0a1e 0%, #1e0f40 60%, #0f0a1e 100%);
-  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8f9fb 100%);
+  --gradient-cta:  linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+  --gradient-card: linear-gradient(180deg, #ffffff 0%, #f8f8fa 100%);
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -83,7 +92,7 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  /* Radius sedikit lebih tajam untuk Modern SaaS */
+  /* Radius — Apple clean rounded */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
@@ -91,8 +100,8 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  /* Typography */
-  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* Typography — SF Pro inspired (Inter + Plus Jakarta Sans) */
+  --font-sans: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
 
   /* Raw steps */
@@ -153,12 +162,12 @@
   --card-pad-md: 1.35rem;
   --mobile-fab-clear: calc(72px + env(safe-area-inset-bottom, 0px));
 
-  /* Navbar */
-  --navbar-height:              72px;
-  --navbar-island-offset:       12px;
-  --navbar-island-h:            52px;
-  --navbar-island-h-mobile:     48px;
-  --navbar-island-offset-mobile: 10px;
+  /* Navbar — Apple Business localnav flat bar */
+  --navbar-height: 48px;
+  --navbar-island-offset: 0px;
+  --navbar-island-h: 48px;
+  --navbar-island-h-mobile: 48px;
+  --navbar-island-offset-mobile: 0px;
 
   /* FABs */
   --fab-size:          56px;

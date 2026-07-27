@@ -15,7 +15,6 @@ function PortoImage({ src, alt, width, height }: { src: string; alt: string; wid
   const [error, setError] = useState(false)
   const [currentSrc, setCurrentSrc] = useState(src)
 
-  // Cached images may already be complete before onLoad is attached — detect via ref callback
   const imgRef = useCallback((node: HTMLImageElement | null) => {
     if (!node) return
     if (node.complete && node.naturalWidth > 0) {
@@ -24,7 +23,6 @@ function PortoImage({ src, alt, width, height }: { src: string; alt: string; wid
   }, [])
 
   const handleError = () => {
-    // Prefer PNG if WebP fails (older browser / broken file)
     if (currentSrc.endsWith('.webp')) {
       const png = webpToPngFallback(currentSrc)
       if (png !== currentSrc) {
@@ -65,7 +63,6 @@ const allCategories = ['Semua', ...Array.from(new Set(portfolio.map((p) => p.cat
 
 export default function Portofolio() {
   const [activeFilter, setActiveFilter] = useState('Semua')
-  const [expanded, setExpanded] = useState<number | null>(null)
   useScrollReveal({ watchKey: activeFilter })
   useHeroEnter()
   usePageTitle({
@@ -82,25 +79,28 @@ export default function Portofolio() {
 
   return (
     <div className="porto-page">
-      {/* Header */}
-      <section className="page-header section" aria-labelledby="porto-heading" data-hero-enter="portofolio">
+      {/* Apple Business Light Page Header */}
+      <section className="apple-hero section" aria-labelledby="porto-heading" data-hero-enter="portofolio">
         <div className="container">
-          <div className="page-header__inner">
-            <div className="section-tag hero-in__item hero-in__item--tag">Portofolio</div>
-            <h1 id="porto-heading" className="section-title hero-in__item hero-in__item--title">
-              Portofolio Karya Kami
+          <div className="apple-hero__inner">
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">
+              Portofolio IDKA
+            </div>
+            <h1 id="porto-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+              Portofolio Karya <span className="apple-hero__title-accent">& Hasil Kerja Nyata.</span>
             </h1>
-            <p className="section-subtitle hero-in__item hero-in__item--sub">
-              Dari UMKM lokal hingga startup digital—hasil kerja yang dapat ditinjau langsung.
+            <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
+              Dari UMKM lokal hingga perusahaan startup—jelajahi project website yang telah aktif dan berkembang.{' '}
+              <strong className="apple-text-bold">All in one place.</strong>
             </p>
           </div>
         </div>
       </section>
 
       {/* Portfolio Grid */}
-      <section className="section porto-grid-section" aria-labelledby="porto-grid-heading">
+      <section className="section section--tint porto-grid-section" aria-labelledby="porto-grid-heading">
         <div className="container">
-          {/* Filter */}
+          {/* Filter Bar */}
           <div className="porto-filters" role="group" aria-label="Filter kategori portofolio">
             {allCategories.map((cat) => (
               <button
@@ -117,132 +117,71 @@ export default function Portofolio() {
           {/* Grid */}
           <div className="porto-grid" role="list">
             {filtered.map((item) => (
-              <article key={item.id} className="porto-card neu-raised reveal" role="listitem">
-                {/* Visual */}
-                <div
-                  className="porto-card__visual"
-                  style={{ background: `linear-gradient(135deg, ${item.color}18 0%, ${item.color}35 100%)` }}
-                >
-                  {'screenshot' in item && item.screenshot ? (
-                    <div className="porto-card__browser neu-raised">
-                      <div className="porto-card__browser-bar" aria-hidden="true">
-                        <div className="porto-card__browser-dots">
-                          <span /><span /><span />
-                        </div>
-                        {'url' in item && item.url ? (
-                          <div className="porto-card__browser-url-text">{(item.url as string).replace('https://', '')}</div>
-                        ) : (
-                          <div className="porto-card__browser-url" />
-                        )}
+              <article key={item.id} className="porto-card reveal" role="listitem">
+                {/* Visual macOS Browser Mockup */}
+                <div className="porto-card__visual">
+                  <div className="porto-card__browser">
+                    <div className="porto-card__browser-bar" aria-hidden="true">
+                      <div className="porto-card__browser-dots">
+                        <span className="dot--red" />
+                        <span className="dot--yellow" />
+                        <span className="dot--green" />
                       </div>
+                      {'url' in item && item.url ? (
+                        <div className="porto-card__browser-url-text">
+                          {(item.url as string).replace('https://', '')}
+                        </div>
+                      ) : (
+                        <div className="porto-card__browser-url" />
+                      )}
+                    </div>
+                    {'screenshot' in item && item.screenshot ? (
                       <PortoImage
                         src={item.screenshot as string}
                         alt={`Screenshot website ${item.title}`}
                         width={800}
                         height={500}
                       />
-                    </div>
-                  ) : (
-                    <div className="porto-card__browser neu-raised" aria-hidden="true">
-                      <div className="porto-card__browser-bar">
-                        <div className="porto-card__browser-dots">
-                          <span /><span /><span />
-                        </div>
-                        <div className="porto-card__browser-url" />
+                    ) : (
+                      <div className="porto-card__browser-placeholder">
+                        <span className="porto-card__emoji">{item.icon}</span>
                       </div>
-                      <div className="porto-card__browser-body">
-                        <div
-                          className="porto-card__browser-hero"
-                          style={{ background: `linear-gradient(135deg, ${item.color}40, ${item.color}80)` }}
-                        >
-                          <span className="porto-card__emoji">{item.icon}</span>
-                        </div>
-                        <div className="porto-card__browser-content">
-                          <div className="porto-card__browser-line" />
-                          <div className="porto-card__browser-line porto-card__browser-line--short" />
-                          <div className="porto-card__browser-cards">
-                            <div className="porto-card__browser-card" />
-                            <div className="porto-card__browser-card" />
-                            <div className="porto-card__browser-card" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  <div
-                    className="porto-card__category-badge"
-                    aria-label={`Kategori: ${item.category}`}
-                  >
-                    {item.category}
+                    )}
                   </div>
                 </div>
 
                 {/* Body */}
                 <div className="porto-card__body">
-                  {'period' in item && item.period && (
-                    <div className="porto-card__period">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="16" y1="2" x2="16" y2="6"/>
-                        <line x1="8" y1="2" x2="8" y2="6"/>
-                        <line x1="3" y1="10" x2="21" y2="10"/>
-                      </svg>
-                      {item.period as string}
-                    </div>
-                  )}
-                  <div className="porto-card__tags">
-                    {item.tags.map((tag) => (
-                      <span key={tag} className="badge">{tag}</span>
-                    ))}
+                  <div className="porto-card__top-meta">
+                    <span className="porto-card__category">{item.category}</span>
+                    {'period' in item && item.period && (
+                      <span className="porto-card__period">{item.period as string}</span>
+                    )}
                   </div>
+
                   <h2 className="porto-card__title">{item.title}</h2>
                   <p className="porto-card__desc">{item.description}</p>
 
-                  {'longDescription' in item && item.longDescription && (
-                    <>
-                      <button
-                        className="porto-card__toggle"
-                        onClick={() => setExpanded(expanded === item.id ? null : item.id)}
-                        aria-expanded={expanded === item.id}
-                      >
-                        {expanded === item.id ? 'Sembunyikan detail' : 'Lihat detail lebih lanjut'}
-                        <svg
-                          width="14" height="14" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                          style={{ transform: expanded === item.id ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.25s ease' }}
-                          aria-hidden="true"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </button>
-                      {expanded === item.id && (
-                        <p className="porto-card__long-desc">{item.longDescription as string}</p>
-                      )}
-                    </>
-                  )}
+                  {/* Combined Tags & Tech Pills */}
+                  <div className="porto-card__tags">
+                    {item.tags.map((tag) => (
+                      <span key={tag} className="porto-tag-badge">{tag}</span>
+                    ))}
+                    {'tech' in item && Array.isArray(item.tech) && item.tech.map((t) => (
+                      <span key={t} className="porto-tag-badge porto-tag-badge--tech">{t}</span>
+                    ))}
+                  </div>
 
-                  {'tech' in item && Array.isArray(item.tech) && (
-                    <div className="porto-card__tech">
-                      {(item.tech as string[]).map((t) => (
-                        <span key={t} className="porto-card__tech-badge">{t}</span>
-                      ))}
-                    </div>
-                  )}
-
+                  {/* Action Link — Authentic Apple Link Arrow */}
                   {'url' in item && item.url && (
                     <a
                       href={item.url as string}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="porto-card__link btn btn-primary"
+                      className="porto-card__action-link"
                       aria-label={`Kunjungi website ${item.title}`}
                     >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-                        <polyline points="15 3 21 3 21 9"/>
-                        <line x1="10" y1="14" x2="21" y2="3"/>
-                      </svg>
-                      Kunjungi Website
+                      Kunjungi Website ›
                     </a>
                   )}
                 </div>
@@ -260,20 +199,19 @@ export default function Portofolio() {
       </section>
 
       {/* Case Study Note */}
-      <section className="section section--tint porto-note-section">
+      <section className="section porto-note-section">
         <div className="container">
-          <div className="porto-case-note neu-raised-lg reveal">
-            <div className="porto-case-note__icon" aria-hidden="true">&#128640;</div>
+          <div className="porto-case-note reveal reveal--scale">
+            <div className="porto-case-note__icon" aria-hidden="true">🚀</div>
             <div className="porto-case-note__content">
               <h2 className="porto-case-note__title">Portofolio Terus Bertambah</h2>
               <p className="porto-case-note__desc">
-                Ini adalah sebagian dari karya kami. Setiap proyek baru memperkaya portofolio.
-                Tertarik menjadikan bisnis Anda proyek berikutnya?
+                Setiap proyek baru memperkaya portofolio kami. Tertarik menjadikan bisnis Anda proyek berikutnya?
               </p>
-              <NavLink to="/kontak" className="btn btn-primary">
-                Mulai Proyek
-              </NavLink>
             </div>
+            <NavLink to="/kontak" className="apple-pill-btn apple-pill-btn--primary">
+              Mulai Proyek
+            </NavLink>
           </div>
         </div>
       </section>

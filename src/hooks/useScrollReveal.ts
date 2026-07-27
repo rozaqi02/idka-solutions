@@ -11,11 +11,11 @@ type Options = {
 }
 
 /**
- * Lightweight scroll reveal.
- * Mobile: fewer timers, no MutationObserver thrash, transform/opacity only (CSS).
+ * Lightweight Apple-style scroll reveal.
+ * Triggers when elements scroll into ~15% of the viewport (mid-screen timing).
  */
 export function useScrollReveal(options: Options = {}) {
-  const { threshold = 0.08, rootMargin = '0px 0px -24px 0px', watchKey } = options
+  const { threshold = 0.15, rootMargin = '0px 0px -15% 0px', watchKey } = options
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -39,9 +39,8 @@ export function useScrollReveal(options: Options = {}) {
         })
       },
       {
-        threshold: isMobile ? 0.05 : threshold,
-        // Reveal slightly earlier on mobile so content feels ready while scrolling
-        rootMargin: isMobile ? '0px 0px -12px 0px' : rootMargin,
+        threshold: isMobile ? 0.1 : threshold,
+        rootMargin: isMobile ? '0px 0px -10% 0px' : rootMargin,
       },
     )
 
@@ -57,16 +56,15 @@ export function useScrollReveal(options: Options = {}) {
 
     observe()
 
-    // Desktop only: short re-scan for lazy layout; avoid heavy mobile timers
+    // Desktop: re-scan timers for lazy-loaded images & filter DOM shifts
     const timers: number[] = []
     if (!isMobile) {
-      timers.push(window.setTimeout(observe, 120))
-      timers.push(window.setTimeout(observe, 400))
+      timers.push(window.setTimeout(observe, 150))
+      timers.push(window.setTimeout(observe, 450))
     } else {
       timers.push(window.setTimeout(observe, 200))
     }
 
-    // MutationObserver only on desktop / when filter DOM changes (watchKey)
     let mutationObserver: MutationObserver | null = null
     if (!isMobile || watchKey !== undefined) {
       let mutT = 0
