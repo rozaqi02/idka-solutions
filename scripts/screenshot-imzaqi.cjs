@@ -6,7 +6,7 @@ const fs = require('fs');
 const OUT_DIR = path.join(__dirname, '..', 'public', 'portfolio');
 const URL = 'https://imzaqi.store';
 const NAME = 'imzaqi-store';
-const WAIT_MS = 4000;
+const WAIT_MS = 900;
 
 async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });

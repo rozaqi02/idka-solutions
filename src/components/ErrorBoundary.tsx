@@ -21,7 +21,10 @@ export default class ErrorBoundary extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     // Reset when parent changes route key so a stuck error screen can recover
     if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
-      this.setState({ hasError: false, error: null })
+      // Defer setState to avoid react(no-did-update-set-state) thrashing
+      queueMicrotask(() => {
+        this.setState({ hasError: false, error: null })
+      })
     }
   }
 

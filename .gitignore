@@ -1,41 +1,64 @@
-# ===== Logs =====
-logs
+# ==========================================
+# IDKA Solutions - Master .gitignore
+# Aman untuk Netlify deployment (hanya menahan file lokal/temporary/sensitif)
+# ==========================================
+
+# ===== 1. Build Outputs & Dependencies =====
+# Netlify akan menginstall npm packages & membuat folder dist secara otomatis saat build.
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+.turbo/
+.cache/
+.parcel-cache/
+.eslintcache/
+.stylelintcache/
+*.tsbuildinfo
+
+# ===== 2. Environment Variables & Secrets =====
+# Variabel rahasia lokal. Di Netlify, gunakan Environment Variables pada dashboard Netlify Site Settings.
+.env
+.env.*
+!.env.example
+
+# ===== 3. Root Screenshots & Raw Design Dumps =====
+# File gambar mentah/screenshot lokal di root (misal screenshot referensi 17MB) agar tidak memberatkan repo.
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+business.apple.com_.png
+
+# ===== 4. Temporary Files, Logs & Exports =====
+# Log & file sementara tidak dibutuhkan saat runtime Netlify.
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+tmp/
+temp/
+.tmp/
+.temp/
+screenshots-tmp/
+screenshots/
+*.crdownload
+*.partial
+* - Copy.*
+* (1).*
 
-# ===== Dependencies & build =====
-node_modules
-dist
-dist-ssr
-build
-*.local
-*.tsbuildinfo
-coverage
-.vite
-.turbo
-.cache
-.parcel-cache
-.eslintcache
-.stylelintcache
-
-# ===== Env & secrets =====
-.env
-.env.*
-!.env.example
-
-# ===== Hosting / deploy =====
-.netlify
-.vercel
-.firebase
+# ===== 5. Hosting & Deploy Local Caches =====
+.netlify/
+.vercel/
 .firebase/
 *.deploy-cache
 
-# ===== Package manager junk =====
-.pnpm-store
+# ===== 6. Package Manager Cache =====
+.pnpm-store/
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -44,11 +67,12 @@ coverage
 !.yarn/versions
 .pnp.*
 
-# ===== Editor / IDE =====
+# ===== 7. Editor & IDE Local Settings =====
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-.idea
+.vscode/settings.local.json
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
@@ -58,8 +82,10 @@ coverage
 *.bak
 *.tmp
 *.temp
+.history/
+.fleet/
 
-# ===== OS junk =====
+# ===== 8. OS Junk =====
 .DS_Store
 .DS_Store?
 ._*
@@ -69,7 +95,8 @@ ehthumbs.db
 Thumbs.db
 Desktop.ini
 
-# ===== AI / agent local state (jangan di-commit) =====
+# ===== 9. AI Assistant & Agent Local State =====
+# Log dan state lokal milik AI Agent / IDE.
 .grok/
 .kilo/
 .kilocode/
@@ -78,24 +105,17 @@ Desktop.ini
 .codex/
 .agent/
 .agents/
+.antigravity/
 
-# ===== Browser / Puppeteer local runtime =====
+# ===== 10. Puppeteer & Browser Cache =====
 .puppeteer_cache/
 .chrome-profile/
 chrome-user-data/
 puppeteer-cache/
 
-# ===== Temporary screenshots / exports =====
-tmp/
-temp/
-.tmp/
-.temp/
-screenshots-tmp/
-*.crdownload
-*.partial
-
-# ===== Marketing local drafts (backup / sumber / versi lama) =====
-# Final assets di public/marketing/ tetap di-track; file kerja lokal diabaikan.
+# ===== 11. Marketing Local Drafts & Generator Temp =====
+# Asset final di public/ tetap ter-track & ter-deploy ke Netlify.
+# Hanya file backup/draft/kerja lokal yang diabaikan.
 public/marketing/**/bckaup/
 public/marketing/**/backup/
 public/marketing/**/*-old.*
@@ -106,16 +126,16 @@ public/marketing/**/*-original.*
 public/marketing/**/*.draft.*
 public/marketing/**/*.wip.*
 
-# HTML generator one-off (bukan ig-posts.html master)
+# File referensi/generator internal team
+public/team/team-grid-ref.png
+public/team/team-grid-green.png
+public/team/*-green.jpg
+public/marketing/ig-posts/* - Copy.*
+
+# Script HTML generator sekali pakai
 scripts/ig-post-*.html
 
-# ===== Local tooling noise =====
-*.tsbuildinfo
-.vscode/settings.local.json
+# ===== 12. Local Tooling Noise =====
 *.stackdump
-
-# ===== Misc =====
 *.orig
 *.rej
-.history/
-.fleet/

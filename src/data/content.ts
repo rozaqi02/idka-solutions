@@ -1,4 +1,4 @@
-﻿// IDKA Solutions - Content Data
+// IDKA Solutions - Content Data
 
 export const company = {
   name: 'IDKA Solutions',
@@ -13,7 +13,7 @@ export const company = {
 export const stats = [
   { num: '6', label: 'Proyek', labelAlt: 'Website Selesai' },
   { num: '4.9/5', label: 'Rating Klien', labelAlt: 'Rating Klien' },
-  { num: '4', label: 'Tim Ahli', labelAlt: 'Tim Ahli' },
+  { num: '4', label: 'Anggota Tim', labelAlt: 'Anggota Tim' },
 ];
 
 export const services = [
@@ -100,7 +100,7 @@ export const packages = [
 export const maintenancePackages = [
   {
     name: 'Maintenance',
-    price: 'Rp 300.000/bln',
+    price: 'Rp 150.000/bln',
     features: [
       'Update konten & produk',
       'Backup rutin & keamanan',
@@ -232,31 +232,55 @@ export const testimonials = [
 export const teamMembers = [
   {
     id: 1,
-    name: 'Project Manager',
-    role: 'Strategist & Client Relations',
-    description: 'Mengelola brief, timeline, dan komunikasi klien dari awal hingga live.',
-    icon: '🎯',
+    name: 'Ahmad Abror Rozaqi Fatoni',
+    role: 'Quality Assurance + Full Stack Developer',
+    description:
+      'Menjaga kualitas produk dan ikut mengembangkan fitur end-to-end agar website stabil dan siap production.',
+    photo: '/team/ahmad-abror-rozaqi-fatoni.webp?v=6',
   },
   {
     id: 2,
-    name: 'UI/UX Designer',
-    role: 'Visual & Experience Designer',
-    description: 'Merancang wireframe dan desain final yang rapi serta mudah digunakan.',
-    icon: '🎨',
+    name: "Fa'iz Abiyu Atha Fawas",
+    role: 'Full Stack Developer',
+    description:
+      'Membangun frontend dan backend, integrasi form/WhatsApp/CMS, hingga website siap go-live.',
+    photo: '/team/faiz-abiyu-atha-fawas.webp?v=6',
   },
   {
     id: 3,
-    name: 'Web Developer',
-    role: 'Frontend & Backend Engineer',
-    description: 'Membangun website, integrasi form/WhatsApp/CMS, hingga go-live.',
-    icon: '💻',
+    name: 'Ervan Dwi Ardian',
+    role: 'UI/UX',
+    description:
+      'Merancang wireframe, antarmuka, dan pengalaman pengguna yang rapi serta mudah digunakan.',
+    photo: '/team/ervan-dwi-ardian.webp?v=6',
   },
   {
     id: 4,
-    name: 'Content & Admin',
-    role: 'Content Creator & Admin',
-    description: 'Mengelola konten, portofolio, testimoni, dan komunikasi operasional.',
-    icon: '✍️',
+    name: 'Agta Fadjrin Aminullah',
+    role: 'System Analyst',
+    description:
+      'Menganalisis kebutuhan sistem, merancang alur solusi, dan menyelaraskan brief klien dengan implementasi teknis.',
+    photo: '/team/agta-fadjrin-aminullah.webp?v=6',
+  },
+];
+
+/** Produk digital internal — coming soon */
+export const products = [
+  {
+    id: 'dashboard-umkm',
+    title: 'Dashboard UMKM',
+    tagline: 'Pantau penjualan, stok, dan performa bisnis dalam satu layar.',
+    status: 'Coming Soon',
+    icon: '📊',
+    accent: 'blue',
+  },
+  {
+    id: 'absensi-mobile',
+    title: 'Absensi Mobile',
+    tagline: 'Presensi karyawan lewat HP — cepat, akurat, dan mudah dipantau.',
+    status: 'Coming Soon',
+    icon: '📱',
+    accent: 'emerald',
   },
 ];
 

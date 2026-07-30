@@ -138,8 +138,22 @@ export default function TentangKami() {
           <div className="team-grid">
             {teamMembers.map((member, i) => (
               <div key={member.id} className={`team-card neu-raised reveal reveal--delay-${Math.min(i + 1, 5)}`}>
-                <div className="team-card__avatar neu-inset" aria-hidden="true">
-                  {member.icon}
+                <div className="team-card__photo-wrap">
+                  {member.photo ? (
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      className="team-card__photo"
+                      width={160}
+                      height={160}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="team-card__photo team-card__photo--placeholder" aria-hidden="true">
+                      {member.name.charAt(0)}
+                    </div>
+                  )}
                 </div>
                 <h3 className="team-card__name">{member.name}</h3>
                 <div className="team-card__role">{member.role}</div>

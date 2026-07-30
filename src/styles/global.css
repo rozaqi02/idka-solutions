@@ -31,7 +31,7 @@
   font-weight: 600;
   border-radius: 0 0 8px 8px;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.3);
+  box-shadow: 0 4px 14px rgba(94, 23, 235, 0.3);
 }
 
 .skip-link:focus {
@@ -135,6 +135,14 @@ ul, ol {
   padding-top: calc(var(--navbar-height) + var(--space-xl));
   padding-bottom: var(--space-2xl);
   position: relative;
+}
+
+/* Subpages use .apple-hero as page header — avoid double top padding */
+.apple-hero.page-header,
+.page-header.apple-hero,
+.apple-hero.section {
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
 .page-header .section-title,
@@ -887,6 +895,22 @@ ul, ol {
   .page-header {
     padding-top: calc(var(--navbar-height) + 1.25rem);
     padding-bottom: 2rem;
+  }
+
+  .apple-hero.page-header,
+  .page-header.apple-hero,
+  .apple-hero.section {
+    padding-top: clamp(2.75rem, 8vw, 3.75rem);
+    padding-bottom: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .apple-hero__title {
+    font-size: clamp(1.75rem, 7.5vw, 2.4rem);
+  }
+
+  .apple-hero__subtitle {
+    font-size: 1rem;
+    padding-inline: 0.15rem;
   }
 
   .page-header__inner {

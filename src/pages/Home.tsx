@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
-import { company, packages, portfolio } from '../data/content'
+import { company, packages, portfolio, products } from '../data/content'
 import HeroPortfolioShowcase from '../components/HeroPortfolioShowcase'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
@@ -18,6 +18,143 @@ const WA_CTA =
   company.whatsapp +
   '?text=' +
   encodeURIComponent('Halo IDKA Solutions, saya ingin bertanya tentang website bisnis.')
+
+const HERO_VALUE_ICONS = [
+  {
+    id: 'online',
+    className: 'apple-squircle--online',
+    label: 'Online & mudah ditemukan',
+    detail: 'Website bantu bisnis Anda muncul saat calon pelanggan mencari di Google atau dibagikan lewat link.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'chat',
+    className: 'apple-squircle--chat',
+    label: 'WhatsApp & chat masuk',
+    detail: 'Tombol chat dan form kontak memudahkan calon klien menghubungi Anda tanpa ribet.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'trust',
+    className: 'apple-squircle--trust',
+    label: 'Terpercaya & aman',
+    detail: 'Tampilan profesional dan SSL membantu membangun kredibilitas di mata pelanggan baru.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
+    id: 'growth',
+    className: 'apple-squircle--growth',
+    label: 'Siap tumbuh',
+    detail: 'Struktur website dirancang agar mudah dikembangkan seiring bisnis Anda naik level.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 3v18h18" />
+        <path d="m19 9-5 5-4-4-3 3" />
+      </svg>
+    ),
+  },
+  {
+    id: 'mobile',
+    className: 'apple-squircle--mobile',
+    label: 'Mobile-friendly',
+    detail: 'Tampil rapi di HP, tablet, dan desktop — mayoritas pengunjung datang dari perangkat mobile.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="7" y="2" width="10" height="20" rx="2" />
+        <path d="M11 18h2" />
+      </svg>
+    ),
+  },
+  {
+    id: 'launch',
+    className: 'apple-squircle--launch',
+    label: 'Go-live cepat',
+    detail: 'Proses ringkas: brief, pengerjaan, revisi, lalu website Anda siap online.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.95 11a22.35 22.35 0 0 1-3.95 2z" />
+        <path d="M9 12H4.5" />
+        <path d="M15 15v4.5" />
+      </svg>
+    ),
+  },
+] as const
+
+function HeroValueIcons() {
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const rowRef = useRef<HTMLDivElement>(null)
+
+  // Close tooltip when tapping outside (mobile)
+  useEffect(() => {
+    if (!activeId) return
+    const onPointerDown = (e: PointerEvent) => {
+      if (!rowRef.current?.contains(e.target as Node)) {
+        setActiveId(null)
+      }
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => document.removeEventListener('pointerdown', onPointerDown)
+  }, [activeId])
+
+  return (
+    <div
+      ref={rowRef}
+      className="apple-hero__icon-row hero-in__item hero-in__item--sub"
+      role="list"
+      aria-label="Keunggulan website IDKA"
+    >
+      {HERO_VALUE_ICONS.map((item) => {
+        const open = activeId === item.id
+        return (
+          <div
+            key={item.id}
+            className={`apple-squircle-wrap${open ? ' apple-squircle-wrap--open' : ''}`}
+            role="listitem"
+          >
+            <button
+              type="button"
+              className={`apple-squircle ${item.className}`}
+              aria-label={item.label}
+              aria-describedby={`hero-tip-${item.id}`}
+              aria-expanded={open}
+              onClick={() => setActiveId((prev) => (prev === item.id ? null : item.id))}
+              onMouseEnter={() => setActiveId(item.id)}
+              onMouseLeave={() => setActiveId(null)}
+              onFocus={() => setActiveId(item.id)}
+              onBlur={() => setActiveId(null)}
+            >
+              {item.icon}
+            </button>
+            <div
+              id={`hero-tip-${item.id}`}
+              role="tooltip"
+              className={`apple-squircle-tip${open ? ' apple-squircle-tip--visible' : ''}`}
+            >
+              <strong className="apple-squircle-tip__title">{item.label}</strong>
+              <span className="apple-squircle-tip__detail">{item.detail}</span>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
 function screenshotCandidates(src: string) {
   if (!src) return [] as string[]
@@ -194,30 +331,8 @@ export default function Home() {
               <span className="apple-hero__title-accent">Lebih terpercaya & siap tumbuh.</span>
             </h1>
 
-            {/* Apple Squircle Icon Row — Tech Stack & Tools */}
-            <div className="apple-hero__icon-row hero-in__item hero-in__item--sub" aria-hidden="true">
-              <div className="apple-squircle apple-squircle--react" title="React Framework">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="2.5"/><ellipse cx="12" cy="12" rx="9" ry="3.5"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)"/></svg>
-              </div>
-              <div className="apple-squircle apple-squircle--design" title="Code & UI/UX Design">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
-              </div>
-              <div className="apple-squircle apple-squircle--speed" title="Super Fast Speed">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              </div>
-              <div className="apple-squircle apple-squircle--idka" title="IDKA Solutions">
-                <span>idka</span>
-              </div>
-              <div className="apple-squircle apple-squircle--cloud" title="Cloud & SSL Domain">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-              </div>
-              <div className="apple-squircle apple-squircle--db" title="Database & Systems">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-              </div>
-              <div className="apple-squircle apple-squircle--launch" title="Instant Launch">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.95 11a22.35 22.35 0 0 1-3.95 2z"/><path d="M9 12H4.5"/><path d="M15 15v4.5"/></svg>
-              </div>
-            </div>
+            {/* Value icons — hover (desktop) / tap (mobile) for short info */}
+            <HeroValueIcons />
 
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Segala kebutuhan website bisnis Anda untuk mengelola kehadiran digital, menjangkau lebih banyak pelanggan, dan mendapatkan hasil nyata.{' '}
@@ -396,6 +511,34 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Produk Coming Soon — Apple style teaser */}
+      <section className="apple-products-section" aria-labelledby="products-heading">
+        <div className="container">
+          <div className="apple-bento-header reveal">
+            <h2 id="products-heading" className="apple-bento-title">
+              <span className="apple-title-blue">Produk</span> digital yang sedang kami bangun.
+            </h2>
+            <NavLink to="/produk" className="apple-link-arrow">
+              Lihat detail
+            </NavLink>
+          </div>
+          <div className="apple-products-grid">
+            {products.map((p, i) => (
+              <NavLink
+                key={p.id}
+                to="/produk"
+                className={`apple-product-teaser apple-product-teaser--${p.accent} reveal reveal--delay-${i + 1}`}
+              >
+                <span className="apple-product-teaser__badge">{p.status}</span>
+                <span className="apple-product-teaser__icon" aria-hidden="true">{p.icon}</span>
+                <h3 className="apple-product-teaser__title">{p.title}</h3>
+                <p className="apple-product-teaser__desc">{p.tagline}</p>
+              </NavLink>
+            ))}
           </div>
         </div>
       </section>

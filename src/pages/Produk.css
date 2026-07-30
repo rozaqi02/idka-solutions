@@ -1,0 +1,285 @@
+/* ===== PRODUK — Apple Business Coming Soon ===== */
+
+.produk-page {
+  background: #f5f5f7;
+  color: #1d1d1f;
+  min-height: 100vh;
+}
+
+.produk-showcase {
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(4rem, 7vw, 6rem);
+}
+
+.produk-bento {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  margin-top: 2rem;
+}
+
+.produk-card {
+  position: relative;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.produk-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.produk-card__badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 2;
+  padding: 6px 12px;
+  border-radius: 980px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(29, 29, 31, 0.08);
+  color: #1d1d1f;
+  backdrop-filter: blur(8px);
+}
+
+.produk-card--blue .produk-card__badge {
+  background: rgba(94, 23, 235, 0.12);
+  color: var(--primary);
+}
+
+.produk-card--emerald .produk-card__badge {
+  background: rgba(0, 135, 90, 0.12);
+  color: #00875a;
+}
+
+.produk-card__visual {
+  flex: 1;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 1rem;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 40%, rgba(255, 255, 255, 0.9), transparent 70%),
+    linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+}
+
+.produk-card--blue .produk-card__visual {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 35%, rgba(94, 23, 235, 0.12), transparent 65%),
+    linear-gradient(180deg, #f3eeff 0%, #ffffff 100%);
+}
+
+.produk-card--emerald .produk-card__visual {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 35%, rgba(0, 135, 90, 0.12), transparent 65%),
+    linear-gradient(180deg, #eefaf4 0%, #ffffff 100%);
+}
+
+.produk-card__content {
+  padding: 0 1.75rem 2rem;
+  text-align: center;
+}
+
+.produk-card__icon {
+  display: inline-flex;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.produk-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #1d1d1f;
+  margin-bottom: 0.5rem;
+}
+
+.produk-card__tagline {
+  font-size: 0.98rem;
+  color: #515154;
+  line-height: 1.5;
+  max-width: 28ch;
+  margin: 0 auto;
+}
+
+/* ===== Dashboard mock (Apple-like window) ===== */
+.produk-mock--dashboard {
+  width: min(100%, 320px);
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 20px 50px rgba(94, 23, 235, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.produk-mock__chrome {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #f0f0f4;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.produk-mock__chrome span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #d2d2d7;
+}
+
+.produk-mock__chrome span:nth-child(1) { background: #ff5f56; }
+.produk-mock__chrome span:nth-child(2) { background: #ffbd2e; }
+.produk-mock__chrome span:nth-child(3) { background: #27c93f; }
+
+.produk-mock__body {
+  display: flex;
+  min-height: 160px;
+}
+
+.produk-mock__sidebar {
+  width: 48px;
+  background: linear-gradient(180deg, #5e17eb 0%, #8b5cf6 100%);
+  opacity: 0.9;
+}
+
+.produk-mock__main {
+  flex: 1;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.produk-mock__stat {
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f5f0ff, #e8e0ff);
+}
+
+.produk-mock__chart {
+  grid-column: 1 / -1;
+  height: 72px;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, transparent 40%, rgba(94, 23, 235, 0.12) 100%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 12px,
+      rgba(94, 23, 235, 0.08) 12px,
+      rgba(94, 23, 235, 0.08) 24px
+    ),
+    #f8f6ff;
+}
+
+/* ===== Phone mock ===== */
+.produk-mock--phone {
+  width: 140px;
+  height: 260px;
+  border-radius: 28px;
+  background: #1d1d1f;
+  padding: 10px;
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  position: relative;
+}
+
+.produk-mock__phone-notch {
+  width: 48px;
+  height: 6px;
+  border-radius: 980px;
+  background: #3a3a3c;
+  margin: 4px auto 10px;
+}
+
+.produk-mock__phone-screen {
+  height: calc(100% - 24px);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #eefaf4 0%, #ffffff 100%);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.produk-mock__phone-row {
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(0, 135, 90, 0.12);
+}
+
+.produk-mock__phone-row--short {
+  width: 70%;
+  height: 28px;
+}
+
+.produk-mock__phone-btn {
+  margin-top: auto;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00875a, #30d158);
+}
+
+/* ===== CTA ===== */
+.produk-cta {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04);
+}
+
+.produk-cta__text {
+  font-size: 1.1rem;
+  color: #515154;
+  margin-bottom: 1.25rem;
+}
+
+.produk-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .produk-bento {
+    grid-template-columns: 1fr;
+  }
+
+  .produk-card {
+    min-height: 380px;
+  }
+
+  .produk-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .produk-cta__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (hover: none) {
+  .produk-card:hover {
+    transform: none;
+  }
+}

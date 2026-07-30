@@ -7,6 +7,7 @@ import './Navbar.css'
 const navLinks = [
   { to: '/', label: 'Beranda' },
   { to: '/layanan', label: 'Layanan' },
+  { to: '/produk', label: 'Produk' },
   { to: '/portofolio', label: 'Portofolio' },
   { to: '/tentang', label: 'Tentang' },
   { to: '/kontak', label: 'Kontak' },

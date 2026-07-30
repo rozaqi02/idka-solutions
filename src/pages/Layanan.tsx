@@ -59,7 +59,7 @@ export default function Layanan() {
     path: '/layanan',
   })
 
-  /* Deep-link dari home service cards: /layanan#company-profile */
+  /* Deep-link: /layanan#website-profil dll. */
   useEffect(() => {
     const id = location.hash.replace(/^#/, '')
     if (!id) return
@@ -75,7 +75,7 @@ export default function Layanan() {
 
   return (
     <div className="layanan-page">
-      {/* Apple Business Light Page Header */}
+      {/* 1. Hero */}
       <section className="apple-hero section" aria-labelledby="layanan-heading" data-hero-enter="layanan">
         <div className="container">
           <div className="apple-hero__inner">
@@ -93,13 +93,17 @@ export default function Layanan() {
         </div>
       </section>
 
-      {/* All Services */}
+      {/* 2. Apa yang kami kerjakan */}
       <section className="section section--tint" aria-labelledby="all-services-heading">
         <div className="container">
           <div className="section-header reveal">
+            <div className="section-tag">Layanan</div>
             <h2 id="all-services-heading" className="section-title">
               Jenis Website yang Kami Kerjakan
             </h2>
+            <p className="section-subtitle">
+              Empat fokus utama: profil, katalog/toko, kustom, dan maintenance.
+            </p>
           </div>
           <div className="layanan-grid">
             {services.map((svc, i) => (
@@ -121,8 +125,50 @@ export default function Layanan() {
         </div>
       </section>
 
-      {/* Packages */}
-      <section className="section layanan-packages" aria-labelledby="packages-heading">
+      {/* 3. Cara kerja — sebelum harga, biar flow jelas */}
+      <section className="section layanan-process" aria-labelledby="process-heading">
+        <div className="container">
+          <div className="section-header reveal">
+            <div className="section-tag">Proses Kerja</div>
+            <h2 id="process-heading" className="section-title">
+              3 Langkah ke Website Live
+            </h2>
+            <p className="section-subtitle">
+              Alur sederhana dan transparan dari konsultasi hingga go-live.
+            </p>
+          </div>
+          <div className="process-list">
+            {[
+              {
+                n: '01',
+                title: 'Ceritakan Kebutuhan',
+                desc: 'Konsultasi gratis via WhatsApp atau form. Kami petakan tujuan, fitur, dan anggaran.',
+              },
+              {
+                n: '02',
+                title: 'Kami Kerjakan',
+                desc: 'Desain, development, dan revisi sesuai paket. Anda review progres di staging.',
+              },
+              {
+                n: '03',
+                title: 'Website Live',
+                desc: 'Domain aktif, SSL terpasang, website online dan siap dipakai bisnis.',
+              },
+            ].map((step) => (
+              <div key={step.n} className="process-item neu-raised reveal">
+                <div className="process-item__number" aria-hidden="true">{step.n}</div>
+                <div className="process-item__body">
+                  <h3 className="process-item__title">{step.title}</h3>
+                  <p className="process-item__desc">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Paket harga */}
+      <section className="section section--tint layanan-packages" aria-labelledby="packages-heading">
         <div className="container">
           <div className="section-header reveal">
             <div className="section-tag">Paket</div>
@@ -130,7 +176,7 @@ export default function Layanan() {
               Harga Transparan, Scope Jelas
             </h2>
             <p className="section-subtitle">
-              Ruang lingkup, revisi, dan harga disampaikan di awal agar perencanaan lebih mudah.
+              Harga sekali bayar (bukan langganan bulanan). Scope dan revisi disepakati di awal.
             </p>
           </div>
           <div className="packages-grid">
@@ -171,22 +217,44 @@ export default function Layanan() {
             <div className="packages-note__icon" aria-hidden="true">&#128161;</div>
             <div>
               <strong>Butuh solusi kustom?</strong>
-              <p>Kami menerima proyek di luar paket standar. <NavLink to="/kontak" className="text-primary-color font-semibold">Hubungi kami</NavLink> untuk estimasi yang sesuai.</p>
+              <p>
+                Kami menerima proyek di luar paket standar.{' '}
+                <NavLink to="/kontak" className="text-primary-color font-semibold">Hubungi kami</NavLink>{' '}
+                untuk estimasi yang sesuai.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Maintenance */}
+      {/* 5. Estimator — bantu putuskan sebelum maintenance */}
+      <section className="section layanan-estimator" aria-labelledby="estimator-heading">
+        <div className="container">
+          <div className="section-header reveal">
+            <div className="section-tag">Estimasi</div>
+            <h2 id="estimator-heading" className="section-title">
+              Estimasi Harga Cepat
+            </h2>
+            <p className="section-subtitle">
+              Pilih kebutuhan Anda untuk mendapat perkiraan harga. Harga final dikonfirmasi saat konsultasi.
+            </p>
+          </div>
+          <div className="layanan-estimator__wrap">
+            <PriceEstimator />
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Maintenance — after-sales, setelah harga website */}
       <section className="section section--tint layanan-maintenance" aria-labelledby="maintenance-heading">
         <div className="container">
           <div className="section-header reveal">
-            <div className="section-tag">Maintenance</div>
+            <div className="section-tag">After Go-Live</div>
             <h2 id="maintenance-heading" className="section-title">
-              Pemeliharaan Setelah Go-Live
+              Maintenance Opsional
             </h2>
             <p className="section-subtitle">
-              Website tanpa perawatan rentan lambat, error, atau tidak stabil. Paket maintenance membantu menjaga performa dan keamanan.
+              Jaga website tetap stabil setelah live. Bisa diambil terpisah dari paket pembuatan website.
             </p>
           </div>
           <div className="maintenance-grid">
@@ -213,55 +281,10 @@ export default function Layanan() {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="section layanan-process" aria-labelledby="process-heading">
-        <div className="container">
-          <div className="section-header">
-            <div className="section-tag">Proses Kerja</div>
-            <h2 id="process-heading" className="section-title">
-              Tahapan Pengerjaan Website
-            </h2>
-          </div>
-          <div className="process-list">
-            {[
-              { n: '01', title: 'Konsultasi & Brief', desc: 'Diskusi kebutuhan, tujuan, dan anggaran. Kami kirimkan proposal dan timeline.' },
-              { n: '02', title: 'Desain & Development', desc: 'Wireframe, desain, dan pengembangan website. Anda review progres secara berkala.' },
-              { n: '03', title: 'Go-Live', desc: 'Website diluncurkan. Domain aktif, SSL terpasang, siap digunakan.' },
-            ].map((step) => (
-              <div key={step.n} className="process-item neu-raised">
-                <div className="process-item__number" aria-hidden="true">{step.n}</div>
-                <div className="process-item__body">
-                  <h3 className="process-item__title">{step.title}</h3>
-                  <p className="process-item__desc">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Price Estimator */}
-      <section className="section section--tint layanan-estimator" aria-labelledby="estimator-heading">
-        <div className="container">
-          <div className="section-header">
-            <div className="section-tag">Estimasi</div>
-            <h2 id="estimator-heading" className="section-title">
-              Estimasi Harga Cepat
-            </h2>
-            <p className="section-subtitle">
-              Pilih kebutuhan Anda untuk mendapat perkiraan harga. Harga final dikonfirmasi saat konsultasi.
-            </p>
-          </div>
-          <div className="layanan-estimator__wrap">
-            <PriceEstimator />
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
+      {/* 7. FAQ + CTA */}
       <section className="section" aria-labelledby="faq-heading">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header reveal">
             <div className="section-tag">FAQ</div>
             <h2 id="faq-heading" className="section-title">
               Pertanyaan yang Sering Diajukan

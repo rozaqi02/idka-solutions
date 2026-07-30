@@ -496,6 +496,14 @@
   .form-grid {
     grid-template-columns: 1fr;
   }
+
+  .kontak-info {
+    order: 2;
+  }
+
+  .kontak-form-wrap {
+    order: 1;
+  }
 }
 
 @media (max-width: 480px) {
@@ -505,5 +513,29 @@
 
   .kontak-form__head {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .kontak-form__skip {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .kontak-form {
+    padding: 1.25rem 1rem;
+    border-radius: 20px;
+  }
+
+  .kontak-form__submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .kontak-channel {
+    min-width: 0;
+  }
+
+  .kontak-channel__value {
+    word-break: break-word;
   }
 }

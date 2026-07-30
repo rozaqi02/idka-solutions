@@ -61,6 +61,7 @@ export default function Footer() {
             <nav aria-label="Footer navigation">
               <NavLink to="/" className="footer__link">Beranda</NavLink>
               <NavLink to="/layanan" className="footer__link">Layanan</NavLink>
+              <NavLink to="/produk" className="footer__link">Produk</NavLink>
               <NavLink to="/portofolio" className="footer__link">Portofolio</NavLink>
               <NavLink to="/tentang" className="footer__link">Tentang Kami</NavLink>
               <NavLink to="/kontak" className="footer__link">Kontak</NavLink>

@@ -9,6 +9,7 @@ import { useToast } from './hooks/useToast'
 // React.lazy code splitting per route
 const Home        = lazy(() => import('./pages/Home'))
 const Layanan     = lazy(() => import('./pages/Layanan'))
+const Produk      = lazy(() => import('./pages/Produk'))
 const Portofolio  = lazy(() => import('./pages/Portofolio'))
 const TentangKami = lazy(() => import('./pages/TentangKami'))
 const Kontak      = lazy(() => import('./pages/Kontak'))
@@ -55,6 +56,7 @@ function AnimatedRoutes({ addToast }: { addToast: (msg: string, type?: 'success'
           <Routes location={location}>
             <Route path="/"          element={<Home />} />
             <Route path="/layanan"   element={<Layanan />} />
+            <Route path="/produk"    element={<Produk />} />
             <Route path="/portofolio" element={<Portofolio />} />
             <Route path="/tentang"   element={<TentangKami />} />
             <Route path="/kontak"    element={<Kontak addToast={addToast} />} />

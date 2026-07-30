@@ -46,7 +46,7 @@
 /* ===== PORTFOLIO BENTO GRID ===== */
 .porto-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 24px;
 }
 
@@ -291,5 +291,27 @@
     flex-direction: column;
     text-align: center;
     gap: 1.25rem;
+  }
+
+  .porto-filters {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    max-width: 100%;
+    scrollbar-width: none;
+  }
+
+  .porto-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .porto-filter-btn {
+    flex-shrink: 0;
+  }
+
+  .porto-card__body {
+    padding: 1.1rem;
   }
 }

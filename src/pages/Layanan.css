@@ -55,7 +55,7 @@
 /* ===== BENTO SERVICES GRID ===== */
 .layanan-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 20px;
   margin-top: 2rem;
 }
@@ -112,7 +112,7 @@
 /* ===== PACKAGES BENTO GRID ===== */
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 20px;
   margin-top: 2rem;
 }
@@ -207,7 +207,7 @@
 
 .packages-note {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
   background: #ffffff !important;
   border-radius: 20px;
@@ -390,9 +390,79 @@
   transform: rotate(180deg);
 }
 
+/* FAQ accordion: collapsed by default (critical — was always visible) */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .faq-item__answer {
+  display: none;
   padding: 0 1.5rem 1.25rem;
   color: #515154 !important;
   font-size: 0.95rem;
   line-height: 1.6;
+}
+
+.faq-item--open .faq-item__answer {
+  display: block;
+}
+
+.faq-item__answer p {
+  margin: 0;
+  color: inherit;
+}
+
+.faq-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.faq-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .packages-note {
+    flex-direction: column;
+    padding: 1.25rem 1.15rem;
+    text-align: left;
+  }
+
+  .process-item {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq-item__question {
+    padding: 1.1rem 1.15rem;
+    font-size: 0.98rem;
+    gap: 12px;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.15rem 1.1rem;
+  }
+
+  .faq-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .faq-cta__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .page-header {
+    padding-top: clamp(3rem, 10vw, 4rem);
+  }
 }
