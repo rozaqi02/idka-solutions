@@ -563,6 +563,79 @@
       text-align: center;
       margin-top: 8px;
     }
+
+    /* AI Hero image container */
+    .ai-hero {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 8px 10px 24px rgba(0,0,0,0.1), -6px -6px 16px #fff;
+      border: 4px solid #fff;
+      position: relative;
+    }
+    .ai-hero img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .post--dark .ai-hero {
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Full-bleed AI Editorial Post Styling */
+    .post--ai-full {
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    .post--ai-full .layer-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(18, 8, 32, 0.65) 0%,
+        rgba(18, 8, 32, 0.25) 40%,
+        rgba(10, 4, 20, 0.88) 100%
+      );
+      z-index: 2;
+    }
+    .post--ai-full .layer {
+      z-index: 3;
+    }
+    .glass-card {
+      background: rgba(22, 12, 38, 0.55);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 32px;
+      padding: 36px 40px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+    .glass-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .glass-pill i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e39a3b;
+      box-shadow: 0 0 0 4px rgba(227, 154, 59, 0.35);
+    }
   </style>
 </head>
 <body>
@@ -1067,6 +1140,277 @@
       <div class="footer">
         <span class="footer-handle">IDKA Solutions</span>
         <span class="footer-cta">Jasa website profesional</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 11 Portofolio Nyata -->
+  <article class="post" id="post-11" data-file="11-portofolio-nyata.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 11</span>
+      </div>
+      <p class="eyebrow">Karya Terbaru</p>
+      <h1>Portofolio Klien<br>IDKA Solutions</h1>
+      <p class="lead">Bukan sekadar konsep visual. Ini beberapa hasil karya website klien kami yang sudah live dan aktif.</p>
+      <div class="grow" style="margin-top: 24px;">
+        <div class="grid-2" style="gap: 20px;">
+          <div class="porto">
+            <img src="../public/portfolio/cidika-travel.webp" alt="Cidika Travel" />
+            <div class="porto-body">
+              <span>Travel & Tour · Full Stack</span>
+              <h3>Cidika Travel</h3>
+            </div>
+          </div>
+          <div class="porto">
+            <img src="../public/portfolio/pentagon-kontraktor.webp" alt="Pentagon Kontraktor" />
+            <div class="porto-body">
+              <span>Jasa Konstruksi · Company Profile</span>
+              <h3>Pentagon Kontraktor</h3>
+            </div>
+          </div>
+          <div class="porto">
+            <img src="../public/portfolio/nutri-bunga.webp" alt="Nutri Bunga" />
+            <div class="porto-body">
+              <span>Herbal & Kesehatan · Landing Page</span>
+              <h3>Nutri Bunga</h3>
+            </div>
+          </div>
+          <div class="porto">
+            <img src="../public/portfolio/imzaqi-store.webp" alt="Imzaqi Store" />
+            <div class="porto-body">
+              <span>Toko Online · E-Commerce</span>
+              <h3>Imzaqi Store</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Cek hasil karya lengkap di bio</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 12 Kenapa Kecepatan Vital -->
+  <article class="post" id="post-12" data-file="12-kenapa-kecepatan.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 12</span>
+      </div>
+      <p class="eyebrow">Performa Website</p>
+      <h1>Kenapa Kecepatan<br>Website Sangat Vital?</h1>
+      <p class="lead">53% calon pelanggan meninggalkan website jika membutuhkan waktu loading lebih dari 3 detik di smartphone.</p>
+      <div class="grow" style="margin-top: 28px; display: flex; flex-direction: column; gap: 20px;">
+        <div class="big-stat" style="margin-top: 0;">
+          <div class="card">
+            <div class="num">&lt; 1.5s</div>
+            <div class="lbl">Standar Loading IDKA</div>
+          </div>
+          <div class="card">
+            <div class="num">100%</div>
+            <div class="lbl">Mobile Responsive</div>
+          </div>
+        </div>
+        <div class="grid-2" style="gap: 18px;">
+          <div class="card" style="padding: 22px 26px;">
+            <h3 style="font-size: 20px; font-weight: 800; color: #5e17eb; margin-bottom: 6px;">⚡ Optimasi Aset Kode</h3>
+            <p style="font-size: 16px; color: #5a6678; line-height: 1.4;">Kompresi gambar & koding bersih agar website dapat dibuka secepat kilat.</p>
+          </div>
+          <div class="card" style="padding: 22px 26px;">
+            <h3 style="font-size: 20px; font-weight: 800; color: #5e17eb; margin-bottom: 6px;">🎯 Google Ranking SEO</h3>
+            <p style="font-size: 16px; color: #5a6678; line-height: 1.4;">Google mengutamakan website cepat untuk muncul di halaman pertama pencarian.</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Cek gratis kecepatan websitemu hari ini</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 13 Fitur Wajib -->
+  <article class="post" id="post-13" data-file="13-fitur-wajib.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 13</span>
+      </div>
+      <p class="eyebrow">Standar IDKA</p>
+      <h1>4 Fitur Wajib di<br>Website Bisnis Modern</h1>
+      <p class="lead">Website yang baik bukan cuma kelihatan bagus, tapi harus memiliki 4 fondasi utama ini agar menghasilkan penjualan.</p>
+      <div class="grow" style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="sign"><div class="sign-num">1</div><div class="sign-text"><b>Tampilan Mobile Responsive</b> — Nyaman dibuka dari smartphone apa pun</div></div>
+        <div class="sign"><div class="sign-num">2</div><div class="sign-text"><b>Tombol WhatsApp Direct</b> — Pelanggan bisa langsung chat & bertransaksi</div></div>
+        <div class="sign"><div class="sign-num">3</div><div class="sign-text"><b>Kecepatan & Optimasi SEO</b> — Ringan dibuka & mudah ditemukan di Google</div></div>
+        <div class="sign"><div class="sign-num">4</div><div class="sign-text"><b>Profil & Portofolio Jelas</b> — Membangun rasa percaya sejak detik pertama</div></div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Pastikan websitemu memenuhi 4 standar ini</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 14 Layanan IDKA -->
+  <article class="post" id="post-14" data-file="14-layanan-idka.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 14</span>
+      </div>
+      <p class="eyebrow">Layanan Kami</p>
+      <h1>Solusi Website<br>Sesuai Kebutuhanmu</h1>
+      <p class="lead">Dari landing page UMKM sederhana hingga website bisnis lengkap — pilih paket yang paling tepat.</p>
+      <div class="grow" style="margin-top: 24px; display: flex; flex-direction: column; gap: 18px;">
+        <div class="card role" style="padding: 22px 28px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div class="role-icon" style="width: 48px; height: 48px; font-size: 24px;">🚀</div>
+            <div>
+              <h3 style="font-size: 22px; margin-bottom: 2px;">Landing Page Sales / Promo</h3>
+              <p style="font-size: 16px; color: #5a6678;">Fokus 1 produk/jasa dengan tombol konversi WA langsung. Cepat & hemat.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card role" style="padding: 22px 28px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div class="role-icon" style="width: 48px; height: 48px; font-size: 24px;">🏢</div>
+            <div>
+              <h3 style="font-size: 22px; margin-bottom: 2px;">Company Profile & Website UMKM</h3>
+              <p style="font-size: 16px; color: #5a6678;">Multi-halaman lengkap: Profil, Katalog Produk, Galeri Karya, & Kontak.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card role" style="padding: 22px 28px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div class="role-icon" style="width: 48px; height: 48px; font-size: 24px;">💻</div>
+            <div>
+              <h3 style="font-size: 22px; margin-bottom: 2px;">Custom Web App & CRM System</h3>
+              <p style="font-size: 16px; color: #5a6678;">Fitur khusus sesuai kebutuhan bisnis: Manajemen pelamar, dashboard, dll.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Konsultasi gratis solusi websitemu</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 15 Alasan Pilih IDKA -->
+  <article class="post" id="post-15" data-file="15-alasan-pilih-idka.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 15</span>
+      </div>
+      <p class="eyebrow">Mengapa IDKA</p>
+      <h1>3 Alasan Pebisnis<br>Memilih IDKA Solutions</h1>
+      <p class="lead">Kami mengerti kekhawatiran pebisnis saat membuat website: ingin proses yang transparan dan hasil yang berguna.</p>
+      <div class="grow" style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+        <div class="card" style="padding: 24px 20px; text-align: center;">
+          <div style="font-size: 40px; margin-bottom: 12px;">🤝</div>
+          <h3 style="font-size: 20px; font-weight: 800; color: #5e17eb; margin-bottom: 8px;">Komunikasi Manusiawi</h3>
+          <p style="font-size: 15px; color: #5a6678; line-height: 1.4;">Tanpa istilah teknis membingungkan. Kami dengar dan beri saran yang relevan.</p>
+        </div>
+        <div class="card" style="padding: 24px 20px; text-align: center;">
+          <div style="font-size: 40px; margin-bottom: 12px;">💰</div>
+          <h3 style="font-size: 20px; font-weight: 800; color: #5e17eb; margin-bottom: 8px;">Harga Jelas & Tertulis</h3>
+          <p style="font-size: 15px; color: #5a6678; line-height: 1.4;">Tanpa biaya tersembunyi. Scope pengerjaan & revisi disepakati dari awal.</p>
+        </div>
+        <div class="card" style="padding: 24px 20px; text-align: center;">
+          <div style="font-size: 40px; margin-bottom: 12px;">🛡️</div>
+          <h3 style="font-size: 20px; font-weight: 800; color: #5e17eb; margin-bottom: 8px;">Pendampingan IDKA Care+</h3>
+          <p style="font-size: 15px; color: #5a6678; line-height: 1.4;">Website live bukan akhir. Kami tetap bantu maintenance & perbaikan.</p>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Mulai diskusi proyek bareng kami</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 16 IDKA Care Plus -->
+  <article class="post" id="post-16" data-file="16-idka-care.jpg">
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 16</span>
+      </div>
+      <p class="eyebrow">Dukungan Berkelanjutan</p>
+      <h1>Website Sudah Live.<br>Kami Tetap Ada.</h1>
+      <p class="lead">Lewat program IDKA Care+, kamu tidak perlu khawatir jika butuh update konten atau bantuan teknis pasca peluncuran.</p>
+      <div class="grow" style="margin-top: 24px;">
+        <div class="grid-2" style="gap: 20px;">
+          <div class="ba-box ba-before" style="min-height: 320px; justify-content: flex-start; gap: 16px;">
+            <div>
+              <div class="ba-label">Maintenance & Keamanan</div>
+              <div class="ba-title" style="font-size: 28px;">Sistem Bebas Khawatir</div>
+            </div>
+            <ul class="ba-list" style="font-size: 17px;">
+              <li>• Backup data rutin & aman</li>
+              <li>• Perbaikan bug & error cepat</li>
+              <li>• Monitoring keamanan 24/7</li>
+            </ul>
+          </div>
+          <div class="ba-box ba-after" style="min-height: 320px; justify-content: flex-start; gap: 16px;">
+            <div>
+              <div class="ba-label">Update Konten & Promo</div>
+              <div class="ba-title" style="font-size: 28px;">Selalu Up-To-Date</div>
+            </div>
+            <ul class="ba-list" style="font-size: 17px;">
+              <li>• Ubah teks, foto, & harga kapan saja</li>
+              <li>• Bantuan upload info promo baru</li>
+              <li>• Respon chat admin 1–3 jam kerja</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Tenang bersama pendampingan IDKA Care+</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 17 CTA Final -->
+  <article class="post post--dark" id="post-17" data-file="17-cta-konsultasi.jpg">
+    <div class="noise"></div>
+    <div class="layer">
+      <div class="header">
+        <img class="logo" src="../public/logo-idka-solutions.png" alt="IDKA Solutions" />
+        <span class="pill"><i></i> Post 17</span>
+      </div>
+      <div class="center-block">
+        <p class="eyebrow">Langkah Berikutnya</p>
+        <h1 style="font-size: 64px;">Siapkan Website<br>Bisnismu Sekarang</h1>
+        <p class="lead" style="max-width: 780px;">
+          Diskusikan kebutuhan websitemu secara gratis bersama tim IDKA. Kami bantu beri estimasi & rekomendasi terbaik tanpa biaya.
+        </p>
+        <div style="margin-top: 16px;" class="wa-btn">
+          Chat WhatsApp IDKA Solutions
+        </div>
+        <p style="font-size: 20px; color: rgba(255,255,255,0.7); font-weight: 600;">
+          Respon cepat · WA 0822-4596-4007
+        </p>
+        <div class="flow" style="margin-top: 28px; justify-content: center;">
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">01 / Chat WA</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">02 / Brief Ide</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">03 / Pengerjaan</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-chip" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,0.15);">04 / Launch</span>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="footer-handle">@idkasolutions</span>
+        <span class="footer-cta">Konsultasi Gratis · Respon Cepat</span>
       </div>
     </div>
   </article>
