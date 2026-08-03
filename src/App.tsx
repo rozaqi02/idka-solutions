@@ -19,7 +19,7 @@ function PageLoader() {
   return (
     <div
       style={{
-        minHeight: '60vh',
+         minHeight: '32vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

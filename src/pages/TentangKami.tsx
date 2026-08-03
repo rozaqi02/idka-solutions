@@ -3,6 +3,7 @@ import { company, teamMembers, techStack, workValues, stats } from '../data/cont
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
+import WordReveal from '../components/WordReveal'
 import './TentangKami.css'
 
 export default function TentangKami() {
@@ -25,11 +26,12 @@ export default function TentangKami() {
               Tentang IDKA Solutions
             </div>
             <h1 id="tentang-heading" className="apple-hero__title hero-in__item hero-in__item--title">
-              Mitra Digital untuk <span className="apple-hero__title-accent">Pertumbuhan Bisnis Anda.</span>
+              <WordReveal>Mitra Digital untuk</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">Pertumbuhan Bisnis Anda.</WordReveal>
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Membantu UMKM, profesional, dan startup membangun kehadiran digital yang kredibel, modern, dan berdampak.{' '}
-              <strong className="apple-text-bold">All in one place.</strong>
+              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>
         </div>

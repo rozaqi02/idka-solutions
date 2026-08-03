@@ -40,17 +40,16 @@ export function useHeroEnter() {
       })
 
       window.clearTimeout(settleTimer)
-      // Patterns + text: allow full enter (~1.4s) then settle for scroll perf
+       // Let the final ink-written words finish before clearing animation state.
       settleTimer = window.setTimeout(() => {
         if (cancelled) return
         roots.forEach((el) => el.classList.add('hero-in--settled'))
-      }, liteMq.matches ? 900 : 1600)
+       }, liteMq.matches ? 1500 : 1600)
     }
 
     const id1 = requestAnimationFrame(() => {
       requestAnimationFrame(play)
     })
-    const t = window.setTimeout(play, 90)
 
     const onLiteChange = () => applyLite()
     liteMq.addEventListener('change', onLiteChange)
@@ -58,7 +57,6 @@ export function useHeroEnter() {
     return () => {
       cancelled = true
       cancelAnimationFrame(id1)
-      window.clearTimeout(t)
       window.clearTimeout(settleTimer)
       liteMq.removeEventListener('change', onLiteChange)
     }

@@ -11,8 +11,9 @@ type Options = {
 }
 
 /**
- * Lightweight Apple-style scroll reveal.
- * Triggers when elements scroll into ~15% of the viewport (mid-screen timing).
+ * One-shot, non-blocking section and content reveal.
+ * Sections keep their normal layout and remain scrollable while the visual entrance
+ * plays once as they approach the viewport.
  */
 export function useScrollReveal(options: Options = {}) {
   const { threshold = 0.15, rootMargin = '0px 0px -15% 0px', watchKey } = options
@@ -30,6 +31,10 @@ export function useScrollReveal(options: Options = {}) {
 
     const isMobile = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches
 
+    document.querySelectorAll<HTMLElement>('main section:not([data-hero-enter])').forEach((section, index) => {
+      section.classList.add('section-reveal', `section-reveal--${index % 4}`)
+    })
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -46,7 +51,7 @@ export function useScrollReveal(options: Options = {}) {
 
     const observe = () => {
       document
-        .querySelectorAll('.reveal, .reveal--left, .reveal--right, .reveal--scale')
+        .querySelectorAll('.reveal, .reveal--left, .reveal--right, .reveal--scale, .section-reveal')
         .forEach((el) => {
           if (!el.classList.contains('reveal--visible')) {
             observer.observe(el)
@@ -56,29 +61,8 @@ export function useScrollReveal(options: Options = {}) {
 
     observe()
 
-    // Desktop: re-scan timers for lazy-loaded images & filter DOM shifts
-    const timers: number[] = []
-    if (!isMobile) {
-      timers.push(window.setTimeout(observe, 150))
-      timers.push(window.setTimeout(observe, 450))
-    } else {
-      timers.push(window.setTimeout(observe, 200))
-    }
-
-    let mutationObserver: MutationObserver | null = null
-    if (!isMobile || watchKey !== undefined) {
-      let mutT = 0
-      mutationObserver = new MutationObserver(() => {
-        window.clearTimeout(mutT)
-        mutT = window.setTimeout(observe, isMobile ? 120 : 60)
-      })
-      mutationObserver.observe(document.body, { childList: true, subtree: true })
-    }
-
     return () => {
-      timers.forEach((id) => window.clearTimeout(id))
       observer.disconnect()
-      mutationObserver?.disconnect()
     }
   }, [threshold, rootMargin, watchKey])
 }

@@ -5,6 +5,7 @@ import type { ToastType } from '../hooks/useToast'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
+import WordReveal from '../components/WordReveal'
 import './Kontak.css'
 
 type FormData = {
@@ -87,6 +88,7 @@ export default function Kontak({ addToast }: KontakProps) {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
   const [waFallbackUrl, setWaFallbackUrl] = useState<string | null>(null)
+  const [briefStored, setBriefStored] = useState(false)
   useScrollReveal()
   useHeroEnter()
   usePageTitle({
@@ -115,6 +117,10 @@ export default function Kontak({ addToast }: KontakProps) {
     if (!form.nama.trim()) newErrors.nama = 'Nama wajib diisi'
     if (!form.bisnis.trim()) newErrors.bisnis = 'Nama bisnis wajib diisi'
     if (!form.tujuan_website.trim()) newErrors.tujuan_website = 'Tujuan website wajib diisi'
+    if (!form.email.trim() && !form.whatsapp.trim()) {
+      newErrors.email = 'Isi email atau nomor WhatsApp agar kami dapat menghubungi Anda'
+      newErrors.whatsapp = 'Isi email atau nomor WhatsApp agar kami dapat menghubungi Anda'
+    }
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       newErrors.email = 'Format email tidak valid'
     }
@@ -146,6 +152,7 @@ export default function Kontak({ addToast }: KontakProps) {
 
     // Submit ke Netlify Forms via fetch (background, no redirect)
     const formEl = e.target as HTMLFormElement
+    let stored = false
     try {
       const formData = new FormData(formEl)
       const params = new URLSearchParams()
@@ -159,7 +166,9 @@ export default function Kontak({ addToast }: KontakProps) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString(),
       })
-      if (!response.ok) {
+      if (response.ok) {
+        stored = true
+      } else {
         console.warn('[Kontak] Netlify Forms response:', response.status)
       }
     } catch (err) {
@@ -192,6 +201,7 @@ export default function Kontak({ addToast }: KontakProps) {
     const popup = window.open(waUrl, '_blank', 'noopener,noreferrer')
 
     setLoading(false)
+    setBriefStored(stored)
     setSubmitted(true)
 
     if (popup) {
@@ -214,11 +224,12 @@ export default function Kontak({ addToast }: KontakProps) {
               Hubungi IDKA Solutions
             </div>
             <h1 id="kontak-heading" className="apple-hero__title hero-in__item hero-in__item--title">
-              Sampaikan Kebutuhan, <span className="apple-hero__title-accent">Kami Siapkan Solusinya.</span>
+              <WordReveal>Sampaikan Kebutuhan,</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">Kami Siapkan Solusinya.</WordReveal>
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Konsultasi langsung via WhatsApp atau isi brief singkat di bawah. Respon cepat 1-3 jam kerja.{' '}
-              <strong className="apple-text-bold">All in one place.</strong>
+              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>
         </div>
@@ -238,6 +249,11 @@ export default function Kontak({ addToast }: KontakProps) {
                     {waFallbackUrl
                       ? 'Popup diblokir browser. Klik tombol di bawah untuk membuka WhatsApp dengan detail brief Anda.'
                       : 'WhatsApp telah dibuka dengan detail brief Anda. Kami akan membalas pada jam kerja.'}
+                  </p>
+                  <p className="kontak-success__storage">
+                    {briefStored
+                      ? 'Salinan brief juga berhasil tersimpan untuk tim IDKA.'
+                      : 'Brief belum tersimpan sebagai cadangan. Pastikan pesan WhatsApp terkirim agar kami dapat menindaklanjuti.'}
                   </p>
                   {waFallbackUrl && (
                     <a
@@ -362,7 +378,8 @@ export default function Kontak({ addToast }: KontakProps) {
                         onChange={handleChange}
                         autoComplete="name"
                         enterKeyHint="next"
-                        aria-required="true"
+                       aria-required="true"
+                        aria-invalid={Boolean(errors.nama)}
                         aria-describedby={errors.nama ? 'nama-error' : undefined}
                       />
                       {errors.nama && <span id="nama-error" className="form-error" role="alert">{errors.nama}</span>}
@@ -381,7 +398,8 @@ export default function Kontak({ addToast }: KontakProps) {
                         placeholder="Contoh: Kedai Kopi Nusantara, Studio Foto"
                         value={form.bisnis}
                         onChange={handleChange}
-                        aria-required="true"
+                       aria-required="true"
+                        aria-invalid={Boolean(errors.bisnis)}
                         aria-describedby={errors.bisnis ? 'bisnis-error' : undefined}
                       />
                       {errors.bisnis && <span id="bisnis-error" className="form-error" role="alert">{errors.bisnis}</span>}
@@ -403,6 +421,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         autoComplete="email"
                         inputMode="email"
                         enterKeyHint="next"
+                        aria-invalid={Boolean(errors.email)}
                         aria-describedby={errors.email ? 'email-error' : undefined}
                       />
                       {errors.email && <span id="email-error" className="form-error" role="alert">{errors.email}</span>}
@@ -417,14 +436,17 @@ export default function Kontak({ addToast }: KontakProps) {
                         id="whatsapp"
                         name="whatsapp"
                         type="tel"
-                        className="form-input neu-inset"
+                        className={`form-input neu-inset${errors.whatsapp ? ' form-input--error' : ''}`}
                         placeholder="Contoh: 08123456789"
                         value={form.whatsapp}
                         onChange={handleChange}
                         autoComplete="tel"
                         inputMode="tel"
                         enterKeyHint="next"
+                        aria-invalid={Boolean(errors.whatsapp)}
+                        aria-describedby={errors.whatsapp ? 'whatsapp-error' : undefined}
                       />
+                      {errors.whatsapp && <span id="whatsapp-error" className="form-error" role="alert">{errors.whatsapp}</span>}
                     </div>
 
                     {/* Jenis Usaha */}
@@ -463,6 +485,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         value={form.tujuan_website}
                         onChange={handleChange}
                         aria-required="true"
+                        aria-invalid={Boolean(errors.tujuan_website)}
                         aria-describedby={errors.tujuan_website ? 'tujuan-error' : undefined}
                       />
                       {errors.tujuan_website && <span id="tujuan-error" className="form-error" role="alert">{errors.tujuan_website}</span>}
@@ -607,7 +630,7 @@ export default function Kontak({ addToast }: KontakProps) {
                       )}
                     </button>
                     <p className="kontak-form__footnote">
-                      Brief juga tersimpan secara aman. Field bertanda * wajib diisi; sisanya dapat dikosongkan.
+                      WhatsApp adalah jalur utama pengiriman brief. Isi email atau nomor WhatsApp agar kami dapat menghubungi Anda.
                     </p>
                   </div>
                 </form>

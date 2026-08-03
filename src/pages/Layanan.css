@@ -140,13 +140,28 @@
   box-shadow: 0 8px 30px rgba(94, 23, 235, 0.18) !important;
 }
 
+.package-card--highlighted {
+  background: var(--primary) !important;
+  border-color: var(--accent) !important;
+}
+
+.package-card--highlighted .package-card__name,
+.package-card--highlighted .package-card__price,
+.package-card--highlighted .package-card__tagline,
+.package-card--highlighted .package-card__feature {
+  color: #fffaf1 !important;
+}
+
+.package-card--highlighted .package-card__divider { background: rgba(255, 250, 241, .28); }
+.package-card--highlighted .package-card__feature svg { color: #f8d48f; }
+
 .package-card__popular {
   position: absolute;
   top: 1rem;
   right: 1.25rem;
   padding: 4px 10px;
-  background: var(--primary);
-  color: #ffffff;
+  background: var(--accent);
+  color: #29221e;
   font-size: 0.7rem;
   font-weight: 700;
   border-radius: 980px;

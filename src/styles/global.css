@@ -51,6 +51,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100%;
+  background-image: radial-gradient(rgba(41, 34, 30, 0.055) 0.7px, transparent 0.7px);
+  background-size: 7px 7px;
 }
 
 #main-content {
@@ -167,6 +169,16 @@ ul, ol {
   padding-top: 0;
 }
 
+/* Shared page rhythm for the inner menu pages. */
+.section--tint { background: var(--bg-section-tint) !important; }
+.neu-raised, .neu-raised-lg, .neu-flat, .neu-inset {
+  border: 1px solid var(--border-subtle);
+  box-shadow: 5px 7px 0 rgba(41, 34, 30, .06);
+}
+.btn-primary, .btn-secondary { border-radius: 4px 18px 4px 18px; }
+.section-header { position: relative; }
+.section-header::after { content: '✳'; display: block; color: var(--accent); font-size: 1.1rem; margin-top: .8rem; }
+
 /* Hero section - light like Apple Business */
 .hero.section,
 .hero {
@@ -205,7 +217,7 @@ ul, ol {
   letter-spacing: 0;
   text-transform: none;
   line-height: 1.2;
-  color: var(--text-muted);
+  color: var(--primary);
   background: transparent;
   padding: 0;
   border-radius: 0;
@@ -213,6 +225,14 @@ ul, ol {
   box-shadow: none;
   border: none;
 }
+
+/* Editorial foundation: quiet ink, paper and deliberate imperfections. */
+.section-title, .page-header h1, .card-title, .apple-bento-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.page-header, .hero.section, .hero { background: var(--bg) !important; }
 
 /* Section H2 */
 .section-title {
@@ -578,40 +598,40 @@ ul, ol {
 /* ===== SCROLL REVEAL ===== */
 .reveal {
   opacity: 0;
-  transform: translate3d(0, 18px, 0);
+  transform: translate3d(0, 16px, 0);
   transition:
-    opacity 0.45s var(--ease-out),
-    transform 0.45s var(--ease-out);
+    opacity 0.28s ease-out,
+    transform 0.34s var(--ease-out);
 }
 
-.reveal--delay-1 { transition-delay: 0.05s; }
-.reveal--delay-2 { transition-delay: 0.1s; }
-.reveal--delay-3 { transition-delay: 0.15s; }
-.reveal--delay-4 { transition-delay: 0.2s; }
-.reveal--delay-5 { transition-delay: 0.25s; }
+.reveal--delay-1 { transition-delay: 0.03s; }
+.reveal--delay-2 { transition-delay: 0.06s; }
+.reveal--delay-3 { transition-delay: 0.09s; }
+.reveal--delay-4 { transition-delay: 0.12s; }
+.reveal--delay-5 { transition-delay: 0.15s; }
 
 .reveal--left {
   opacity: 0;
   transform: translate3d(-16px, 0, 0);
   transition:
-    opacity 0.45s var(--ease-out),
-    transform 0.45s var(--ease-out);
+    opacity 0.28s ease-out,
+    transform 0.34s var(--ease-out);
 }
 
 .reveal--right {
   opacity: 0;
   transform: translate3d(16px, 0, 0);
   transition:
-    opacity 0.45s var(--ease-out),
-    transform 0.45s var(--ease-out);
+    opacity 0.28s ease-out,
+    transform 0.34s var(--ease-out);
 }
 
 .reveal--scale {
   opacity: 0;
   transform: scale(0.96);
   transition:
-    opacity 0.4s var(--ease-out),
-    transform 0.4s var(--ease-out);
+    opacity 0.25s ease-out,
+    transform 0.3s var(--ease-out);
 }
 
 .reveal--visible {
@@ -619,10 +639,23 @@ ul, ol {
   transform: none !important;
 }
 
+/* Every non-hero section gets a restrained, one-shot entrance. The section is
+   never position-locked or scroll-snapped, so the gesture remains immediate. */
+.section-reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition: opacity .55s ease-out, transform .7s var(--ease-out);
+}
+.section-reveal--1 { transform: translate3d(-18px, 18px, 0); }
+.section-reveal--2 { transform: translate3d(18px, 18px, 0); }
+.section-reveal--3 { transform: translate3d(0, 24px, 0) scale(.99); }
+.section-reveal.reveal--visible { opacity: 1; transform: none; }
+
+
 /* Mobile navbar offset */
 @media (max-width: 1024px) {
   :root {
-    --navbar-height: 48px;
+    --navbar-height: 56px;
   }
 }
 
@@ -652,6 +685,14 @@ ul, ol {
     transition-delay: 0.02s;
   }
 
+  .section-reveal,
+  .section-reveal--1,
+  .section-reveal--2,
+  .section-reveal--3 {
+    transform: translate3d(0, 14px, 0);
+    transition-duration: .45s, .55s;
+  }
+
   .hero__float {
     animation: none !important;
   }
@@ -668,6 +709,12 @@ ul, ol {
     transition: none;
   }
 
+  .section-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .page-enter {
     animation: none;
   }
@@ -675,6 +722,88 @@ ul, ol {
   .hero__float {
     animation: none !important;
   }
+}
+
+/* Final editorial spacing and contrast pass. The navbar offset is already reserved by main. */
+.apple-hero {
+  padding-top: clamp(2.4rem, 4.8vw, 4.25rem);
+  padding-bottom: clamp(2.75rem, 5vw, 4.75rem);
+}
+.apple-hero.page-header,
+.page-header.apple-hero,
+.apple-hero.section {
+  padding-top: clamp(2.25rem, 4.5vw, 3.75rem);
+  padding-bottom: clamp(2.5rem, 4.5vw, 4rem);
+}
+.apple-hero__title {
+  font-size: clamp(2.75rem, 5.6vw, 5rem);
+  line-height: 1;
+  max-width: 900px;
+}
+.apple-hero,
+.apple-hero__inner { text-align: center; }
+.apple-hero__inner { align-items: center; }
+.apple-hero__subtitle { color: var(--text-secondary) !important; max-width: 620px; margin-left: auto; margin-right: auto; font-size: clamp(1rem, 1.6vw, 1.12rem); }
+.section-title { font-size: clamp(1.85rem, 3.4vw, 3.15rem); line-height: 1.04; letter-spacing: -.035em; }
+.section-subtitle { font-size: clamp(.96rem, 1.5vw, 1.08rem); color: var(--text-secondary); }
+.card-desc, .apple-pricing-card__tagline, .portfolio-preview-card__desc { color: var(--text-secondary); }
+
+/* Preserve readable copy wherever an expressive color field is used. */
+.produk-card--blue, .produk-card--purple, .produk-card--emerald,
+.package-card--popular, .apple-pricing-card--highlighted,
+.apple-card--blue-grid, .apple-card--maps-bg, .apple-card--emerald,
+.apple-portfolio-showcase, .apple-final-cta {
+  color: #fffaf1;
+}
+.package-card--highlighted,
+.package-card--highlighted .package-card__name,
+.package-card--highlighted .package-card__price,
+.package-card--highlighted .package-card__tagline,
+.package-card--highlighted .package-card__feature,
+.apple-pricing-card--highlighted .apple-pricing-card__name,
+.apple-pricing-card--highlighted .apple-pricing-card__price,
+.apple-pricing-card--highlighted .apple-pricing-card__tagline,
+.apple-pricing-card--highlighted .apple-pricing-card__feature {
+  color: #fffaf1 !important;
+}
+.package-card--highlighted .package-card__divider { background: rgba(255, 250, 241, .28) !important; }
+.package-card--highlighted .package-card__feature svg,
+.apple-pricing-card--highlighted .apple-check { color: #f8d48f !important; }
+.produk-card--blue .card-desc, .produk-card--purple .card-desc, .produk-card--emerald .card-desc,
+.package-card--popular .package-card__tagline, .apple-pricing-card--highlighted .apple-pricing-card__tagline,
+.apple-card--blue-grid .card-desc, .apple-card--maps-bg .card-desc, .apple-card--emerald .card-desc {
+  color: rgba(255, 250, 241, .84) !important;
+}
+.apple-final-cta__title, .apple-final-cta .apple-logo-mark { color: #29221e; }
+.apple-final-cta .apple-pill-btn--primary { background: #29221e; box-shadow: 4px 4px 0 var(--primary); }
+.apple-card--blue-grid .apple-card__title,
+.apple-card--maps-bg .apple-card__title,
+.apple-card--emerald .apple-card__title,
+.apple-portfolio-hero-card .apple-portfolio-hero-title,
+.apple-portfolio-hero-card .apple-portfolio-hero-desc { color: #fffaf1 !important; }
+.apple-card--blue-grid .apple-card__eyebrow,
+.apple-card--maps-bg .apple-card__eyebrow,
+.apple-card--emerald .apple-card__eyebrow { color: #f4c56f !important; }
+
+@media (max-width: 768px) {
+  .apple-hero,
+  .apple-hero.page-header,
+  .page-header.apple-hero,
+  .apple-hero.section {
+    padding-top: 2rem;
+    padding-bottom: 2.75rem;
+  }
+  .apple-hero__title { font-size: clamp(2.4rem, 11.5vw, 3.65rem); line-height: 1.02; letter-spacing: -.045em; }
+  .apple-hero__subtitle { font-size: .98rem; line-height: 1.55; }
+  .section { padding: 3.75rem 0; }
+  .section-header { margin-bottom: 2rem; }
+  .section-title { font-size: clamp(1.8rem, 8vw, 2.45rem); line-height: 1.06; }
+  .section-subtitle { font-size: .95rem; line-height: 1.6; }
+  .container { padding-left: 1.15rem; padding-right: 1.15rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-reveal__word { opacity: 1; clip-path: none; filter: none; transform: none; }
 }
 
 /* ===== PAGE TRANSITION ===== */

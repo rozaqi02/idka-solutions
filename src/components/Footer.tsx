@@ -72,11 +72,11 @@ export default function Footer() {
           <div className="footer__links">
             <h3 className="footer__links-title">Layanan</h3>
             <nav aria-label="Footer layanan">
-              <NavLink to="/layanan" className="footer__link">Company Profile</NavLink>
-              <NavLink to="/layanan" className="footer__link">Landing Page</NavLink>
-              <NavLink to="/layanan" className="footer__link">Toko Online</NavLink>
-              <NavLink to="/layanan" className="footer__link">Website Portofolio</NavLink>
-              <NavLink to="/layanan" className="footer__link">Maintenance</NavLink>
+              <NavLink to="/layanan#website-profil" className="footer__link">Website Profil</NavLink>
+              <NavLink to="/layanan#website-profil" className="footer__link">Landing Page</NavLink>
+              <NavLink to="/layanan#website-katalog" className="footer__link">Website Katalog & Toko</NavLink>
+              <NavLink to="/layanan#website-profil" className="footer__link">Website Portofolio</NavLink>
+              <NavLink to="/layanan#maintenance" className="footer__link">Maintenance</NavLink>
             </nav>
           </div>
 
@@ -104,11 +104,7 @@ export default function Footer() {
           <p className="footer__copy">
             Copyright &copy; {year} IDKA Solutions. All rights reserved.
           </p>
-          <div className="footer__bottom-links">
-            <NavLink to="/kontak" className="footer__bottom-link">Privacy Policy</NavLink>
-            <span className="footer__bottom-sep" aria-hidden="true">|</span>
-            <NavLink to="/kontak" className="footer__bottom-link">Terms of Use</NavLink>
-          </div>
+          <span className="footer__bottom-link">Dibuat untuk bisnis yang ingin tumbuh dengan jelas.</span>
         </div>
       </div>
     </footer>

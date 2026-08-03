@@ -85,12 +85,12 @@ export default function HeroPortfolioShowcase() {
   )
 
   useEffect(() => {
-    if (reduceMotion || paused || portfolio.length <= 1) return
+    if (reduceMotion || isCompact || paused || portfolio.length <= 1) return
     const id = window.setInterval(() => {
       showIndex((index + 1) % portfolio.length)
     }, INTERVAL_MS)
     return () => window.clearInterval(id)
-  }, [reduceMotion, paused, index, showIndex])
+  }, [reduceMotion, isCompact, paused, index, showIndex])
 
   useEffect(() => {
     return () => {
@@ -150,7 +150,7 @@ export default function HeroPortfolioShowcase() {
             </span>
           </div>
 
-          <div className="hero__card-shot hero-porto__shot" aria-live="polite" aria-atomic="true">
+          <div className="hero__card-shot hero-porto__shot">
             {/* Soft grid so light websites still read as a real screenshot */}
             <div className="hero-porto__shot-bg" aria-hidden="true" />
 
@@ -203,13 +203,12 @@ export default function HeroPortfolioShowcase() {
       </div>
 
       {!isCompact && portfolio.length > 1 && (
-        <div className="hero-porto__dots" role="tablist" aria-label="Pilih portofolio">
+        <div className="hero-porto__dots" role="group" aria-label="Pilih portofolio">
           {portfolio.map((item, i) => (
             <button
               key={item.id}
               type="button"
-              role="tab"
-              aria-selected={i === index}
+              aria-pressed={i === index}
               aria-label={item.title}
               className={`hero-porto__dot${i === index ? ' hero-porto__dot--active' : ''}`}
               style={

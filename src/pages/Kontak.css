@@ -56,6 +56,14 @@
   line-height: 1.5;
 }
 
+.kontak-success__storage {
+  margin: 0 auto 1rem;
+  max-width: 34ch;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
 .kontak-form__skip {
   display: inline-flex;
   align-items: center;

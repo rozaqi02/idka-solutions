@@ -5,6 +5,7 @@ import PriceEstimator from '../components/PriceEstimator'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
+import WordReveal from '../components/WordReveal'
 import './Layanan.css'
 
 function AccordionItem({
@@ -83,11 +84,12 @@ export default function Layanan() {
               Layanan IDKA
             </div>
             <h1 id="layanan-heading" className="apple-hero__title hero-in__item hero-in__item--title">
-              Solusi Website untuk <span className="apple-hero__title-accent">Berbagai Kebutuhan Bisnis.</span>
+              <WordReveal>Solusi Website untuk</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">Berbagai Kebutuhan Bisnis.</WordReveal>
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Untuk UMKM, freelancer, startup, dan perusahaan—dari landing page cepat hingga sistem kustom scalable.{' '}
-              <strong className="apple-text-bold">All in one place.</strong>
+              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>
         </div>

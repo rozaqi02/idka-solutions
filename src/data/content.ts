@@ -275,11 +275,11 @@ export const products = [
     accent: 'blue',
   },
   {
-    id: 'absensi-mobile',
-    title: 'Absensi Mobile',
-    tagline: 'Presensi karyawan lewat HP — cepat, akurat, dan mudah dipantau.',
+    id: 'ngelamar',
+    title: 'Ngelamar',
+    tagline: 'Career CRM untuk mencatat, memantau, dan menyiapkan setiap lamaran kerja dari satu aplikasi.',
     status: 'Coming Soon',
-    icon: '📱',
+    icon: '💼',
     accent: 'emerald',
   },
 ];

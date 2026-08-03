@@ -62,11 +62,19 @@
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   overflow: hidden;
   box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .porto-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.porto-card:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
 }
 
 /* ===== VISUAL MOCKUP ===== */
@@ -241,7 +249,6 @@
 }
 
 .porto-card__action-link:hover {
-  text-decoration: underline;
   transform: translateX(2px);
 }
 

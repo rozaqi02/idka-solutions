@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import { company, packages, portfolio, products } from '../data/content'
 import HeroPortfolioShowcase from '../components/HeroPortfolioShowcase'
+import WordReveal from '../components/WordReveal'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -327,8 +328,8 @@ export default function Home() {
             </div>
 
             <h1 id="hero-heading" className="apple-hero__title hero-in__item hero-in__item--title">
-              Website bisnis profesional.{' '}
-              <span className="apple-hero__title-accent">Lebih terpercaya & siap tumbuh.</span>
+              <WordReveal>Website bisnis profesional.</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">Lebih terpercaya & siap tumbuh.</WordReveal>
             </h1>
 
             {/* Value icons — hover (desktop) / tap (mobile) for short info */}
@@ -336,7 +337,7 @@ export default function Home() {
 
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Segala kebutuhan website bisnis Anda untuk mengelola kehadiran digital, menjangkau lebih banyak pelanggan, dan mendapatkan hasil nyata.{' '}
-              <strong className="apple-text-bold">All in one place.</strong>
+              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
 
             <div className="apple-hero__actions hero-in__item hero-in__item--actions">
@@ -348,7 +349,13 @@ export default function Home() {
               >
                 Mulai Konsultasi
               </a>
+              <NavLink to="/layanan#packages-heading" className="apple-pill-btn apple-pill-btn--secondary">
+                Lihat Paket & Harga
+              </NavLink>
             </div>
+            <p className="apple-hero__proof hero-in__item hero-in__item--actions">
+              Konsultasi awal gratis · Respon pada jam kerja · Brief proyek terarah
+            </p>
           </div>
         </div>
       </section>
@@ -481,7 +488,6 @@ export default function Home() {
                 </h3>
                 <div className="apple-card__brand-preview">
                   <div className="apple-brand-card">
-                    <span className="apple-brand-badge">IDKA Certified</span>
                     <strong>Bisnis Terpercaya & Profesional</strong>
                   </div>
                 </div>
@@ -628,7 +634,7 @@ export default function Home() {
               Dapatkan dukungan tim ahli.
             </h2>
             <div className="apple-final-cta__badge">
-              <span className="apple-check-circle">✓</span> All in one place.
+              <span className="apple-check-circle">✓</span> Semua kebutuhan digital, dalam satu langkah yang jelas.
             </div>
             <div className="apple-final-cta__actions">
               <a

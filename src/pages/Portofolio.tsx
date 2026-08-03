@@ -4,6 +4,7 @@ import { portfolio } from '../data/content'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
+import WordReveal from '../components/WordReveal'
 import './Portofolio.css'
 
 function webpToPngFallback(src: string) {
@@ -87,11 +88,12 @@ export default function Portofolio() {
               Portofolio IDKA
             </div>
             <h1 id="porto-heading" className="apple-hero__title hero-in__item hero-in__item--title">
-              Portofolio Karya <span className="apple-hero__title-accent">& Hasil Kerja Nyata.</span>
+              <WordReveal>Portofolio Karya</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">& Hasil Kerja Nyata.</WordReveal>
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Dari UMKM lokal hingga perusahaan startup—jelajahi project website yang telah aktif dan berkembang.{' '}
-              <strong className="apple-text-bold">All in one place.</strong>
+              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>
         </div>
@@ -117,7 +119,15 @@ export default function Portofolio() {
           {/* Grid */}
           <div className="porto-grid" role="list">
             {filtered.map((item) => (
-              <article key={item.id} className="porto-card reveal" role="listitem">
+              <a
+                key={item.id}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="porto-card reveal"
+                role="listitem"
+                aria-label={`${item.title} - kunjungi website`}
+              >
                 {/* Visual macOS Browser Mockup */}
                 <div className="porto-card__visual">
                   <div className="porto-card__browser">
@@ -172,20 +182,11 @@ export default function Portofolio() {
                     ))}
                   </div>
 
-                  {/* Action Link — Authentic Apple Link Arrow */}
-                  {'url' in item && item.url && (
-                    <a
-                      href={item.url as string}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="porto-card__action-link"
-                      aria-label={`Kunjungi website ${item.title}`}
-                    >
-                      Kunjungi Website ›
-                    </a>
-                  )}
+                  <span className="porto-card__action-link" aria-hidden="true">
+                    Kunjungi Website <span aria-hidden="true">›</span>
+                  </span>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
 

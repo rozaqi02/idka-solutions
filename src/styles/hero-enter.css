@@ -19,6 +19,42 @@
   opacity: 0;
 }
 
+.word-reveal { display: inline; }
+
+.word-reveal__word {
+  --word-index: 0;
+  display: inline-block;
+  margin-right: .19em;
+  opacity: 0;
+  clip-path: inset(-12% 105% -18% -8%);
+  filter: blur(4px);
+  transform: translate3d(-.12em, .28em, 0) skewX(-9deg);
+  transform-origin: left 75%;
+}
+
+[data-hero-enter].hero-in--play .hero-in__item--title {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+  clip-path: none;
+}
+
+[data-hero-enter].hero-in--play .word-reveal__word {
+  animation: wordInkIn .78s cubic-bezier(.16, 1, .3, 1) both;
+  animation-delay: calc(.1s + (var(--word-index) * .09s));
+}
+
+.apple-hero__title-accent.word-reveal .word-reveal__word {
+  animation-delay: calc(.36s + (var(--word-index) * .1s));
+}
+
+@keyframes wordInkIn {
+  0% { opacity: 0; clip-path: inset(-12% 105% -18% -8%); filter: blur(4px); transform: translate3d(-.12em, .28em, 0) skewX(-9deg); }
+  42% { opacity: 1; filter: blur(.5px); }
+  78% { clip-path: inset(-12% -8% -18% -8%); transform: translate3d(.025em, -.025em, 0) skewX(1.5deg); }
+  100% { opacity: 1; clip-path: inset(-12% -8% -18% -8%); filter: blur(0); transform: translate3d(0, 0, 0) skewX(0); }
+}
+
 [data-hero-enter]:not(.hero-in--settled) .hero-in__item {
   will-change: transform, opacity;
 }
@@ -590,11 +626,27 @@
 }
 
 [data-hero-enter].hero-in--lite.hero-in--play .hero-in__item--title {
-  animation: heLiteUp 0.5s var(--hero-ease) 0.08s forwards !important;
+  animation: none !important;
+  opacity: 1;
 }
 
 [data-hero-enter].hero-in--lite.hero-in--play .hero-in__item--sub {
   animation: heLiteUpSoft 0.45s var(--hero-ease) 0.16s forwards !important;
+}
+
+/* Mobile retains the ink-writing feel, with a shorter stagger and no heavy transforms. */
+[data-hero-enter].hero-in--lite.hero-in--play .word-reveal__word {
+  animation: wordInkMobile .55s var(--hero-ease) both !important;
+  animation-delay: calc(.08s + (var(--word-index) * .065s)) !important;
+}
+
+[data-hero-enter].hero-in--lite .apple-hero__title-accent.word-reveal .word-reveal__word {
+  animation-delay: calc(.3s + (var(--word-index) * .075s)) !important;
+}
+
+@keyframes wordInkMobile {
+  0% { opacity: 0; clip-path: inset(-8% 105% -8% -4%); transform: translate3d(-.08em, .13em, 0) skewX(-5deg); filter: blur(2px); }
+  100% { opacity: 1; clip-path: inset(-8% -4% -8% -4%); transform: none; filter: none; }
 }
 
 [data-hero-enter].hero-in--lite.hero-in--play .hero-in__item--actions,

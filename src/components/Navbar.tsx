@@ -150,9 +150,6 @@ export default function Navbar() {
       ].filter(Boolean).join(' ')}
       role="banner"
     >
-      <a href="#main-content" className="skip-link">
-        Langsung ke konten
-      </a>
       <div className="localnav__wrapper">
         <div className="localnav__content">
           {/* Logo / Title */}

@@ -3,6 +3,7 @@ import { company, products } from '../data/content'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
+import WordReveal from '../components/WordReveal'
 import './Produk.css'
 
 export default function Produk() {
@@ -11,7 +12,7 @@ export default function Produk() {
   usePageTitle({
     title: 'Produk',
     description:
-      'Produk digital IDKA Solutions — Dashboard UMKM dan Absensi Mobile. Segera hadir.',
+      'Produk digital IDKA Solutions — Dashboard UMKM dan Ngelamar, personal career CRM untuk melacak lamaran kerja.',
     path: '/produk',
   })
 
@@ -22,11 +23,11 @@ export default function Produk() {
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">Produk IDKA</div>
             <h1 id="produk-heading" className="apple-hero__title hero-in__item hero-in__item--title">
-              Software bisnis yang <span className="apple-hero__title-accent">segera hadir.</span>
+              <WordReveal>Produk digital yang</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">segera hadir.</WordReveal>
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Selain website, kami membangun produk digital untuk operasional UMKM.
-              Dua aplikasi sedang dalam tahap pengembangan.
+              Selain website, kami membangun produk untuk operasional bisnis dan perjalanan karier yang lebih tertata.
             </p>
           </div>
         </div>
@@ -40,7 +41,7 @@ export default function Produk() {
               Dua produk dalam pipeline
             </h2>
             <p className="section-subtitle">
-              Dirancang sederhana, modern, dan siap pakai — visual & pengalaman ala Apple.
+              Dirancang sederhana, fokus pada pekerjaan nyata, dan nyaman digunakan setiap hari.
             </p>
           </div>
 
@@ -88,14 +89,14 @@ export default function Produk() {
 
           <div className="produk-cta reveal">
             <p className="produk-cta__text">
-              Ingin jadi early user atau butuh custom system serupa?
+               Tertarik menjadi early user atau membutuhkan sistem serupa untuk bisnis Anda?
             </p>
             <div className="produk-cta__actions">
               <NavLink to="/kontak" className="btn btn-primary">
                 Hubungi Kami
               </NavLink>
               <a
-                href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent('Halo IDKA, saya tertarik produk Coming Soon (Dashboard UMKM / Absensi Mobile).')}`}
+                href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent('Halo IDKA, saya tertarik produk Coming Soon (Dashboard UMKM / Ngelamar).')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-wa"
