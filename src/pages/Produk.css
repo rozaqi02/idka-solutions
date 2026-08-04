@@ -187,56 +187,29 @@
     #f8f6ff;
 }
 
-/* ===== Phone mock ===== */
-.produk-mock--phone {
-  width: 150px;
-  height: 275px;
-  border-radius: 28px;
-  background: #1c1c1e;
-  padding: 6px;
-  box-shadow:
-    0 20px 44px rgba(0, 0, 0, 0.16),
-    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-  position: relative;
-  margin-top: 0.5rem;
-  transition: transform 0.3s var(--ease-out);
-}
-
-.produk-card:hover .produk-mock--phone {
-  transform: translateY(-6px) scale(1.03);
-}
-
-.produk-mock__phone-notch {
-  width: 38px;
-  height: 5px;
-  border-radius: 980px;
-  background: #3a3a3c;
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-}
-
-.produk-mock__phone-screen {
-  width: 100%;
-  height: 100%;
-  border-radius: 23px;
-  overflow: hidden;
-  background: #ffffff;
+/* ===== Direct Product Image Display ===== */
+.produk-image-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  max-width: 210px;
+  margin: 0.5rem auto 0;
+  transition: transform 0.3s var(--ease-out);
 }
 
-.produk-mock__phone-screen img {
+.produk-card:hover .produk-image-wrapper {
+  transform: translateY(-6px) scale(1.025);
+}
+
+.produk-image-direct {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 22px;
+  max-height: 265px;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.12),
+    0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   display: block;
 }
 

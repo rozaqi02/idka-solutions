@@ -68,15 +68,13 @@ export default function Produk() {
                       </div>
                     </div>
                   ) : (
-                    <div className="produk-mock produk-mock--phone">
-                      <div className="produk-mock__phone-notch" />
-                      <div className="produk-mock__phone-screen">
-                        <img
-                          src="/portfolio/ngelamar-app.png"
-                          alt="Tampilan Asli Aplikasi Ngelamar (v1.7.6)"
-                          loading="lazy"
-                        />
-                      </div>
+                    <div className="produk-image-wrapper">
+                      <img
+                        src="/portfolio/ngelamar-app.png"
+                        alt="Tampilan Asli Aplikasi Ngelamar (v1.7.6)"
+                        className="produk-image-direct"
+                        loading="lazy"
+                      />
                     </div>
                   )}
                 </div>
