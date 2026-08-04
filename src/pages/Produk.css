@@ -187,51 +187,50 @@
 
 /* ===== Phone mock ===== */
 .produk-mock--phone {
-  width: 140px;
-  height: 260px;
-  border-radius: 28px;
-  background: #1d1d1f;
-  padding: 10px;
+  width: 165px;
+  height: 290px;
+  border-radius: 30px;
+  background: #0d0d0e;
+  padding: 8px;
   box-shadow:
-    0 24px 48px rgba(0, 0, 0, 0.18),
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    0 24px 48px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
   position: relative;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.produk-card:hover .produk-mock--phone {
+  transform: translateY(-4px) scale(1.02);
 }
 
 .produk-mock__phone-notch {
-  width: 48px;
-  height: 6px;
+  width: 50px;
+  height: 7px;
   border-radius: 980px;
-  background: #3a3a3c;
-  margin: 4px auto 10px;
+  background: #2c2c2e;
+  margin: 2px auto 6px;
+  position: relative;
+  z-index: 2;
 }
 
 .produk-mock__phone-screen {
-  height: calc(100% - 24px);
-  border-radius: 20px;
-  background: linear-gradient(180deg, #eefaf4 0%, #ffffff 100%);
-  padding: 16px 12px;
+  height: calc(100% - 15px);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #000000;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.produk-mock__phone-row {
-  height: 36px;
-  border-radius: 10px;
-  background: rgba(0, 135, 90, 0.12);
-}
-
-.produk-mock__phone-row--short {
-  width: 70%;
-  height: 28px;
-}
-
-.produk-mock__phone-btn {
-  margin-top: auto;
-  height: 40px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #00875a, #30d158);
+.produk-mock__phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 20px;
+  display: block;
 }
 
 /* ===== CTA ===== */

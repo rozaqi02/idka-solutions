@@ -71,9 +71,11 @@ export default function Produk() {
                     <div className="produk-mock produk-mock--phone">
                       <div className="produk-mock__phone-notch" />
                       <div className="produk-mock__phone-screen">
-                        <div className="produk-mock__phone-row" />
-                        <div className="produk-mock__phone-row produk-mock__phone-row--short" />
-                        <div className="produk-mock__phone-btn" />
+                        <img
+                          src="/portfolio/ngelamar-app.png"
+                          alt="Tampilan Asli Aplikasi Ngelamar (v1.7.6)"
+                          loading="lazy"
+                        />
                       </div>
                     </div>
                   )}
