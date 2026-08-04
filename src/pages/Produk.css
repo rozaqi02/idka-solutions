@@ -189,14 +189,14 @@
 
 /* ===== Phone mock ===== */
 .produk-mock--phone {
-  width: 145px;
-  height: 260px;
-  border-radius: 26px;
-  background: #000000;
-  padding: 5px;
+  width: 150px;
+  height: 275px;
+  border-radius: 28px;
+  background: #1c1c1e;
+  padding: 6px;
   box-shadow:
-    0 20px 44px rgba(0, 0, 0, 0.22),
-    0 0 0 1px rgba(255, 255, 255, 0.14) inset;
+    0 20px 44px rgba(0, 0, 0, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
   position: relative;
   margin-top: 0.5rem;
   transition: transform 0.3s var(--ease-out);
@@ -210,9 +210,9 @@
   width: 38px;
   height: 5px;
   border-radius: 980px;
-  background: #202022;
+  background: #3a3a3c;
   position: absolute;
-  top: 8px;
+  top: 9px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
@@ -221,21 +221,22 @@
 .produk-mock__phone-screen {
   width: 100%;
   height: 100%;
-  border-radius: 22px;
+  border-radius: 23px;
   overflow: hidden;
-  background: #000000;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .produk-mock__phone-screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  border-radius: 21px;
+  object-position: top center;
+  border-radius: 22px;
   display: block;
 }
 
