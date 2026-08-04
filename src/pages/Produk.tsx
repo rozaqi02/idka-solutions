@@ -82,6 +82,30 @@ export default function Produk() {
                   <span className="produk-card__icon" aria-hidden="true">{p.icon}</span>
                   <h3 className="produk-card__title">{p.title}</h3>
                   <p className="produk-card__tagline">{p.tagline}</p>
+                  
+                  {p.downloadUrl && (
+                    <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <a
+                        href={p.downloadUrl}
+                        download={p.downloadName || 'Ngelamar.apk'}
+                        className="btn btn-primary"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '8px',
+                          padding: '10px 18px',
+                          borderRadius: '12px',
+                          textDecoration: 'none',
+                          fontWeight: 600,
+                          fontSize: '14px',
+                        }}
+                      >
+                        <span>📥 Unduh APK Gratis</span>
+                        <span style={{ fontSize: '12px', opacity: 0.85 }}>({p.version} • {p.fileSize})</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </article>
             ))}

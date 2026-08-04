@@ -197,6 +197,20 @@ export const portfolio = [
     color: '#22c55e',
     icon: '🍄',
   },
+  {
+    id: 7,
+    title: 'Ngelamar App (v1.7.6)',
+    category: 'Mobile App',
+    period: 'Ags 2026',
+    screenshot: '/logo-idka-solutions-og.png',
+    url: '/Ngelamar.apk',
+    description: 'Aplikasi Personal Career CRM & Pelacak Lamaran Kerja dengan Desain Apple iOS 26 Liquid Glass.',
+    longDescription: 'Dilengkapi Pindai Poster Loker OCR On-Device, Evaluator Gaji UMR Kota, dan Offline Database. Siap diunduh secara gratis.',
+    tech: ['Flutter', 'Dart', 'Riverpod', 'Hive DB', 'Google ML Kit'],
+    tags: ['Mobile App', 'Android', 'Career CRM', 'Apple UI'],
+    color: '#007aff',
+    icon: '💼',
+  },
 ];
 
 export const testimonials = [
@@ -276,11 +290,15 @@ export const products = [
   },
   {
     id: 'ngelamar',
-    title: 'Ngelamar',
-    tagline: 'Career CRM untuk mencatat, memantau, dan menyiapkan setiap lamaran kerja dari satu aplikasi.',
-    status: 'Coming Soon',
+    title: 'Ngelamar App',
+    tagline: 'Personal Career CRM & Pelacak Lamaran Kerja dengan Desain Apple iOS 26 Liquid Glass, Pindai Poster Loker OCR, Evaluator Gaji UMR, dan Offline Database.',
+    status: 'Rilis v1.7.6 (Siap Diunduh)',
     icon: '💼',
     accent: 'emerald',
+    downloadUrl: '/Ngelamar.apk',
+    version: 'v1.7.6',
+    fileSize: '83.6 MB',
+    downloadName: 'Ngelamar.apk',
   },
 ];
 
