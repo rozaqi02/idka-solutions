@@ -113,18 +113,8 @@ Desktop.ini
 chrome-user-data/
 puppeteer-cache/
 
-# ===== 11. Marketing Local Drafts & Generator Temp =====
-# Asset final di public/ tetap ter-track & ter-deploy ke Netlify.
-# Hanya file backup/draft/kerja lokal yang diabaikan.
-public/marketing/**/bckaup/
-public/marketing/**/backup/
-public/marketing/**/*-old.*
-public/marketing/**/*-backup.*
-public/marketing/**/*-style-source.*
-public/marketing/**/*-porto-real.*
-public/marketing/**/*-original.*
-public/marketing/**/*.draft.*
-public/marketing/**/*.wip.*
+# ===== 11. Marketing Assets & Drafts =====
+public/marketing/
 
 # File referensi/generator internal team
 public/team/team-grid-ref.png
