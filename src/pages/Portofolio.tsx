@@ -86,7 +86,7 @@ export default function Portofolio() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Portofolio IDKA</span>
+              <span>Portofolio Web &amp; Mobile App</span>
             </div>
             <h1 id="porto-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
               <WordReveal>Portofolio Karya</WordReveal>{' '}
@@ -94,7 +94,7 @@ export default function Portofolio() {
               <ScribbleUnderline variant="double" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Dari UMKM lokal hingga perusahaan startup—jelajahi project website yang telah aktif dan berkembang.{' '}
+              Dari UMKM lokal hingga perusahaan startup — jelajahi project website dan aplikasi mobile yang telah aktif dan berkembang.{' '}
               <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>

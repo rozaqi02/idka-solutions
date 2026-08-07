@@ -349,15 +349,15 @@ export default function Home() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>IDKA Solutions</span>
+              <span>Website &amp; Mobile App Studio</span>
             </div>
             <h1 id="hero-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Website Bisnis Profesional.</WordReveal>{' '}
+              <WordReveal>Website &amp; Aplikasi Mobile.</WordReveal>{' '}
               <WordReveal className="apple-hero__title-accent">Lebih Terpercaya &amp; Siap Tumbuh.</WordReveal>
               <ScribbleUnderline variant="wavy" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Segala kebutuhan website bisnis Anda — dari landing page, toko online, hingga sistem kustom.{' '}
+              Segala kebutuhan digital bisnis Anda — dari landing page, toko online, hingga aplikasi Android &amp; iOS kustom.{' '}
               <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
 

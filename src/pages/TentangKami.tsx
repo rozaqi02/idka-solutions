@@ -32,7 +32,7 @@ export default function TentangKami() {
               <ScribbleUnderline variant="arc" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Membantu UMKM, profesional, dan startup membangun kehadiran digital yang kredibel, modern, dan berdampak.{' '}
+              Membantu UMKM, profesional, dan startup membangun kehadiran digital lewat website &amp; aplikasi mobile yang kredibel, modern, dan berdampak.{' '}
               <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function TentangKami() {
                 </div>
                 <div className="story-card__divider" />
                 <p className="story-card__quote">
-                  &ldquo;Setiap bisnis berhak tampil profesional di internet—tanpa memandang skala.&rdquo;
+                  &ldquo;Setiap bisnis berhak tampil profesional di internet lewat website &amp; aplikasi mobile berkualitas.&rdquo;
                 </p>
                 <div className="story-card__stats">
                   {stats.map((s) => (
@@ -77,7 +77,7 @@ export default function TentangKami() {
                 <span>Cerita Kami</span>
               </div>
               <h2 id="story-heading" className="section-title artistic-title" style={{ textAlign: 'left' }}>
-                Mengapa Kehadiran Online Perlu Lebih Mudah
+                Mengapa Kehadiran Digital Perlu Lebih Mudah
                 <ScribbleUnderline variant="double" />
               </h2>
               <div className="story-text">
@@ -85,7 +85,7 @@ export default function TentangKami() {
                   Saya <strong>Abror Rozaqi</strong>, founder IDKA Solutions. Saya sering melihat bisnis potensial di sekitar—kafe, jasa kreatif, UMKM lokal—yang belum punya kehadiran online yang memadai, atau tampil kurang profesional.
                 </p>
                 <p>
-                  Dari situ IDKA Solutions berdiri. Bersama tim kecil, kami membantu UMKM, freelancer, kreator, dan startup hadir secara online dengan cara yang efisien. Bukan sekadar website formalitas, tetapi website yang mendukung kredibilitas dan pertumbuhan bisnis.
+                  Dari situ IDKA Solutions berdiri. Bersama tim kecil, kami membantu UMKM, freelancer, kreator, dan startup hadir secara online lewat website dan aplikasi mobile dengan cara yang efisien. Bukan sekadar formalitas, tetapi produk digital yang mendukung kredibilitas dan pertumbuhan bisnis.
                 </p>
                 <p>
                   {company.position}

@@ -281,12 +281,12 @@ export default function Layanan() {
               <span>Layanan IDKA Solutions</span>
             </div>
             <h1 id="layanan-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Solusi Website untuk</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">Berbagai Kebutuhan Bisnis.</WordReveal>
+              <WordReveal>Website &amp; Aplikasi Mobile</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">untuk Berbagai Kebutuhan Bisnis.</WordReveal>
               <ScribbleUnderline />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Untuk UMKM, freelancer, startup, dan perusahaan—dari landing page cepat hingga sistem kustom scalable.{' '}
+              Untuk UMKM, profesional, dan startup — dari landing page, toko online, hingga aplikasi Android &amp; iOS kustom.{' '}
               <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>
@@ -301,11 +301,11 @@ export default function Layanan() {
               <span>Artistic Canvas</span>
             </div>
             <h2 id="all-services-heading" className="section-title artistic-title">
-              Jenis Website yang Kami Kerjakan
+              Layanan Digital yang Kami Kerjakan
               <ScribbleUnderline variant="double" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Satu garis lukis kontinu (*continuous line drawing*) & doodle art yang merepresentasikan filosofi karya kami.
+              Website modern dan aplikasi mobile dengan desain artistik yang merepresentasikan karakter brand Anda.
             </p>
           </div>
 

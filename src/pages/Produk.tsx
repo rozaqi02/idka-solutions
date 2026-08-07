@@ -31,7 +31,7 @@ export default function Produk() {
               <ScribbleUnderline variant="zigzag" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Selain website, kami membangun produk untuk operasional bisnis dan perjalanan karier yang lebih tertata.
+              Selain website &amp; aplikasi mobile kustom, kami membangun produk digital internal untuk operasional bisnis dan karier.
             </p>
           </div>
         </div>

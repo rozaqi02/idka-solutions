@@ -230,7 +230,7 @@ export default function Kontak({ addToast }: KontakProps) {
               <ScribbleUnderline variant="zigzag" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Konsultasi langsung via WhatsApp atau isi brief singkat di bawah. Respon cepat 1-3 jam kerja.{' '}
+              Konsultasi pembuatan website &amp; aplikasi mobile langsung via WhatsApp atau isi brief singkat di bawah. Respon cepat 1-3 jam kerja.{' '}
               <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
             </p>
           </div>
