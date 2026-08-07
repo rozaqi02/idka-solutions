@@ -148,7 +148,7 @@ export const portfolio = [
     tech: ['React JS', 'Netlify'],
     tags: ['Company Profile', 'Konstruksi', 'Arsitektur'],
     color: '#f59e0b',
-    icon: '🏗️',
+    icon: 'building',
   },
   {
     id: 2,
@@ -162,7 +162,7 @@ export const portfolio = [
     tech: ['React JS', 'Supabase', 'PostgreSQL', 'Bilingual'],
     tags: ['Travel', 'Company Profile', 'Full Stack'],
     color: '#06b6d4',
-    icon: '✈️',
+    icon: 'building',
   },
   {
     id: 3,
@@ -176,7 +176,7 @@ export const portfolio = [
     tech: ['React JS', 'Netlify'],
     tags: ['Landing Page', 'UMKM', 'Produk Lokal'],
     color: '#f59e0b',
-    icon: '🍯',
+    icon: 'shopping-bag',
   },
   {
     id: 4,
@@ -190,7 +190,7 @@ export const portfolio = [
     tech: ['React 19', 'Supabase', 'Framer Motion', 'Gemini API', 'QRIS', 'PWA'],
     tags: ['E-Commerce', 'Full Stack', 'Pelajar'],
     color: '#5e17eb',
-    icon: '🛒',
+    icon: 'shopping-bag',
   },
   {
     id: 5,
@@ -204,7 +204,7 @@ export const portfolio = [
     tech: ['React JS', 'Supabase', 'PostgreSQL'],
     tags: ['Full Stack', 'UMKM', 'Herbal'],
     color: '#84cc16',
-    icon: '🌿',
+    icon: 'cpu',
   },
   {
     id: 6,
@@ -218,7 +218,7 @@ export const portfolio = [
     tech: ['React JS', 'Netlify'],
     tags: ['Landing Page', 'UMKM', 'Pangan'],
     color: '#22c55e',
-    icon: '🍄',
+    icon: 'shopping-bag',
   },
   {
     id: 7,
@@ -232,7 +232,7 @@ export const portfolio = [
     tech: ['Flutter', 'Dart', 'Riverpod', 'Hive DB', 'Google ML Kit'],
     tags: ['Mobile App', 'Android', 'Career CRM', 'Apple UI'],
     color: '#007aff',
-    icon: '💼',
+    icon: 'smartphone',
   },
 ];
 
@@ -242,7 +242,7 @@ export const testimonials = [
     name: 'Pak Dedi',
     role: 'Owner, CIDIKA Travel',
     business: 'cidikatravel.com',
-    avatar: '✈️',
+    avatar: 'D',
     content: 'Website kami kini tampil lebih profesional. Banyak wisatawan langsung menghubungi. Tim IDKA responsif dan hasilnya sesuai kebutuhan.',
     rating: 5,
   },
@@ -251,7 +251,7 @@ export const testimonials = [
     name: 'Pak Rizal',
     role: 'Direktur, CV. Pentagon Konstruksindo',
     business: 'pentagonkontraktor.netlify.app',
-    avatar: '🏗️',
+    avatar: 'R',
     content: 'Company profile kami jauh lebih kredibel. Calon klien datang dengan kesan yang lebih baik. IDKA memahami kebutuhan kami.',
     rating: 5,
   },
@@ -260,7 +260,7 @@ export const testimonials = [
     name: 'Ibu Sari',
     role: 'Pemilik, Nutri Bunga',
     business: 'nutribunga.netlify.app',
-    avatar: '🍯',
+    avatar: 'S',
     content: 'Selesai dalam dua minggu dan langsung bisa dipakai promosi. Tampilan bersih, cepat, dan memudahkan pelanggan menemukan produk kami.',
     rating: 5,
   },
@@ -308,7 +308,7 @@ export const products = [
     title: 'Dashboard UMKM',
     tagline: 'Pantau penjualan, stok, dan performa bisnis dalam satu layar.',
     status: 'Coming Soon',
-    icon: '📊',
+    icon: 'cpu',
     accent: 'blue',
   },
   {
@@ -316,7 +316,7 @@ export const products = [
     title: 'Ngelamar App',
     tagline: 'Personal Career CRM & Pelacak Lamaran Kerja dengan Desain Apple iOS 26 Liquid Glass, Pindai Poster Loker OCR, Evaluator Gaji UMR, dan Offline Database.',
     status: 'Rilis v1.7.6 (Siap Diunduh)',
-    icon: '💼',
+    icon: 'smartphone',
     accent: 'emerald',
     downloadUrl: '/Ngelamar.apk',
     version: 'v1.7.6',
@@ -326,43 +326,43 @@ export const products = [
 ];
 
 export const techStack = [
-  { name: 'React', category: 'frontend', icon: '⚛️' },
-  { name: 'Flutter', category: 'mobile', icon: '💙' },
-  { name: 'React Native', category: 'mobile', icon: '📱' },
-  { name: 'TypeScript', category: 'frontend', icon: '🔷' },
-  { name: 'Supabase', category: 'backend', icon: '🗄️' },
-  { name: 'Firebase', category: 'backend', icon: '🔥' },
-  { name: 'Figma', category: 'design', icon: '✏️' },
-  { name: 'Netlify', category: 'deploy', icon: '🚀' },
+  { name: 'React', category: 'frontend', icon: 'code' },
+  { name: 'Flutter', category: 'mobile', icon: 'smartphone' },
+  { name: 'React Native', category: 'mobile', icon: 'smartphone' },
+  { name: 'TypeScript', category: 'frontend', icon: 'code' },
+  { name: 'Supabase', category: 'backend', icon: 'cpu' },
+  { name: 'Firebase', category: 'backend', icon: 'cpu' },
+  { name: 'Figma', category: 'design', icon: 'building' },
+  { name: 'Netlify', category: 'deploy', icon: 'shield-check' },
 ];
 
 export const workValues = [
   {
-    icon: '✅',
+    icon: 'check',
     title: 'Proses Sederhana',
     description: 'Alur kerja jelas. Anda siapkan materi, kami tangani pengerjaan.',
   },
   {
-    icon: '🤝',
+    icon: 'handshake',
     title: 'Transparan',
     description: 'Harga, revisi, dan tahapan kerja disampaikan di awal.',
   },
   {
-    icon: '⚡',
+    icon: 'zap',
     title: 'Respons Cepat',
     description: 'Komunikasi dibalas pada jam kerja agar progress tetap jalan.',
   },
   {
-    icon: '🎯',
+    icon: 'target',
     title: 'Berorientasi Hasil',
     description: 'Website & aplikasi mobile dirancang untuk mendukung kredibilitas dan konversi bisnis.',
   },
 ];
 
 export const businessFlow = [
-  { step: 1, label: 'Ceritakan Kebutuhan', icon: '💬', description: 'Hubungi kami via WhatsApp, form, atau Instagram. Konsultasi pertama gratis.' },
-  { step: 2, label: 'Kami Kerjakan', icon: '💻', description: 'Kami desain, bangun, dan revisi website atau aplikasi mobile sesuai kebutuhan bisnis kamu.' },
-  { step: 3, label: 'Website & App Live', icon: '🚀', description: 'Domain & aplikasi aktif, bisnis siap tampil profesional dan berkembang.' },
+  { step: 1, label: 'Ceritakan Kebutuhan', icon: 'chat', description: 'Hubungi kami via WhatsApp, form, atau Instagram. Konsultasi pertama gratis.' },
+  { step: 2, label: 'Kami Kerjakan', icon: 'code', description: 'Kami desain, bangun, dan revisi website atau aplikasi mobile sesuai kebutuhan bisnis kamu.' },
+  { step: 3, label: 'Website & App Live', icon: 'rocket', description: 'Domain & aplikasi aktif, bisnis siap tampil profesional dan berkembang.' },
 ];
 
 export const faq = [
