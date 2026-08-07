@@ -1,4 +1,4 @@
-﻿/* =============================================
+/* =============================================
    NAVBAR - ART CANVAS STUDIO DESIGN SYSTEM
    ============================================= */
 
@@ -115,10 +115,33 @@
   flex-shrink: 0;
 }
 
+@keyframes navScribbleDraw {
+  0% {
+    stroke-dashoffset: 200;
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.localnav__scribble path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+}
+
 /* Show scribble on active link */
 .localnav__menu-link--active .localnav__scribble {
   opacity: 1;
   transform: scaleX(1);
+}
+
+.localnav__menu-link--active .localnav__scribble path {
+  animation: navScribbleDraw 4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
 }
 
 /* Hover: faint scribble for non-active */

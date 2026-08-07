@@ -188,7 +188,7 @@ export default function Navbar() {
               tabIndex={menuOpen ? 0 : -1}
               onClick={closeMenu}
             >
-              💬 Konsultasi Gratis
+              Konsultasi Gratis
             </a>
             <p className="localnav-sidebar__tagline">Respon dalam 1–3 jam kerja</p>
           </div>

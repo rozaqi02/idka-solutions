@@ -55,7 +55,7 @@ function PortoImage({ src, alt, width, height }: { src: string; alt: string; wid
         />
       ) : (
         <div className="porto-img-error" aria-label="Gambar tidak tersedia">
-          <span aria-hidden="true">&#128247;</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </div>
       )}
     </div>
@@ -71,60 +71,59 @@ export default function Portofolio() {
   usePageTitle({
     title: 'Portofolio',
     description:
-      'Portofolio IDKA Solutions — dari UMKM lokal hingga startup digital. Lihat website yang telah kami bangun.',
+      'Portofolio IDKA Solutions — contoh proyek website profil, company profile, landing page, dan e-commerce.',
     path: '/portofolio',
   })
 
   const filtered =
-    activeFilter === 'Semua'
-      ? portfolio
-      : portfolio.filter((p) => p.category === activeFilter)
+    activeFilter === 'Semua' ? portfolio : portfolio.filter((p) => p.category === activeFilter)
 
   return (
     <div className="layanan-page porto-page">
-      {/* Apple Business Light Page Header */}
-      <section className="apple-hero section artistic-hero" aria-labelledby="porto-heading" data-hero-enter="portofolio">
+      {/*  Apple Business Hero */}
+      <section className="apple-hero section artistic-hero" aria-labelledby="porto-heading" data-hero-enter="porto">
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Portofolio Web &amp; Mobile App</span>
+              <span>Hasil Kerja Kami</span>
             </div>
             <h1 id="porto-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Portofolio Karya</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">&amp; Hasil Kerja Nyata.</WordReveal>
-              <ScribbleUnderline variant="double" />
+              <WordReveal>Karya website &amp; app</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">yang telah rilis.</WordReveal>
+              <ScribbleUnderline variant="zigzag" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Dari UMKM lokal hingga perusahaan startup — jelajahi project website dan aplikasi mobile yang telah aktif dan berkembang.{' '}
-              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
+              Setiap proyek dibangun fokus pada tujuan bisnis klien—cepat, fungsional, dan siap pakai.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Portfolio Grid */}
-      <section className="section section--tint layanan-artistic-section porto-grid-section" aria-labelledby="porto-grid-heading">
+      {/* Grid Portofolio */}
+      <section className="section section--tint layanan-artistic-section porto-grid-section">
         <div className="container">
-          {/* Filter Bar */}
-          <div className="porto-filters" role="group" aria-label="Filter kategori portofolio">
+          {/* Filter Pills */}
+          <div className="porto-filters" role="tablist" aria-label="Filter kategori portofolio">
             {allCategories.map((cat) => (
               <button
                 key={cat}
-                className={`porto-filter-btn art-card__tag-doodle${activeFilter === cat ? ' porto-filter-btn--active' : ''}`}
+                type="button"
+                role="tab"
+                aria-selected={activeFilter === cat}
+                className={`porto-filter-btn art-card__tag-doodle ${activeFilter === cat ? 'porto-filter-btn--active' : ''}`}
                 onClick={() => setActiveFilter(cat)}
-                aria-pressed={activeFilter === cat}
               >
                 {cat}
               </button>
             ))}
           </div>
 
-          {/* Grid */}
+          {/* Cards Grid */}
           <div className="porto-grid" role="list">
             {filtered.map((item, i) => (
               <a
                 key={item.id}
-                href={item.url}
+                href={'url' in item && item.url ? (item.url as string) : '#'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`porto-card art-card art-card--v${(i % 4) + 1} reveal`}
@@ -183,7 +182,7 @@ export default function Portofolio() {
                       <span key={tag} className="art-card__tag-doodle"><span className="art-card__tag-bullet">•</span> {tag}</span>
                     ))}
                     {'tech' in item && Array.isArray(item.tech) && item.tech.map((t) => (
-                      <span key={t} className="art-card__tag-doodle"><span className="art-card__tag-bullet">⚙</span> {t}</span>
+                      <span key={t} className="art-card__tag-doodle"><span className="art-card__tag-bullet">•</span> {t}</span>
                     ))}
                   </div>
 
@@ -197,7 +196,9 @@ export default function Portofolio() {
 
           {filtered.length === 0 && (
             <div className="porto-empty" role="status">
-              <div className="porto-empty__icon" aria-hidden="true">&#128269;</div>
+              <div className="porto-empty__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
               <p>Tidak ada proyek dalam kategori ini.</p>
             </div>
           )}
@@ -208,7 +209,9 @@ export default function Portofolio() {
       <section className="section porto-note-section">
         <div className="container">
           <div className="porto-case-note art-card art-card--v1 art-card--featured reveal reveal--scale">
-            <div className="porto-case-note__icon" aria-hidden="true">🚀</div>
+            <div className="art-card__illustration" style={{ width: 80, height: 60, margin: '0 auto 0.5rem' }} aria-hidden="true">
+              <ContinuousLineArt type="cpu" />
+            </div>
             <div className="porto-case-note__content">
               <h2 className="porto-case-note__title art-card__title">Portofolio Terus Bertambah</h2>
               <p className="porto-case-note__desc art-card__desc">

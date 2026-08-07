@@ -572,20 +572,15 @@ export default function Layanan() {
                 <span>Isi Brief Proyek</span>
               </NavLink>
               <a
-                href={
-                  'https://wa.me/' +
-                  company.whatsapp +
-                  '?text=' +
-                  encodeURIComponent(
-                    'Halo IDKA Solutions, saya ingin bertanya tentang jasa website.',
-                  )
-                }
+                href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent('Halo IDKA Solutions, saya ingin bertanya tentang jasa website.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-wa-3d"
+                className="art-card__btn-doodle"
               >
-                <span className="btn-wa-3d__icon">💬</span>
-                <span>CHAT WHATSAPP &gt;&gt;</span>
+                <span>Chat WhatsApp</span>
+                <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                </svg>
               </a>
             </div>
           </div>

@@ -632,7 +632,8 @@ export default function Kontak({ addToast }: KontakProps) {
                   <div className="kontak-form__footer">
                     <button
                       type="submit"
-                      className="btn btn-wa kontak-form__submit"
+                      className="art-card__btn-doodle kontak-form__submit"
+                      style={{ width: '100%', justifyContent: 'center' }}
                       disabled={loading}
                       aria-busy={loading}
                     >

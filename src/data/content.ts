@@ -225,7 +225,7 @@ export const portfolio = [
     title: 'Ngelamar App (v1.7.6)',
     category: 'Mobile App',
     period: 'Ags 2026',
-    screenshot: '/logo-idka-solutions-og.png',
+    screenshot: '/portfolio/ngelamar-app.webp',
     url: '/Ngelamar.apk',
     description: 'Aplikasi Personal Career CRM & Pelacak Lamaran Kerja dengan Desain Apple iOS 26 Liquid Glass.',
     longDescription: 'Dilengkapi Pindai Poster Loker OCR On-Device, Evaluator Gaji UMR Kota, dan Offline Database. Siap diunduh secara gratis.',
@@ -285,11 +285,11 @@ export const teamMembers = [
   },
   {
     id: 3,
-    name: 'Hana Sugito',
+    name: 'Hana Sugianto',
     role: 'Full Stack Laravel / PHP Developer',
     description:
       'Mengembangkan arsitektur backend Laravel/PHP, manajemen database, dan integrasi API untuk solusi bisnis.',
-    photo: '/team/hana-sugito.webp?v=6',
+    photo: '',
   },
   {
     id: 4,

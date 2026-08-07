@@ -1155,6 +1155,34 @@ ul, ol {
   overflow: visible;
 }
 
+@keyframes scribbleDraw {
+  0% {
+    stroke-dashoffset: 900;
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.scribble-underline-svg path {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: scribbleDraw 15s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+
+.reveal--visible .scribble-underline-svg path,
+.section-reveal.reveal--visible .scribble-underline-svg path,
+[data-hero-enter] .scribble-underline-svg path,
+.apple-hero .scribble-underline-svg path,
+.artistic-hero .scribble-underline-svg path {
+  animation: scribbleDraw 15s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+
 .scribble-underline-svg--wavy { color: #5e17eb; }
 .scribble-underline-svg--double { color: #6366f1; }
 .scribble-underline-svg--zigzag { color: #d97706; }
