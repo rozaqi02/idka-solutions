@@ -6,6 +6,7 @@ import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
 import ScribbleUnderline from '../components/ScribbleUnderline'
+import ContinuousLineArt from '../components/ContinuousLineArt'
 import './Portofolio.css'
 
 function webpToPngFallback(src: string) {
@@ -156,7 +157,9 @@ export default function Portofolio() {
                       />
                     ) : (
                       <div className="porto-card__browser-placeholder">
-                        <span className="porto-card__emoji">{item.icon}</span>
+                        <div style={{ width: 80, height: 60, opacity: 0.5 }}>
+                          <ContinuousLineArt type={item.icon} />
+                        </div>
                       </div>
                     )}
                   </div>

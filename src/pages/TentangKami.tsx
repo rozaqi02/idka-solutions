@@ -5,6 +5,7 @@ import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
 import ScribbleUnderline from '../components/ScribbleUnderline'
+import ContinuousLineArt from '../components/ContinuousLineArt'
 import './TentangKami.css'
 
 export default function TentangKami() {
@@ -127,7 +128,20 @@ export default function TentangKami() {
           <div className="values-grid">
             {workValues.map((val, i) => (
               <div key={val.title} className={`value-card art-card art-card--v${(i % 4) + 1} reveal reveal--delay-${Math.min(i + 1, 5)}`}>
-                <div className="value-card__icon art-card__tag-doodle" aria-hidden="true">{val.icon}</div>
+                <div className="value-card__icon art-card__tag-doodle" aria-hidden="true">
+                  {val.icon === 'check' && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  )}
+                  {val.icon === 'handshake' && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.4-.4.9-.6 1.4-.6h4c.6 0 1.1.2 1.4.6L17 21"/><path d="M15 9h-2a2 2 0 1 0 0 4h3c.6 0 1.1-.2 1.4-.6L21 7"/></svg>
+                  )}
+                  {val.icon === 'zap' && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  )}
+                  {val.icon === 'target' && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  )}
+                </div>
                 <h3 className="value-card__title art-card__title">{val.title}</h3>
                 <p className="value-card__desc art-card__desc">{val.description}</p>
               </div>
@@ -198,7 +212,7 @@ export default function TentangKami() {
           <div className="tech-grid">
             {techStack.map((tech, i) => (
               <div key={tech.name} className={`tech-badge tech-badge--${tech.category} art-card__tag-doodle reveal reveal--delay-${Math.min(i % 5 + 1, 5)}`}>
-                <span className="tech-badge__icon" aria-hidden="true">{tech.icon}</span>
+                <span className="art-card__tag-bullet" aria-hidden="true">•</span>
                 <span className="tech-badge__name">{tech.name}</span>
                 <span className="tech-badge__category">{tech.category}</span>
               </div>
@@ -220,32 +234,34 @@ export default function TentangKami() {
           <div className="target-grid">
             {[
               {
-                icon: '🏪',
+                artType: 'building',
                 title: 'UMKM & Bisnis Lokal',
                 examples: 'Kafe, laundry, salon, toko, jasa rumahan',
                 need: 'Profil bisnis online, katalog produk, tombol WhatsApp, kredibilitas yang lebih kuat',
               },
               {
-                icon: '🎯',
+                artType: 'shopping-bag',
                 title: 'Freelancer & Kreator',
                 examples: 'Fotografer, coach, desainer, content creator',
                 need: 'Portofolio profesional, landing page, personal branding yang jelas',
               },
               {
-                icon: '🚀',
+                artType: 'smartphone',
                 title: 'Startup & Bisnis Baru',
                 examples: 'Side project, bisnis tahap awal, produk baru',
                 need: 'Company profile yang kredibel, landing page, MVP yang sederhana dan efektif',
               },
               {
-                icon: '💼',
+                artType: 'shield-check',
                 title: 'Bisnis yang Naik Level',
                 examples: 'Perusahaan kecil, startup profesional',
                 need: 'Website yang lebih kredibel, case study, kesan brand yang lebih premium',
               },
             ].map((seg, i) => (
               <div key={seg.title} className={`target-card art-card art-card--v${(i % 4) + 1}`}>
-                <div className="target-card__icon" aria-hidden="true">{seg.icon}</div>
+                <div className="art-card__illustration" style={{ width: 75, height: 55, margin: '0 auto 0.75rem' }} aria-hidden="true">
+                  <ContinuousLineArt type={seg.artType} />
+                </div>
                 <h3 className="target-card__title art-card__title">{seg.title}</h3>
                 <div className="target-card__examples">
                   <span className="target-card__label">Contoh:</span> {seg.examples}

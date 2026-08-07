@@ -142,7 +142,9 @@ function PortfolioPreviewCard({ item, delay }: { item: (typeof portfolio)[number
       {item.screenshot ? (
         <PreviewScreenshot src={item.screenshot} alt={`Screenshot ${item.title}`} color={item.color} />
       ) : (
-        <div className="portfolio-preview-card__placeholder"><span>{item.icon}</span></div>
+        <div className="portfolio-preview-card__placeholder" style={{ width: 80, height: 60, opacity: 0.5, margin: '0 auto' }}>
+          <ContinuousLineArt type={item.icon} />
+        </div>
       )}
     </div>
   )
@@ -572,8 +574,8 @@ export default function Home() {
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <div className="art-card__top">
-                  <div className="art-card__illustration" aria-hidden="true" style={{ fontSize: '2.2rem' }}>
-                    {p.icon}
+                  <div className="art-card__illustration" aria-hidden="true">
+                    <ContinuousLineArt type={p.icon} />
                   </div>
                   <DoodleBadge text={p.status} shape={i % 2 === 0 ? 'tape' : 'cloud'} />
                 </div>
