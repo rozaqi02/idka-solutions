@@ -53,14 +53,16 @@ export function ContinuousLineArt({ type, className = '' }: ContinuousLineArtPro
       )
     case 'smartphone':
     case 'mobile':
+    case 'phone':
       return (
         <svg className={baseClass} viewBox="0 0 160 120" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path
             className="continuous-path"
-            d="M 50,15 C 50,15 110,15 110,15 C 115,15 120,20 120,25 L 120,95 C 120,100 115,105 110,105 L 50,105 C 45,105 40,100 40,95 L 40,25 C 40,20 45,15 50,15 Z M 40,30 L 120,30 M 40,90 L 120,90 M 70,22 L 90,22"
+            d="M 52,12 C 40,12 38,20 38,32 L 38,92 C 38,104 45,110 60,110 L 100,110 C 112,110 118,102 118,92 L 118,32 C 118,20 112,12 100,12 Z M 38,28 L 118,28 M 38,92 L 118,92 M 72,20 L 84,20"
           />
-          <path className="scribble-accent-path" d="M 60,50 C 70,40 90,60 100,50 M 60,70 L 100,70" strokeWidth="2" opacity="0.85" />
-          <path className="scribble-loop-path" d="M 125,20 C 135,12 145,22 135,32" strokeWidth="1.8" opacity="0.75" />
+          <path className="scribble-accent-path" d="M 52,42 C 65,32 85,50 102,40 M 52,60 L 102,60 M 52,76 C 70,72 82,82 102,75" strokeWidth="2" opacity="0.85" />
+          <circle cx="78" cy="101" r="3.5" strokeWidth="1.8" />
+          <path className="scribble-loop-path" d="M 125,25 C 138,15 148,30 135,42 C 122,50 142,60 132,70" strokeWidth="1.8" opacity="0.75" />
         </svg>
       )
     default:

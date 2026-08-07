@@ -431,3 +431,59 @@
   color: #059669;
   font-weight: 900;
 }
+
+/* ── KONTAK SUCCESS SCREEN STYLES ── */
+.kontak-success {
+  padding: 3.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  background: #ffffff;
+  border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+}
+
+.kontak-success__icon-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #e6f4ea;
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 4px 4px 0 #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.kontak-success__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+  color: #1e1b4b;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.kontak-success__desc {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.6;
+  max-width: 44ch;
+  margin: 0 auto;
+}
+
+.kontak-success__tag-wrap {
+  margin: 0.25rem 0 1rem;
+}
+
+.kontak-success__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 0.5rem;
+}

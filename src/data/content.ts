@@ -29,7 +29,7 @@ export const services = [
   {
     id: 'aplikasi-mobile',
     icon: 'smartphone',
-    badge: '📱 Android & iOS',
+    badge: 'Android & iOS',
     popular: true,
     title: 'Pengembangan Aplikasi Mobile',
     description: 'Aplikasi Android & iOS kustom (Flutter / React Native) untuk operasional bisnis, CRM, kasir/POS, katalog digital, atau MVP startup.',
@@ -39,7 +39,7 @@ export const services = [
   {
     id: 'website-katalog',
     icon: 'shopping-bag',
-    badge: '🔥 Best Seller',
+    badge: 'Best Seller',
     popular: false,
     title: 'Website Katalog & Toko',
     description: 'Toko online modern dengan sistem katalog produk rapi, checkout via WhatsApp, dan integrasi Payment Link.',

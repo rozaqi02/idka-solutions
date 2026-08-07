@@ -244,42 +244,62 @@ export default function Kontak({ addToast }: KontakProps) {
             {/* Form */}
             <div className="kontak-form-wrap art-card art-card--v1 reveal reveal--left">
               {submitted ? (
-                <div className="kontak-success neu-raised" role="status" aria-live="polite">
-                  <div className="kontak-success__icon" aria-hidden="true">&#10004;</div>
-                  <h2 className="kontak-success__title">Brief Siap Dikirim</h2>
+                <div className="kontak-success" role="status" aria-live="polite">
+                  <div className="kontak-success__icon-wrap" aria-hidden="true">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                  </div>
+
+                  <h2 className="kontak-success__title artistic-title">
+                    Brief Siap Dikirim
+                    <ScribbleUnderline variant="wavy" />
+                  </h2>
+
                   <p className="kontak-success__desc">
                     {waFallbackUrl
                       ? 'Popup diblokir browser. Klik tombol di bawah untuk membuka WhatsApp dengan detail brief Anda.'
                       : 'WhatsApp telah dibuka dengan detail brief Anda. Kami akan membalas pada jam kerja.'}
                   </p>
-                  <p className="kontak-success__storage">
-                    {briefStored
-                      ? 'Salinan brief juga berhasil tersimpan untuk tim IDKA.'
-                      : 'Brief belum tersimpan sebagai cadangan. Pastikan pesan WhatsApp terkirim agar kami dapat menindaklanjuti.'}
-                  </p>
-                  {waFallbackUrl && (
-                    <a
-                      href={waFallbackUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-wa"
-                      style={{ marginBottom: '0.75rem', width: '100%', maxWidth: 280 }}
+                  
+                  <div className="kontak-success__tag-wrap">
+                    <span className="art-card__tag-doodle">
+                      <span className="art-card__tag-bullet">•</span>{' '}
+                      {briefStored
+                        ? 'Salinan brief juga berhasil tersimpan untuk tim IDKA.'
+                        : 'Brief belum tersimpan sebagai cadangan. Pastikan pesan WhatsApp terkirim.'}
+                    </span>
+                  </div>
+
+                  <div className="kontak-success__actions">
+                    {waFallbackUrl && (
+                      <a
+                        href={waFallbackUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="art-card__btn-doodle"
+                        style={{ width: '100%', justifyContent: 'center' }}
+                      >
+                        <span>Buka WhatsApp</span>
+                        <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                        </svg>
+                      </a>
+                    )}
+                    <button
+                      type="button"
+                      className="art-card__btn-doodle"
+                      style={{ width: '100%', justifyContent: 'center' }}
+                      onClick={() => {
+                        setForm(initialForm)
+                        setSubmitted(false)
+                        setWaFallbackUrl(null)
+                      }}
                     >
-                      Buka WhatsApp
-                    </a>
-                  )}
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    style={{ width: '100%', maxWidth: 280 }}
-                    onClick={() => {
-                      setForm(initialForm)
-                      setSubmitted(false)
-                      setWaFallbackUrl(null)
-                    }}
-                  >
-                    Kirim Brief Lain
-                  </button>
+                      <span>Kirim Brief Lain</span>
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form
