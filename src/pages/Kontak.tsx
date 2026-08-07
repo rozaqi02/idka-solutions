@@ -6,6 +6,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
+import ScribbleUnderline from '../components/ScribbleUnderline'
 import './Kontak.css'
 
 type FormData = {
@@ -215,17 +216,18 @@ export default function Kontak({ addToast }: KontakProps) {
   }
 
   return (
-    <div className="kontak-page">
+    <div className="layanan-page kontak-page">
       {/*  Apple Business Page Header */}
-      <section className="apple-hero page-header section" aria-labelledby="kontak-heading" data-hero-enter="kontak">
+      <section className="apple-hero page-header section artistic-hero" aria-labelledby="kontak-heading" data-hero-enter="kontak">
         <div className="container">
           <div className="apple-hero__inner">
-            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">
-              Hubungi IDKA Solutions
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
+              <span>Hubungi IDKA Solutions</span>
             </div>
-            <h1 id="kontak-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+            <h1 id="kontak-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
               <WordReveal>Sampaikan Kebutuhan,</WordReveal>{' '}
               <WordReveal className="apple-hero__title-accent">Kami Siapkan Solusinya.</WordReveal>
+              <ScribbleUnderline variant="zigzag" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Konsultasi langsung via WhatsApp atau isi brief singkat di bawah. Respon cepat 1-3 jam kerja.{' '}
@@ -236,11 +238,11 @@ export default function Kontak({ addToast }: KontakProps) {
       </section>
 
       {/* Contact Section */}
-      <section className="section kontak-section">
+      <section className="section section--tint layanan-artistic-section kontak-section">
         <div className="container">
           <div className="kontak-grid">
             {/* Form */}
-            <div className="kontak-form-wrap reveal reveal--left">
+            <div className="kontak-form-wrap art-card art-card--v1 reveal reveal--left">
               {submitted ? (
                 <div className="kontak-success neu-raised" role="status" aria-live="polite">
                   <div className="kontak-success__icon" aria-hidden="true">&#10004;</div>

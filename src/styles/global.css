@@ -39,7 +39,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed — it causes wheel-scroll events
+     to "stack" and feel sticky/janky. Programmatic scroll (ScrollRestorer,
+     anchor links) already uses scrollTo with behavior:'auto'. */
 }
 
 body {
@@ -49,7 +51,6 @@ body {
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
   min-height: 100%;
   background-image: radial-gradient(rgba(41, 34, 30, 0.055) 0.7px, transparent 0.7px);
   background-size: 7px 7px;
@@ -60,6 +61,19 @@ body {
   max-width: 100%;
   overflow-x: clip;
   padding-top: var(--navbar-height, 48px);
+  min-height: calc(100vh - var(--navbar-height, 48px));
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.page-enter {
+  width: 100%;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--navbar-height, 48px) - 300px);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 a {
@@ -177,7 +191,6 @@ ul, ol {
 }
 .btn-primary, .btn-secondary { border-radius: 4px 18px 4px 18px; }
 .section-header { position: relative; }
-.section-header::after { content: '✳'; display: block; color: var(--accent); font-size: 1.1rem; margin-top: .8rem; }
 
 /* Hero section - light like Apple Business */
 .hero.section,
@@ -275,7 +288,8 @@ ul, ol {
   text-align: center;
   background-color: #f5f5f7;
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .apple-hero__inner {
@@ -1106,3 +1120,691 @@ ul, ol {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   GLOBAL DESIGN SYSTEM: ARTISTIC DOODLE & 3D STICKER VISUAL IDENTITY
+   ========================================================================== */
+
+/* 1. Artistic Titles & Underlines */
+.artistic-title {
+  position: relative;
+  display: inline-block;
+}
+
+.scribble-underline-svg {
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  color: #5e17eb;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.scribble-underline-svg--wavy { color: #5e17eb; }
+.scribble-underline-svg--double { color: #6366f1; }
+.scribble-underline-svg--zigzag { color: #d97706; }
+.scribble-underline-svg--arc { color: #059669; }
+
+/* 2. HandDrawn Badge Component */
+.doodle-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #1e1b4b;
+  box-sizing: border-box;
+}
+
+.doodle-badge__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #5e17eb;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.doodle-badge__text {
+  position: relative;
+  z-index: 1;
+}
+
+.doodle-badge--oval { transform: rotate(-1deg); }
+.doodle-badge--tape { transform: rotate(1.5deg); }
+.doodle-badge--cloud { transform: rotate(-0.5deg); }
+
+/* 3. 3D WhatsApp Green CTA Button */
+.btn-wa-3d {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+  border: 3px solid #86efac;
+  border-radius: 980px;
+  padding: 12px 28px;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 8px 0 #14532d, 0 12px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-wa-3d:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 11px 0 #14532d, 0 16px 25px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+.btn-wa-3d__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #16a34a;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── SHARED ART CANVAS STUDIO DESIGN SYSTEM ────────────────────────────
+   Used across Home, Layanan, Produk, Portofolio, TentangKami, Kontak.
+   ──────────────────────────────────────────────────────────────────── */
+
+/* Doodle Tag (section badge) */
+.doodle-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border: 2px solid #1e1b4b;
+  background: #ffffff;
+  color: #5e17eb;
+  font-weight: 800;
+  font-size: 0.85rem;
+  box-shadow: 3px 3px 0px #1e1b4b;
+  transform: rotate(-1.5deg);
+  margin-bottom: 1.25rem;
+}
+
+/* Artistic Title (hand-lettered heading) */
+.artistic-title {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  color: #111827 !important;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+/* Artistic subtitle */
+.artistic-subtitle {
+  font-size: 1.1rem;
+  color: #4b5563 !important;
+  line-height: 1.6;
+}
+
+/* Artistic section header wrapper */
+.artistic-header {
+  position: relative;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+/* Art Canvas Doodle Button */
+.art-card__btn-doodle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 2px solid #1e1b4b;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1e1b4b;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #1e1b4b;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  line-height: 1;
+}
+
+.art-card__btn-doodle:hover {
+  background: #5e17eb;
+  color: #ffffff;
+  box-shadow: 5px 5px 0px #1e1b4b;
+  transform: translate(-2px, -2px);
+}
+
+.art-card__btn-arrow {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.art-card__btn-doodle:hover .art-card__btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Art card tags */
+.art-card__tag-doodle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #374151;
+  padding: 3px 10px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border: 1.5px solid #d1d5db;
+  background: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.art-card__tag-bullet {
+  color: #5e17eb;
+}
+
+.art-card:hover .art-card__tag-doodle {
+  border-color: #1e1b4b;
+  background: #f3e8ff;
+  color: #1e1b4b;
+}
+
+/* Art card footer separator */
+.art-card__footer {
+  padding-top: 1rem;
+  border-top: 2px dashed rgba(30, 27, 75, 0.15);
+}
+
+/* Art card tags row */
+.art-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 0.25rem;
+}
+
+/* Art card content area */
+.art-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Art card title */
+.art-card__title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #1e1b4b !important;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.25;
+}
+
+/* Art card description */
+.art-card__desc {
+  font-size: 0.96rem;
+  color: #4b5563 !important;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Art card continuous line SVG illustration area */
+.art-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.art-card__illustration {
+  width: 120px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e1b4b;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.art-card--purple .art-card__illustration { color: #6366f1; }
+.art-card--indigo .art-card__illustration { color: #5e17eb; }
+.art-card--amber  .art-card__illustration { color: #d97706; }
+.art-card--emerald .art-card__illustration { color: #059669; }
+
+.art-card:hover .art-card__illustration { transform: scale(1.06); }
+
+/* Art card variant colors & sketchbook asymmetry */
+.art-card--v1 {
+  background: #ffffff;
+  border-color: #1e1b4b;
+  border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  box-shadow: 6px 6px 0px #5e17eb;
+  transform: rotate(-0.6deg);
+}
+
+.art-card--v1:hover {
+  transform: translateY(-8px) rotate(0.8deg);
+  box-shadow: 12px 12px 0px #1e1b4b;
+}
+
+.art-card--v2 {
+  background: #faf7ff;
+  border-color: #1e1b4b;
+  border-radius: 20px 255px 20px 225px / 225px 20px 255px 20px;
+  box-shadow: 6px 6px 0px #7c3aed;
+  transform: rotate(0.8deg);
+}
+
+.art-card--v2:hover {
+  transform: translateY(-8px) rotate(-1.2deg);
+  box-shadow: 12px 12px 0px #5e17eb;
+}
+
+.art-card--v3 {
+  background: #fffdf8;
+  border-color: #1e1b4b;
+  border-radius: 225px 20px 255px 20px / 20px 255px 20px 225px;
+  box-shadow: 6px 6px 0px #d97706;
+  transform: rotate(-0.9deg);
+}
+
+.art-card--v3:hover {
+  transform: translateY(-8px) rotate(0.6deg);
+  box-shadow: 12px 12px 0px #d97706;
+}
+
+.art-card--v4 {
+  background: #f4fdf8;
+  border-color: #1e1b4b;
+  border-radius: 25px 225px 25px 255px / 255px 25px 225px 25px;
+  box-shadow: 6px 6px 0px #059669;
+  transform: rotate(0.6deg);
+}
+
+.art-card--v4:hover {
+  transform: translateY(-8px) rotate(-0.7deg);
+  box-shadow: 12px 12px 0px #059669;
+}
+
+.art-card--featured {
+  background: linear-gradient(135deg, #ffffff 0%, #f3e8ff 55%, #ffeef8 100%) !important;
+  border-color: #5e17eb !important;
+  box-shadow: 8px 8px 0px #5e17eb !important;
+}
+
+.art-card--featured:hover {
+  transform: translateY(-10px) scale(1.015) rotate(0.4deg) !important;
+  box-shadow: 14px 14px 0px #1e1b4b !important;
+}
+
+
+/* Continuous line SVG */
+.continuous-line-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.continuous-path {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.art-card:hover .continuous-path {
+  animation: drawContinuousLine 1.6s ease forwards;
+}
+
+@keyframes drawContinuousLine {
+  0%   { stroke-dashoffset: 800; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Artistic grid (2-col for services) */
+.artistic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+@media (max-width: 868px) {
+  .artistic-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ── PORTFOLIO PREVIEW CARD — ART CANVAS STYLE ──────────────────────────
+   Redesign: removes generic browser-bar, adopts ink-border, parchment bg,
+   hand-drawn thumbnails, and scribble accent details.
+   ───────────────────────────────────────────────────────────────────────── */
+.portfolio-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+/* Card wrapper — extends art-card base */
+.portfolio-preview-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  gap: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+/* ── VISUAL / SCREENSHOT AREA ───────────────────────────────────────────── */
+.portfolio-preview-card__visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #f0ebff;
+  /* Ink border bottom separating visual from body */
+  border-bottom: 2px solid #1e1b4b;
+}
+
+/* Browser-style address bar — slim, artistic */
+.portfolio-preview-card__browser-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 28px;
+  background: rgba(251, 249, 244, 0.95);
+  border-bottom: 1.5px solid rgba(30, 27, 75, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  backdrop-filter: blur(4px);
+}
+
+.portfolio-preview-card__browser-dots {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.portfolio-preview-card__browser-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(30, 27, 75, 0.25);
+}
+
+.portfolio-preview-card__browser-dots .dot--red    { background: #ff5f57; border-color: #e0443e; }
+.portfolio-preview-card__browser-dots .dot--yellow { background: #ffbd2e; border-color: #dea123; }
+.portfolio-preview-card__browser-dots .dot--green  { background: #28c840; border-color: #1aac29; }
+
+/* URL text — mono font, slim */
+.portfolio-preview-card__url-text {
+  flex: 1;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.68rem;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: rgba(30, 27, 75, 0.05);
+  border-radius: 255px;
+  padding: 1px 8px;
+  border: 1px solid rgba(30, 27, 75, 0.1);
+}
+
+.portfolio-preview-card__url-bar {
+  flex: 1;
+  height: 14px;
+  border-radius: 255px;
+  background: rgba(30, 27, 75, 0.07);
+  border: 1px solid rgba(30, 27, 75, 0.1);
+}
+
+/* Screenshot image */
+.portfolio-preview-card__screenshot {
+  display: block;
+  width: 100%;
+  height: calc(100% - 28px);
+  object-fit: cover;
+  object-position: top center;
+  margin-top: 28px;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: scale(1.02);
+}
+
+.portfolio-preview-card__screenshot--ready {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.portfolio-preview-card__screenshot--fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  opacity: 1;
+  transform: none;
+}
+
+/* Placeholder (no screenshot) */
+.portfolio-preview-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+/* Hover zoom on screenshot */
+.portfolio-preview-card:hover .portfolio-preview-card__screenshot {
+  transform: scale(1.04);
+}
+
+/* ── CARD BODY ───────────────────────────────────────────────────────────── */
+.portfolio-preview-card__body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.portfolio-preview-card__top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Category badge — doodle style */
+.portfolio-preview-card__category {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5e17eb;
+  padding: 2px 10px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border: 1.5px solid rgba(94, 23, 235, 0.3);
+  background: rgba(94, 23, 235, 0.06);
+}
+
+.portfolio-preview-card__title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #1e1b4b !important;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.portfolio-preview-card__desc {
+  font-size: 0.88rem;
+  color: #4b5563 !important;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Tags row */
+.portfolio-preview-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.25rem;
+}
+
+/* "Visit site" / "See detail" link */
+.portfolio-preview-card__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1.5px dashed rgba(30, 27, 75, 0.15);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #5e17eb;
+  letter-spacing: 0.01em;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.portfolio-preview-card:hover .portfolio-preview-card__go {
+  gap: 10px;
+  color: #1e1b4b;
+}
+
+@media (max-width: 768px) {
+  .portfolio-preview-grid { grid-template-columns: 1fr; }
+}
+
+/* ── COMPREHENSIVE MOBILE UI/UX RESPONSIVENESS SYSTEM ──────────────────────
+   Ensures 100% fit, seamless scaling, zero horizontal overflow, and smooth
+   touch interactions on smartphones and tablet screens.
+   ───────────────────────────────────────────────────────────────────────── */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-gutter: 1.15rem;
+  }
+
+  /* Responsive artistic titles */
+  .artistic-title {
+    font-size: clamp(1.65rem, 6.8vw, 2.5rem) !important;
+    line-height: 1.15 !important;
+  }
+
+  .artistic-subtitle {
+    font-size: 0.98rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Doodle tag badge scale */
+  .doodle-tag {
+    padding: 5px 12px;
+    font-size: 0.78rem;
+    box-shadow: 2px 2px 0px #1e1b4b;
+  }
+
+  .scribble-underline-svg {
+    bottom: -12px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Art Canvas Cards on small mobile */
+  .art-card {
+    padding: 1.4rem 1.2rem 1.25rem !important;
+    gap: 1.15rem;
+    box-shadow: 4px 4px 0px #1e1b4b !important;
+    transform: rotate(0deg) !important;
+  }
+
+  .art-card--v1,
+  .art-card--v2,
+  .art-card--v3,
+  .art-card--v4 {
+    transform: rotate(0deg) !important;
+  }
+
+  .art-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 8px 8px 0px #5e17eb !important;
+  }
+
+  .art-card__illustration {
+    width: 85px;
+    height: 60px;
+  }
+
+  /* Full-width doodle buttons on mobile */
+  .art-card__btn-doodle {
+    width: 100%;
+    justify-content: center;
+    padding: 0.65rem 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  /* Hero section actions row stack */
+  .apple-hero__actions,
+  .artistic-hero .apple-hero__actions {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .apple-hero__actions .art-card__btn-doodle {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Hero value chips responsive wrap */
+  .home-value-row {
+    gap: 6px;
+  }
+
+  .home-value-chip__btn {
+    font-size: 0.76rem;
+    padding: 4px 10px;
+  }
+}
+
+/* Touch feedback for mobile devices */
+@media (hover: none) {
+  .art-card:active,
+  .art-card__btn-doodle:active,
+  .localnav__cta-btn:active,
+  .home-value-chip__btn:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s ease;
+  }
+}
+
+

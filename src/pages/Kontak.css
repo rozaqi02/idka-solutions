@@ -1,15 +1,17 @@
-/* =============================================
-   KONTAK PAGE — APPLE BUSINESS DESIGN SYSTEM
+﻿/* =============================================
+   KONTAK PAGE — ART CANVAS STUDIO DESIGN SYSTEM
+   Selaras 100% dengan Layanan.css & Home.css
    ============================================= */
 
 .kontak-page {
-  background-color: #f5f5f7;
-  color: #1d1d1f;
+  background-color: #fbf9f4; /* parchment art canvas */
+  color: #1e1b4b;
   min-height: 100vh;
 }
 
 .kontak-section {
   padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  background: #fbf9f4;
 }
 
 /* Kontak Grid Layout */
@@ -27,10 +29,10 @@
 
 .kontak-form {
   background: #ffffff;
-  border-radius: 28px;
+  border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
   padding: clamp(1.75rem, 4vw, 3rem);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 6px 6px 0px #1e1b4b;
 }
 
 .kontak-form__head {
@@ -44,14 +46,14 @@
 .kontak-form__title {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-  font-weight: 700;
-  color: #1d1d1f;
+  font-weight: 900;
+  color: #1e1b4b;
   line-height: 1.2;
 }
 
 .kontak-form__subtitle {
   font-size: 0.925rem;
-  color: #515154;
+  color: #4b5563;
   margin-top: 4px;
   line-height: 1.5;
 }
@@ -61,42 +63,50 @@
   max-width: 34ch;
   font-size: .875rem;
   line-height: 1.5;
-  color: var(--text-secondary);
+  color: #4b5563;
 }
 
 .kontak-form__skip {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 14px;
-  border-radius: 980px;
-  background: #25d366;
-  color: #ffffff !important;
-  font-size: 0.8rem;
-  font-weight: 600;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: #ffffff;
+  border: 2px solid #1e1b4b;
+  color: #1e1b4b !important;
+  font-size: 0.85rem;
+  font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: background 0.15s ease;
+  box-shadow: 3px 3px 0 #1e1b4b;
+  transition: all 0.2s ease;
 }
 
 .kontak-form__skip:hover {
-  background: #22c55e;
+  background: #25d366;
+  color: #ffffff !important;
+  border-color: #1e1b4b;
+  box-shadow: 5px 5px 0 #1e1b4b;
+  transform: translate(-1px, -1px);
 }
 
 /* Progress Step Indicator */
 .kontak-progress {
-  background: #f5f5f7;
-  border-radius: 20px;
+  background: #fbf9f4;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
   padding: 1.25rem;
   margin-bottom: 2rem;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 2px solid #1e1b4b;
+  box-shadow: 3px 3px 0 #1e1b4b;
 }
 
 .kontak-progress__bar {
-  height: 6px;
+  height: 8px;
   border-radius: 980px;
-  background: #e8e8ed;
+  background: #e5e7eb;
+  border: 1.5px solid #1e1b4b;
   overflow: hidden;
   margin-bottom: 1rem;
 }
@@ -104,7 +114,7 @@
 .kontak-progress__fill {
   display: block;
   height: 100%;
-  background: var(--primary);
+  background: #5e17eb;
   border-radius: 980px;
   transition: width 0.35s var(--ease-out);
 }
@@ -123,47 +133,52 @@
   align-items: center;
   gap: 8px;
   font-size: 0.85rem;
-  color: #86868b;
-}
-
-.kontak-progress__step--done {
-  color: var(--primary);
+  color: #6b7280;
   font-weight: 600;
 }
 
+.kontak-progress__step--done {
+  color: #5e17eb;
+  font-weight: 800;
+}
+
 .kontak-progress__step--active {
-  color: #1d1d1f;
-  font-weight: 700;
+  color: #1e1b4b;
+  font-weight: 900;
 }
 
 .kontak-progress__num {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #e8e8ed;
-  color: #515154;
+  background: #ffffff;
+  border: 1.5px solid #1e1b4b;
+  color: #1e1b4b;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .kontak-progress__step--done .kontak-progress__num {
-  background: var(--primary);
+  background: #5e17eb;
+  border-color: #1e1b4b;
   color: #ffffff;
 }
 
 .kontak-progress__step--active .kontak-progress__num {
-  background: #1d1d1f;
+  background: #1e1b4b;
+  border-color: #1e1b4b;
   color: #ffffff;
 }
 
 .kontak-progress__hint {
   font-size: 0.775rem;
-  color: #86868b;
+  color: #6b7280;
   margin-top: 0.75rem;
   text-align: right;
+  font-weight: 600;
 }
 
 /* Form Section Blocks */
@@ -173,7 +188,7 @@
   gap: 1.25rem;
   margin-bottom: 2rem;
   padding-bottom: 1.75rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 2px dashed rgba(30, 27, 75, 0.18);
 }
 
 .form-section:last-of-type {
@@ -183,11 +198,11 @@
 }
 
 .form-section__title {
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--primary);
+  color: #5e17eb;
 }
 
 .form-grid {
@@ -208,12 +223,12 @@
 
 .form-label {
   font-size: 0.875rem;
-  font-weight: 600;
-  color: #1d1d1f;
+  font-weight: 700;
+  color: #1e1b4b;
 }
 
 .form-required {
-  color: #ff3b30;
+  color: #ef4444;
 }
 
 .form-input,
@@ -222,10 +237,10 @@
   width: 100%;
   padding: 12px 16px;
   border-radius: 14px;
-  border: 1px solid #d2d2d7;
-  background: #f5f5f7;
+  border: 2px solid #1e1b4b;
+  background: #fbf9f4;
   font-size: 0.95rem;
-  color: #1d1d1f;
+  color: #1e1b4b;
   font-family: var(--font-sans);
   outline: none;
   transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
@@ -234,316 +249,26 @@
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
-  border-color: var(--primary);
+  border-color: #5e17eb;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(94, 23, 235, 0.15);
+  box-shadow: 3px 3px 0 #5e17eb;
 }
 
 .form-input--error,
 .form-select--error,
 .form-textarea--error {
-  border-color: #ff3b30 !important;
+  border-color: #ef4444 !important;
   background: #fff5f5 !important;
 }
 
 .form-error {
   font-size: 0.775rem;
-  color: #ff3b30;
-  font-weight: 500;
-}
-
-/* Form Footer */
-.kontak-form__footer {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.kontak-form__submit {
-  width: 100%;
-  border-radius: 980px !important;
-  padding: 14px 24px;
-  font-size: 1rem;
+  color: #ef4444;
   font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: #25d366;
-  color: #ffffff;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.28);
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.kontak-form__submit:hover {
-  background: #22c55e;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.38);
-}
-
-.kontak-form__footnote {
-  font-size: 0.8rem;
-  color: #86868b;
-  text-align: center;
-  line-height: 1.4;
-}
-
-.kontak-form__spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Success Card */
-.kontak-success {
-  background: #ffffff;
-  border-radius: 28px;
-  padding: 3rem 2rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.kontak-success__icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: #34c759;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  margin-bottom: 1.25rem;
-}
-
-.kontak-success__title {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1d1d1f;
-  margin-bottom: 0.75rem;
-}
-
-.kontak-success__desc {
-  font-size: 1rem;
-  color: #515154;
-  line-height: 1.55;
-  max-width: 480px;
-  margin-bottom: 1.75rem;
-}
-
-/* Sidebar Info Cards */
-.kontak-info {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.kontak-info__card {
-  background: #ffffff;
-  border-radius: 28px;
-  padding: 2rem 1.75rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-}
-
-.kontak-info__title {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #1d1d1f;
-  margin-bottom: 4px;
-}
-
-.kontak-info__desc {
-  font-size: 0.9rem;
-  color: #515154;
-  margin-bottom: 1.5rem;
-}
-
-.kontak-channels {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.kontak-channel {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 16px;
-  border-radius: 18px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.kontak-channel:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-}
-
-.kontak-channel__icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-}
-
-.kontak-channel__label {
-  font-size: 0.775rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #86868b;
-}
-
-.kontak-channel__value {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #1d1d1f;
-}
-
-.kontak-channel__arrow {
-  margin-left: auto;
-  color: var(--primary);
-  flex-shrink: 0;
-}
-
-/* Response Time Card */
-.kontak-response {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.kontak-response__icon {
-  font-size: 1.8rem;
-  flex-shrink: 0;
-}
-
-.kontak-response__title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #1d1d1f;
-}
-
-.kontak-response__desc {
-  font-size: 0.85rem;
-  color: #515154;
-  margin-top: 2px;
-}
-
-/* Payment Info Card */
-.kontak-payment {
-  background: #ffffff;
-  border-radius: 24px;
-  padding: 1.75rem 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-}
-
-.kontak-payment__title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1d1d1f;
-  margin-bottom: 1rem;
-}
-
-.kontak-payment__items {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.kontak-payment__item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
-  color: #515154;
-}
-
-.kontak-payment__bullet {
-  color: var(--primary);
-  font-size: 0.7rem;
-}
-
-/* Responsive */
 @media (max-width: 900px) {
   .kontak-grid {
     grid-template-columns: 1fr;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .kontak-info {
-    order: 2;
-  }
-
-  .kontak-form-wrap {
-    order: 1;
-  }
-}
-
-@media (max-width: 480px) {
-  .kontak-progress__label {
-    display: none;
-  }
-
-  .kontak-form__head {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .kontak-form__skip {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .kontak-form {
-    padding: 1.25rem 1rem;
-    border-radius: 20px;
-  }
-
-  .kontak-form__submit {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .kontak-channel {
-    min-width: 0;
-  }
-
-  .kontak-channel__value {
-    word-break: break-word;
   }
 }

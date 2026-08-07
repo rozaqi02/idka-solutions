@@ -1,0 +1,334 @@
+/* =============================================
+   REFERENCE VISUAL REPLICA STYLES (1080x1350)
+   ============================================= */
+
+.react-ig-preview-page {
+  background-color: #0c0a13;
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  color: #f3f4f6;
+}
+
+.preview-page-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+
+.preview-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0.75rem 0;
+}
+
+.preview-sub {
+  font-size: 1.1rem;
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.tab-btn {
+  padding: 10px 22px;
+  border-radius: 980px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: #181722;
+  color: #cbd5e1;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tab-btn:hover {
+  border-color: #a855f7;
+  color: #ffffff;
+}
+
+.tab-btn--active {
+  background: #9333ea;
+  border-color: #a855f7;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(147, 51, 234, 0.4);
+}
+
+.preview-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.ig-frame-wrapper {
+  transform-origin: top center;
+  zoom: 0.55; /* Scaled preview for dev view */
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .ig-frame-wrapper {
+    zoom: 0.32;
+  }
+}
+
+.export-canvas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background: #000;
+}
+
+/* =============================================
+   1080x1350 CANVAS - EXACT REFERENCE DESIGN
+   ============================================= */
+
+.ref-ig-canvas {
+  position: relative;
+  width: 1080px;
+  height: 1350px;
+  box-sizing: border-box;
+  padding: 65px 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+  background: linear-gradient(155deg, #4c1d95 0%, #6b21a8 30%, #7e22ce 65%, #9333ea 100%);
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.25);
+}
+
+/* Background Overlays */
+.ref-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.geo-cubes {
+  position: absolute;
+  color: #ffffff;
+}
+
+.geo-cubes--top {
+  top: 20px;
+  left: 20px;
+  width: 320px;
+  height: 320px;
+}
+
+.geo-cubes--bot {
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  height: 320px;
+}
+
+.doodle-watermark {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  width: 300px;
+  height: 300px;
+  color: #ffffff;
+}
+
+/* Header Bar (Logo Top Right) */
+.ref-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 2;
+  margin-top: 10px;
+}
+
+.ref-logo-img {
+  height: 75px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+}
+
+/* Main Center Content */
+.ref-center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 2;
+  margin-bottom: 50px;
+}
+
+/* GIANT WHITE 3D STICKER TEXT TITLE */
+.ref-title-3d {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.title-line {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1.05;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  -webkit-text-stroke: 6px #2e1065;
+  text-shadow:
+    0 8px 0 #2e1065,
+    0 14px 0 #2e1065,
+    0 18px 25px rgba(46, 16, 101, 0.8);
+  paint-order: stroke fill;
+}
+
+.title-line--highlight {
+  font-size: 110px;
+  letter-spacing: 3px;
+}
+
+/* SUBTITLE MAGENTA PINK WITH DOODLE */
+.ref-subtitle-wrap {
+  position: relative;
+  margin-bottom: 50px;
+  display: inline-block;
+}
+
+.ref-subtitle {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-size: 42px;
+  line-height: 1.25;
+  font-weight: 900;
+  color: #ec4899;
+  margin: 0;
+  -webkit-text-stroke: 3px #ffffff;
+  text-shadow:
+    0 6px 0 #2e1065,
+    0 10px 18px rgba(0,0,0,0.4);
+  paint-order: stroke fill;
+}
+
+.ref-pink-doodle {
+  position: absolute;
+  right: -60px;
+  bottom: -20px;
+  width: 130px;
+  height: 50px;
+  overflow: visible;
+}
+
+/* SPECS GRID (For Post 2 & Post 3) */
+.ref-specs-grid {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 45px;
+}
+
+.spec-pill {
+  background: #ffffff;
+  color: #2e1065;
+  font-weight: 900;
+  font-size: 24px;
+  padding: 14px 28px;
+  border-radius: 980px;
+  border: 3px solid #2e1065;
+  box-shadow: 0 8px 0 #2e1065, 0 12px 20px rgba(0,0,0,0.3);
+}
+
+/* STEPS STACK (For Post 4) */
+.ref-steps-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 780px;
+  margin-bottom: 45px;
+}
+
+.step-pill-3d {
+  background: #ffffff;
+  color: #2e1065;
+  font-weight: 900;
+  font-size: 26px;
+  padding: 16px 36px;
+  border-radius: 980px;
+  border: 3.5px solid #2e1065;
+  box-shadow: 0 8px 0 #2e1065, 0 12px 20px rgba(0,0,0,0.3);
+  text-align: left;
+}
+
+/* 3D GREEN WHATSAPP CTA BUTTON */
+.ref-wa-btn-3d {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+  border: 4px solid #86efac;
+  border-radius: 980px;
+  padding: 16px 48px 16px 20px;
+  box-shadow:
+    0 16px 0 #14532d,
+    0 24px 35px rgba(0, 0, 0, 0.45);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  max-width: 860px;
+}
+
+.ref-wa-btn-3d:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 0 #14532d,
+    0 28px 40px rgba(0, 0, 0, 0.5);
+}
+
+.ref-wa-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #16a34a;
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.ref-wa-text-wrap {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.ref-wa-title {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.ref-wa-sub {
+  font-size: 20px;
+  font-weight: 700;
+  color: #dcfce7;
+  margin-top: 4px;
+}

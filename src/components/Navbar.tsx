@@ -4,6 +4,27 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { company } from '../data/content'
 import './Navbar.css'
 
+/* Inline SVG scribble underline for active desktop nav link */
+function NavScribble() {
+  return (
+    <svg
+      className="localnav__scribble"
+      viewBox="0 0 80 10"
+      fill="none"
+      aria-hidden="true"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M 2 7 C 18 2, 38 9, 58 4 C 68 2, 74 7, 78 5"
+        stroke="currentColor"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 const navLinks = [
   { to: '/', label: 'Beranda' },
   { to: '/layanan', label: 'Layanan' },
@@ -92,39 +113,73 @@ export default function Navbar() {
     portalReady &&
     createPortal(
       <>
+        {/* Dim backdrop */}
         <div
           className={`localnav-backdrop${menuOpen ? ' localnav-backdrop--visible' : ''}`}
           aria-hidden="true"
           onClick={closeMenu}
         />
 
+        {/* Right-side sidebar drawer */}
         <div
           ref={mobileMenuRef}
           id="localnav-mobile-menu"
-          className={`localnav-mobile${menuOpen ? ' localnav-mobile--open' : ''}`}
+          className={`localnav-sidebar${menuOpen ? ' localnav-sidebar--open' : ''}`}
           aria-hidden={!menuOpen}
           role="dialog"
           aria-modal={menuOpen}
           aria-label="Menu navigasi"
         >
-          <nav aria-label="Navigasi mobile" className="localnav-mobile__nav">
-            {navLinks.map((link) => (
+          {/* Sidebar header */}
+          <div className="localnav-sidebar__header">
+            <NavLink to="/" className="localnav-sidebar__logo" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+              <img
+                src="/logo-idka-solutions-nav.png"
+                alt="IDKA Solutions"
+                height={30}
+                width={100}
+                decoding="async"
+              />
+            </NavLink>
+            <button
+              type="button"
+              className="localnav-sidebar__close"
+              onClick={closeMenu}
+              aria-label="Tutup menu"
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              {/* X icon — continuous line art */}
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+                <path d="M 3 3 L 17 17 M 17 3 L 3 17" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Nav links */}
+          <nav aria-label="Navigasi mobile" className="localnav-sidebar__nav">
+            {navLinks.map((link, i) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 tabIndex={menuOpen ? 0 : -1}
                 className={({ isActive }) =>
-                  `localnav-mobile__link${isActive ? ' localnav-mobile__link--active' : ''}`
+                  `localnav-sidebar__link${isActive ? ' localnav-sidebar__link--active' : ''}`
                 }
                 end={link.to === '/'}
                 onClick={closeMenu}
               >
-                {link.label}
+                <span className="localnav-sidebar__link-num">0{i + 1}</span>
+                <span className="localnav-sidebar__link-label">{link.label}</span>
+                {/* Scribble arrow */}
+                <svg className="localnav-sidebar__link-arrow" width="20" height="12" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                </svg>
               </NavLink>
             ))}
           </nav>
 
-          <div className="localnav-mobile__footer">
+          {/* Footer CTA */}
+          <div className="localnav-sidebar__footer">
             <a
               href={waUrl}
               target="_blank"
@@ -133,8 +188,9 @@ export default function Navbar() {
               tabIndex={menuOpen ? 0 : -1}
               onClick={closeMenu}
             >
-              Konsultasi Gratis
+              💬 Konsultasi Gratis
             </a>
+            <p className="localnav-sidebar__tagline">Respon dalam 1–3 jam kerja</p>
           </div>
         </div>
       </>,
@@ -179,6 +235,7 @@ export default function Navbar() {
                     end={link.to === '/'}
                   >
                     {link.label}
+                    <NavScribble />
                   </NavLink>
                 </li>
               ))}

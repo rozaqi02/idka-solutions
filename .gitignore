@@ -123,7 +123,7 @@ public/team/*-green.jpg
 public/marketing/ig-posts/* - Copy.*
 
 # Script HTML generator sekali pakai
-scripts/ig-post-*.html
+scripts/*.html
 
 # ===== 12. Local Tooling Noise =====
 *.stackdump

@@ -4,6 +4,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
+import ScribbleUnderline from '../components/ScribbleUnderline'
 import './TentangKami.css'
 
 export default function TentangKami() {
@@ -17,17 +18,18 @@ export default function TentangKami() {
   })
 
   return (
-    <div className="tentang-page">
+    <div className="layanan-page tentang-page">
       {/* Apple Business Page Header */}
-      <section className="apple-hero page-header section" aria-labelledby="tentang-heading" data-hero-enter="tentang">
+      <section className="apple-hero page-header section artistic-hero" aria-labelledby="tentang-heading" data-hero-enter="tentang">
         <div className="container">
           <div className="apple-hero__inner">
-            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">
-              Tentang IDKA Solutions
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
+              <span>Tentang IDKA Solutions</span>
             </div>
-            <h1 id="tentang-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+            <h1 id="tentang-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
               <WordReveal>Mitra Digital untuk</WordReveal>{' '}
               <WordReveal className="apple-hero__title-accent">Pertumbuhan Bisnis Anda.</WordReveal>
+              <ScribbleUnderline variant="arc" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Membantu UMKM, profesional, dan startup membangun kehadiran digital yang kredibel, modern, dan berdampak.{' '}
@@ -38,11 +40,11 @@ export default function TentangKami() {
       </section>
 
       {/* Story */}
-      <section className="section tentang-story" aria-labelledby="story-heading">
+      <section className="section section--tint layanan-artistic-section tentang-story" aria-labelledby="story-heading">
         <div className="container">
           <div className="story-grid">
             <div className="story-visual reveal reveal--left" aria-hidden="true">
-              <div className="story-card neu-raised-lg">
+              <div className="story-card art-card art-card--v1">
                 <div className="story-card__logo">
                   <img
                     src="/logo-idka-solutions.png"
@@ -62,7 +64,7 @@ export default function TentangKami() {
                 </p>
                 <div className="story-card__stats">
                   {stats.map((s) => (
-                    <div key={s.num} className="story-stat neu-inset">
+                    <div key={s.num} className="story-stat art-card__tag-doodle">
                       <span className="story-stat__num">{s.num}</span>
                       <span className="story-stat__label">{s.label}</span>
                     </div>
@@ -71,9 +73,12 @@ export default function TentangKami() {
               </div>
             </div>
             <div className="story-content reveal reveal--right">
-              <div className="section-tag" style={{ alignSelf: 'flex-start' }}>Cerita Kami</div>
-              <h2 id="story-heading" className="section-title" style={{ textAlign: 'left' }}>
+              <div className="section-tag doodle-tag" style={{ alignSelf: 'flex-start' }}>
+                <span>Cerita Kami</span>
+              </div>
+              <h2 id="story-heading" className="section-title artistic-title" style={{ textAlign: 'left' }}>
                 Mengapa Kehadiran Online Perlu Lebih Mudah
+                <ScribbleUnderline variant="double" />
               </h2>
               <div className="story-text">
                 <p>
@@ -86,8 +91,11 @@ export default function TentangKami() {
                   {company.position}
                 </p>
               </div>
-              <NavLink to="/kontak" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
-                Hubungi Kami
+              <NavLink to="/kontak" className="art-card__btn-doodle" style={{ alignSelf: 'flex-start' }}>
+                <span>Hubungi Kami</span>
+                <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                </svg>
               </NavLink>
             </div>
           </div>
@@ -105,20 +113,23 @@ export default function TentangKami() {
       </section>
 
       {/* Values */}
-      <section className="section section--tint tentang-values" aria-labelledby="values-heading">
+      <section className="section tentang-values" aria-labelledby="values-heading">
         <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Nilai Kami</div>
-            <h2 id="values-heading" className="section-title">
+          <div className="section-header reveal artistic-header">
+            <div className="section-tag doodle-tag">
+              <span>Nilai Kami</span>
+            </div>
+            <h2 id="values-heading" className="section-title artistic-title">
               Yang Membedakan Kami
+              <ScribbleUnderline variant="zigzag" />
             </h2>
           </div>
           <div className="values-grid">
             {workValues.map((val, i) => (
-              <div key={val.title} className={`value-card neu-raised reveal reveal--delay-${Math.min(i + 1, 5)}`}>
-                <div className="value-card__icon neu-inset" aria-hidden="true">{val.icon}</div>
-                <h3 className="value-card__title">{val.title}</h3>
-                <p className="value-card__desc">{val.description}</p>
+              <div key={val.title} className={`value-card art-card art-card--v${(i % 4) + 1} reveal reveal--delay-${Math.min(i + 1, 5)}`}>
+                <div className="value-card__icon art-card__tag-doodle" aria-hidden="true">{val.icon}</div>
+                <h3 className="value-card__title art-card__title">{val.title}</h3>
+                <p className="value-card__desc art-card__desc">{val.description}</p>
               </div>
             ))}
           </div>
@@ -126,20 +137,23 @@ export default function TentangKami() {
       </section>
 
       {/* Team */}
-      <section className="section tentang-team" aria-labelledby="team-heading">
+      <section className="section section--tint tentang-team" aria-labelledby="team-heading">
         <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Tim</div>
-            <h2 id="team-heading" className="section-title">
+          <div className="section-header reveal artistic-header">
+            <div className="section-tag doodle-tag">
+              <span>Tim IDKA</span>
+            </div>
+            <h2 id="team-heading" className="section-title artistic-title">
               Tim di Balik IDKA Solutions
+              <ScribbleUnderline variant="wavy" />
             </h2>
-            <p className="section-subtitle">
+            <p className="section-subtitle artistic-subtitle">
               Tim ringkas dengan keahlian yang saling melengkapi—fokus pada website berkualitas dan hasil yang memuaskan.
             </p>
           </div>
           <div className="team-grid">
             {teamMembers.map((member, i) => (
-              <div key={member.id} className={`team-card neu-raised reveal reveal--delay-${Math.min(i + 1, 5)}`}>
+              <div key={member.id} className={`team-card art-card art-card--v${(i % 4) + 1} reveal reveal--delay-${Math.min(i + 1, 5)}`}>
                 <div className="team-card__photo-wrap">
                   {member.photo ? (
                     <img
@@ -157,9 +171,9 @@ export default function TentangKami() {
                     </div>
                   )}
                 </div>
-                <h3 className="team-card__name">{member.name}</h3>
-                <div className="team-card__role">{member.role}</div>
-                <p className="team-card__desc">{member.description}</p>
+                <h3 className="team-card__name art-card__title">{member.name}</h3>
+                <div className="team-card__role art-card__tag-doodle">{member.role}</div>
+                <p className="team-card__desc art-card__desc">{member.description}</p>
               </div>
             ))}
           </div>
@@ -169,18 +183,21 @@ export default function TentangKami() {
       {/* Tech Stack */}
       <section className="section tentang-tech" aria-labelledby="tech-heading">
         <div className="container">
-          <div className="section-header reveal">
-            <div className="section-tag">Teknologi</div>
-            <h2 id="tech-heading" className="section-title">
+          <div className="section-header reveal artistic-header">
+            <div className="section-tag doodle-tag">
+              <span>Teknologi</span>
+            </div>
+            <h2 id="tech-heading" className="section-title artistic-title">
               Tools yang Kami Gunakan
+              <ScribbleUnderline variant="arc" />
             </h2>
-            <p className="section-subtitle">
+            <p className="section-subtitle artistic-subtitle">
               Teknologi modern dan teruji, dipilih untuk website yang cepat, aman, dan mudah dikembangkan.
             </p>
           </div>
           <div className="tech-grid">
             {techStack.map((tech, i) => (
-              <div key={tech.name} className={`tech-badge tech-badge--${tech.category} neu-raised reveal reveal--delay-${Math.min(i % 5 + 1, 5)}`}>
+              <div key={tech.name} className={`tech-badge tech-badge--${tech.category} art-card__tag-doodle reveal reveal--delay-${Math.min(i % 5 + 1, 5)}`}>
                 <span className="tech-badge__icon" aria-hidden="true">{tech.icon}</span>
                 <span className="tech-badge__name">{tech.name}</span>
                 <span className="tech-badge__category">{tech.category}</span>
@@ -191,12 +208,13 @@ export default function TentangKami() {
       </section>
 
       {/* Target Market */}
-      <section className="section tentang-target" aria-labelledby="target-heading">
+      <section className="section section--tint tentang-target" aria-labelledby="target-heading">
         <div className="container">
-          <div className="section-header">
-            <div className="section-tag">Untuk Siapa</div>
-            <h2 id="target-heading" className="section-title">
+          <div className="section-header artistic-header">
+            <div className="section-tag doodle-tag"><span>Untuk Siapa</span></div>
+            <h2 id="target-heading" className="section-title artistic-title">
               Siapa yang Kami Layani
+              <ScribbleUnderline variant="double" />
             </h2>
           </div>
           <div className="target-grid">
@@ -225,10 +243,10 @@ export default function TentangKami() {
                 examples: 'Perusahaan kecil, startup profesional',
                 need: 'Website yang lebih kredibel, case study, kesan brand yang lebih premium',
               },
-            ].map((seg) => (
-              <div key={seg.title} className="target-card neu-raised">
+            ].map((seg, i) => (
+              <div key={seg.title} className={`target-card art-card art-card--v${(i % 4) + 1}`}>
                 <div className="target-card__icon" aria-hidden="true">{seg.icon}</div>
-                <h3 className="target-card__title">{seg.title}</h3>
+                <h3 className="target-card__title art-card__title">{seg.title}</h3>
                 <div className="target-card__examples">
                   <span className="target-card__label">Contoh:</span> {seg.examples}
                 </div>
@@ -242,19 +260,27 @@ export default function TentangKami() {
       </section>
 
       {/* CTA */}
-      <section className="section section--tint tentang-cta">
+      <section className="section tentang-cta">
         <div className="container">
-          <div className="tentang-cta__card neu-raised-lg text-center reveal reveal--scale">
-            <div className="section-tag" style={{ display: 'inline-block' }}>Mari Berkolaborasi</div>
-            <h2 className="tentang-cta__title">
+          <div className="tentang-cta__card art-card art-card--v1 art-card--featured text-center reveal reveal--scale">
+            <div className="section-tag doodle-tag" style={{ display: 'inline-block' }}><span>Mari Berkolaborasi</span></div>
+            <h2 className="tentang-cta__title artistic-title">
               Bisnis Anda Layak <span className="gradient-text">Website yang Lebih Baik</span>
+              <ScribbleUnderline variant="wavy" />
             </h2>
-            <p className="tentang-cta__desc">
+            <p className="tentang-cta__desc artistic-subtitle">
               Sudah memiliki gambaran kebutuhan? Hubungi kami. Masih mempertimbangkan opsi? Kami bantu merumuskannya.
             </p>
             <div className="tentang-cta__actions">
-              <NavLink to="/kontak" className="btn btn-primary">Konsultasi Gratis</NavLink>
-              <NavLink to="/layanan" className="btn btn-secondary">Lihat Layanan</NavLink>
+              <NavLink to="/kontak" className="art-card__btn-doodle">
+                <span>Konsultasi Gratis</span>
+                <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                </svg>
+              </NavLink>
+              <NavLink to="/layanan" className="art-card__btn-doodle">
+                <span>Lihat Layanan</span>
+              </NavLink>
             </div>
           </div>
         </div>

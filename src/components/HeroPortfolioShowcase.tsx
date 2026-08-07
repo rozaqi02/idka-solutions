@@ -1,7 +1,7 @@
-import { useEffect, useState, useCallback, useRef, type CSSProperties } from 'react'
+import { useEffect, useState, useCallback, type CSSProperties } from 'react'
 import { portfolio } from '../data/content'
 
-const INTERVAL_MS = 3200
+const INTERVAL_MS = 3500
 
 function stripUrl(url: string) {
   return url.replace(/^https?:\/\//, '')
@@ -18,39 +18,9 @@ function screenshotCandidates(src: string): string[] {
 
 export default function HeroPortfolioShowcase() {
   const [index, setIndex] = useState(0)
-  const [reduceMotion, setReduceMotion] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
-  const [isCompact, setIsCompact] = useState(
-    () =>
-      typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches,
-  )
-  const [paused, setPaused] = useState(false)
-  const [imgSrc, setImgSrc] = useState(() =>
-    screenshotCandidates(portfolio[0]?.screenshot ?? '')[0] ?? '',
-  )
-  const [imgVisible, setImgVisible] = useState(true)
-  const fadeTimer = useRef<number | null>(null)
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({})
 
-  useEffect(() => {
-    const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const mqCompact = window.matchMedia('(max-width: 768px)')
-    const sync = () => {
-      setReduceMotion(mqMotion.matches)
-      setIsCompact(mqCompact.matches)
-    }
-    sync()
-    mqMotion.addEventListener('change', sync)
-    mqCompact.addEventListener('change', sync)
-    return () => {
-      mqMotion.removeEventListener('change', sync)
-      mqCompact.removeEventListener('change', sync)
-    }
-  }, [])
-
-  // Preload all portfolio shots (webp + png)
+  // Preload all portfolio screenshots
   useEffect(() => {
     portfolio.forEach((p) => {
       screenshotCandidates(p.screenshot).forEach((src) => {
@@ -60,81 +30,31 @@ export default function HeroPortfolioShowcase() {
     })
   }, [])
 
-  const showIndex = useCallback(
-    (next: number) => {
-      const item = portfolio[next]
-      if (!item?.screenshot) return
-
-      const apply = () => {
-        setIndex(next)
-        setImgSrc(screenshotCandidates(item.screenshot)[0])
-        setImgVisible(true)
-      }
-
-      if (reduceMotion) {
-        apply()
-        return
-      }
-
-      // Simple single-image crossfade (no multi-layer opacity bugs)
-      setImgVisible(false)
-      if (fadeTimer.current) window.clearTimeout(fadeTimer.current)
-      fadeTimer.current = window.setTimeout(apply, 180)
-    },
-    [reduceMotion],
-  )
-
+  // Automatic slideshow on all devices (mobile & desktop), uninterrupted by hover
   useEffect(() => {
-    if (reduceMotion || isCompact || paused || portfolio.length <= 1) return
+    if (portfolio.length <= 1) return
     const id = window.setInterval(() => {
-      showIndex((index + 1) % portfolio.length)
+      setIndex((prev) => (prev + 1) % portfolio.length)
     }, INTERVAL_MS)
     return () => window.clearInterval(id)
-  }, [reduceMotion, isCompact, paused, index, showIndex])
-
-  useEffect(() => {
-    return () => {
-      if (fadeTimer.current) window.clearTimeout(fadeTimer.current)
-    }
   }, [])
 
-  const goTo = useCallback(
-    (i: number) => {
-      if (i === index) return
-      showIndex(i)
-    },
-    [index, showIndex],
-  )
+  const goTo = useCallback((i: number) => {
+    setIndex(i)
+  }, [])
 
   const current = portfolio[index] ?? portfolio[0]
   if (!current) return null
 
-  const modeClass = isCompact ? 'hero-porto--compact' : 'hero-porto--rich'
   const accent = current.color || '#5e17eb'
-
-  const handleImgError = () => {
-    const candidates = screenshotCandidates(current.screenshot)
-    const next = candidates.find((c) => c !== imgSrc)
-    if (next) setImgSrc(next)
-  }
 
   return (
     <div
-      className={`hero-porto ${modeClass}${reduceMotion ? ' hero-porto--static' : ''}${
-        paused ? ' hero-porto--paused' : ''
-      }`}
+      className="hero-porto hero-porto--rich"
       style={{ '--hero-porto-accent': accent } as CSSProperties}
-      onMouseEnter={() => !isCompact && setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => !isCompact && setPaused(true)}
-      onBlurCapture={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-          setPaused(false)
-        }
-      }}
     >
       <div className="hero-porto__stage">
-        {!isCompact && <span className="hero-porto__glow" aria-hidden="true" />}
+        <span className="hero-porto__glow" aria-hidden="true" />
 
         <div className="hero__card-main neu-raised-lg hero-porto__card">
           <div className="hero__card-header">
@@ -151,31 +71,44 @@ export default function HeroPortfolioShowcase() {
           </div>
 
           <div className="hero__card-shot hero-porto__shot">
-            {/* Soft grid so light websites still read as a real screenshot */}
+            {/* Background grid texture */}
             <div className="hero-porto__shot-bg" aria-hidden="true" />
 
-            <img
-              key={current.id}
-              src={imgSrc}
-              alt={`Screenshot ${current.title}`}
-              width={800}
-              height={500}
-              className={`hero-porto__image${imgVisible ? ' hero-porto__image--visible' : ''}`}
-              decoding="async"
-              fetchPriority="high"
-              loading="eager"
-              draggable={false}
-              onLoad={() => setImgVisible(true)}
-              onError={handleImgError}
-            />
+            {/* Stacked image layers for ultra-smooth crossfade & subtle scale zoom */}
+            {portfolio.map((item, i) => {
+              const isActive = i === index
+              const candidateList = screenshotCandidates(item.screenshot)
+              const src = failedImages[item.id] && candidateList[1] ? candidateList[1] : candidateList[0]
 
-            {!reduceMotion && portfolio.length > 1 && (
-              <span
-                key={`progress-${current.id}-${paused ? 'p' : 'r'}`}
-                className={`hero-porto__progress${paused ? ' hero-porto__progress--paused' : ''}`}
-                aria-hidden="true"
-              />
-            )}
+              return (
+                <img
+                  key={item.id}
+                  src={src}
+                  alt={`Screenshot ${item.title}`}
+                  width={800}
+                  height={500}
+                  className={`hero-porto__image ${
+                    isActive ? 'hero-porto__image--active' : 'hero-porto__image--inactive'
+                  }`}
+                  decoding="async"
+                  fetchPriority={isActive ? 'high' : 'low'}
+                  loading="eager"
+                  draggable={false}
+                  onError={() => {
+                    if (!failedImages[item.id]) {
+                      setFailedImages((prev) => ({ ...prev, [item.id]: true }))
+                    }
+                  }}
+                />
+              )
+            })}
+
+            {/* Progress bar per slide */}
+            <span
+              key={`progress-${current.id}`}
+              className="hero-porto__progress"
+              aria-hidden="true"
+            />
 
             <span className="sr-only">
               Portofolio: {current.title} — {current.category}
@@ -202,7 +135,7 @@ export default function HeroPortfolioShowcase() {
         </div>
       </div>
 
-      {!isCompact && portfolio.length > 1 && (
+      {portfolio.length > 1 && (
         <div className="hero-porto__dots" role="group" aria-label="Pilih portofolio">
           {portfolio.map((item, i) => (
             <button

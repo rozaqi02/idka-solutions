@@ -7,19 +7,20 @@ import ErrorBoundary from './components/ErrorBoundary'
 import { useToast } from './hooks/useToast'
 
 // React.lazy code splitting per route
-const Home        = lazy(() => import('./pages/Home'))
-const Layanan     = lazy(() => import('./pages/Layanan'))
-const Produk      = lazy(() => import('./pages/Produk'))
-const Portofolio  = lazy(() => import('./pages/Portofolio'))
-const TentangKami = lazy(() => import('./pages/TentangKami'))
-const Kontak      = lazy(() => import('./pages/Kontak'))
-const NotFound    = lazy(() => import('./pages/NotFound'))
+const Home           = lazy(() => import('./pages/Home'))
+const Layanan        = lazy(() => import('./pages/Layanan'))
+const Produk         = lazy(() => import('./pages/Produk'))
+const Portofolio     = lazy(() => import('./pages/Portofolio'))
+const TentangKami    = lazy(() => import('./pages/TentangKami'))
+const Kontak         = lazy(() => import('./pages/Kontak'))
+const InstagramPosts = lazy(() => import('./pages/InstagramPosts'))
+const NotFound       = lazy(() => import('./pages/NotFound'))
 
 function PageLoader() {
   return (
     <div
       style={{
-         minHeight: '32vh',
+        minHeight: '75vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -54,13 +55,14 @@ function AnimatedRoutes({ addToast }: { addToast: (msg: string, type?: 'success'
       <ErrorBoundary resetKey={location.pathname}>
         <Suspense fallback={<PageLoader />}>
           <Routes location={location}>
-            <Route path="/"          element={<Home />} />
-            <Route path="/layanan"   element={<Layanan />} />
-            <Route path="/produk"    element={<Produk />} />
+            <Route path="/"           element={<Home />} />
+            <Route path="/layanan"    element={<Layanan />} />
+            <Route path="/produk"     element={<Produk />} />
             <Route path="/portofolio" element={<Portofolio />} />
-            <Route path="/tentang"   element={<TentangKami />} />
-            <Route path="/kontak"    element={<Kontak addToast={addToast} />} />
-            <Route path="*"          element={<NotFound />} />
+            <Route path="/tentang"    element={<TentangKami />} />
+            <Route path="/kontak"     element={<Kontak addToast={addToast} />} />
+            <Route path="/ig-posts"   element={<InstagramPosts />} />
+            <Route path="*"           element={<NotFound />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
@@ -73,16 +75,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <a href="#main-content" className="skip-link">
-        Langsung ke konten
-      </a>
-      <ScrollRestorer />
-      <Navbar />
-      <main id="main-content">
-        <AnimatedRoutes addToast={addToast} />
-      </main>
-      <Footer />
-      <ToastContainer toasts={toasts} onRemove={removeToast} />
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <a href="#main-content" className="skip-link">
+          Langsung ke konten
+        </a>
+        <ScrollRestorer />
+        <Navbar />
+        <main id="main-content">
+          <AnimatedRoutes addToast={addToast} />
+        </main>
+        <Footer />
+        <ToastContainer toasts={toasts} onRemove={removeToast} />
+      </div>
     </BrowserRouter>
   )
 }

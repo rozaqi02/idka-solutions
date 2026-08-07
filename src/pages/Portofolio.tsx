@@ -5,6 +5,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
+import ScribbleUnderline from '../components/ScribbleUnderline'
 import './Portofolio.css'
 
 function webpToPngFallback(src: string) {
@@ -79,17 +80,18 @@ export default function Portofolio() {
       : portfolio.filter((p) => p.category === activeFilter)
 
   return (
-    <div className="porto-page">
+    <div className="layanan-page porto-page">
       {/* Apple Business Light Page Header */}
-      <section className="apple-hero section" aria-labelledby="porto-heading" data-hero-enter="portofolio">
+      <section className="apple-hero section artistic-hero" aria-labelledby="porto-heading" data-hero-enter="portofolio">
         <div className="container">
           <div className="apple-hero__inner">
-            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag">
-              Portofolio IDKA
+            <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
+              <span>Portofolio IDKA</span>
             </div>
-            <h1 id="porto-heading" className="apple-hero__title hero-in__item hero-in__item--title">
+            <h1 id="porto-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
               <WordReveal>Portofolio Karya</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">& Hasil Kerja Nyata.</WordReveal>
+              <WordReveal className="apple-hero__title-accent">&amp; Hasil Kerja Nyata.</WordReveal>
+              <ScribbleUnderline variant="double" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
               Dari UMKM lokal hingga perusahaan startup—jelajahi project website yang telah aktif dan berkembang.{' '}
@@ -100,14 +102,14 @@ export default function Portofolio() {
       </section>
 
       {/* Portfolio Grid */}
-      <section className="section section--tint porto-grid-section" aria-labelledby="porto-grid-heading">
+      <section className="section section--tint layanan-artistic-section porto-grid-section" aria-labelledby="porto-grid-heading">
         <div className="container">
           {/* Filter Bar */}
           <div className="porto-filters" role="group" aria-label="Filter kategori portofolio">
             {allCategories.map((cat) => (
               <button
                 key={cat}
-                className={`porto-filter-btn${activeFilter === cat ? ' porto-filter-btn--active' : ''}`}
+                className={`porto-filter-btn art-card__tag-doodle${activeFilter === cat ? ' porto-filter-btn--active' : ''}`}
                 onClick={() => setActiveFilter(cat)}
                 aria-pressed={activeFilter === cat}
               >
@@ -118,13 +120,13 @@ export default function Portofolio() {
 
           {/* Grid */}
           <div className="porto-grid" role="list">
-            {filtered.map((item) => (
+            {filtered.map((item, i) => (
               <a
                 key={item.id}
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="porto-card reveal"
+                className={`porto-card art-card art-card--v${(i % 4) + 1} reveal`}
                 role="listitem"
                 aria-label={`${item.title} - kunjungi website`}
               >
@@ -169,16 +171,16 @@ export default function Portofolio() {
                     )}
                   </div>
 
-                  <h2 className="porto-card__title">{item.title}</h2>
-                  <p className="porto-card__desc">{item.description}</p>
+                  <h2 className="porto-card__title art-card__title">{item.title}</h2>
+                  <p className="porto-card__desc art-card__desc">{item.description}</p>
 
                   {/* Combined Tags & Tech Pills */}
                   <div className="porto-card__tags">
                     {item.tags.map((tag) => (
-                      <span key={tag} className="porto-tag-badge">{tag}</span>
+                      <span key={tag} className="art-card__tag-doodle"><span className="art-card__tag-bullet">•</span> {tag}</span>
                     ))}
                     {'tech' in item && Array.isArray(item.tech) && item.tech.map((t) => (
-                      <span key={t} className="porto-tag-badge porto-tag-badge--tech">{t}</span>
+                      <span key={t} className="art-card__tag-doodle"><span className="art-card__tag-bullet">⚙</span> {t}</span>
                     ))}
                   </div>
 
@@ -202,16 +204,19 @@ export default function Portofolio() {
       {/* Case Study Note */}
       <section className="section porto-note-section">
         <div className="container">
-          <div className="porto-case-note reveal reveal--scale">
+          <div className="porto-case-note art-card art-card--v1 art-card--featured reveal reveal--scale">
             <div className="porto-case-note__icon" aria-hidden="true">🚀</div>
             <div className="porto-case-note__content">
-              <h2 className="porto-case-note__title">Portofolio Terus Bertambah</h2>
-              <p className="porto-case-note__desc">
+              <h2 className="porto-case-note__title art-card__title">Portofolio Terus Bertambah</h2>
+              <p className="porto-case-note__desc art-card__desc">
                 Setiap proyek baru memperkaya portofolio kami. Tertarik menjadikan bisnis Anda proyek berikutnya?
               </p>
             </div>
-            <NavLink to="/kontak" className="apple-pill-btn apple-pill-btn--primary">
-              Mulai Proyek
+            <NavLink to="/kontak" className="art-card__btn-doodle">
+              <span>Mulai Proyek</span>
+              <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+              </svg>
             </NavLink>
           </div>
         </div>
