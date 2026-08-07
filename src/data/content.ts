@@ -13,7 +13,7 @@ export const company = {
 export const stats = [
   { num: '7+', label: 'Proyek', labelAlt: 'Website & App Selesai' },
   { num: '4.9/5', label: 'Rating Klien', labelAlt: 'Rating Klien' },
-  { num: '4', label: 'Anggota Tim', labelAlt: 'Anggota Tim' },
+  { num: '5', label: 'Anggota Tim', labelAlt: 'Anggota Tim' },
 ];
 
 export const services = [
@@ -270,29 +270,37 @@ export const teamMembers = [
   {
     id: 1,
     name: 'Ahmad Abror Rozaqi Fatoni',
-    role: 'Quality Assurance + Full Stack Developer',
+    role: 'QA & Backup Full Stack Developer',
     description:
-      'Menjaga kualitas produk dan ikut mengembangkan fitur end-to-end agar website stabil dan siap production.',
+      'Menjaga kualitas produk, pengujian sistem end-to-end, serta mem-backup pengembangan fitur full stack.',
     photo: '/team/ahmad-abror-rozaqi-fatoni.webp?v=6',
   },
   {
     id: 2,
     name: "Fa'iz Abiyu Atha Fawas",
-    role: 'Full Stack Developer',
+    role: 'Full Stack Laravel Developer',
     description:
-      'Membangun frontend dan backend, integrasi form/WhatsApp/CMS, hingga website siap go-live.',
+      'Membangun web app & backend Laravel, integrasi database, API/form/CMS, hingga sistem siap production.',
     photo: '/team/faiz-abiyu-atha-fawas.webp?v=6',
   },
   {
     id: 3,
+    name: 'Hana Sugito',
+    role: 'Full Stack Laravel / PHP Developer',
+    description:
+      'Mengembangkan arsitektur backend Laravel/PHP, manajemen database, dan integrasi API untuk solusi bisnis.',
+    photo: '/team/hana-sugito.webp?v=6',
+  },
+  {
+    id: 4,
     name: 'Ervan Dwi Ardian',
-    role: 'UI/UX',
+    role: 'UI/UX Designer',
     description:
       'Merancang wireframe, antarmuka, dan pengalaman pengguna yang rapi serta mudah digunakan.',
     photo: '/team/ervan-dwi-ardian.webp?v=6',
   },
   {
-    id: 4,
+    id: 5,
     name: 'Agta Fadjrin Aminullah',
     role: 'System Analyst',
     description:
