@@ -641,7 +641,7 @@ export default function Kontak({ addToast }: KontakProps) {
 
             {/* Contact Info */}
             <aside className="kontak-info" aria-label="Informasi kontak">
-              <div className="kontak-info__card neu-raised">
+              <div className="kontak-info__card">
                 <h2 className="kontak-info__title">Hubungi Langsung</h2>
                 <p className="kontak-info__desc">Pilih saluran komunikasi yang paling sesuai.</p>
 
@@ -657,7 +657,7 @@ export default function Kontak({ addToast }: KontakProps) {
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="kontak-channel kontak-channel--wa neu-raised"
+                    className="kontak-channel kontak-channel--wa"
                     aria-label="Chat via WhatsApp"
                   >
                     <div className="kontak-channel__icon" style={{ background: '#25d366', color: 'white' }} aria-hidden="true">
@@ -679,7 +679,7 @@ export default function Kontak({ addToast }: KontakProps) {
                     href="https://instagram.com/idkasolutions"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="kontak-channel neu-raised"
+                    className="kontak-channel"
                     aria-label="Instagram IDKA Solutions"
                   >
                     <div className="kontak-channel__icon" style={{ background: 'linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)', color: 'white' }} aria-hidden="true">
@@ -700,7 +700,7 @@ export default function Kontak({ addToast }: KontakProps) {
 
                   <a
                     href={`mailto:${company.email}`}
-                    className="kontak-channel neu-raised"
+                    className="kontak-channel"
                     aria-label={`Email ${company.email}`}
                   >
                     <div className="kontak-channel__icon" style={{ background: 'var(--primary)', color: 'white' }} aria-hidden="true">
@@ -721,28 +721,45 @@ export default function Kontak({ addToast }: KontakProps) {
               </div>
 
               {/* Response Time */}
-              <div className="kontak-response neu-raised">
-                <div className="kontak-response__icon" aria-hidden="true">&#9201;</div>
+              <div className="kontak-response">
+                <div className="kontak-response__icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
                 <div>
                   <div className="kontak-response__title">Waktu Respons</div>
-                  <div className="kontak-response__desc">1–3 jam pada jam kerja (Senin–Sabtu, 08.00–20.00 WIB)</div>
+                  <div className="kontak-response__desc">1-3 jam pada jam kerja (Senin-Sabtu, 08.00-20.00 WIB)</div>
                 </div>
               </div>
 
               {/* Payment Info */}
-              <div className="kontak-payment neu-raised">
+              <div className="kontak-payment">
                 <h3 className="kontak-payment__title">Sistem Pembayaran</h3>
                 <div className="kontak-payment__items">
                   <div className="kontak-payment__item">
-                    <span className="kontak-payment__bullet" aria-hidden="true">&#9654;</span>
+                    <span className="kontak-payment__bullet" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </span>
                     <span>DP 50% sebelum pengerjaan dimulai</span>
                   </div>
                   <div className="kontak-payment__item">
-                    <span className="kontak-payment__bullet" aria-hidden="true">&#9654;</span>
-                    <span>Pelunasan 50% sebelum go-live</span>
+                    <span className="kontak-payment__bullet" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </span>
+                    <span>Pelunasan 50% sebelum rilis / go-live</span>
                   </div>
                   <div className="kontak-payment__item">
-                    <span className="kontak-payment__bullet" aria-hidden="true">&#9654;</span>
+                    <span className="kontak-payment__bullet" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </span>
                     <span>Transfer bank / QRIS / e-wallet</span>
                   </div>
                 </div>

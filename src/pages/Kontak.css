@@ -1,4 +1,4 @@
-﻿/* =============================================
+/* =============================================
    KONTAK PAGE — ART CANVAS STUDIO DESIGN SYSTEM
    Selaras 100% dengan Layanan.css & Home.css
    ============================================= */
@@ -271,4 +271,163 @@
   .kontak-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── KONTAK SIDEBAR ART-CARD STYLES ── */
+.kontak-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.kontak-info__card {
+  background: #ffffff;
+  border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  padding: 2rem 1.6rem;
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 6px 6px 0px #1e1b4b;
+}
+
+.kontak-info__title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #1e1b4b;
+  margin-bottom: 0.25rem;
+}
+
+.kontak-info__desc {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-bottom: 1.25rem;
+}
+
+.kontak-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kontak-channel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: #fbf9f4;
+  border: 2px solid #1e1b4b;
+  box-shadow: 3px 3px 0 #1e1b4b;
+  text-decoration: none;
+  color: #1e1b4b;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.kontak-channel:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 #5e17eb;
+  background: #ffffff;
+}
+
+.kontak-channel__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1.5px solid #1e1b4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kontak-channel__label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5e17eb;
+}
+
+.kontak-channel__value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e1b4b;
+  word-break: break-all;
+}
+
+.kontak-channel__arrow {
+  margin-left: auto;
+  color: #1e1b4b;
+  transition: transform 0.2s ease;
+}
+
+.kontak-channel:hover .kontak-channel__arrow {
+  transform: translateX(3px);
+  color: #5e17eb;
+}
+
+.kontak-response {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.25rem 1.5rem;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: #ffffff;
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 6px 6px 0px #7c3aed;
+}
+
+.kontak-response__icon {
+  font-size: 1.5rem;
+  color: #5e17eb;
+}
+
+.kontak-response__title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5e17eb;
+}
+
+.kontak-response__desc {
+  font-size: 0.88rem;
+  color: #4b5563;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.kontak-payment {
+  background: #ffffff;
+  border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  padding: 1.5rem 1.6rem;
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 6px 6px 0px #d97706;
+}
+
+.kontak-payment__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #1e1b4b;
+  margin-bottom: 0.85rem;
+}
+
+.kontak-payment__items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kontak-payment__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.kontak-payment__bullet {
+  color: #059669;
+  font-weight: 900;
 }

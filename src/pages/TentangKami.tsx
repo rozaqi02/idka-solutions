@@ -82,7 +82,7 @@ export default function TentangKami() {
               </h2>
               <div className="story-text">
                 <p>
-                  Saya <strong>Abror Rozaqi</strong>, founder IDKA Solutions. Saya sering melihat bisnis potensial di sekitar—kafe, jasa kreatif, UMKM lokal—yang belum punya kehadiran online yang memadai, atau tampil kurang profesional.
+                  Saya <strong>Abror Rozaqi</strong>, founder IDKA Solutions. Saya sering melihat bisnis potensial di sekitar (seperti kafe, jasa kreatif, dan UMKM lokal) yang belum punya kehadiran online yang memadai, atau tampil kurang profesional.
                 </p>
                 <p>
                   Dari situ IDKA Solutions berdiri. Bersama tim kecil, kami membantu UMKM, freelancer, kreator, dan startup hadir secara online lewat website dan aplikasi mobile dengan cara yang efisien. Bukan sekadar formalitas, tetapi produk digital yang mendukung kredibilitas dan pertumbuhan bisnis.

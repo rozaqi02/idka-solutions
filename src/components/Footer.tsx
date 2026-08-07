@@ -45,7 +45,7 @@ export default function Footer() {
                 className="art-card__tag-doodle"
                 aria-label="Instagram IDKA Solutions"
               >
-                <span className="art-card__tag-bullet">📸</span> Instagram
+                <span className="art-card__tag-bullet">•</span> Instagram
               </a>
               <a
                 href={`https://wa.me/${company.whatsapp}`}
@@ -54,14 +54,14 @@ export default function Footer() {
                 className="art-card__tag-doodle"
                 aria-label="WhatsApp IDKA Solutions"
               >
-                <span className="art-card__tag-bullet">💬</span> WhatsApp
+                <span className="art-card__tag-bullet">•</span> WhatsApp
               </a>
               <a
                 href={`mailto:${company.email}`}
                 className="art-card__tag-doodle"
                 aria-label={`Email ${company.email}`}
               >
-                <span className="art-card__tag-bullet">✉️</span> Email
+                <span className="art-card__tag-bullet">•</span> Email
               </a>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function Footer() {
               <NavLink to="/layanan#website-profil" className="footer__link">Company Profile</NavLink>
               <NavLink to="/layanan#website-profil" className="footer__link">Landing Page</NavLink>
               <NavLink to="/layanan#website-katalog" className="footer__link">Toko &amp; Katalog</NavLink>
-              <NavLink to="/layanan#website-profil" className="footer__link">Portofolio Web</NavLink>
+              <NavLink to="/layanan#aplikasi-mobile" className="footer__link">Aplikasi Mobile</NavLink>
               <NavLink to="/layanan#maintenance" className="footer__link">Maintenance Care+</NavLink>
             </nav>
           </div>
@@ -104,7 +104,7 @@ export default function Footer() {
               <ScribbleUnderline variant="arc" />
             </h3>
             <p className="footer__cta-desc">
-              Siap hadirkan website profesional untuk bisnis Anda?
+              Siap hadirkan website &amp; aplikasi mobile profesional untuk bisnis Anda?
             </p>
             <NavLink to="/kontak" className="art-card__btn-doodle">
               <span>Mulai Proyek</span>
@@ -115,7 +115,7 @@ export default function Footer() {
 
             <div className="footer__direct-contacts">
               <HandDrawnBadge shape="cloud">
-                <span>💬 Fast response 1–3 jam</span>
+                <span>Fast response 1-3 jam</span>
               </HandDrawnBadge>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default function Footer() {
             Copyright &copy; {year} IDKA Solutions. All rights reserved.
           </p>
           <span className="footer__bottom-tag art-card__tag-doodle">
-            <span className="art-card__tag-bullet">✨</span> Dibuat untuk bisnis yang ingin tumbuh dengan jelas.
+            <span className="art-card__tag-bullet">•</span> Dibuat untuk bisnis yang ingin tumbuh dengan jelas.
           </span>
         </div>
       </div>

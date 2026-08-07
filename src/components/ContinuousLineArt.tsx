@@ -51,6 +51,18 @@ export function ContinuousLineArt({ type, className = '' }: ContinuousLineArtPro
           <path className="scribble-loop-path" d="M 125,18 C 135,10 145,20 135,30 C 125,40 140,45 145,35" strokeWidth="1.8" opacity="0.75" />
         </svg>
       )
+    case 'smartphone':
+    case 'mobile':
+      return (
+        <svg className={baseClass} viewBox="0 0 160 120" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path
+            className="continuous-path"
+            d="M 50,15 C 50,15 110,15 110,15 C 115,15 120,20 120,25 L 120,95 C 120,100 115,105 110,105 L 50,105 C 45,105 40,100 40,95 L 40,25 C 40,20 45,15 50,15 Z M 40,30 L 120,30 M 40,90 L 120,90 M 70,22 L 90,22"
+          />
+          <path className="scribble-accent-path" d="M 60,50 C 70,40 90,60 100,50 M 60,70 L 100,70" strokeWidth="2" opacity="0.85" />
+          <path className="scribble-loop-path" d="M 125,20 C 135,12 145,22 135,32" strokeWidth="1.8" opacity="0.75" />
+        </svg>
+      )
     default:
       return null
   }

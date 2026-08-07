@@ -204,7 +204,7 @@ function HeroValueIcons() {
 
   return (
     <div ref={rowRef} className="home-value-row hero-in__item hero-in__item--sub" role="list" aria-label="Keunggulan website IDKA">
-      {VALUE_ITEMS.map((item, i) => {
+      {VALUE_ITEMS.map((item) => {
         const open = activeId === item.id
         return (
           <div key={item.id} className={`home-value-chip${open ? ' home-value-chip--open' : ''}`} role="listitem">
@@ -217,15 +217,10 @@ function HeroValueIcons() {
               onFocus={() => setActiveId(item.id)}
               onBlur={() => setActiveId(null)}
             >
-              <span className="art-card__tag-bullet">{['🌐','💬','🔒','📈','📱','🚀'][i]}</span>
-              {item.label}
+              <span className="art-card__tag-bullet">•</span>
+              <span>{item.label}</span>
             </button>
-            <div
-              role="tooltip"
-              className={`home-value-tip${open ? ' home-value-tip--visible' : ''}`}
-            >
-              {item.detail}
-            </div>
+            {open && <div className="home-value-chip__popover">{item.detail}</div>}
           </div>
         )
       })}
@@ -370,7 +365,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="art-card__btn-doodle"
               >
-                <span>💬 Konsultasi Gratis</span>
+                <span>Konsultasi Gratis</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
@@ -383,7 +378,7 @@ export default function Home() {
               </NavLink>
             </div>
             <p className="apple-hero__proof hero-in__item" style={{ marginTop: '1.25rem' }}>
-              Konsultasi awal gratis · Respon 1–3 jam kerja · Brief proyek terarah
+              Konsultasi awal gratis · Respon 1-3 jam kerja · Brief proyek terarah
             </p>
           </div>
         </div>
