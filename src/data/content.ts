@@ -2,16 +2,16 @@
 
 export const company = {
   name: 'IDKA Solutions',
-  tagline: 'Website Profesional untuk Bisnis',
-  description: 'Kami membantu UMKM, personal brand, dan startup membangun website modern yang siap mendukung bisnis.',
+  tagline: 'Solusi Website & Aplikasi Mobile untuk Bisnis',
+  description: 'Kami membantu UMKM, profesional, dan startup membangun website modern & aplikasi mobile (Android/iOS) yang fungsional dan siap mendukung pertumbuhan bisnis.',
   whatsapp: '6282245964007',
   email: 'idkasolutions@gmail.com',
   instagram: '@idkasolutions',
-  position: 'Mitra digital untuk bisnis yang ingin tampil profesional di internet.',
+  position: 'Mitra digital terpercaya untuk kebutuhan website & aplikasi mobile bisnis Anda.',
 };
 
 export const stats = [
-  { num: '6', label: 'Proyek', labelAlt: 'Website Selesai' },
+  { num: '7+', label: 'Proyek', labelAlt: 'Website & App Selesai' },
   { num: '4.9/5', label: 'Rating Klien', labelAlt: 'Rating Klien' },
   { num: '4', label: 'Anggota Tim', labelAlt: 'Anggota Tim' },
 ];
@@ -27,14 +27,24 @@ export const services = [
     accent: 'purple',
   },
   {
+    id: 'aplikasi-mobile',
+    icon: 'smartphone',
+    badge: '📱 Android & iOS',
+    popular: true,
+    title: 'Pengembangan Aplikasi Mobile',
+    description: 'Aplikasi Android & iOS kustom (Flutter / React Native) untuk operasional bisnis, CRM, kasir/POS, katalog digital, atau MVP startup.',
+    tags: ['Flutter / React Native', 'Android & iOS', 'Cross-Platform', 'API & Database', 'UI/UX Mobile'],
+    accent: 'indigo',
+  },
+  {
     id: 'website-katalog',
     icon: 'shopping-bag',
     badge: '🔥 Best Seller',
-    popular: true,
+    popular: false,
     title: 'Website Katalog & Toko',
     description: 'Toko online modern dengan sistem katalog produk rapi, checkout via WhatsApp, dan integrasi Payment Link.',
     tags: ['Katalog Produk', 'Order via WhatsApp', 'Payment Link', 'Fast Load'],
-    accent: 'indigo',
+    accent: 'purple',
   },
   {
     id: 'website-kustom',
@@ -317,9 +327,11 @@ export const products = [
 
 export const techStack = [
   { name: 'React', category: 'frontend', icon: '⚛️' },
+  { name: 'Flutter', category: 'mobile', icon: '💙' },
+  { name: 'React Native', category: 'mobile', icon: '📱' },
   { name: 'TypeScript', category: 'frontend', icon: '🔷' },
-  { name: 'WordPress', category: 'cms', icon: '📝' },
   { name: 'Supabase', category: 'backend', icon: '🗄️' },
+  { name: 'Firebase', category: 'backend', icon: '🔥' },
   { name: 'Figma', category: 'design', icon: '✏️' },
   { name: 'Netlify', category: 'deploy', icon: '🚀' },
 ];
@@ -343,24 +355,28 @@ export const workValues = [
   {
     icon: '🎯',
     title: 'Berorientasi Hasil',
-    description: 'Website dirancang untuk mendukung kredibilitas dan konversi bisnis.',
+    description: 'Website & aplikasi mobile dirancang untuk mendukung kredibilitas dan konversi bisnis.',
   },
 ];
 
 export const businessFlow = [
   { step: 1, label: 'Ceritakan Kebutuhan', icon: '💬', description: 'Hubungi kami via WhatsApp, form, atau Instagram. Konsultasi pertama gratis.' },
-  { step: 2, label: 'Kami Kerjakan', icon: '💻', description: 'Kami desain, bangun, dan revisi website sesuai kebutuhan bisnis kamu.' },
-  { step: 3, label: 'Website Live', icon: '🚀', description: 'Domain aktif, website online, bisnis siap tampil profesional.' },
+  { step: 2, label: 'Kami Kerjakan', icon: '💻', description: 'Kami desain, bangun, dan revisi website atau aplikasi mobile sesuai kebutuhan bisnis kamu.' },
+  { step: 3, label: 'Website & App Live', icon: '🚀', description: 'Domain & aplikasi aktif, bisnis siap tampil profesional dan berkembang.' },
 ];
 
 export const faq = [
   {
-    question: 'Berapa lama pengerjaan website?',
-    answer: 'Starter 3-5 hari kerja, Business 7-14 hari, Premium 14-21 hari. Durasi tergantung kelengkapan materi klien.',
+    question: 'Apakah IDKA Solutions melayani pembuatan Aplikasi Mobile (Android & iOS)?',
+    answer: 'Ya! Kami melayani pembuatan aplikasi mobile Android & iOS (Flutter / React Native) untuk operasional bisnis, CRM, kasir/POS, katalog digital, hingga MVP startup.',
+  },
+  {
+    question: 'Berapa lama pengerjaan website & aplikasi mobile?',
+    answer: 'Website Starter 3-5 hari kerja, Business 7-14 hari, Premium 14-21 hari. Untuk Aplikasi Mobile berkisar 2-4 minggu tergantung kompleksitas fitur.',
   },
   {
     question: 'Berapa kali revisi?',
-    answer: 'Starter 1-2 kali, Business 2-3 kali, Premium lebih fleksibel. Revisi di luar kuota dikenakan biaya.',
+    answer: 'Starter 1-2 kali, Business 2-3 kali, Premium & Mobile App lebih fleksibel. Revisi di luar kuota dikenakan biaya.',
   },
   {
     question: 'Apakah konten harus disiapkan sendiri?',
@@ -368,14 +384,14 @@ export const faq = [
   },
   {
     question: 'Bagaimana sistem pembayarannya?',
-    answer: 'DP 50% sebelum pengerjaan, pelunasan 50% sebelum go-live. Via transfer bank, QRIS, atau e-wallet.',
+    answer: 'DP 50% sebelum pengerjaan, pelunasan 50% sebelum go-live / rilis. Via transfer bank, QRIS, atau e-wallet.',
   },
   {
-    question: 'Bagaimana dengan domain dan hosting?',
-    answer: 'Kami bantu proses penyiapan. Biaya domain dan hosting terpisah dari paket.',
+    question: 'Bagaimana dengan domain, hosting, dan akun Play Store / App Store?',
+    answer: 'Kami bantu proses penyiapan dan publikasi APK / Play Store. Biaya server, domain, dan lisensi developer terpisah.',
   },
   {
-    question: 'Apakah ada dukungan setelah live?',
-    answer: 'Ya. Tersedia paket maintenance bulanan untuk performa, keamanan, dan update konten.',
+    question: 'Apakah ada dukungan setelah live / rilis?',
+    answer: 'Ya. Tersedia paket maintenance bulanan untuk pemeliharaan rutin, perbaikan bug, dan update performa.',
   },
 ];
