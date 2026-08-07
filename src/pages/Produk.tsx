@@ -5,6 +5,8 @@ import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
 import ScribbleUnderline from '../components/ScribbleUnderline'
+import ContinuousLineArt from '../components/ContinuousLineArt'
+import HandDrawnBadge from '../components/HandDrawnBadge'
 import './Produk.css'
 
 export default function Produk() {
@@ -23,7 +25,7 @@ export default function Produk() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Produk IDKA</span>
+              <span>Produk Digital IDKA</span>
             </div>
             <h1 id="produk-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
               <WordReveal>Produk digital yang</WordReveal>{' '}
@@ -41,14 +43,14 @@ export default function Produk() {
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Pipeline 2026</span>
+              <span>Canvas Pipeline 2026</span>
             </div>
             <h2 id="produk-list-heading" className="section-title artistic-title">
-              Dua produk dalam pipeline
+              Dua Produk Dalam Pipeline
               <ScribbleUnderline variant="wavy" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Dirancang sederhana, fokus pada pekerjaan nyata, dan nyaman digunakan setiap hari.
+              Dirancang sederhana dengan pendekatan *Art Canvas*, fokus pada pekerjaan nyata, dan nyaman digunakan setiap hari.
             </p>
           </div>
 
@@ -58,8 +60,21 @@ export default function Produk() {
                 key={p.id}
                 className={`produk-card art-card art-card--v${(i % 4) + 1} produk-card--${p.accent} reveal reveal--delay-${i + 1}`}
               >
-                <div className="produk-card__badge">{p.status}</div>
+                {/* Washi tape decoration */}
+                <div className="doodle-tape" style={{ top: -10, left: 24 }} aria-hidden="true" />
+                
+                <div className="produk-card__badge-wrapper">
+                  <HandDrawnBadge shape="tape">
+                    <span>{p.status}</span>
+                  </HandDrawnBadge>
+                </div>
+
                 <div className="produk-card__visual" aria-hidden="true">
+                  {/* Continuous Line Art Background Accent */}
+                  <div className="produk-card__line-art-bg">
+                    <ContinuousLineArt type={p.id === 'dashboard-umkm' ? 'cpu' : 'smartphone'} />
+                  </div>
+
                   {p.id === 'dashboard-umkm' ? (
                     <div className="produk-mock produk-mock--dashboard">
                       <div className="produk-mock__chrome">
@@ -85,20 +100,26 @@ export default function Produk() {
                     </div>
                   )}
                 </div>
+
                 <div className="produk-card__content">
-                  <span className="produk-card__icon" aria-hidden="true">{p.icon}</span>
-                  <h3 className="produk-card__title art-card__title">{p.title}</h3>
+                  <h3 className="produk-card__title art-card__title">
+                    {p.title}
+                    <ScribbleUnderline variant="arc" />
+                  </h3>
                   <p className="produk-card__tagline art-card__desc">{p.tagline}</p>
                   
                   {p.downloadUrl && (
-                    <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
                       <a
                         href={p.downloadUrl}
                         download={p.downloadName || 'Ngelamar.apk'}
                         className="art-card__btn-doodle"
-                        style={{ justifyContent: 'center' }}
+                        style={{ width: '100%', justifyContent: 'center' }}
                       >
-                        <span>📥 Unduh APK Gratis ({p.version} • {p.fileSize})</span>
+                        <span>Unduh APK Gratis ({p.version} · {p.fileSize})</span>
+                        <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                        </svg>
                       </a>
                     </div>
                   )}
@@ -108,8 +129,9 @@ export default function Produk() {
           </div>
 
           <div className="produk-cta art-card art-card--v1 art-card--featured reveal">
+            <div className="doodle-tape" style={{ top: -12, right: 36 }} aria-hidden="true" />
             <p className="produk-cta__text">
-               Tertarik menjadi early user atau membutuhkan sistem serupa untuk bisnis Anda?
+              Tertarik menjadi early user atau membutuhkan sistem serupa untuk bisnis Anda?
             </p>
             <div className="produk-cta__actions">
               <NavLink to="/kontak" className="art-card__btn-doodle">
@@ -124,7 +146,10 @@ export default function Produk() {
                 rel="noopener noreferrer"
                 className="art-card__btn-doodle"
               >
-                <span>💬 Chat WhatsApp</span>
+                <span>Chat WhatsApp</span>
+                <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                </svg>
               </a>
             </div>
           </div>
