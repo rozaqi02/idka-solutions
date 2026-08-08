@@ -4,7 +4,7 @@ export interface ContinuousLineArtProps {
 }
 
 export function ContinuousLineArt({ type, className = '' }: ContinuousLineArtProps) {
-  const baseClass = `continuous-line-svg ${className}`.trim()
+  const baseClass = `continuous-line-svg continuous-line-svg--${type} ${className}`.trim()
 
   switch (type) {
     case 'building':
@@ -15,6 +15,7 @@ export function ContinuousLineArt({ type, className = '' }: ContinuousLineArtPro
             d="M 15,105 C 25,105 35,95 40,85 C 45,70 30,55 45,40 C 55,30 70,35 75,25 C 80,15 95,15 105,25 C 115,35 110,50 125,55 C 135,60 145,50 145,65 C 145,80 130,85 125,95 C 120,105 135,110 145,105 C 130,105 115,105 100,105 M 40,85 L 100,85 L 100,35 L 40,35 Z M 40,60 L 100,60 M 70,35 L 70,85"
           />
           <path className="scribble-loop-path" d="M 15,30 C 22,22 28,38 20,40 C 14,42 22,25 30,28" strokeWidth="1.8" opacity="0.6" />
+          <path className="scribble-sparkle" d="M 125,20 L 135,20 M 130,15 L 130,25" strokeWidth="1.8" stroke="#5e17eb" />
         </svg>
       )
     case 'shopping-bag':
@@ -27,6 +28,7 @@ export function ContinuousLineArt({ type, className = '' }: ContinuousLineArtPro
           <circle cx="45" cy="100" r="6" strokeWidth="2" />
           <circle cx="75" cy="100" r="6" strokeWidth="2" />
           <path className="scribble-accent-path" d="M 115,25 Q 125,15 135,25 Q 125,35 115,25 Z" strokeWidth="1.8" opacity="0.8" />
+          <path className="scribble-sparkle" d="M 130,35 L 140,35 M 135,30 L 135,40" strokeWidth="1.8" stroke="#5e17eb" />
         </svg>
       )
     case 'cpu':
@@ -38,6 +40,7 @@ export function ContinuousLineArt({ type, className = '' }: ContinuousLineArtPro
           />
           <path className="scribble-accent-path" d="M 135,18 L 125,28 L 135,38 M 145,18 L 155,28 L 145,38" strokeWidth="2" opacity="0.85" />
           <circle cx="65" cy="60" r="4" fill="currentColor" />
+          <circle cx="85" cy="45" r="2.5" fill="#5e17eb" />
         </svg>
       )
     case 'shield-check':
@@ -47,7 +50,7 @@ export function ContinuousLineArt({ type, className = '' }: ContinuousLineArtPro
             className="continuous-path"
             d="M 35,25 C 55,20 75,15 80,15 C 85,15 105,20 125,25 L 125,60 C 125,90 85,110 80,110 C 75,110 35,90 35,60 Z M 15,65 L 45,65 L 55,45 L 70,85 L 85,55 L 95,65 L 145,65"
           />
-          <path className="scribble-accent-path" d="M 65,60 L 75,72 L 100,45" strokeWidth="3" opacity="0.9" />
+          <path className="scribble-accent-path" d="M 65,60 L 75,72 L 100,45" strokeWidth="3" opacity="0.9" stroke="#10b981" />
           <path className="scribble-loop-path" d="M 125,18 C 135,10 145,20 135,30 C 125,40 140,45 145,35" strokeWidth="1.8" opacity="0.75" />
         </svg>
       )

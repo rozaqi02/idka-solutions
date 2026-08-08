@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { company } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
 import './WAButton.css'
 
-const WA_MESSAGE = 'Halo IDKA Solutions, saya ingin konsultasi website untuk bisnis saya.'
 const STORAGE_KEY = 'wa-tooltip-shown'
 
 function safeSessionGet(key: string): string | null {
@@ -23,6 +24,8 @@ function safeSessionSet(key: string, value: string): void {
 
 export default function WAButton() {
   const [showTooltip, setShowTooltip] = useState(false)
+  const { lang } = useLanguage()
+  const t = getT(lang)
 
   // Tooltip hanya muncul sekali per session browser
   useEffect(() => {
@@ -35,13 +38,13 @@ export default function WAButton() {
     return () => clearTimeout(timer)
   }, [])
 
-  const waUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(WA_MESSAGE)}`
+  const waUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(t.wa.heroConsult)}`
 
   return (
     <div className="wa-btn-wrap wa-btn-wrap--visible">
       {showTooltip && (
         <div className="wa-btn__tooltip" role="tooltip">
-          Ada yang bisa kami bantu?
+          {lang === 'en' ? 'How can we help you?' : 'Ada yang bisa kami bantu?'}
           <span className="wa-btn__tooltip-arrow" aria-hidden="true" />
         </div>
       )}

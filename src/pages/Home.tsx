@@ -1,6 +1,9 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
-import { company, packages, portfolio, products } from '../data/content'
+import { company } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
+import { getLocalizedPortfolio, getLocalizedProducts } from '../data/getLocalizedData'
 import WordReveal from '../components/WordReveal'
 import ScribbleUnderline from '../components/ScribbleUnderline'
 import ContinuousLineArt from '../components/ContinuousLineArt'
@@ -9,17 +12,7 @@ import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import './Layanan.css'
 
-const WA_HERO =
-  'https://wa.me/' +
-  company.whatsapp +
-  '?text=' +
-  encodeURIComponent('Halo IDKA Solutions, saya ingin konsultasi website (dari beranda).')
-
-const WA_CTA =
-  'https://wa.me/' +
-  company.whatsapp +
-  '?text=' +
-  encodeURIComponent('Halo IDKA Solutions, saya ingin bertanya tentang website bisnis.')
+const WA_BASE = 'https://wa.me/' + company.whatsapp + '?text='
 
 /* ─── Inline DoodleBadge (same as Layanan) ─────────────────────────────── */
 function DoodleBadge({ text, shape = 'oval', popular = false }: { text: string; shape?: 'oval' | 'tape' | 'cloud'; popular?: boolean }) {
@@ -120,7 +113,9 @@ function PreviewScreenshot({ src, alt, color }: { src: string; alt: string; colo
   )
 }
 
-function PortfolioPreviewCard({ item, delay }: { item: (typeof portfolio)[number]; delay: number }) {
+type PortfolioItem = ReturnType<typeof getLocalizedPortfolio>[number]
+
+function PortfolioPreviewCard({ item, delay }: { item: PortfolioItem; delay: number }) {
   const liveUrl = item.url || '/portofolio'
   const isExternal = liveUrl.startsWith('http')
   const cardClass = `portfolio-preview-card art-card art-card--v${(delay % 4) + 1} reveal reveal--delay-${delay}`
@@ -157,7 +152,7 @@ function PortfolioPreviewCard({ item, delay }: { item: (typeof portfolio)[number
       <h3 className="portfolio-preview-card__title">{item.title}</h3>
       <p className="portfolio-preview-card__desc">{item.description}</p>
       <div className="portfolio-preview-card__tags">
-        {item.tags.map((tag) => (
+        {item.tags.map((tag: string) => (
           <span key={tag} className="art-card__tag-doodle"><span className="art-card__tag-bullet">•</span> {tag}</span>
         ))}
       </div>
@@ -182,18 +177,20 @@ function PortfolioPreviewCard({ item, delay }: { item: (typeof portfolio)[number
 }
 
 /* ─── Hero Value Icons (doodle style) ──────────────────────────────────── */
-const VALUE_ITEMS = [
-  { id: 'online', label: 'Mudah ditemukan', detail: 'Tampil di Google saat calon pelanggan mencari bisnis Anda.' },
-  { id: 'chat', label: 'WhatsApp langsung', detail: 'Tombol chat terhubung otomatis ke admin WhatsApp Anda.' },
-  { id: 'trust', label: 'Terpercaya & aman', detail: 'SSL aktif dan tampilan profesional bangun kepercayaan.' },
-  { id: 'growth', label: 'Siap tumbuh', detail: 'Struktur website dirancang agar mudah dikembangkan.' },
-  { id: 'mobile', label: 'Mobile-friendly', detail: 'Tampil sempurna di HP, tablet, dan desktop.' },
-  { id: 'fast', label: 'Go-live cepat', detail: 'Brief → pengerjaan → revisi → website Anda online.' },
-] as const
-
 function HeroValueIcons() {
   const [activeId, setActiveId] = useState<string | null>(null)
   const rowRef = useRef<HTMLDivElement>(null)
+  const { lang } = useLanguage()
+  const t = getT(lang)
+
+  const VALUE_ITEMS = [
+    { id: 'online', label: t.home.valueOnlineLabel, detail: t.home.valueOnlineDetail },
+    { id: 'chat', label: t.home.valueChatLabel, detail: t.home.valueChatDetail },
+    { id: 'trust', label: t.home.valueTrustLabel, detail: t.home.valueTrustDetail },
+    { id: 'growth', label: t.home.valueGrowthLabel, detail: t.home.valueGrowthDetail },
+    { id: 'mobile', label: t.home.valueMobileLabel, detail: t.home.valueMobileDetail },
+    { id: 'fast', label: t.home.valueFastLabel, detail: t.home.valueFastDetail },
+  ]
 
   useEffect(() => {
     if (!activeId) return
@@ -205,7 +202,7 @@ function HeroValueIcons() {
   }, [activeId])
 
   return (
-    <div ref={rowRef} className="home-value-row hero-in__item hero-in__item--sub" role="list" aria-label="Keunggulan website IDKA">
+    <div ref={rowRef} className="home-value-row hero-in__item hero-in__item--sub" role="list" aria-label={t.home.valueAriaLabel}>
       {VALUE_ITEMS.map((item) => {
         const open = activeId === item.id
         return (
@@ -234,53 +231,92 @@ function HeroValueIcons() {
 export default function Home() {
   useScrollReveal()
   useHeroEnter()
+  const { lang } = useLanguage()
+  const t = getT(lang)
+
+  const portfolio = getLocalizedPortfolio(lang)
+  const products = getLocalizedProducts(lang)
+
+  const PACKAGES = [
+    {
+      id: 'starter',
+      name: t.layanan.pkg_starter_name,
+      tagline: t.layanan.pkg_starter_tagline,
+      price: t.layanan.pkg_starter_price,
+      highlighted: false,
+      features: t.layanan.pkg_starter_features,
+    },
+    {
+      id: 'business',
+      name: t.layanan.pkg_business_name,
+      tagline: t.layanan.pkg_business_tagline,
+      price: t.layanan.pkg_business_price,
+      highlighted: true,
+      features: t.layanan.pkg_business_features,
+    },
+    {
+      id: 'premium',
+      name: t.layanan.pkg_premium_name,
+      tagline: t.layanan.pkg_premium_tagline,
+      price: t.layanan.pkg_premium_price,
+      highlighted: false,
+      features: t.layanan.pkg_premium_features,
+    },
+  ]
+
   usePageTitle({
-    title: 'IDKA Solutions | Jasa Website Profesional untuk Bisnis',
-    description:
-      'IDKA Solutions membantu UMKM, personal brand, dan startup membangun website modern yang fungsional dan siap mendukung pertumbuhan bisnis.',
+    title: lang === 'en'
+      ? 'IDKA Solutions | Professional Website & Mobile App Services'
+      : 'IDKA Solutions | Jasa Website Profesional untuk Bisnis',
+    description: lang === 'en'
+      ? 'IDKA Solutions helps SMEs, personal brands, and startups build modern websites & mobile apps that are functional and ready to support business growth.'
+      : 'IDKA Solutions membantu UMKM, personal brand, dan startup membangun website modern yang fungsional dan siap mendukung pertumbuhan bisnis.',
     fullTitle: true,
     path: '/',
   })
+
+  const WA_HERO = WA_BASE + encodeURIComponent(t.wa.heroConsult)
+  const WA_CTA = WA_BASE + encodeURIComponent(t.wa.ctaConsult)
 
   const SERVICES = [
     {
       id: 'profil-branding',
       icon: 'building' as const,
-      badge: 'Profil & Branding',
+      badge: t.home.svc1Badge,
       popular: false,
-      title: 'Company Profile & Landing Page',
-      description: 'Tampilan modern yang membangun kepercayaan calon pembeli dan partner bisnis Anda sejak detik pertama.',
-      tags: ['Profil Bisnis', 'Landing Page', 'Google-friendly'],
+      title: t.home.svc1Title,
+      description: t.home.svc1Desc,
+      tags: lang === 'en' ? ['Business Profile', 'Landing Page', 'Google-friendly'] : ['Profil Bisnis', 'Landing Page', 'Google-friendly'],
       accent: 'indigo',
     },
     {
       id: 'katalog-toko-online',
       icon: 'shopping-bag' as const,
-      badge: 'Toko & Katalog',
+      badge: t.home.svc2Badge,
       popular: true,
-      title: 'Web Toko & Integrasi WhatsApp',
-      description: 'Tampilkan produk rapi lengkap dengan checkout langsung terhubung ke admin WhatsApp Anda.',
-      tags: ['Katalog Produk', 'WhatsApp Order', 'Galeri Foto'],
+      title: t.home.svc2Title,
+      description: t.home.svc2Desc,
+      tags: lang === 'en' ? ['Product Catalog', 'WhatsApp Order', 'Photo Gallery'] : ['Katalog Produk', 'WhatsApp Order', 'Galeri Foto'],
       accent: 'purple',
     },
     {
       id: 'sistem-kustom',
       icon: 'cpu' as const,
-      badge: 'Sistem Kustom',
+      badge: t.home.svc3Badge,
       popular: false,
-      title: 'Web App & Dashboard Operasional',
-      description: 'Fitur fungsional sesuai workflow internal bisnis Anda — otomasi data, form dinamis, dan integrasi API.',
-      tags: ['Web App', 'Dashboard', 'Otomasi Data'],
+      title: t.home.svc3Title,
+      description: t.home.svc3Desc,
+      tags: lang === 'en' ? ['Web App', 'Dashboard', 'Data Automation'] : ['Web App', 'Dashboard', 'Otomasi Data'],
       accent: 'amber',
     },
     {
       id: 'maintenance-care',
       icon: 'shield-check' as const,
-      badge: 'Care+ 24/7',
+      badge: t.home.svc4Badge,
       popular: false,
-      title: 'Performa & Keamanan Terjaga 24/7',
-      description: 'Backup berkala, pembaruan sistem, SSL aktif, monitoring uptime, dan bantuan teknis saat ada kendala.',
-      tags: ['SSL & Backup', 'Uptime Monitor', 'Revisi Berkala'],
+      title: t.home.svc4Title,
+      description: t.home.svc4Desc,
+      tags: lang === 'en' ? ['SSL & Backup', 'Uptime Monitor', 'Regular Revision'] : ['SSL & Backup', 'Uptime Monitor', 'Revisi Berkala'],
       accent: 'emerald',
     },
   ]
@@ -288,54 +324,42 @@ export default function Home() {
   const WHY_US = [
     {
       icon: 'building' as const,
-      badge: 'SEO & Maps',
-      title: 'Mudah Ditemukan di Google',
-      desc: 'Struktur kode teroptimasi SEO dan titik lokasi Google Maps bantu calon pembeli menemukan bisnis Anda dengan cepat.',
+      badge: t.home.why1Badge,
+      title: t.home.why1Title,
+      desc: t.home.why1Desc,
       tags: ['Google Search', 'Google Maps'],
       accent: 'indigo',
     },
     {
       icon: 'shopping-bag' as const,
-      badge: 'Reputasi Brand',
-      title: 'Kesan Pertama yang Terpercaya',
-      desc: 'Desain visual bersih dan berkarakter yang langsung membangun kredibilitas brand Anda di mata pengunjung pertama.',
-      tags: ['Visual Clean', 'Responsive HP'],
+      badge: t.home.why2Badge,
+      title: t.home.why2Title,
+      desc: t.home.why2Desc,
+      tags: lang === 'en' ? ['Clean Design', 'Responsive'] : ['Visual Clean', 'Responsive HP'],
       accent: 'purple',
     },
     {
       icon: 'cpu' as const,
-      badge: 'WhatsApp Instant',
-      title: 'Chat Masuk Otomatis ke Admin',
-      desc: 'Integrasi tombol pesan dan form kontak langsung terhubung ke WhatsApp aktif bisnis Anda tanpa ribet.',
+      badge: t.home.why3Badge,
+      title: t.home.why3Title,
+      desc: t.home.why3Desc,
       tags: ['Quick Chat', 'Form Lead'],
       accent: 'amber',
     },
     {
       icon: 'shield-check' as const,
-      badge: 'Garansi & SSL',
-      title: 'Performa Cepat & Keamanan 24/7',
-      desc: 'Sertifikat SSL aktif, kecepatan muat tinggi, dan dukungan garansi pemeliharaan agar website selalu beroperasi.',
-      tags: ['High Speed', 'SSL Enkripsi'],
+      badge: t.home.why4Badge,
+      title: t.home.why4Title,
+      desc: t.home.why4Desc,
+      tags: ['High Speed', 'SSL'],
       accent: 'emerald',
     },
   ]
 
   const PROCESS = [
-    {
-      n: '01',
-      title: 'Ceritakan Kebutuhan',
-      desc: 'Konsultasi gratis via WhatsApp atau form. Kami petakan tujuan, fitur, dan anggaran bisnis Anda.',
-    },
-    {
-      n: '02',
-      title: 'Kami Kerjakan',
-      desc: 'Desain, development, dan revisi sesuai paket. Anda review progres di staging sebelum go-live.',
-    },
-    {
-      n: '03',
-      title: 'Website Live',
-      desc: 'Domain aktif, SSL terpasang, dan website online — siap mendatangkan pelanggan baru.',
-    },
+    { n: '01', title: t.home.step1Title, desc: t.home.step1Desc },
+    { n: '02', title: t.home.step2Title, desc: t.home.step2Desc },
+    { n: '03', title: t.home.step3Title, desc: t.home.step3Desc },
   ]
 
   return (
@@ -346,16 +370,16 @@ export default function Home() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Website &amp; Mobile App Studio</span>
+              <span>{t.home.heroEyebrow}</span>
             </div>
             <h1 id="hero-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Website &amp; Aplikasi Mobile.</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">Lebih Terpercaya &amp; Siap Tumbuh.</WordReveal>
+              <WordReveal>{t.home.heroTitle}</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">{t.home.heroTitleAccent}</WordReveal>
               <ScribbleUnderline variant="wavy" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Segala kebutuhan digital bisnis Anda — dari landing page, toko online, hingga aplikasi Android &amp; iOS kustom.{' '}
-              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
+              {t.home.heroSubtitle}{' '}
+              <strong className="apple-text-bold">{t.home.heroSubtitleBold}</strong>
             </p>
 
             <HeroValueIcons />
@@ -367,38 +391,38 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="art-card__btn-doodle"
               >
-                <span>Konsultasi Gratis</span>
+                <span>{t.home.heroCta1}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
               </a>
               <NavLink to="/layanan" className="art-card__btn-doodle">
-                <span>Lihat Semua Layanan</span>
+                <span>{t.home.heroCta2}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
               </NavLink>
             </div>
             <p className="apple-hero__proof hero-in__item" style={{ marginTop: '1.25rem' }}>
-              Konsultasi awal gratis · Respon 1-3 jam kerja · Brief proyek terarah
+              {t.home.heroProof}
             </p>
           </div>
         </div>
       </section>
 
-      {/* 2. Layanan Utama — Kiblat Layanan.tsx */}
+      {/* 2. Layanan Utama */}
       <section className="section section--tint layanan-artistic-section" aria-labelledby="all-services-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Layanan Utama</span>
+              <span>{t.home.servicesSectionTag}</span>
             </div>
             <h2 id="all-services-heading" className="section-title artistic-title">
-              4 Solusi Digital Berdampak untuk Bisnis Anda
+              {t.home.servicesSectionTitle}
               <ScribbleUnderline variant="double" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Dari profil usaha, toko online, sistem kustom, hingga perawatan rutin — semua dikerjakan dengan standar studio digital premium.
+              {t.home.servicesSectionSubtitle}
             </p>
           </div>
 
@@ -431,7 +455,7 @@ export default function Home() {
 
                 <div className="art-card__footer">
                   <NavLink to="/layanan" className="art-card__btn-doodle">
-                    <span>Lihat Detail</span>
+                    <span>{t.home.servicesViewDetail}</span>
                     <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                     </svg>
@@ -448,14 +472,14 @@ export default function Home() {
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Keunggulan IDKA</span>
+              <span>{t.home.whySectionTag}</span>
             </div>
             <h2 id="why-heading" className="section-title artistic-title">
-              Kenapa Bisnis Memilih IDKA Solutions?
+              {t.home.whySectionTitle}
               <ScribbleUnderline variant="zigzag" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Kombinasi desain artistik modern, performa tinggi, dan layanan purna jual yang reliabel.
+              {t.home.whySectionSubtitle}
             </p>
           </div>
 
@@ -489,13 +513,13 @@ export default function Home() {
       <section className="section section--tint layanan-process" aria-labelledby="process-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Workflow Art</span></div>
+            <div className="section-tag doodle-tag"><span>{t.home.processSectionTag}</span></div>
             <h2 id="process-heading" className="section-title artistic-title">
-              3 Langkah ke Website Live
+              {t.home.processSectionTitle}
               <ScribbleUnderline variant="zigzag" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Alur sederhana dan transparan dari konsultasi hingga go-live.
+              {t.home.processSectionSubtitle}
             </p>
           </div>
           <div className="process-list artistic-process-list">
@@ -503,7 +527,7 @@ export default function Home() {
               <div key={step.n} className={`art-card process-art-card art-card--v${idx + 1} reveal`}>
                 <div className="process-art-card__header">
                   <DoodleBadge
-                    text={`Langkah ${step.n}`}
+                    text={step.n === '01' ? t.home.step1Label : step.n === '02' ? t.home.step2Label : t.home.step3Label}
                     popular={step.n === '01'}
                     shape={idx === 0 ? 'cloud' : idx === 1 ? 'tape' : 'oval'}
                   />
@@ -525,13 +549,13 @@ export default function Home() {
       <section className="section layanan-artistic-section" aria-labelledby="portfolio-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Karya Terbaik</span></div>
+            <div className="section-tag doodle-tag"><span>{t.home.portfolioSectionTag}</span></div>
             <h2 id="portfolio-heading" className="section-title artistic-title">
-              Hasil Karya yang Telah Go-Live
+              {t.home.portfolioSectionTitle}
               <ScribbleUnderline variant="wavy" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Lihat bagaimana klien kami bertransformasi dan meningkatkan kepercayaan calon pembeli.
+              {t.home.portfolioSectionSubtitle}
             </p>
           </div>
 
@@ -543,7 +567,7 @@ export default function Home() {
 
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
             <NavLink to="/portofolio" className="art-card__btn-doodle">
-              <span>Lihat Semua Portofolio</span>
+              <span>{t.home.portfolioViewAll}</span>
               <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
               </svg>
@@ -556,13 +580,13 @@ export default function Home() {
       <section className="section section--tint layanan-artistic-section" aria-labelledby="products-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Pipeline 2026</span></div>
+            <div className="section-tag doodle-tag"><span>{t.home.productsSectionTag}</span></div>
             <h2 id="products-heading" className="section-title artistic-title">
-              Produk Digital yang Sedang Kami Bangun
+              {t.home.productsSectionTitle}
               <ScribbleUnderline variant="arc" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Produk-produk ini dirancang khusus untuk kebutuhan bisnis lokal Indonesia.
+              {t.home.productsSectionSubtitle}
             </p>
           </div>
           <div className="artistic-grid">
@@ -585,7 +609,7 @@ export default function Home() {
                 </div>
                 <div className="art-card__footer">
                   <span className="art-card__btn-doodle">
-                    <span>Pelajari Lebih Lanjut</span>
+                    <span>{t.home.productsLearnMore}</span>
                     <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                     </svg>
@@ -601,23 +625,23 @@ export default function Home() {
       <section className="section layanan-packages" aria-labelledby="packages-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Investasi Jelas</span></div>
+            <div className="section-tag doodle-tag"><span>{t.home.pricingSectionTag}</span></div>
             <h2 id="packages-heading" className="section-title artistic-title">
-              Harga Transparan, Scope Jelas
+              {t.home.pricingSectionTitle}
               <ScribbleUnderline variant="double" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Harga sekali bayar (bukan langganan bulanan). Scope dan revisi disepakati di awal.
+              {t.home.pricingSectionSubtitle}
             </p>
           </div>
           <div className="packages-grid artistic-packages-grid">
-            {packages.map((pkg, i) => (
+            {PACKAGES.map((pkg, i) => (
               <div
                 key={pkg.id}
                 className={`art-card package-art-card art-card--v${(i % 3) + 1} reveal reveal--delay-${i + 1}${pkg.highlighted ? ' art-card--featured' : ''}`}
               >
                 {pkg.highlighted && (
-                  <DoodleBadge text="Paling Dipilih" popular shape="tape" />
+                  <DoodleBadge text={t.layanan.packagesMostChosen} popular shape="tape" />
                 )}
                 <div className="package-art-card__header">
                   <h3 className="art-card__title">{pkg.name}</h3>
@@ -633,7 +657,7 @@ export default function Home() {
                 </ul>
                 <div className="art-card__footer">
                   <NavLink to="/kontak" className="art-card__btn-doodle">
-                    <span>Pilih Paket</span>
+                    <span>{t.home.pricingChoose}</span>
                     <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                     </svg>
@@ -650,14 +674,14 @@ export default function Home() {
         <div className="container">
           <div className="art-card art-card--v1 art-card--featured reveal" style={{ textAlign: 'center', padding: '3.5rem 2rem' }}>
             <div className="section-tag doodle-tag" style={{ marginBottom: '1.25rem' }}>
-              <span>Konsultasi Gratis</span>
+              <span>{t.home.ctaSectionTag}</span>
             </div>
             <h2 id="cta-heading" className="section-title artistic-title" style={{ display: 'block', margin: '0 auto 1rem' }}>
-              Siap Memulai Website Bisnis Anda?
+              {t.home.ctaSectionTitle}
               <ScribbleUnderline variant="zigzag" />
             </h2>
             <p className="section-subtitle artistic-subtitle" style={{ maxWidth: '580px', margin: '0 auto 2rem' }}>
-              Diskusi awal gratis dan tanpa komitmen. Tim IDKA Solutions siap membantu merancang website yang tepat untuk bisnis Anda.
+              {t.home.ctaSectionSubtitle}
             </p>
             <div className="apple-hero__actions">
               <a
@@ -666,20 +690,20 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="art-card__btn-doodle"
               >
-                <span>💬 Chat WhatsApp</span>
+                <span>{t.home.ctaWhatsApp}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
               </a>
               <NavLink to="/kontak" className="art-card__btn-doodle">
-                <span>Isi Brief Proyek</span>
+                <span>{t.home.ctaBrief}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
               </NavLink>
             </div>
             <p className="apple-hero__proof" style={{ marginTop: '1.25rem' }}>
-              Konsultasi gratis · Tanpa komitmen · Brief proyek terarah
+              {t.home.ctaProof}
             </p>
           </div>
         </div>

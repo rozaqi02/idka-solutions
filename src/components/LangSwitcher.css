@@ -1,0 +1,163 @@
+/* =============================================
+   LANGUAGE SWITCHER — Art Canvas Design System
+   ============================================= */
+
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.2rem 0.55rem 0.2rem 0.4rem;
+  /* Hand-drawn asymmetric border — Art Canvas signature */
+  border-radius: 255px 12px 215px 12px / 12px 215px 12px 255px;
+  border: 1.8px solid #1e1b4b;
+  background: #ffffff;
+  color: #1e1b4b;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 2px 2px 0px #1e1b4b;
+  transition:
+    background 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: visible;
+}
+
+.lang-switcher:hover {
+  background: #faf5ff;
+  border-color: #5e17eb;
+  color: #5e17eb;
+  /* 3D offset ink shadow on hover — Art Canvas signature */
+  box-shadow: 3.5px 3.5px 0px #5e17eb;
+  transform: translate(-1px, -1px) rotate(-0.8deg);
+}
+
+.lang-switcher:active {
+  transform: translate(1px, 1px) rotate(0deg);
+  box-shadow: 1px 1px 0px #5e17eb;
+}
+
+/* Compact mode */
+.lang-switcher--compact {
+  padding: 0.18rem 0.45rem;
+  gap: 4px;
+  font-size: 0.7rem;
+}
+
+/* ── Flag Icon (Art Canvas SVG) ──────────────────── */
+.lang-switcher__flag {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  filter: drop-shadow(0 1.5px 3px rgba(30, 27, 75, 0.15));
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lang-switcher:hover .lang-switcher__flag {
+  transform: rotate(12deg) scale(1.15);
+}
+
+/* ── Pill (EN / ID) ──────────────────────────────────────── */
+.lang-switcher__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* ── Individual Code Label ────────────────────────────────── */
+.lang-switcher__code {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  padding-bottom: 2px;
+  color: #6b7280;
+  opacity: 0.6;
+  font-weight: 800;
+  transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  gap: 1px;
+}
+
+.lang-switcher__code--active {
+  opacity: 1;
+  color: #5e17eb;
+  transform: scale(1.05);
+}
+
+.lang-switcher:not(:hover) .lang-switcher__code--active {
+  color: #1e1b4b;
+}
+
+/* ── Scribble underline (active lang) ─────────────────────── */
+.lang-switcher__scribble {
+  display: block;
+  width: 22px;
+  height: 5px;
+  color: #5e17eb;
+  /* Draw-in animation */
+  animation: scribble-draw 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scribble-draw {
+  from {
+    opacity: 0;
+    transform: scaleX(0.2);
+    transform-origin: center;
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: center;
+  }
+}
+
+.lang-switcher__scribble path {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: scribble-path-draw 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes scribble-path-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Slash separator ──────────────────────────────────────── */
+.lang-switcher__sep {
+  width: 6px;
+  height: 11px;
+  color: #1e1b4b;
+  opacity: 0.35;
+  flex-shrink: 0;
+}
+
+/* ── Focus visible ────────────────────────────────────────── */
+.lang-switcher:focus-visible {
+  outline: 2px solid #5e17eb;
+  outline-offset: 2px;
+}
+
+/* ── Sidebar version (mobile menu) ────────────────────────── */
+.lang-switcher--sidebar {
+  width: 100%;
+  justify-content: center;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.78rem;
+  background: #ffffff;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 3px 3px 0px #1e1b4b;
+}
+.lang-switcher--sidebar .lang-switcher__flag {
+  width: 16px;
+  height: 16px;
+}

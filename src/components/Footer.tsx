@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { company } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
 import ScribbleUnderline from './ScribbleUnderline'
 import ContinuousLineArt from './ContinuousLineArt'
 import HandDrawnBadge from './HandDrawnBadge'
@@ -7,6 +9,8 @@ import './Footer.css'
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { lang } = useLanguage()
+  const t = getT(lang)
 
   return (
     <footer className="footer-canvas" role="contentinfo">
@@ -16,7 +20,7 @@ export default function Footer() {
           <div className="footer__brand">
             <div className="footer__brand-top">
               <div className="doodle-tag">
-                <span>IDKA Solutions Studio</span>
+                <span>{t.footer.studioTag}</span>
               </div>
               <div className="footer__illustration" aria-hidden="true">
                 <ContinuousLineArt type="building" />
@@ -35,7 +39,7 @@ export default function Footer() {
               />
             </div>
 
-            <p className="footer__desc">{company.description}</p>
+            <p className="footer__desc">{t.footer.desc}</p>
 
             <div className="footer__socials">
               <a
@@ -69,45 +73,45 @@ export default function Footer() {
           {/* Links Column */}
           <div className="footer__links">
             <h3 className="footer__links-title artistic-title">
-              Halaman
+              {t.footer.pagesTitle}
               <ScribbleUnderline variant="wavy" />
             </h3>
             <nav aria-label="Footer navigation">
-              <NavLink to="/" className="footer__link">Beranda</NavLink>
-              <NavLink to="/layanan" className="footer__link">Layanan</NavLink>
-              <NavLink to="/produk" className="footer__link">Produk</NavLink>
-              <NavLink to="/portofolio" className="footer__link">Portofolio</NavLink>
-              <NavLink to="/tentang" className="footer__link">Tentang Kami</NavLink>
-              <NavLink to="/kontak" className="footer__link">Kontak</NavLink>
+              <NavLink to="/" className="footer__link">{t.footer.home}</NavLink>
+              <NavLink to="/layanan" className="footer__link">{t.footer.services}</NavLink>
+              <NavLink to="/produk" className="footer__link">{t.footer.products}</NavLink>
+              <NavLink to="/portofolio" className="footer__link">{t.footer.portfolio}</NavLink>
+              <NavLink to="/tentang" className="footer__link">{t.footer.about}</NavLink>
+              <NavLink to="/kontak" className="footer__link">{t.footer.contact}</NavLink>
             </nav>
           </div>
 
           {/* Services Column */}
           <div className="footer__links">
             <h3 className="footer__links-title artistic-title">
-              Layanan
+              {t.footer.servicesTitle}
               <ScribbleUnderline variant="double" />
             </h3>
-            <nav aria-label="Footer layanan">
-              <NavLink to="/layanan#website-profil" className="footer__link">Company Profile</NavLink>
-              <NavLink to="/layanan#website-profil" className="footer__link">Landing Page</NavLink>
-              <NavLink to="/layanan#website-katalog" className="footer__link">Toko &amp; Katalog</NavLink>
-              <NavLink to="/layanan#aplikasi-mobile" className="footer__link">Aplikasi Mobile</NavLink>
-              <NavLink to="/layanan#maintenance" className="footer__link">Maintenance Care+</NavLink>
+            <nav aria-label="Footer services">
+              <NavLink to="/layanan#website-profil" className="footer__link">{t.footer.companyProfile}</NavLink>
+              <NavLink to="/layanan#website-profil" className="footer__link">{t.footer.landingPage}</NavLink>
+              <NavLink to="/layanan#website-katalog" className="footer__link">{t.footer.storeAndCatalog}</NavLink>
+              <NavLink to="/layanan#aplikasi-mobile" className="footer__link">{t.footer.mobileApp}</NavLink>
+              <NavLink to="/layanan#maintenance" className="footer__link">{t.footer.maintenance}</NavLink>
             </nav>
           </div>
 
           {/* Contact & CTA Column */}
           <div className="footer__links footer__cta-col">
             <h3 className="footer__links-title artistic-title">
-              Mulai
+              {t.footer.startTitle}
               <ScribbleUnderline variant="arc" />
             </h3>
             <p className="footer__cta-desc">
-              Siap hadirkan website &amp; aplikasi mobile profesional untuk bisnis Anda?
+              {t.footer.ctaDesc}
             </p>
             <NavLink to="/kontak" className="art-card__btn-doodle">
-              <span>Mulai Proyek</span>
+              <span>{t.footer.ctaBtn}</span>
               <svg className="art-card__btn-arrow" width="20" height="12" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
               </svg>
@@ -115,7 +119,7 @@ export default function Footer() {
 
             <div className="footer__direct-contacts">
               <HandDrawnBadge shape="cloud">
-                <span>Fast response 1-3 jam</span>
+                <span>{t.footer.fastResponse}</span>
               </HandDrawnBadge>
             </div>
           </div>
@@ -124,14 +128,13 @@ export default function Footer() {
         {/* Footer Bottom Bar */}
         <div className="footer__bottom">
           <p className="footer__copy">
-            Copyright &copy; {year} IDKA Solutions. All rights reserved.
+            Copyright &copy; {year} IDKA Solutions. {t.misc.copyright}
           </p>
           <span className="footer__bottom-tag art-card__tag-doodle">
-            <span className="art-card__tag-bullet">•</span> Dibuat untuk bisnis yang ingin tumbuh dengan jelas.
+            {t.footer.bottomTag}
           </span>
         </div>
       </div>
     </footer>
   )
 }
-

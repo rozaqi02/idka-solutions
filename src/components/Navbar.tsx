@@ -2,6 +2,9 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { NavLink, useLocation } from 'react-router-dom'
 import { company } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
+import LangSwitcher from './LangSwitcher'
 import './Navbar.css'
 
 /* Inline SVG scribble underline for active desktop nav link */
@@ -25,15 +28,6 @@ function NavScribble() {
   )
 }
 
-const navLinks = [
-  { to: '/', label: 'Beranda' },
-  { to: '/layanan', label: 'Layanan' },
-  { to: '/produk', label: 'Produk' },
-  { to: '/portofolio', label: 'Portofolio' },
-  { to: '/tentang', label: 'Tentang' },
-  { to: '/kontak', label: 'Kontak' },
-]
-
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -41,6 +35,17 @@ export default function Navbar() {
   const location = useLocation()
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const { lang } = useLanguage()
+  const t = getT(lang)
+
+  const navLinks = [
+    { to: '/', label: t.nav.home },
+    { to: '/layanan', label: t.nav.services },
+    { to: '/produk', label: t.nav.products },
+    { to: '/portofolio', label: t.nav.portfolio },
+    { to: '/tentang', label: t.nav.about },
+    { to: '/kontak', label: t.nav.contact },
+  ]
 
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
@@ -94,20 +99,18 @@ export default function Navbar() {
 
     window.addEventListener('keydown', onKeyDown)
 
-    const t = window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       mobileMenuRef.current?.querySelector<HTMLElement>('a[href]')?.focus()
     }, 50)
 
     return () => {
-      window.clearTimeout(t)
+      window.clearTimeout(timer)
       window.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = ''
     }
   }, [menuOpen])
 
-  const waUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
-    'Halo IDKA Solutions, saya ingin konsultasi website.'
-  )}`
+  const waUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(t.wa.navbar)}`
 
   const mobileDrawer =
     portalReady &&
@@ -128,7 +131,7 @@ export default function Navbar() {
           aria-hidden={!menuOpen}
           role="dialog"
           aria-modal={menuOpen}
-          aria-label="Menu navigasi"
+          aria-label={t.nav.mobileMenuLabel}
         >
           {/* Sidebar header */}
           <div className="localnav-sidebar__header">
@@ -145,7 +148,7 @@ export default function Navbar() {
               type="button"
               className="localnav-sidebar__close"
               onClick={closeMenu}
-              aria-label="Tutup menu"
+              aria-label={t.nav.closeMenu}
               tabIndex={menuOpen ? 0 : -1}
             >
               {/* X icon — continuous line art */}
@@ -156,7 +159,7 @@ export default function Navbar() {
           </div>
 
           {/* Nav links */}
-          <nav aria-label="Navigasi mobile" className="localnav-sidebar__nav">
+          <nav aria-label={t.nav.mobileMenuLabel} className="localnav-sidebar__nav">
             {navLinks.map((link, i) => (
               <NavLink
                 key={link.to}
@@ -188,9 +191,11 @@ export default function Navbar() {
               tabIndex={menuOpen ? 0 : -1}
               onClick={closeMenu}
             >
-              Konsultasi Gratis
+              {t.nav.cta}
             </a>
-            <p className="localnav-sidebar__tagline">Respon dalam 1–3 jam kerja</p>
+            {/* Language switcher in mobile sidebar */}
+            <LangSwitcher className="lang-switcher--sidebar" compact={false} />
+            <p className="localnav-sidebar__tagline">{t.nav.sidebarTagline}</p>
           </div>
         </div>
       </>,
@@ -223,7 +228,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="localnav__menu" aria-label="Navigasi utama">
+          <nav className="localnav__menu" aria-label="Main navigation">
             <ul className="localnav__menu-items" role="list">
               {navLinks.map((link) => (
                 <li key={link.to} className="localnav__menu-item">
@@ -242,10 +247,13 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA + LangSwitcher */}
           <div className="localnav__actions">
+            {/* Language Switcher — desktop */}
+            <LangSwitcher />
+
             <NavLink to="/kontak" className="localnav__cta-btn">
-              Konsultasi Gratis
+              {t.nav.cta}
             </NavLink>
 
             {/* Mobile Hamburger */}
@@ -256,7 +264,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen((open) => !open)}
               aria-expanded={menuOpen}
               aria-controls="localnav-mobile-menu"
-              aria-label={menuOpen ? 'Tutup menu' : 'Buka menu'}
+              aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
             >
               <span className="localnav__hamburger-box" aria-hidden="true">
                 <span className="localnav__hamburger-line" />

@@ -1,5 +1,8 @@
 import { NavLink } from 'react-router-dom'
-import { company, products } from '../data/content'
+import { company } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
+import { getLocalizedProducts } from '../data/getLocalizedData'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -12,10 +15,15 @@ import './Produk.css'
 export default function Produk() {
   useScrollReveal()
   useHeroEnter()
+  const { lang } = useLanguage()
+  const t = getT(lang)
+  const products = getLocalizedProducts(lang)
+
   usePageTitle({
-    title: 'Produk',
-    description:
-      'Produk digital IDKA Solutions — Dashboard UMKM dan Ngelamar, personal career CRM untuk melacak lamaran kerja.',
+    title: lang === 'en' ? 'Products' : 'Produk',
+    description: lang === 'en'
+      ? 'IDKA Solutions digital products — SME Dashboard and Ngelamar, a personal career CRM for tracking job applications.'
+      : 'Produk digital IDKA Solutions — Dashboard UMKM dan Ngelamar, personal career CRM untuk melacak lamaran kerja.',
     path: '/produk',
   })
 
@@ -25,15 +33,15 @@ export default function Produk() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Produk Digital IDKA</span>
+              <span>{t.produk.heroEyebrow}</span>
             </div>
             <h1 id="produk-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Produk digital yang</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">segera hadir.</WordReveal>
+              <WordReveal>{t.produk.heroTitle}</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">{t.produk.heroTitleAccent}</WordReveal>
               <ScribbleUnderline variant="zigzag" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Selain website &amp; aplikasi mobile kustom, kami membangun produk digital internal untuk operasional bisnis dan karier.
+              {t.produk.heroSubtitle}
             </p>
           </div>
         </div>
@@ -43,14 +51,14 @@ export default function Produk() {
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Canvas Pipeline 2026</span>
+              <span>{t.produk.showcaseSectionTag}</span>
             </div>
             <h2 id="produk-list-heading" className="section-title artistic-title">
-              Dua Produk Dalam Pipeline
+              {t.produk.showcaseSectionTitle}
               <ScribbleUnderline variant="wavy" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Dirancang sederhana dengan pendekatan *Art Canvas*, fokus pada pekerjaan nyata, dan nyaman digunakan setiap hari.
+              {t.produk.showcaseSectionSubtitle}
             </p>
           </div>
 
@@ -116,7 +124,7 @@ export default function Produk() {
                         className="art-card__btn-doodle"
                         style={{ width: '100%', justifyContent: 'center' }}
                       >
-                        <span>Unduh APK Gratis ({p.version} · {p.fileSize})</span>
+                        <span>{t.produk.downloadBtn} ({p.version} · {p.fileSize})</span>
                         <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                         </svg>
@@ -131,22 +139,24 @@ export default function Produk() {
           <div className="produk-cta art-card art-card--v1 art-card--featured reveal">
             <div className="doodle-tape" style={{ top: -12, right: 36 }} aria-hidden="true" />
             <p className="produk-cta__text">
-              Tertarik menjadi early user atau membutuhkan sistem serupa untuk bisnis Anda?
+              {lang === 'en'
+                ? 'Interested in becoming an early user or need a similar system for your business?'
+                : 'Tertarik menjadi early user atau membutuhkan sistem serupa untuk bisnis Anda?'}
             </p>
             <div className="produk-cta__actions">
               <NavLink to="/kontak" className="art-card__btn-doodle">
-                <span>Hubungi Kami</span>
+                <span>{lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
               </NavLink>
               <a
-                href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent('Halo IDKA, saya tertarik produk Coming Soon (Dashboard UMKM / Ngelamar).')}`}
+                href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(t.wa.ctaConsult)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="art-card__btn-doodle"
               >
-                <span>Chat WhatsApp</span>
+                <span>{lang === 'en' ? 'WhatsApp Chat' : 'Chat WhatsApp'}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>

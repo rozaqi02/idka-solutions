@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { company, services, packages, maintenancePackages, faq } from '../data/content'
+import { company, services } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
 import PriceEstimator from '../components/PriceEstimator'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
@@ -250,10 +252,31 @@ export default function Layanan() {
   const location = useLocation()
   useScrollReveal()
   useHeroEnter()
+  const { lang } = useLanguage()
+  const t = getT(lang)
+
+  // Build translated service data map
+  const svcMap: Record<string, { badge: string; title: string; desc: string }> = {
+    'website-profil': { badge: t.layanan.svc_website_profil_badge, title: t.layanan.svc_website_profil_title, desc: t.layanan.svc_website_profil_desc },
+    'aplikasi-mobile': { badge: t.layanan.svc_aplikasi_mobile_badge, title: t.layanan.svc_aplikasi_mobile_title, desc: t.layanan.svc_aplikasi_mobile_desc },
+    'website-katalog': { badge: t.layanan.svc_website_katalog_badge, title: t.layanan.svc_website_katalog_title, desc: t.layanan.svc_website_katalog_desc },
+    'website-kustom': { badge: t.layanan.svc_website_kustom_badge, title: t.layanan.svc_website_kustom_title, desc: t.layanan.svc_website_kustom_desc },
+    'maintenance': { badge: t.layanan.svc_maintenance_badge, title: t.layanan.svc_maintenance_title, desc: t.layanan.svc_maintenance_desc },
+  }
+
+  const pkgs = [
+    { id: 'starter', name: t.layanan.pkg_starter_name, tagline: t.layanan.pkg_starter_tagline, price: t.layanan.pkg_starter_price, highlighted: false, features: t.layanan.pkg_starter_features, cta: t.layanan.pkg_starter_cta },
+    { id: 'business', name: t.layanan.pkg_business_name, tagline: t.layanan.pkg_business_tagline, price: t.layanan.pkg_business_price, highlighted: true, features: t.layanan.pkg_business_features, cta: t.layanan.pkg_business_cta },
+    { id: 'premium', name: t.layanan.pkg_premium_name, tagline: t.layanan.pkg_premium_tagline, price: t.layanan.pkg_premium_price, highlighted: false, features: t.layanan.pkg_premium_features, cta: t.layanan.pkg_premium_cta },
+  ]
+
+  const maintPkgs = [{ name: t.layanan.maint_name, price: t.layanan.maint_price, features: t.layanan.maint_features }]
+
   usePageTitle({
-    title: 'Layanan',
-    description:
-      'Jasa pembuatan website profesional: landing page, company profile, toko online, dan portofolio. Harga transparan, hasil berkualitas.',
+    title: lang === 'en' ? 'Services' : 'Layanan',
+    description: lang === 'en'
+      ? 'Professional website creation services: landing pages, company profiles, online stores, and portfolios. Transparent pricing, quality results.'
+      : 'Jasa pembuatan website profesional: landing page, company profile, toko online, dan portofolio. Harga transparan, hasil berkualitas.',
     path: '/layanan',
   })
 
@@ -263,12 +286,12 @@ export default function Layanan() {
     if (!id) return
     const el = document.getElementById(id)
     if (!el) return
-    const t = window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' })
       el.classList.add('layanan-card--highlight')
       window.setTimeout(() => el.classList.remove('layanan-card--highlight'), 2000)
     }, 120)
-    return () => window.clearTimeout(t)
+    return () => window.clearTimeout(timer)
   }, [location.hash])
 
   return (
@@ -278,16 +301,16 @@ export default function Layanan() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Layanan IDKA Solutions</span>
+              <span>{t.layanan.heroEyebrow}</span>
             </div>
             <h1 id="layanan-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Website &amp; Aplikasi Mobile</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">untuk Berbagai Kebutuhan Bisnis.</WordReveal>
+              <WordReveal>{t.layanan.heroTitle}</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">{t.layanan.heroTitleAccent}</WordReveal>
               <ScribbleUnderline />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Untuk UMKM, profesional, dan startup — dari landing page, toko online, hingga aplikasi Android &amp; iOS kustom.{' '}
-              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
+              {t.layanan.heroSubtitle}{' '}
+              <strong className="apple-text-bold">{t.layanan.heroSubtitleBold}</strong>
             </p>
           </div>
         </div>
@@ -298,14 +321,14 @@ export default function Layanan() {
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Artistic Canvas</span>
+              <span>{t.layanan.servicesSectionTag}</span>
             </div>
             <h2 id="all-services-heading" className="section-title artistic-title">
-              Layanan Digital yang Kami Kerjakan
+              {t.layanan.servicesSectionTitle}
               <ScribbleUnderline variant="double" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Website modern dan aplikasi mobile dengan desain artistik yang merepresentasikan karakter brand Anda.
+              {t.layanan.servicesSectionSubtitle}
             </p>
           </div>
 
@@ -323,7 +346,7 @@ export default function Layanan() {
                   </div>
                   {svc.badge && (
                     <HandDrawnBadge
-                      text={svc.badge}
+                      text={svcMap[svc.id]?.badge ?? svc.badge}
                       popular={svc.popular}
                       shape={i % 3 === 0 ? 'tape' : i % 3 === 1 ? 'cloud' : 'oval'}
                     />
@@ -332,9 +355,9 @@ export default function Layanan() {
 
                 <div className="art-card__content">
                   <h3 className="art-card__title">
-                    {svc.title}
+                    {svcMap[svc.id]?.title ?? svc.title}
                   </h3>
-                  <p className="art-card__desc">{svc.description}</p>
+                  <p className="art-card__desc">{svcMap[svc.id]?.desc ?? svc.description}</p>
                 </div>
 
                 {svc.tags && svc.tags.length > 0 && (
@@ -357,7 +380,7 @@ export default function Layanan() {
                       el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                     }}
                   >
-                    <span>Jelajahi Estimasi</span>
+                    <span>{t.layanan.servicesExplore}</span>
                     <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                     </svg>
@@ -373,37 +396,25 @@ export default function Layanan() {
       <section className="section layanan-process" aria-labelledby="process-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Workflow Art</span></div>
+            <div className="section-tag doodle-tag"><span>{t.layanan.processSectionTag}</span></div>
             <h2 id="process-heading" className="section-title artistic-title">
-              3 Langkah ke Website Live
+              {t.layanan.processSectionTitle}
               <ScribbleUnderline variant="zigzag" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Alur sederhana dan transparan dari konsultasi hingga go-live.
+              {t.layanan.processSectionSubtitle}
             </p>
           </div>
           <div className="process-list artistic-process-list">
             {[
-              {
-                n: '01',
-                title: 'Ceritakan Kebutuhan',
-                desc: 'Konsultasi gratis via WhatsApp atau form. Kami petakan tujuan, fitur, dan anggaran.',
-              },
-              {
-                n: '02',
-                title: 'Kami Kerjakan',
-                desc: 'Desain, development, dan revisi sesuai paket. Anda review progres di staging.',
-              },
-              {
-                n: '03',
-                title: 'Website Live',
-                desc: 'Domain aktif, SSL terpasang, website online dan siap dipakai bisnis.',
-              },
+              { n: '01', title: t.layanan.step1Title, desc: t.layanan.step1Desc },
+              { n: '02', title: t.layanan.step2Title, desc: t.layanan.step2Desc },
+              { n: '03', title: t.layanan.step3Title, desc: t.layanan.step3Desc },
             ].map((step, idx) => (
               <div key={step.n} className={`art-card process-art-card art-card--v${idx + 1} reveal`}>
                 <div className="process-art-card__header">
                   <HandDrawnBadge
-                    text={`Langkah ${step.n}`}
+                    text={step.n === '01' ? t.layanan.step1Label : step.n === '02' ? t.layanan.step2Label : t.layanan.step3Label}
                     popular={step.n === '01'}
                     shape={idx === 0 ? 'cloud' : idx === 1 ? 'tape' : 'oval'}
                   />
@@ -425,27 +436,27 @@ export default function Layanan() {
       <section className="section section--tint layanan-packages" aria-labelledby="packages-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Investasi Jelas</span></div>
+            <div className="section-tag doodle-tag"><span>{t.layanan.packagesSectionTag}</span></div>
             <h2 id="packages-heading" className="section-title artistic-title">
-              Harga Transparan, Scope Jelas
+              {t.layanan.packagesSectionTitle}
               <ScribbleUnderline variant="arc" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Harga sekali bayar (bukan langganan bulanan). Scope dan revisi disepakati di awal.
+              {t.layanan.packagesSectionSubtitle}
             </p>
           </div>
           <div className="packages-grid artistic-packages-grid">
-            {packages.map((pkg, i) => (
+            {pkgs.map((pkg, i) => (
               <div
                 key={pkg.id}
                 className={`art-card package-art-card art-card--v${(i % 3) + 1} reveal reveal--delay-${i + 1}${pkg.highlighted ? ' art-card--featured' : ''}`}
               >
                 {pkg.highlighted && (
-                  <HandDrawnBadge text="Paling Dipilih" popular shape="tape" />
+                  <HandDrawnBadge text={t.layanan.packagesMostChosen} popular shape="tape" />
                 )}
                 <div className="package-art-card__header">
                   <h3 className="art-card__title">{pkg.name}</h3>
-                  {'price' in pkg && <div className="package-art-card__price">{pkg.price as string}</div>}
+                  <div className="package-art-card__price">{pkg.price}</div>
                   <p className="art-card__desc">{pkg.tagline}</p>
                 </div>
                 <div className="art-card__divider" />
@@ -471,13 +482,13 @@ export default function Layanan() {
             ))}
           </div>
           <div className="art-card packages-note-art art-card--v4">
-            <div className="packages-note__icon" aria-hidden="true">💡</div>
+            <div className="packages-note__icon" aria-hidden="true">{t.layanan.packagesCustomNote}</div>
             <div>
-              <strong style={{ fontSize: '1.1rem', color: '#1e1b4b' }}>Butuh solusi kustom?</strong>
+              <strong style={{ fontSize: '1.1rem', color: '#1e1b4b' }}>{t.layanan.packagesCustomTitle}</strong>
               <p style={{ margin: '4px 0 0', color: '#4b5563' }}>
-                Kami menerima proyek di luar paket standar.{' '}
-                <NavLink to="/kontak" style={{ color: '#5e17eb', fontWeight: 800 }}>Hubungi kami</NavLink>{' '}
-                untuk estimasi yang sesuai.
+                {t.layanan.packagesCustomDesc}{' '}
+                <NavLink to="/kontak" style={{ color: '#5e17eb', fontWeight: 800 }}>{t.layanan.packagesCustomContact}</NavLink>{' '}
+                {lang === 'en' ? 'for a matching estimate.' : 'untuk estimasi yang sesuai.'}
               </p>
             </div>
           </div>
@@ -488,13 +499,13 @@ export default function Layanan() {
       <section className="section layanan-estimator" aria-labelledby="estimator-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Kalkulator Live</span></div>
+            <div className="section-tag doodle-tag"><span>{t.layanan.estimatorSectionTag}</span></div>
             <h2 id="estimator-heading" className="section-title artistic-title">
-              Estimasi Harga Cepat
+              {t.layanan.estimatorSectionTitle}
               <ScribbleUnderline variant="wavy" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Pilih kebutuhan Anda untuk mendapat perkiraan harga. Harga final dikonfirmasi saat konsultasi.
+              {t.layanan.estimatorSectionSubtitle}
             </p>
           </div>
           <div className="layanan-estimator__wrap art-card art-card--v2" style={{ padding: '2rem' }}>
@@ -507,20 +518,20 @@ export default function Layanan() {
       <section className="section section--tint layanan-maintenance" aria-labelledby="maintenance-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>After Go-Live</span></div>
+            <div className="section-tag doodle-tag"><span>{t.layanan.maintenanceSectionTag}</span></div>
             <h2 id="maintenance-heading" className="section-title artistic-title">
-              Maintenance Opsional
+              {t.layanan.maintenanceSectionTitle}
               <ScribbleUnderline variant="double" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Jaga website tetap stabil setelah live. Bisa diambil terpisah dari paket pembuatan website.
+              {t.layanan.maintenanceSectionSubtitle}
             </p>
           </div>
           <div className="maintenance-grid artistic-maintenance-grid">
-            {maintenancePackages.map((pkg, i) => (
+            {maintPkgs.map((pkg, i) => (
               <div key={pkg.name} className={`art-card maintenance-art-card art-card--v${i + 1} reveal reveal--delay-1`}>
                 <h3 className="art-card__title">{pkg.name}</h3>
-                {'price' in pkg && <div className="package-art-card__price">{pkg.price as string}</div>}
+                <div className="package-art-card__price">{pkg.price}</div>
                 <ul className="package-art-card__features" role="list">
                   {pkg.features.map((f, idx) => (
                     <li key={idx} className="art-card__tag-doodle">
@@ -530,7 +541,7 @@ export default function Layanan() {
                 </ul>
                 <div className="art-card__footer">
                   <NavLink to="/kontak" className="art-card__btn-doodle">
-                    <span>Konsultasi Paket</span>
+                    <span>{t.layanan.maintenanceConsult}</span>
                     <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                     </svg>
@@ -546,14 +557,14 @@ export default function Layanan() {
       <section className="section" aria-labelledby="faq-heading">
         <div className="container">
           <div className="section-header reveal artistic-header">
-            <div className="section-tag doodle-tag"><span>Jawaban Cepat</span></div>
+            <div className="section-tag doodle-tag"><span>{t.layanan.faqSectionTag}</span></div>
             <h2 id="faq-heading" className="section-title artistic-title">
-              Pertanyaan yang Sering Diajukan
+              {t.layanan.faqSectionTitle}
               <ScribbleUnderline variant="zigzag" />
             </h2>
           </div>
           <div className="faq-list artistic-faq-list">
-            {faq.map((item, index) => (
+            {t.layanan.faq.map((item, index) => (
               <AccordionItem
                 key={item.question}
                 id={String(index)}
@@ -563,21 +574,21 @@ export default function Layanan() {
             ))}
           </div>
           <div className="faq-cta art-card art-card--v3" style={{ marginTop: '3rem', textAlign: 'center' }}>
-            <h3 className="art-card__title" style={{ marginBottom: '0.5rem' }}>Masih Ada Pertanyaan?</h3>
+            <h3 className="art-card__title" style={{ marginBottom: '0.5rem' }}>{t.layanan.faqStillQuestion}</h3>
             <p className="art-card__desc" style={{ marginBottom: '1.5rem' }}>
-              Tim kami siap mendiskusikan ide website dan memberikan solusi terbaik untuk bisnis Anda.
+              {t.layanan.faqStillDesc}
             </p>
             <div className="faq-cta__actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <NavLink to="/kontak" className="art-card__btn-doodle" style={{ background: '#5e17eb', color: '#fff' }}>
-                <span>Isi Brief Proyek</span>
+                <span>{t.layanan.faqBrief}</span>
               </NavLink>
               <a
-                href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent('Halo IDKA Solutions, saya ingin bertanya tentang jasa website.')}`}
+                href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(t.wa.serviceConsult)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="art-card__btn-doodle"
               >
-                <span>Chat WhatsApp</span>
+                <span>{t.layanan.faqChat}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>

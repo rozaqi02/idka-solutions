@@ -1,5 +1,8 @@
 import { NavLink } from 'react-router-dom'
-import { company, teamMembers, techStack, workValues, stats } from '../data/content'
+import { techStack } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
+import { getLocalizedCompany, getLocalizedStats, getLocalizedWorkValues, getLocalizedTeamMembers } from '../data/getLocalizedData'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -11,10 +14,19 @@ import './TentangKami.css'
 export default function TentangKami() {
   useScrollReveal()
   useHeroEnter()
+  const { lang } = useLanguage()
+  const t = getT(lang)
+
+  const company = getLocalizedCompany(lang)
+  const stats = getLocalizedStats(lang)
+  const workValues = getLocalizedWorkValues(lang)
+  const teamMembers = getLocalizedTeamMembers(lang)
+
   usePageTitle({
-    title: 'Tentang Kami',
-    description:
-      'Kenali IDKA Solutions — mitra digital yang membantu bisnis tampil profesional online melalui website modern dan berdampak.',
+    title: lang === 'en' ? 'About Us' : 'Tentang Kami',
+    description: lang === 'en'
+      ? 'Learn about IDKA Solutions — a digital partner helping businesses appear professional online through modern, impactful websites.'
+      : 'Kenali IDKA Solutions — mitra digital yang membantu bisnis tampil profesional online melalui website modern dan berdampak.',
     path: '/tentang',
   })
 
@@ -25,16 +37,16 @@ export default function TentangKami() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Tentang IDKA Solutions</span>
+              <span>{t.tentang.heroEyebrow}</span>
             </div>
             <h1 id="tentang-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Mitra Digital untuk</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">Pertumbuhan Bisnis Anda.</WordReveal>
+              <WordReveal>{t.tentang.heroTitle}</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">{t.tentang.heroTitleAccent}</WordReveal>
               <ScribbleUnderline variant="arc" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Membantu UMKM, profesional, dan startup membangun kehadiran digital lewat website &amp; aplikasi mobile yang kredibel, modern, dan berdampak.{' '}
-              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
+              {t.tentang.heroSubtitle}{' '}
+              <strong className="apple-text-bold">{t.tentang.heroSubtitleBold}</strong>
             </p>
           </div>
         </div>
@@ -61,7 +73,9 @@ export default function TentangKami() {
                 </div>
                 <div className="story-card__divider" />
                 <p className="story-card__quote">
-                  &ldquo;Setiap bisnis berhak tampil profesional di internet lewat website &amp; aplikasi mobile berkualitas.&rdquo;
+                  {lang === 'en'
+                    ? '“Every business deserves a professional online presence through quality websites & mobile apps.”'
+                    : '“Setiap bisnis berhak tampil profesional di internet lewat website & aplikasi mobile berkualitas.”'}
                 </p>
                 <div className="story-card__stats">
                   {stats.map((s) => (
@@ -75,25 +89,19 @@ export default function TentangKami() {
             </div>
             <div className="story-content reveal reveal--right">
               <div className="section-tag doodle-tag" style={{ alignSelf: 'flex-start' }}>
-                <span>Cerita Kami</span>
+                <span>{t.tentang.storyTag}</span>
               </div>
               <h2 id="story-heading" className="section-title artistic-title" style={{ textAlign: 'left' }}>
-                Mengapa Kehadiran Digital Perlu Lebih Mudah
+                {t.tentang.storyTitle}
                 <ScribbleUnderline variant="double" />
               </h2>
               <div className="story-text">
-                <p>
-                  Saya <strong>Abror Rozaqi</strong>, founder IDKA Solutions. Saya sering melihat bisnis potensial di sekitar (seperti kafe, jasa kreatif, dan UMKM lokal) yang belum punya kehadiran online yang memadai, atau tampil kurang profesional.
-                </p>
-                <p>
-                  Dari situ IDKA Solutions berdiri. Bersama tim kecil, kami membantu UMKM, freelancer, kreator, dan startup hadir secara online lewat website dan aplikasi mobile dengan cara yang efisien. Bukan sekadar formalitas, tetapi produk digital yang mendukung kredibilitas dan pertumbuhan bisnis.
-                </p>
-                <p>
-                  {company.position}
-                </p>
+                <p>{t.tentang.storyP1}</p>
+                <p>{t.tentang.storyP2}</p>
+                <p>{t.tentang.storyP3}</p>
               </div>
               <NavLink to="/kontak" className="art-card__btn-doodle" style={{ alignSelf: 'flex-start' }}>
-                <span>Hubungi Kami</span>
+                <span>{lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
@@ -118,10 +126,10 @@ export default function TentangKami() {
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Nilai Kami</span>
+              <span>{t.tentang.valuesTag}</span>
             </div>
             <h2 id="values-heading" className="section-title artistic-title">
-              Yang Membedakan Kami
+              {t.tentang.valuesTitle}
               <ScribbleUnderline variant="zigzag" />
             </h2>
           </div>
@@ -155,14 +163,14 @@ export default function TentangKami() {
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Tim IDKA</span>
+              <span>{t.tentang.teamTag}</span>
             </div>
             <h2 id="team-heading" className="section-title artistic-title">
-              Tim di Balik IDKA Solutions
+              {t.tentang.teamTitle}
               <ScribbleUnderline variant="wavy" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Tim ringkas dengan keahlian yang saling melengkapi—fokus pada website berkualitas dan hasil yang memuaskan.
+              {t.tentang.teamSubtitle}
             </p>
           </div>
           <div className="team-grid">
@@ -199,14 +207,14 @@ export default function TentangKami() {
         <div className="container">
           <div className="section-header reveal artistic-header">
             <div className="section-tag doodle-tag">
-              <span>Teknologi</span>
+              <span>{t.tentang.techTag}</span>
             </div>
             <h2 id="tech-heading" className="section-title artistic-title">
-              Tools yang Kami Gunakan
+              {t.tentang.techTitle}
               <ScribbleUnderline variant="arc" />
             </h2>
             <p className="section-subtitle artistic-subtitle">
-              Teknologi modern dan teruji, dipilih untuk website yang cepat, aman, dan mudah dikembangkan.
+              {t.tentang.techSubtitle}
             </p>
           </div>
           <div className="tech-grid">
@@ -225,9 +233,9 @@ export default function TentangKami() {
       <section className="section section--tint tentang-target" aria-labelledby="target-heading">
         <div className="container">
           <div className="section-header artistic-header">
-            <div className="section-tag doodle-tag"><span>Untuk Siapa</span></div>
+            <div className="section-tag doodle-tag"><span>{lang === 'en' ? 'For Whom' : 'Untuk Siapa'}</span></div>
             <h2 id="target-heading" className="section-title artistic-title">
-              Siapa yang Kami Layani
+              {lang === 'en' ? 'Who We Serve' : 'Siapa yang Kami Layani'}
               <ScribbleUnderline variant="double" />
             </h2>
           </div>
@@ -235,27 +243,27 @@ export default function TentangKami() {
             {[
               {
                 artType: 'building',
-                title: 'UMKM & Bisnis Lokal',
-                examples: 'Kafe, laundry, salon, toko, jasa rumahan',
-                need: 'Profil bisnis online, katalog produk, tombol WhatsApp, kredibilitas yang lebih kuat',
+                title: lang === 'en' ? 'SMEs & Local Businesses' : 'UMKM & Bisnis Lokal',
+                examples: lang === 'en' ? 'Cafes, laundry, salons, stores, home services' : 'Kafe, laundry, salon, toko, jasa rumahan',
+                need: lang === 'en' ? 'Online business profile, product catalog, WhatsApp button, stronger credibility' : 'Profil bisnis online, katalog produk, tombol WhatsApp, kredibilitas yang lebih kuat',
               },
               {
                 artType: 'shopping-bag',
-                title: 'Freelancer & Kreator',
-                examples: 'Fotografer, coach, desainer, content creator',
-                need: 'Portofolio profesional, landing page, personal branding yang jelas',
+                title: lang === 'en' ? 'Freelancers & Creators' : 'Freelancer & Kreator',
+                examples: lang === 'en' ? 'Photographers, coaches, designers, content creators' : 'Fotografer, coach, desainer, content creator',
+                need: lang === 'en' ? 'Professional portfolio, landing page, clear personal branding' : 'Portofolio profesional, landing page, personal branding yang jelas',
               },
               {
                 artType: 'smartphone',
-                title: 'Startup & Bisnis Baru',
-                examples: 'Side project, bisnis tahap awal, produk baru',
-                need: 'Company profile yang kredibel, landing page, MVP yang sederhana dan efektif',
+                title: lang === 'en' ? 'Startups & New Ventures' : 'Startup & Bisnis Baru',
+                examples: lang === 'en' ? 'Side projects, early-stage business, new product launches' : 'Side project, bisnis tahap awal, produk baru',
+                need: lang === 'en' ? 'Credible company profile, landing page, simple & effective MVP' : 'Company profile yang kredibel, landing page, MVP yang sederhana dan efektif',
               },
               {
                 artType: 'shield-check',
-                title: 'Bisnis yang Naik Level',
-                examples: 'Perusahaan kecil, startup profesional',
-                need: 'Website yang lebih kredibel, case study, kesan brand yang lebih premium',
+                title: lang === 'en' ? 'Scaling Businesses' : 'Bisnis yang Naik Level',
+                examples: lang === 'en' ? 'Growing companies, professional startups' : 'Perusahaan kecil, startup profesional',
+                need: lang === 'en' ? 'More credible website, case studies, premium brand positioning' : 'Website yang lebih kredibel, case study, kesan brand yang lebih premium',
               },
             ].map((seg, i) => (
               <div key={seg.title} className={`target-card art-card art-card--v${(i % 4) + 1}`}>
@@ -264,10 +272,10 @@ export default function TentangKami() {
                 </div>
                 <h3 className="target-card__title art-card__title">{seg.title}</h3>
                 <div className="target-card__examples">
-                  <span className="target-card__label">Contoh:</span> {seg.examples}
+                  <span className="target-card__label">{lang === 'en' ? 'Examples:' : 'Contoh:'}</span> {seg.examples}
                 </div>
                 <div className="target-card__need">
-                  <span className="target-card__label">Kebutuhan:</span> {seg.need}
+                  <span className="target-card__label">{lang === 'en' ? 'Needs:' : 'Kebutuhan:'}</span> {seg.need}
                 </div>
               </div>
             ))}
@@ -279,23 +287,26 @@ export default function TentangKami() {
       <section className="section tentang-cta">
         <div className="container">
           <div className="tentang-cta__card art-card art-card--v1 art-card--featured text-center reveal reveal--scale">
-            <div className="section-tag doodle-tag" style={{ display: 'inline-block' }}><span>Mari Berkolaborasi</span></div>
+            <div className="section-tag doodle-tag" style={{ display: 'inline-block' }}><span>{lang === 'en' ? "Let's Collaborate" : 'Mari Berkolaborasi'}</span></div>
             <h2 className="tentang-cta__title artistic-title">
-              Bisnis Anda Layak <span className="gradient-text">Website yang Lebih Baik</span>
+              {lang === 'en' ? 'Your Business Deserves ' : 'Bisnis Anda Layak '}
+              <span className="gradient-text">{lang === 'en' ? 'a Better Website' : 'Website yang Lebih Baik'}</span>
               <ScribbleUnderline variant="wavy" />
             </h2>
             <p className="tentang-cta__desc artistic-subtitle">
-              Sudah memiliki gambaran kebutuhan? Hubungi kami. Masih mempertimbangkan opsi? Kami bantu merumuskannya.
+              {lang === 'en'
+                ? 'Already have an idea of your requirements? Contact us. Still weighing your options? We will help you formulate them.'
+                : 'Sudah memiliki gambaran kebutuhan? Hubungi kami. Masih mempertimbangkan opsi? Kami bantu merumuskannya.'}
             </p>
             <div className="tentang-cta__actions">
               <NavLink to="/kontak" className="art-card__btn-doodle">
-                <span>Konsultasi Gratis</span>
+                <span>{t.tentang.ctaConsult}</span>
                 <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                 </svg>
               </NavLink>
               <NavLink to="/layanan" className="art-card__btn-doodle">
-                <span>Lihat Layanan</span>
+                <span>{lang === 'en' ? 'View Services' : 'Lihat Layanan'}</span>
               </NavLink>
             </div>
           </div>

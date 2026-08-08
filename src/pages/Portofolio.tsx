@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
-import { portfolio } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
+import { getLocalizedPortfolio } from '../data/getLocalizedData'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -62,21 +64,26 @@ function PortoImage({ src, alt, width, height }: { src: string; alt: string; wid
   )
 }
 
-const allCategories = ['Semua', ...Array.from(new Set(portfolio.map((p) => p.category)))]
-
 export default function Portofolio() {
   const [activeFilter, setActiveFilter] = useState('Semua')
+  const { lang } = useLanguage()
+  const t = getT(lang)
+  const portfolio = getLocalizedPortfolio(lang)
+
+  const allCategories = [t.portofolio.filterAll, ...Array.from(new Set(portfolio.map((p) => p.category)))]
+
   useScrollReveal({ watchKey: activeFilter })
   useHeroEnter()
   usePageTitle({
-    title: 'Portofolio',
-    description:
-      'Portofolio IDKA Solutions — contoh proyek website profil, company profile, landing page, dan e-commerce.',
+    title: lang === 'en' ? 'Portfolio' : 'Portofolio',
+    description: lang === 'en'
+      ? 'IDKA Solutions Portfolio — examples of profile websites, company profiles, landing pages, and e-commerce.'
+      : 'Portofolio IDKA Solutions — contoh proyek website profil, company profile, landing page, dan e-commerce.',
     path: '/portofolio',
   })
 
   const filtered =
-    activeFilter === 'Semua' ? portfolio : portfolio.filter((p) => p.category === activeFilter)
+    activeFilter === t.portofolio.filterAll ? portfolio : portfolio.filter((p) => p.category === activeFilter)
 
   return (
     <div className="layanan-page porto-page">
@@ -85,15 +92,15 @@ export default function Portofolio() {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Hasil Kerja Kami</span>
+              <span>{t.portofolio.heroEyebrow}</span>
             </div>
             <h1 id="porto-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Karya website &amp; app</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">yang telah rilis.</WordReveal>
+              <WordReveal>{t.portofolio.heroTitle}</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">{t.portofolio.heroTitleAccent}</WordReveal>
               <ScribbleUnderline variant="zigzag" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Setiap proyek dibangun fokus pada tujuan bisnis klien—cepat, fungsional, dan siap pakai.
+              {t.portofolio.heroSubtitle}
             </p>
           </div>
         </div>
@@ -187,7 +194,7 @@ export default function Portofolio() {
                   </div>
 
                   <span className="porto-card__action-link" aria-hidden="true">
-                    Kunjungi Website <span aria-hidden="true">›</span>
+                    {t.portofolio.cardVisit} <span aria-hidden="true">›</span>
                   </span>
                 </div>
               </a>
@@ -199,7 +206,7 @@ export default function Portofolio() {
               <div className="porto-empty__icon" aria-hidden="true">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </div>
-              <p>Tidak ada proyek dalam kategori ini.</p>
+              <p>{lang === 'en' ? 'No projects in this category.' : 'Tidak ada proyek dalam kategori ini.'}</p>
             </div>
           )}
         </div>
@@ -213,13 +220,17 @@ export default function Portofolio() {
               <ContinuousLineArt type="cpu" />
             </div>
             <div className="porto-case-note__content">
-              <h2 className="porto-case-note__title art-card__title">Portofolio Terus Bertambah</h2>
+              <h2 className="porto-case-note__title art-card__title">
+                {lang === 'en' ? 'Growing Portfolio' : 'Portofolio Terus Bertambah'}
+              </h2>
               <p className="porto-case-note__desc art-card__desc">
-                Setiap proyek baru memperkaya portofolio kami. Tertarik menjadikan bisnis Anda proyek berikutnya?
+                {lang === 'en'
+                  ? 'Every new project enriches our portfolio. Interested in making your business our next project?'
+                  : 'Setiap proyek baru memperkaya portofolio kami. Tertarik menjadikan bisnis Anda proyek berikutnya?'}
               </p>
             </div>
             <NavLink to="/kontak" className="art-card__btn-doodle">
-              <span>Mulai Proyek</span>
+              <span>{lang === 'en' ? 'Start Project' : 'Mulai Proyek'}</span>
               <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
               </svg>

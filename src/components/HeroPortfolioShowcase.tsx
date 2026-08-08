@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, type CSSProperties } from 'react'
-import { portfolio } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getLocalizedPortfolio } from '../data/getLocalizedData'
 
 const INTERVAL_MS = 3500
 
@@ -19,6 +20,8 @@ function screenshotCandidates(src: string): string[] {
 export default function HeroPortfolioShowcase() {
   const [index, setIndex] = useState(0)
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({})
+  const { lang } = useLanguage()
+  const portfolio = getLocalizedPortfolio(lang)
 
   // Preload all portfolio screenshots
   useEffect(() => {
@@ -136,7 +139,7 @@ export default function HeroPortfolioShowcase() {
       </div>
 
       {portfolio.length > 1 && (
-        <div className="hero-porto__dots" role="group" aria-label="Pilih portofolio">
+        <div className="hero-porto__dots" role="group" aria-label={lang === 'en' ? 'Select portfolio' : 'Pilih portofolio'}>
           {portfolio.map((item, i) => (
             <button
               key={item.id}
@@ -159,7 +162,7 @@ export default function HeroPortfolioShowcase() {
         <span className="hero__float-icon" aria-hidden="true">
           &#10003;
         </span>
-        <span>Website Live</span>
+        <span>{lang === 'en' ? 'Live Website' : 'Website Live'}</span>
       </div>
     </div>
   )

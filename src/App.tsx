@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ToastContainer from './components/Toast'
 import ErrorBoundary from './components/ErrorBoundary'
 import { useToast } from './hooks/useToast'
+import { LanguageProvider } from './context/LanguageContext'
 
 // React.lazy code splitting per route
 const Home           = lazy(() => import('./pages/Home'))
@@ -74,20 +75,22 @@ function App() {
   const { toasts, addToast, removeToast } = useToast()
 
   return (
-    <BrowserRouter>
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100%' }}>
-        <a href="#main-content" className="skip-link">
-          Langsung ke konten
-        </a>
-        <ScrollRestorer />
-        <Navbar />
-        <main id="main-content">
-          <AnimatedRoutes addToast={addToast} />
-        </main>
-        <Footer />
-        <ToastContainer toasts={toasts} onRemove={removeToast} />
-      </div>
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100%' }}>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <ScrollRestorer />
+          <Navbar />
+          <main id="main-content">
+            <AnimatedRoutes addToast={addToast} />
+          </main>
+          <Footer />
+          <ToastContainer toasts={toasts} onRemove={removeToast} />
+        </div>
+      </BrowserRouter>
+    </LanguageProvider>
   )
 }
 

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { company } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
+import { getT } from '../data/translations'
 import type { ToastType } from '../hooks/useToast'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
@@ -90,18 +92,22 @@ export default function Kontak({ addToast }: KontakProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
   const [waFallbackUrl, setWaFallbackUrl] = useState<string | null>(null)
   const [briefStored, setBriefStored] = useState(false)
+  const { lang } = useLanguage()
+  const t = getT(lang)
+
   useScrollReveal()
   useHeroEnter()
   usePageTitle({
-    title: 'Kontak',
-    description:
-      'Konsultasi gratis dengan IDKA Solutions. Sampaikan kebutuhan website bisnis Anda — kami balas dalam 1–3 jam kerja.',
+    title: lang === 'en' ? 'Contact' : 'Kontak',
+    description: lang === 'en'
+      ? 'Free consultation with IDKA Solutions. Share your website needs — we respond within 1–3 business hours.'
+      : 'Konsultasi gratis dengan IDKA Solutions. Sampaikan kebutuhan website bisnis Anda — kami balas dalam 1–3 jam kerja.',
     path: '/kontak',
   })
 
   const progress = getFormProgress(form)
   const waSkipUrl = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
-    'Halo IDKA Solutions, saya ingin konsultasi website terlebih dahulu (chat langsung, formulir kemudian).',
+    t.wa.kontakDirect,
   )}`
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -222,16 +228,16 @@ export default function Kontak({ addToast }: KontakProps) {
         <div className="container">
           <div className="apple-hero__inner">
             <div className="apple-hero__eyebrow hero-in__item hero-in__item--tag doodle-tag">
-              <span>Hubungi IDKA Solutions</span>
+              <span>{t.kontak.heroEyebrow}</span>
             </div>
             <h1 id="kontak-heading" className="apple-hero__title hero-in__item hero-in__item--title artistic-title">
-              <WordReveal>Sampaikan Kebutuhan,</WordReveal>{' '}
-              <WordReveal className="apple-hero__title-accent">Kami Siapkan Solusinya.</WordReveal>
+              <WordReveal>{t.kontak.heroTitle}</WordReveal>{' '}
+              <WordReveal className="apple-hero__title-accent">{t.kontak.heroTitleAccent}</WordReveal>
               <ScribbleUnderline variant="zigzag" />
             </h1>
             <p className="apple-hero__subtitle hero-in__item hero-in__item--sub">
-              Konsultasi pembuatan website &amp; aplikasi mobile langsung via WhatsApp atau isi brief singkat di bawah. Respon cepat 1-3 jam kerja.{' '}
-              <strong className="apple-text-bold">Semua kebutuhan digital, dalam satu langkah yang jelas.</strong>
+              {t.kontak.heroSubtitle}{' '}
+              <strong className="apple-text-bold">{lang === 'en' ? 'All digital needs, in one clear step.' : 'Semua kebutuhan digital, dalam satu langkah yang jelas.'}</strong>
             </p>
           </div>
         </div>
@@ -253,22 +259,26 @@ export default function Kontak({ addToast }: KontakProps) {
                   </div>
 
                   <h2 className="kontak-success__title artistic-title">
-                    Brief Siap Dikirim
+                    {lang === 'en' ? 'Brief Ready to Send' : 'Brief Siap Dikirim'}
                     <ScribbleUnderline variant="wavy" />
                   </h2>
 
                   <p className="kontak-success__desc">
                     {waFallbackUrl
-                      ? 'Popup diblokir browser. Klik tombol di bawah untuk membuka WhatsApp dengan detail brief Anda.'
-                      : 'WhatsApp telah dibuka dengan detail brief Anda. Kami akan membalas pada jam kerja.'}
+                      ? (lang === 'en'
+                        ? 'Popup blocked by browser. Click the button below to open WhatsApp with your brief details.'
+                        : 'Popup diblokir browser. Klik tombol di bawah untuk membuka WhatsApp dengan detail brief Anda.')
+                      : (lang === 'en'
+                        ? 'WhatsApp has opened with your brief details. We will reply during working hours.'
+                        : 'WhatsApp telah dibuka dengan detail brief Anda. Kami akan membalas pada jam kerja.')}
                   </p>
                   
                   <div className="kontak-success__tag-wrap">
                     <span className="art-card__tag-doodle">
                       <span className="art-card__tag-bullet">•</span>{' '}
                       {briefStored
-                        ? 'Salinan brief juga berhasil tersimpan untuk tim IDKA.'
-                        : 'Brief belum tersimpan sebagai cadangan. Pastikan pesan WhatsApp terkirim.'}
+                        ? (lang === 'en' ? 'A copy of your brief was also saved for the IDKA team.' : 'Salinan brief juga berhasil tersimpan untuk tim IDKA.')
+                        : (lang === 'en' ? 'Brief backup pending. Please ensure WhatsApp message is sent.' : 'Brief belum tersimpan sebagai cadangan. Pastikan pesan WhatsApp terkirim.')}
                     </span>
                   </div>
 
@@ -281,7 +291,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         className="art-card__btn-doodle"
                         style={{ width: '100%', justifyContent: 'center' }}
                       >
-                        <span>Buka WhatsApp</span>
+                        <span>{lang === 'en' ? 'Open WhatsApp' : 'Buka WhatsApp'}</span>
                         <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
                         </svg>
@@ -297,7 +307,7 @@ export default function Kontak({ addToast }: KontakProps) {
                         setWaFallbackUrl(null)
                       }}
                     >
-                      <span>Kirim Brief Lain</span>
+                      <span>{lang === 'en' ? 'Submit Another Brief' : 'Kirim Brief Lain'}</span>
                     </button>
                   </div>
                 </div>
@@ -321,9 +331,11 @@ export default function Kontak({ addToast }: KontakProps) {
                   </p>
                   <div className="kontak-form__head">
                     <div>
-                      <h2 className="kontak-form__title">Detail Kebutuhan Proyek</h2>
+                      <h2 className="kontak-form__title">{lang === 'en' ? 'Project Details' : 'Detail Kebutuhan Proyek'}</h2>
                       <p className="kontak-form__subtitle">
-                        Semakin lengkap informasinya, semakin akurat estimasi dan rekomendasi kami.
+                        {lang === 'en'
+                          ? 'The more details you provide, the more accurate our estimate and recommendations will be.'
+                          : 'Semakin lengkap informasinya, semakin akurat estimasi dan rekomendasi kami.'}
                       </p>
                     </div>
                     <a
@@ -332,7 +344,7 @@ export default function Kontak({ addToast }: KontakProps) {
                       rel="noopener noreferrer"
                       className="kontak-form__skip"
                     >
-                      Chat WhatsApp
+                      {lang === 'en' ? 'WhatsApp Chat' : 'Chat WhatsApp'}
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M5 12h14" />
                         <path d="M13 6l6 6-6 6" />
@@ -371,14 +383,16 @@ export default function Kontak({ addToast }: KontakProps) {
                             <span className="kontak-progress__num" aria-hidden="true">
                               {done ? '✓' : step.id}
                             </span>
-                            <span className="kontak-progress__label">{step.label}</span>
+                            <span className="kontak-progress__label">
+                              {step.id === 1 ? t.kontak.step1Label : step.id === 2 ? t.kontak.step2Label : t.kontak.step3Label}
+                            </span>
                           </li>
                         )
                       })}
                     </ol>
                     <p className="kontak-progress__hint">
-                      Langkah {progress.current} dari 3
-                      {progress.doneCount > 0 ? ` · ${progress.doneCount} selesai` : ''}
+                      {lang === 'en' ? `Step ${progress.current} of 3` : `Langkah ${progress.current} dari 3`}
+                      {progress.doneCount > 0 ? ` · ${progress.doneCount} ${lang === 'en' ? 'completed' : 'selesai'}` : ''}
                     </p>
                   </div>
 
@@ -640,7 +654,7 @@ export default function Kontak({ addToast }: KontakProps) {
                       {loading ? (
                         <>
                           <span className="kontak-form__spinner" aria-hidden="true" />
-                          Menyiapkan WhatsApp...
+                          {lang === 'en' ? 'Preparing WhatsApp...' : 'Menyiapkan WhatsApp...'}
                         </>
                       ) : (
                         <>
@@ -648,12 +662,14 @@ export default function Kontak({ addToast }: KontakProps) {
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                             <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.557 4.116 1.529 5.843L.057 23.143a.75.75 0 00.917.916l5.356-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.91 0-3.694-.523-5.22-1.432l-.374-.222-3.88 1.058 1.087-3.797-.243-.387A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
                           </svg>
-                          Kirim via WhatsApp
+                          {lang === 'en' ? 'Send via WhatsApp' : 'Kirim via WhatsApp'}
                         </>
                       )}
                     </button>
                     <p className="kontak-form__footnote">
-                      WhatsApp adalah jalur utama pengiriman brief. Isi email atau nomor WhatsApp agar kami dapat menghubungi Anda.
+                      {lang === 'en'
+                        ? 'WhatsApp is our primary communication channel. Please provide your email or phone so we can reach back.'
+                        : 'WhatsApp adalah jalur utama pengiriman brief. Isi email atau nomor WhatsApp agar kami dapat menghubungi Anda.'}
                     </p>
                   </div>
                 </form>
@@ -661,10 +677,10 @@ export default function Kontak({ addToast }: KontakProps) {
             </div>
 
             {/* Contact Info */}
-            <aside className="kontak-info" aria-label="Informasi kontak">
+            <aside className="kontak-info" aria-label={lang === 'en' ? 'Contact Information' : 'Informasi kontak'}>
               <div className="kontak-info__card">
-                <h2 className="kontak-info__title">Hubungi Langsung</h2>
-                <p className="kontak-info__desc">Pilih saluran komunikasi yang paling sesuai.</p>
+                <h2 className="kontak-info__title">{lang === 'en' ? 'Direct Contact' : 'Hubungi Langsung'}</h2>
+                <p className="kontak-info__desc">{lang === 'en' ? 'Choose your preferred communication channel.' : 'Pilih saluran komunikasi yang paling sesuai.'}</p>
 
                 <div className="kontak-channels">
                   <a
