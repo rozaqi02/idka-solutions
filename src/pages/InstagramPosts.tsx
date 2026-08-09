@@ -129,7 +129,7 @@ export function ReactIgPost2() {
         <div className="ref-subtitle-wrap">
           <p className="ref-subtitle">
             Bikin bisnis kamu makin<br />
-            tepercaya di mata klien ✨
+            tepercaya di mata klien
           </p>
           <svg className="ref-pink-doodle" viewBox="0 0 120 40" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round">
             <line x1="10" y1="30" x2="110" y2="30" stroke="#2e1065" strokeWidth="5" />
@@ -139,9 +139,9 @@ export function ReactIgPost2() {
 
         {/* Feature Spec Cards */}
         <div className="ref-specs-grid">
-          <div className="spec-pill">⚡ Speed 95+</div>
-          <div className="spec-pill">📱 Mobile Ready</div>
-          <div className="spec-pill">💬 Direct WA Form</div>
+          <div className="spec-pill">Speed 95+</div>
+          <div className="spec-pill">Mobile Ready</div>
+          <div className="spec-pill">Direct WA Form</div>
         </div>
 
         {/* 3D Green CTA Button */}
@@ -188,9 +188,9 @@ export function ReactIgPost3() {
 
         {/* Feature Spec Cards */}
         <div className="ref-specs-grid">
-          <div className="spec-pill">🛒 Katalog Rapi</div>
-          <div className="spec-pill">💳 Payment Link</div>
-          <div className="spec-pill">🏷️ Bebas Komisi</div>
+          <div className="spec-pill">Katalog Rapi</div>
+          <div className="spec-pill">Payment Link</div>
+          <div className="spec-pill">Bebas Komisi</div>
         </div>
 
         {/* 3D Green CTA Button */}

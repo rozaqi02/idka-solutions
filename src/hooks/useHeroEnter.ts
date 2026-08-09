@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 
 /**
  * One-shot hero entrance for [data-hero-enter="variant"].
@@ -7,6 +8,8 @@ import { useEffect } from 'react'
  * - After ~1.1s: .hero-in--settled drops will-change for cheap scrolling
  */
 export function useHeroEnter() {
+  const { lang } = useLanguage()
+
   useEffect(() => {
     const roots = document.querySelectorAll<HTMLElement>('[data-hero-enter]')
     if (roots.length === 0) return
@@ -29,6 +32,11 @@ export function useHeroEnter() {
     const play = () => {
       if (cancelled) return
       roots.forEach((el) => {
+        // If hero is already settled from a previous run (e.g. language switch), keep it settled instantly
+        if (el.classList.contains('hero-in--settled')) {
+          el.classList.add('hero-in--play')
+          return
+        }
         el.classList.remove('hero-in--play', 'hero-in--settled')
         void el.offsetWidth
         if (reduceMq.matches) {
@@ -40,11 +48,11 @@ export function useHeroEnter() {
       })
 
       window.clearTimeout(settleTimer)
-       // Let the final ink-written words finish before clearing animation state.
+      // Let the final ink-written words finish before clearing animation state.
       settleTimer = window.setTimeout(() => {
         if (cancelled) return
         roots.forEach((el) => el.classList.add('hero-in--settled'))
-       }, liteMq.matches ? 1500 : 1600)
+      }, liteMq.matches ? 1500 : 1600)
     }
 
     const id1 = requestAnimationFrame(() => {
@@ -60,5 +68,5 @@ export function useHeroEnter() {
       window.clearTimeout(settleTimer)
       liteMq.removeEventListener('change', onLiteChange)
     }
-  }, [])
+  }, [lang])
 }

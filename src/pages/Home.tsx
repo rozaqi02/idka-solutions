@@ -116,6 +116,8 @@ function PreviewScreenshot({ src, alt, color }: { src: string; alt: string; colo
 type PortfolioItem = ReturnType<typeof getLocalizedPortfolio>[number]
 
 function PortfolioPreviewCard({ item, delay }: { item: PortfolioItem; delay: number }) {
+  const { lang } = useLanguage()
+  const t = getT(lang)
   const liveUrl = item.url || '/portofolio'
   const isExternal = liveUrl.startsWith('http')
   const cardClass = `portfolio-preview-card art-card art-card--v${(delay % 4) + 1} reveal reveal--delay-${delay}`
@@ -157,7 +159,12 @@ function PortfolioPreviewCard({ item, delay }: { item: PortfolioItem; delay: num
         ))}
       </div>
       <span className="portfolio-preview-card__go">
-        {isExternal ? 'Kunjungi Website' : 'Lihat Detail'} ›
+        {isExternal
+          ? item.url?.endsWith('.apk')
+            ? t.portofolio.cardDownload
+            : t.home.portfolioVisit
+          : t.home.portfolioDetail}{' '}
+        ›
       </span>
     </div>
   )
@@ -261,6 +268,14 @@ export default function Home() {
       price: t.layanan.pkg_premium_price,
       highlighted: false,
       features: t.layanan.pkg_premium_features,
+    },
+    {
+      id: 'mobile_app',
+      name: t.layanan.pkg_mobile_app_name,
+      tagline: t.layanan.pkg_mobile_app_tagline,
+      price: t.layanan.pkg_mobile_app_price,
+      highlighted: false,
+      features: t.layanan.pkg_mobile_app_features,
     },
   ]
 
@@ -649,7 +664,7 @@ export default function Home() {
                   <p className="art-card__desc">{pkg.tagline}</p>
                 </div>
                 <ul className="package-art-card__features" role="list">
-                  {pkg.features.map((f, j) => (
+                  {pkg.features.map((f: string, j: number) => (
                     <li key={j} className="art-card__tag-doodle">
                       <span className="art-card__tag-bullet">✓</span> {f}
                     </li>

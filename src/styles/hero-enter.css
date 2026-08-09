@@ -671,6 +671,14 @@
   animation: none !important;
 }
 
+[data-hero-enter].hero-in--settled .word-reveal__word {
+  opacity: 1 !important;
+  clip-path: none !important;
+  filter: none !important;
+  transform: none !important;
+  animation: none !important;
+}
+
 [data-hero-enter].hero-in--settled::before {
   opacity: 1;
   transform: scale(1);

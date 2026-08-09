@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { getT } from '../data/translations'
@@ -65,12 +65,27 @@ function PortoImage({ src, alt, width, height }: { src: string; alt: string; wid
 }
 
 export default function Portofolio() {
-  const [activeFilter, setActiveFilter] = useState('Semua')
+  const [activeFilter, setActiveFilter] = useState('ALL')
   const { lang } = useLanguage()
   const t = getT(lang)
   const portfolio = getLocalizedPortfolio(lang)
 
-  const allCategories = [t.portofolio.filterAll, ...Array.from(new Set(portfolio.map((p) => p.category)))]
+  // Reset active filter to 'ALL' when language changes
+  useEffect(() => {
+    setActiveFilter('ALL')
+  }, [lang])
+
+  const isAll =
+    activeFilter === 'ALL' ||
+    activeFilter === t.portofolio.filterAll ||
+    activeFilter === 'Semua' ||
+    activeFilter === 'All'
+
+  const rawCategories = Array.from(new Set(portfolio.map((p) => p.category)))
+  const filterOptions = [
+    { key: 'ALL', label: t.portofolio.filterAll },
+    ...rawCategories.map((cat) => ({ key: cat, label: cat })),
+  ]
 
   useScrollReveal({ watchKey: activeFilter })
   useHeroEnter()
@@ -82,8 +97,7 @@ export default function Portofolio() {
     path: '/portofolio',
   })
 
-  const filtered =
-    activeFilter === t.portofolio.filterAll ? portfolio : portfolio.filter((p) => p.category === activeFilter)
+  const filtered = isAll ? portfolio : portfolio.filter((p) => p.category === activeFilter)
 
   return (
     <div className="layanan-page porto-page">
@@ -111,18 +125,21 @@ export default function Portofolio() {
         <div className="container">
           {/* Filter Pills */}
           <div className="porto-filters" role="tablist" aria-label="Filter kategori portofolio">
-            {allCategories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                role="tab"
-                aria-selected={activeFilter === cat}
-                className={`porto-filter-btn art-card__tag-doodle ${activeFilter === cat ? 'porto-filter-btn--active' : ''}`}
-                onClick={() => setActiveFilter(cat)}
-              >
-                {cat}
-              </button>
-            ))}
+            {filterOptions.map((opt) => {
+              const isActive = opt.key === 'ALL' ? isAll : activeFilter === opt.key
+              return (
+                <button
+                  key={opt.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`porto-filter-btn art-card__tag-doodle ${isActive ? 'porto-filter-btn--active' : ''}`}
+                  onClick={() => setActiveFilter(opt.key)}
+                >
+                  {opt.label}
+                </button>
+              )
+            })}
           </div>
 
           {/* Cards Grid */}
@@ -194,7 +211,10 @@ export default function Portofolio() {
                   </div>
 
                   <span className="porto-card__action-link" aria-hidden="true">
-                    {t.portofolio.cardVisit} <span aria-hidden="true">›</span>
+                    {'url' in item && item.url && (item.url as string).endsWith('.apk')
+                      ? t.portofolio.cardDownload
+                      : t.portofolio.cardVisit}{' '}
+                    <span aria-hidden="true">›</span>
                   </span>
                 </div>
               </a>

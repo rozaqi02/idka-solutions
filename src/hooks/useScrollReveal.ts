@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 
 type Options = {
   threshold?: number
@@ -17,6 +18,7 @@ type Options = {
  */
 export function useScrollReveal(options: Options = {}) {
   const { threshold = 0.15, rootMargin = '0px 0px -15% 0px', watchKey } = options
+  const { lang } = useLanguage()
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -24,7 +26,7 @@ export function useScrollReveal(options: Options = {}) {
     // Reduced motion: show everything immediately
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document
-        .querySelectorAll('.reveal, .reveal--left, .reveal--right, .reveal--scale')
+        .querySelectorAll('.reveal, .reveal--left, .reveal--right, .reveal--scale, .section-reveal')
         .forEach((el) => el.classList.add('reveal--visible'))
       return
     }
@@ -51,18 +53,24 @@ export function useScrollReveal(options: Options = {}) {
 
     const observe = () => {
       document
-        .querySelectorAll('.reveal, .reveal--left, .reveal--right, .reveal--scale, .section-reveal')
+        .querySelectorAll<HTMLElement>('.reveal, .reveal--left, .reveal--right, .reveal--scale, .section-reveal')
         .forEach((el) => {
-          if (!el.classList.contains('reveal--visible')) {
+          const rect = el.getBoundingClientRect()
+          const inViewport = rect.top < window.innerHeight + 120 && rect.bottom > -120
+          if (inViewport || el.classList.contains('reveal--visible')) {
+            el.classList.add('reveal--visible')
+          } else {
             observer.observe(el)
           }
         })
     }
 
     observe()
+    const timer = setTimeout(observe, 50)
 
     return () => {
+      clearTimeout(timer)
       observer.disconnect()
     }
-  }, [threshold, rootMargin, watchKey])
+  }, [threshold, rootMargin, watchKey, lang])
 }

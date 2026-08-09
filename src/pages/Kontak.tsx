@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { FormEvent } from 'react'
 import { company } from '../data/content'
 import { useLanguage } from '../context/LanguageContext'
@@ -92,8 +92,36 @@ export default function Kontak({ addToast }: KontakProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
   const [waFallbackUrl, setWaFallbackUrl] = useState<string | null>(null)
   const [briefStored, setBriefStored] = useState(false)
+  const [estimatorBadge, setEstimatorBadge] = useState<string | null>(null)
   const { lang } = useLanguage()
   const t = getT(lang)
+
+  // Auto-fill from PriceEstimator summary if present in localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('idka_estimator_summary')
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (parsed.type) {
+          const typeStr = parsed.type
+          const pagesStr = parsed.pages || '1 Halaman'
+          const featureList = Array.isArray(parsed.features) && parsed.features.length > 0 ? parsed.features.join(', ') : 'Standar'
+          const priceStr = parsed.priceRange || ''
+
+          setEstimatorBadge(`${typeStr} (${pagesStr}) — ${priceStr}`)
+
+          setForm((prev) => ({
+            ...prev,
+            tujuan_website: prev.tujuan_website || `${typeStr} (${pagesStr})`,
+            pesan: prev.pesan || `[Hasil Estimator Website]\nLayanan: ${typeStr}\nSkala: ${pagesStr}\nFitur: ${featureList}\nTarget: ${parsed.deadline || 'Standar'}\nPerkiraan Biaya: ${priceStr}`,
+            budget: prev.budget || priceStr,
+          }))
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }, [])
 
   useScrollReveal()
   useHeroEnter()
@@ -329,6 +357,33 @@ export default function Kontak({ addToast }: KontakProps) {
                       <input name="bot-field" tabIndex={-1} autoComplete="off" />
                     </label>
                   </p>
+                  {estimatorBadge && (
+                    <div
+                      className="kontak-estimator-banner art-card__tag-doodle"
+                      style={{
+                        marginBottom: '1.25rem',
+                        padding: '0.6rem 1rem',
+                        borderRadius: '14px',
+                        background: 'var(--primary-softer)',
+                        color: 'var(--primary)',
+                        border: '1.5px stroke var(--primary)',
+                        fontWeight: 600,
+                        fontSize: '0.875rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '0.5rem',
+                      }}
+                    >
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                        {lang === 'en' ? 'Loaded from Price Estimator:' : 'Dimuat dari Estimator Harga:'}{' '}
+                        <strong>{estimatorBadge}</strong>
+                      </span>
+                    </div>
+                  )}
                   <div className="kontak-form__head">
                     <div>
                       <h2 className="kontak-form__title">{lang === 'en' ? 'Project Details' : 'Detail Kebutuhan Proyek'}</h2>

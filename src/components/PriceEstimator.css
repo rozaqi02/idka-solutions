@@ -1,5 +1,5 @@
 /* =============================================
-   PRICE ESTIMATOR — APPLE BUSINESS DESIGN SYSTEM
+   PRICE ESTIMATOR — ART CANVAS CARD DESIGN SYSTEM
    ============================================= */
 
 .estimator-container {
@@ -10,14 +10,30 @@
 }
 
 .estimator-card {
+  position: relative;
   background: #ffffff;
-  border-radius: 28px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border-radius: 28px 24px 30px 22px;
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 6px 6px 0px rgba(30, 27, 75, 0.08);
   padding: clamp(1.75rem, 4vw, 3rem);
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
+}
+
+/* Tape Doodle Accent on Card Top */
+.estimator-card::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 100px;
+  height: 24px;
+  background: rgba(94, 23, 235, 0.12);
+  border: 1.5px solid rgba(30, 27, 75, 0.2);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 /* ===== HEADER ===== */
@@ -27,54 +43,84 @@
   align-items: flex-end;
   gap: 1rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 2px dashed rgba(30, 27, 75, 0.15);
 }
 
-.estimator-badge {
-  display: inline-block;
-  font-size: 0.775rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--primary);
-  background: var(--primary-softer);
-  padding: 3px 10px;
-  border-radius: 980px;
-  margin-bottom: 0.5rem;
+.estimator-header__illustration {
+  width: 90px;
+  height: 70px;
+  color: #5e17eb;
+  flex-shrink: 0;
 }
 
 .estimator-title {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 2.5vw, 1.85rem);
   font-weight: 800;
-  color: #1d1d1f;
+  color: #1e1b4b;
   line-height: 1.2;
   margin: 0;
 }
 
-.estimator-subtitle {
-  font-size: 0.95rem;
-  color: #515154;
-  margin-top: 4px;
-  line-height: 1.5;
-}
-
 .estimator-reset-btn {
   font-size: 0.825rem;
-  font-weight: 600;
-  color: var(--primary);
-  background: #f5f5f7;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 700;
+  color: #5e17eb;
+  background: #fdfbf7;
+  border: 2px solid #1e1b4b;
   padding: 6px 14px;
   border-radius: 980px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  transition: all 0.2s var(--ease-out);
+  box-shadow: 2px 2px 0 #1e1b4b;
 }
 
 .estimator-reset-btn:hover {
-  background: #e8e8ed;
-  color: #1d1d1f;
+  background: #5e17eb;
+  color: #ffffff;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #1e1b4b;
+}
+
+/* ===== TABS SELECTOR ===== */
+.estimator-tabs {
+  display: flex;
+  gap: 10px;
+  background: #fdfbf7;
+  padding: 8px;
+  border-radius: 20px;
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 4px 4px 0 rgba(30, 27, 75, 0.06);
+}
+
+.estimator-tab {
+  flex: 1;
+  padding: 12px 18px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #4b5563;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.estimator-tab:hover {
+  color: #1e1b4b;
+}
+
+.estimator-tab--active {
+  background: #5e17eb !important;
+  color: #ffffff !important;
+  border-color: #1e1b4b !important;
+  box-shadow: 3px 3px 0 #1e1b4b !important;
+  transform: scale(1.01);
 }
 
 /* ===== STEPS ===== */
@@ -87,48 +133,54 @@
 .estimator-step {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .estimator-step-label {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #1d1d1f;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e1b4b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .estimator-options-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
-/* ===== OPTION BUTTON ===== */
+/* ===== OPTION BUTTON (DOODLE STYLE) ===== */
 .estimator-opt-btn {
   background: #ffffff;
-  border: 1.5px solid #d2d2d7;
-  border-radius: 18px;
-  padding: 14px 16px;
+  border: 2px solid rgba(30, 27, 75, 0.16);
+  border-radius: 20px 16px 22px 18px;
+  padding: 16px 18px;
   text-align: left;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 8px;
-  transition: all 0.2s var(--ease-out);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   outline: none;
+  box-shadow: 2px 2px 0 rgba(30, 27, 75, 0.05);
 }
 
 .estimator-opt-btn:hover {
-  border-color: var(--primary);
-  background: #f5f5f7;
-  transform: translateY(-1px);
+  border-color: #1e1b4b;
+  background: #fdfbf7;
+  transform: translateY(-2px) rotate(-0.5deg);
+  box-shadow: 4px 4px 0 #1e1b4b;
 }
 
 .estimator-opt-btn--selected {
-  border-color: var(--primary) !important;
-  background: var(--primary-softer) !important;
-  box-shadow: 0 4px 14px rgba(94, 23, 235, 0.15);
+  border-color: #1e1b4b !important;
+  background: #f4effe !important;
+  box-shadow: 4px 4px 0 #5e17eb !important;
+  transform: translateY(-2px);
 }
 
 .estimator-opt-top {
@@ -140,36 +192,44 @@
 
 .estimator-opt-title {
   font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #1d1d1f;
+  font-size: 0.975rem;
+  font-weight: 800;
+  color: #1e1b4b;
 }
 
 .estimator-opt-check {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #5e17eb;
+  background: rgba(94, 23, 235, 0.12);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .estimator-opt-desc {
   font-size: 0.825rem;
-  color: #515154;
-  line-height: 1.4;
+  color: #4b5563;
+  line-height: 1.45;
 }
 
 .estimator-opt-price {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #5e17eb;
   margin-top: 4px;
 }
 
-/* ===== RESULT BAR ===== */
+/* ===== RESULT BAR (DOODLE STYLE) ===== */
 .estimator-result-bar {
-  background: #f5f5f7;
-  border-radius: 22px;
-  padding: 1.5rem clamp(1.25rem, 3vw, 2rem);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: #fdfbf7;
+  border-radius: 24px 20px 26px 22px;
+  padding: 1.75rem clamp(1.25rem, 3vw, 2.25rem);
+  border: 2.5px solid #1e1b4b;
+  box-shadow: 4px 4px 0px #1e1b4b;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -185,39 +245,64 @@
 
 .estimator-result-label {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #86868b;
+  letter-spacing: 0.05em;
+  color: #6b7280;
 }
 
 .estimator-result-price {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-  font-weight: 800;
-  color: var(--primary);
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 900;
+  color: #5e17eb;
   line-height: 1.1;
 }
 
 .estimator-result-placeholder {
   font-size: 0.95rem;
-  color: #515154;
-  font-weight: 500;
+  color: #6b7280;
+  font-weight: 600;
 }
 
 .estimator-result-note {
-  font-size: 0.775rem;
-  color: #86868b;
-  margin-top: 2px;
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.estimator-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .estimator-cta-btn {
   white-space: nowrap;
 }
 
+.estimator-cta-btn--wa {
+  background: #25d366 !important;
+  color: #ffffff !important;
+  border: 2px solid #1e1b4b !important;
+  box-shadow: 3px 3px 0 #1e1b4b !important;
+}
+
+.estimator-cta-btn--wa:hover {
+  background: #1eb855 !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #1e1b4b !important;
+}
+
 @media (max-width: 600px) {
   .estimator-options-grid {
     grid-template-columns: 1fr;
+  }
+
+  .estimator-tabs {
+    flex-direction: column;
   }
 
   .estimator-result-bar {
@@ -226,7 +311,14 @@
     gap: 1rem;
   }
 
+  .estimator-cta-group {
+    width: 100%;
+    flex-direction: column;
+  }
+
   .estimator-cta-btn {
     width: 100%;
+    text-align: center;
+    justify-content: center;
   }
 }

@@ -1,14 +1,19 @@
 import type { ReactNode } from 'react'
 
 export interface HandDrawnBadgeProps {
-  children: ReactNode
+  children?: ReactNode
+  text?: ReactNode
+  popular?: boolean
   shape?: 'oval' | 'tape' | 'cloud'
   className?: string
 }
 
-export function HandDrawnBadge({ children, shape = 'oval', className = '' }: HandDrawnBadgeProps) {
+export function HandDrawnBadge({ children, text, popular, shape = 'oval', className = '' }: HandDrawnBadgeProps) {
+  const content = children ?? text
+  const popularClass = popular ? 'doodle-badge--popular' : ''
+
   return (
-    <div className={`doodle-badge doodle-badge--${shape} ${className}`.trim()}>
+    <div className={`doodle-badge doodle-badge--${shape} ${popularClass} ${className}`.trim()}>
       <svg className="doodle-badge__bg" viewBox="0 0 160 50" fill="none" preserveAspectRatio="none" aria-hidden="true">
         {shape === 'oval' && (
           <path
@@ -35,7 +40,7 @@ export function HandDrawnBadge({ children, shape = 'oval', className = '' }: Han
           />
         )}
       </svg>
-      <span className="doodle-badge__text">{children}</span>
+      <span className="doodle-badge__text">{content}</span>
     </div>
   )
 }

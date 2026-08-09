@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { company, services } from '../data/content'
+import { company, services, mobileAppPackage } from '../data/content'
 import { useLanguage } from '../context/LanguageContext'
 import { getT } from '../data/translations'
 import PriceEstimator from '../components/PriceEstimator'
@@ -8,170 +8,10 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useHeroEnter } from '../hooks/useHeroEnter'
 import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
+import ContinuousLineArt from '../components/ContinuousLineArt'
+import ScribbleUnderline from '../components/ScribbleUnderline'
+import HandDrawnBadge from '../components/HandDrawnBadge'
 import './Layanan.css'
-
-/* Continuous Line Art SVGs: Single unbroken line drawings with scribble aesthetics */
-function ContinuousLineArt({ type }: { type: string }) {
-  switch (type) {
-    case 'building':
-      /* Profile & Branding: Continuous line forming a face profile merged with a window frame & star doodle */
-      return (
-        <svg className="continuous-line-svg" viewBox="0 0 160 120" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path
-            className="continuous-path"
-            d="M 15,105 C 25,105 35,95 40,85 C 45,70 30,55 45,40 C 55,30 70,35 75,25 C 80,15 95,15 105,25 C 115,35 110,50 125,55 C 135,60 145,50 145,65 C 145,80 130,85 125,95 C 120,105 135,110 145,105 C 130,105 115,105 100,105 M 40,85 L 100,85 L 100,35 L 40,35 Z M 40,60 L 100,60 M 70,35 L 70,85"
-          />
-          <path className="scribble-accent-path" d="M 120,20 C 125,15 130,25 135,18 M 128,12 L 128,26 M 120,18 L 136,18" strokeWidth="1.8" opacity="0.75" />
-          <path className="scribble-loop-path" d="M 15,30 C 22,22 28,38 20,40 C 14,42 22,25 30,28" strokeWidth="1.8" opacity="0.6" />
-        </svg>
-      )
-    case 'shopping-bag':
-      /* E-commerce: Continuous line forming a shopping handle, bag contour, cart wheel & doodle spark */
-      return (
-        <svg className="continuous-line-svg" viewBox="0 0 160 120" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path
-            className="continuous-path"
-            d="M 25,45 C 25,25 45,20 60,20 C 75,20 95,25 95,45 M 20,45 L 100,45 L 90,100 L 30,100 Z M 55,45 C 55,60 65,60 65,45 M 100,60 C 115,55 130,50 140,60 C 150,70 135,85 120,80 C 110,75 125,95 145,95"
-          />
-          <circle cx="45" cy="100" r="6" strokeWidth="2" />
-          <circle cx="75" cy="100" r="6" strokeWidth="2" />
-          <path className="scribble-accent-path" d="M 115,25 Q 125,15 135,25 Q 125,35 115,25 Z" strokeWidth="1.8" opacity="0.8" />
-        </svg>
-      )
-    case 'cpu':
-      /* Custom System: Continuous line forming brain neural loops, gear teeth & digital code bracket doodle */
-      return (
-        <svg className="continuous-line-svg" viewBox="0 0 160 120" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path
-            className="continuous-path"
-            d="M 20,60 C 20,35 40,20 65,20 C 85,20 95,35 105,30 C 115,25 130,30 135,45 C 140,60 125,75 135,90 C 125,100 105,95 95,105 C 75,105 60,95 45,100 C 30,105 20,85 20,60 Z M 55,45 C 50,55 70,65 65,75 M 95,45 C 100,55 80,65 85,75 M 40,60 C 60,50 100,70 120,60"
-          />
-          <path className="scribble-accent-path" d="M 135,18 L 125,28 L 135,38 M 145,18 L 155,28 L 145,38" strokeWidth="2" opacity="0.85" />
-          <circle cx="65" cy="60" r="4" fill="currentColor" />
-        </svg>
-      )
-    case 'shield-check':
-      /* Maintenance & Speed: Continuous line forming a shield silhouette, pulse heart line & leaf doodle */
-      return (
-        <svg className="continuous-line-svg" viewBox="0 0 160 120" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path
-            className="continuous-path"
-            d="M 35,25 C 55,20 75,15 80,15 C 85,15 105,20 125,25 L 125,60 C 125,90 85,110 80,110 C 75,110 35,90 35,60 Z M 15,65 L 45,65 L 55,45 L 70,85 L 85,55 L 95,65 L 145,65"
-          />
-          <path className="scribble-accent-path" d="M 65,60 L 75,72 L 100,45" strokeWidth="3" opacity="0.9" />
-          <path className="scribble-loop-path" d="M 125,18 C 135,10 145,20 135,30 C 125,40 140,45 145,35" strokeWidth="1.8" opacity="0.75" />
-        </svg>
-      )
-    default:
-      return null
-  }
-}
-
-function ScribbleUnderline({ variant = 'wavy' }: { variant?: 'wavy' | 'double' | 'zigzag' | 'arc' }) {
-  switch (variant) {
-    case 'wavy':
-      return (
-        <svg className="scribble-underline-svg scribble-underline-svg--wavy" viewBox="0 0 240 22" fill="none" aria-hidden="true">
-          <path
-            d="M 4 14 C 45 4, 85 18, 125 9 C 165 2, 205 16, 230 8 C 238 5, 235 15, 225 14 C 180 18, 130 12, 85 15"
-            stroke="currentColor"
-            strokeWidth="3.2"
-            strokeLinecap="round"
-          />
-        </svg>
-      )
-    case 'double':
-      return (
-        <svg className="scribble-underline-svg scribble-underline-svg--double" viewBox="0 0 240 22" fill="none" aria-hidden="true">
-          <path
-            d="M 5 10 C 60 4, 120 12, 180 5 C 205 2, 225 8, 235 10"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-          <path
-            d="M 15 17 C 70 12, 130 18, 190 12 C 210 10, 225 15, 230 16"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            opacity="0.8"
-          />
-        </svg>
-      )
-    case 'zigzag':
-      return (
-        <svg className="scribble-underline-svg scribble-underline-svg--zigzag" viewBox="0 0 240 22" fill="none" aria-hidden="true">
-          <path
-            d="M 6 12 Q 25 3, 45 15 T 85 5 T 125 14 T 165 4 T 205 15 T 235 7"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      )
-    case 'arc':
-      return (
-        <svg className="scribble-underline-svg scribble-underline-svg--arc" viewBox="0 0 240 24" fill="none" aria-hidden="true">
-          <path
-            d="M 8 16 Q 120 -4, 232 16"
-            stroke="currentColor"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-          />
-          <path
-            d="M 220 5 L 226 5 M 223 2 L 223 8"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-      )
-    default:
-      return null
-  }
-}
-
-function HandDrawnBadge({ text, popular, shape = 'oval' }: { text: string; popular?: boolean; shape?: 'oval' | 'tape' | 'cloud' }) {
-  return (
-    <div className={`doodle-badge doodle-badge--${shape} ${popular ? 'doodle-badge--popular' : ''}`}>
-      {shape === 'oval' && (
-        <svg className="doodle-badge__bg" viewBox="0 0 170 42" fill="none" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 6,21 C 4,7 18,3 85,4 C 152,5 166,7 164,21 C 162,35 148,38 85,38 C 22,38 8,35 6,21 Z M 9,19 C 7,9 21,5 85,6 C 149,7 161,9 161,19 C 161,29 146,35 85,35 C 24,35 11,29 9,19 Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      )}
-      {shape === 'tape' && (
-        <svg className="doodle-badge__bg" viewBox="0 0 170 42" fill="none" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 4,8 L 166,2 L 162,36 L 8,40 Z M 2,12 L 168,6"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      )}
-      {shape === 'cloud' && (
-        <svg className="doodle-badge__bg" viewBox="0 0 170 42" fill="none" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 15,25 C 5,20 10,8 25,10 C 35,2 60,4 75,10 C 95,2 125,5 135,12 C 155,10 165,22 155,32 C 160,40 135,42 120,38 C 105,44 75,40 60,38 C 40,42 20,40 15,25 Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      )}
-      <span className="doodle-badge__text">{text}</span>
-    </div>
-  )
-}
 
 function AccordionItem({
   id,
@@ -461,7 +301,7 @@ export default function Layanan() {
                 </div>
                 <div className="art-card__divider" />
                 <ul className="package-art-card__features" role="list">
-                  {pkg.features.map((f, idx) => (
+                  {pkg.features.map((f: string, idx: number) => (
                     <li key={idx} className="art-card__tag-doodle">
                       <span className="art-card__tag-bullet">✓</span> {f}
                     </li>
@@ -481,15 +321,90 @@ export default function Layanan() {
               </div>
             ))}
           </div>
-          <div className="art-card packages-note-art art-card--v4">
-            <div className="packages-note__icon" aria-hidden="true">{t.layanan.packagesCustomNote}</div>
+          <div className="art-card packages-note-art art-card--v4" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', padding: '1.5rem 2rem' }}>
+            <div className="packages-note__icon" aria-hidden="true" style={{ width: '60px', height: '50px', color: '#5e17eb', flexShrink: 0 }}>
+              <ContinuousLineArt type="bulb" />
+            </div>
             <div>
-              <strong style={{ fontSize: '1.1rem', color: '#1e1b4b' }}>{t.layanan.packagesCustomTitle}</strong>
-              <p style={{ margin: '4px 0 0', color: '#4b5563' }}>
+              <strong className="artistic-title" style={{ fontSize: '1.15rem', color: '#1e1b4b', display: 'inline-block' }}>
+                {t.layanan.packagesCustomTitle}
+                <ScribbleUnderline variant="zigzag" />
+              </strong>
+              <p style={{ margin: '6px 0 0', color: '#4b5563', fontSize: '0.95rem' }}>
                 {t.layanan.packagesCustomDesc}{' '}
-                <NavLink to="/kontak" style={{ color: '#5e17eb', fontWeight: 800 }}>{t.layanan.packagesCustomContact}</NavLink>{' '}
+                <NavLink to="/kontak" style={{ color: '#5e17eb', fontWeight: 800, textDecoration: 'underline' }}>{t.layanan.packagesCustomContact}</NavLink>{' '}
                 {lang === 'en' ? 'for a matching estimate.' : 'untuk estimasi yang sesuai.'}
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4.5. Section Khusus Aplikasi Mobile (Android & iOS) */}
+      <section className="section layanan-mobile-app" aria-labelledby="mobile-app-heading">
+        <div className="container">
+          <div className="section-header reveal artistic-header">
+            <div className="section-tag doodle-tag"><span>Android &amp; iOS</span></div>
+            <h2 id="mobile-app-heading" className="section-title artistic-title">
+              {lang === 'en' ? 'Mobile App Development (Android & iOS)' : 'Pengembangan Aplikasi Mobile (Android & iOS)'}
+              <ScribbleUnderline variant="zigzag" />
+            </h2>
+            <p className="section-subtitle artistic-subtitle">
+              {lang === 'en'
+                ? 'High-performance cross-platform Flutter & React Native apps tailored for your business.'
+                : 'Solusi aplikasi mobile kustom dengan performa tinggi & desain UI/UX modern untuk bisnis Anda.'}
+            </p>
+          </div>
+
+          <div className="art-card art-card--v2 art-card--featured reveal" style={{ padding: 'clamp(1.5rem, 4vw, 2.5rem)' }}>
+            <div className="mobile-app-showcase__inner" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'center' }}>
+              <div className="mobile-app-showcase__info">
+                <HandDrawnBadge text="Android & iOS" popular shape="cloud" />
+                <h3 className="art-card__title" style={{ fontSize: '1.6rem', marginTop: '0.75rem', marginBottom: '0.5rem' }}>
+                  {mobileAppPackage.name}
+                </h3>
+                <div className="package-art-card__price" style={{ fontSize: '1.8rem', color: '#5e17eb', marginBottom: '1rem', fontWeight: 900 }}>
+                  {lang === 'en' ? t.layanan.pkg_mobile_app_price : mobileAppPackage.price}
+                </div>
+                <p className="art-card__desc" style={{ marginBottom: '1.5rem', lineHeight: '1.6', fontSize: '0.95rem' }}>
+                  {lang === 'en'
+                    ? 'Custom Flutter / React Native cross-platform apps for business operations, CRM, POS, digital catalogs, and startup MVPs.'
+                    : mobileAppPackage.tagline}
+                </p>
+                <div className="mobile-app-showcase__actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                  <NavLink to="/kontak" className="art-card__btn-doodle" style={{ background: '#5e17eb', color: '#ffffff' }}>
+                    <span>{lang === 'en' ? 'Consult Mobile App →' : 'Konsultasi Mobile App →'}</span>
+                  </NavLink>
+                  <a
+                    href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
+                      lang === 'en'
+                        ? 'Hello IDKA Solutions, I want to consult about Mobile App Development (Android & iOS).'
+                        : 'Halo IDKA Solutions, saya ingin konsultasi mengenai Pengembangan Aplikasi Mobile (Android & iOS).'
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="art-card__btn-doodle"
+                  >
+                    <span>{lang === 'en' ? 'Chat WhatsApp Mobile App' : 'Chat WA Mobile App'}</span>
+                    <svg className="art-card__btn-arrow" width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M 2 7 Q 10 3, 18 7 M 15 2 L 21 7 L 15 12" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <div className="mobile-app-showcase__features" style={{ background: 'rgba(94, 23, 235, 0.04)', borderRadius: '20px', padding: '1.5rem', border: '1px solid rgba(94, 23, 235, 0.12)' }}>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 800, marginBottom: '1rem', color: '#1e1b4b' }}>
+                  {lang === 'en' ? 'Key Features Included:' : 'Fitur & Keunggulan Utama:'}
+                </h4>
+                <ul className="package-art-card__features" role="list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '10px', padding: 0 }}>
+                  {(lang === 'en' ? t.layanan.pkg_mobile_app_features : mobileAppPackage.features).map((f: string, idx: number) => (
+                    <li key={idx} className="art-card__tag-doodle" style={{ margin: 0 }}>
+                      <span className="art-card__tag-bullet">✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
