@@ -9,6 +9,7 @@ import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
 import ScribbleUnderline from '../components/ScribbleUnderline'
 import ContinuousLineArt from '../components/ContinuousLineArt'
+import TechLogo from '../components/TechLogo'
 import './TentangKami.css'
 
 export default function TentangKami() {
@@ -219,8 +220,8 @@ export default function TentangKami() {
           </div>
           <div className="tech-grid">
             {techStack.map((tech, i) => (
-              <div key={tech.name} className={`tech-badge tech-badge--${tech.category} art-card__tag-doodle reveal reveal--delay-${Math.min(i % 5 + 1, 5)}`}>
-                <span className="art-card__tag-bullet" aria-hidden="true">•</span>
+              <div key={tech.name} className={`tech-badge tech-badge--${tech.category} art-card__tag-doodle reveal reveal--delay-${Math.min(i % 5 + 1, 5)}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <TechLogo name={tech.name} size={18} />
                 <span className="tech-badge__name">{tech.name}</span>
                 <span className="tech-badge__category">{tech.category}</span>
               </div>

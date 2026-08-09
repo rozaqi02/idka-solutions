@@ -9,6 +9,7 @@ import { usePageTitle } from '../hooks/usePageTitle'
 import WordReveal from '../components/WordReveal'
 import ScribbleUnderline from '../components/ScribbleUnderline'
 import ContinuousLineArt from '../components/ContinuousLineArt'
+import TechLogo from '../components/TechLogo'
 import './Portofolio.css'
 
 function webpToPngFallback(src: string) {
@@ -206,7 +207,10 @@ export default function Portofolio() {
                       <span key={tag} className="art-card__tag-doodle"><span className="art-card__tag-bullet">•</span> {tag}</span>
                     ))}
                     {'tech' in item && Array.isArray(item.tech) && item.tech.map((t) => (
-                      <span key={t} className="art-card__tag-doodle"><span className="art-card__tag-bullet">•</span> {t}</span>
+                      <span key={t} className="art-card__tag-doodle" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                        <TechLogo name={t} size={14} />
+                        <span>{t}</span>
+                      </span>
                     ))}
                   </div>
 
