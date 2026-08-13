@@ -211,7 +211,7 @@ export const portfolio = [
     title: 'Imzaqi Store',
     category: 'Aplikasi E-Commerce',
     period: 'Jan - Feb 2026',
-    screenshot: '/portfolio/imzaqi-store.webp',
+    screenshot: '/portfolio/imzaqi-store.webp?v=8',
     url: 'https://imzaqi.store',
     description: 'Platform e-commerce akun digital untuk pelajar Indonesia dengan pembayaran QRIS.',
     longDescription: 'Katalog 20+ produk, pencarian, dan alur pembelian singkat. Dilengkapi panel admin dan dukungan PWA.',
@@ -239,7 +239,7 @@ export const portfolio = [
     title: 'Jakora',
     category: 'Landing Page',
     period: '2026',
-    screenshot: '/portfolio/jakora.webp',
+    screenshot: '/portfolio/jakora.webp?v=5',
     url: 'https://jakora.netlify.app',
     description: 'Landing page untuk Jakora, brand pangan inovatif dari Padang.',
     longDescription: 'Menampilkan produk, testimoni, donasi, FAQ, dan live chat WhatsApp.',
@@ -317,7 +317,7 @@ export const teamMembers = [
     role: 'Full Stack Laravel / PHP Developer',
     description:
       'Mengembangkan arsitektur backend Laravel/PHP, manajemen database, dan integrasi API untuk solusi bisnis.',
-    photo: '',
+    photo: '/team/hana-sugianto.webp?v=10',
   },
   {
     id: 4,
