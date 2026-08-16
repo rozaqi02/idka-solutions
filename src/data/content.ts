@@ -4,7 +4,7 @@ export const company = {
   name: 'IDKA Solutions',
   tagline: 'Solusi Website & Aplikasi Mobile untuk Bisnis',
   description: 'Kami membantu UMKM, profesional, dan startup membangun website modern & aplikasi mobile (Android/iOS) yang fungsional dan siap mendukung pertumbuhan bisnis.',
-  whatsapp: '6282245964007',
+  whatsapp: '6283136049987',
   email: 'idkasolutions@gmail.com',
   instagram: '@idkasolutions',
   position: 'Mitra digital terpercaya untuk kebutuhan website & aplikasi mobile bisnis Anda.',
